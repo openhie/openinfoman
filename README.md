@@ -1,4 +1,4 @@
-openinfoman
+OpenInfoMan
 ===========
 
 Reference Implementation of InfoManager actor in Care Services Discovery (CSD) using RESTXQ.
@@ -8,3 +8,6 @@ This is currently being tested on BaseX.  Simply copy/link the files under repo/
 Endpoints:
 - http://localhost:8984/CSD/careServicesRequest
 - http://localhost:8984/CSD/careServicesRequest/test
+ 
+
+(tra-la-lah)
