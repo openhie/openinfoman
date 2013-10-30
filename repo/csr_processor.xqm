@@ -6,6 +6,7 @@
 :)
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
+import module namespace csd_sq = "https://github.com/his-interop/openinfoman/csd_sq" at "csd_sq.xqm";
 
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -53,36 +54,23 @@ else
   </rest:response> 
 };
 
-declare function csr_proc:lookup_stored($uuid) 
-{
-
-let $stored_functions :=
-<storedFunctions>
-   <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' 
-   	     method='csr_proc:process_CSR_provider_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />
-</storedFunctions>
-
-return $stored_functions/function[@uuid = $uuid]
-
-};
 
 
 declare function csr_proc:process_CSR_stored($function,$doc) 
 {
-let $stored := csr_proc:lookup_stored($function/@uuid) 
-let $method := if ($stored) then function-lookup( xs:QName(text{$stored/@method}), 2) else ()
+let $method_name := csd_sq:lookup_stored_method($function/@uuid) 
+let $content_type := (csd_sq:lookup_stored_content_type($function/@uuid) , "text/xml")[1] 
+let $method := if ($method_name) then function-lookup( xs:QName($method_name), 2) else ()
 return if (exists($method ))
   then
       let $result :=  $method($function/requestParams,$doc)   
        return if ($function/@encapsulated) 
        then
-          csr_proc:wrap_result($result,$stored/@content-type)
+          csr_proc:wrap_result($result,$content_type)
        else
 	 (<rest:response>
 	   <http:response status="200" >
-	     <http:header name="Content-Type" value="{$stored/@content-type}"/>
+	     <http:header name="Content-Type" value="{$content_type}"/>
 	   </http:response>
 	 </rest:response>,
 	 $result
@@ -103,33 +91,4 @@ declare function csr_proc:wrap_result($result,$content-type) {
 
 
 
-declare function csr_proc:process_CSR_provider_search($careServicesRequest, $doc) as element() 
-{
-<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-  <organizationDirectory/>
-  <serviceDirectory/>
-  <facilityDirectory/>
-  <providerDirectory>
-    {
-
-      let $provs0 := csd:filter_by_primary_id($doc/CSD/providerDirectory/*,$careServicesRequest/id)
-
-      let $provs1 := csd:filter_by_other_id($provs0,$careServicesRequest/otherID)
-         
-      let $provs2 := csd:filter_by_common_name($provs1,$careServicesRequest/commonName)
-    
-      let $provs3 := csd:filter_by_coded_type($provs2,$careServicesRequest/type) 
-   
-      let $provs4 := csd:filter_by_address($provs3, $careServicesRequest/address/addressLine) 
-
-      let $provs5 :=  csd:filter_by_record($provs4,$careServicesRequest/record)      
-
-      return csd:limit_items($provs5,$careServicesRequest/start,$careServicesRequest/max)         
-
-
-    }     
-  </providerDirectory>
-</CSD>
-
-};
 
