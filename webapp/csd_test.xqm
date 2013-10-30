@@ -58,6 +58,7 @@ declare
     <div id='result'/>
     <ul>
         {for $test_doc in file:list("../test_docs/",boolean('false'),"*.xml")
+	 order by $test_doc
 	 let $test := file:base-name($test_doc,".xml")
          return  <li>
 	   {$test}:<a href="test/{$test}"> (process on server)</a> 
