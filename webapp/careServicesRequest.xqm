@@ -9,7 +9,7 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 declare
   %rest:path("/CSD/careServicesRequest")
-  %rest:consumes( "multipart/form-data")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
   %rest:POST("{$careServicesRequest}")
   function page:process_CSR_post($careServicesRequest) 
 { 
