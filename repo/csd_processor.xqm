@@ -11,7 +11,7 @@ module namespace csd_proc = "https://github.com/his-interop/openinfoman";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
-declare function csd_proc:process_CSR($careServicesRequest, $doc) as element() 
+declare function csd_proc:process_CSR($careServicesRequest, $doc) 
 {
 
 if ($careServicesRequest/function) 
@@ -51,7 +51,7 @@ let $stored_functions :=
 <storedFunctions>
    <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' 
    	     method='csd_proc:process_CSR_provider_search'	    
- 	     content-type='text-xml'      
+ 	     content-type='text/xml; charset=utf-8'      
 	     />
 </storedFunctions>
 
@@ -60,7 +60,7 @@ return $stored_functions/function[@uuid = $uuid]
 };
 
 
-declare function csd_proc:process_CSR_stored($function,$doc) as element() 
+declare function csd_proc:process_CSR_stored($function,$doc) 
 {
 let $stored := csd_proc:lookup_stored($function/@uuid) 
 return if ($stored)
@@ -73,7 +73,13 @@ then
        then
           csd_proc:wrap_result($result,$stored/@content-type)
        else
-          $result
+	 (<rest:response>
+	   <http:response status="200" >
+	     <http:header name="Content-Type" value="{$stored/@content-type}"/>
+	   </http:response>
+	 </rest:response>,
+	 $result
+	 )
   else
     <rest:response>
      <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">

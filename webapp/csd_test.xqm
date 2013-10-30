@@ -21,6 +21,23 @@ declare variable $page:doc_tests :=
        </function>
      </csd:careServicesRequest>     
    </test>
+   <test name='provider_search_by_id_encapsulated' doc='providers.xml' db='provider_directory'>
+     <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
+       <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' encapsulated='true'>
+	 <requestParams>
+	   <id oid='2.25.309768652999692686176651983274504471835.646.1.615351552068889518564164611046405512878087'/>
+	   <otherID/>
+	   <commonName/>
+	   <type/>
+	   <addressLine/>
+	   <record/>
+	   <start/>
+	   <max/>
+	 </requestParams>
+       </function>
+     </csd:careServicesRequest>     
+   </test>
+
    <test name='invalid_search' doc='providers.xml' db='provider_directory'>
      <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
        <function uuid='blah blah invalid'>
