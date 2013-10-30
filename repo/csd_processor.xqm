@@ -32,16 +32,25 @@ else
 };
 
 
-declare function csd_proc:process_CSR_adhoc($expression,$doc) as element() 
+declare function csd_proc:process_CSR_adhoc($expression,$doc) 
 {
-  <rest:response>
-    <http:response status="404" message="Ad-Hoc not imeplemented yet.">
-      <http:header name="Content-Language" value="en"/>
-      <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+
+(:let $result := xquery:eval("<h2>{count(//*)}</h2>",map{"":=$doc}) :)
+let $expr :=serialize($expression/*)
+return if ($expr) then
+  let $result := xquery:eval($expr,map{"":=$doc})
+  return(  
+   <rest:response>
+   <http:response status="200" >
+      <http:header name="Content-Type" value="{$expression/@content-type}"/>
     </http:response>
   </rest:response>
-
-
+  ,$result
+ )
+else
+   <rest:response>
+     <http:response status="400" message="No ad-hoc expression" />
+  </rest:response> 
 };
 
 declare function csd_proc:lookup_stored($uuid) 
