@@ -1,7 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd = "urn:ihe:iti:csd:2013" at "../repo/csd_base_library.xqm";
 import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
-
+import module namespace request = "http://exquery.org/ns/request";
 
 
 declare
@@ -55,14 +55,24 @@ declare
 <html>
   <body>
     <h2>Tests</h2>
-    <div id='result'/>
+    <p>
+    To test submission on your machine you can do:
+    <pre>
+    curl --form "fileupload=@test.xml" http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
+    </pre>
+    or 
+    <pre>
+    curl -X POST -d @test.xml http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
+    </pre>
+    where test.xml is one of the downloaded source documents below
+    </p>
     <ul>
         {for $test_doc in file:list("../test_docs/",boolean('false'),"*.xml")
 	 order by $test_doc
 	 let $test := file:base-name($test_doc,".xml")
          return  <li>
-	   {$test}:<a href="test/{$test}"> (process on server)</a> 
-	   <a href="test_source/{$test}"> (see source doc)</a> 
+	   {$test}:<a href="test/{$test}"> process on server</a>  /
+	   <a href="test_source/{$test}"> download source</a> 
  	 </li>
         }
     </ul>

@@ -6,7 +6,8 @@
 :)
 module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq";
 
-declare   namespace   csd = "urn:ihe:iti:csd:2013";
+import module namespace csd = "urn:ihe:iti:csd:2013" at "../repo/csd_base_library.xqm";
+
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
