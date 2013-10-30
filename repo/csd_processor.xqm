@@ -63,10 +63,8 @@ return $stored_functions/function[@uuid = $uuid]
 declare function csd_proc:process_CSR_stored($function,$doc) 
 {
 let $stored := csd_proc:lookup_stored($function/@uuid) 
-return if ($stored)
-then
-  let $method := function-lookup( xs:QName(text{$stored/@method}), 2)
-  return if (exists($method ))
+let $method := if ($stored) then function-lookup( xs:QName(text{$stored/@method}), 2) else ()
+return if (exists($method ))
   then
       let $result :=  $method($function/requestParams,$doc)   
        return if ($function/@encapsulated) 
@@ -81,13 +79,6 @@ then
 	 $result
 	 )
   else
-    <rest:response>
-     <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
-      <http:header name="Content-Language" value="en"/>
-      <http:header name="Content-Type" value="text/html; charset=utf-8"/>
-     </http:response>
-    </rest:response>
-else
     <rest:response>
      <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
       <http:header name="Content-Language" value="en"/>
