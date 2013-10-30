@@ -40,12 +40,13 @@ declare
 let $doc_test := $page:doc_tests/test[@name=$test]
 let $careServicesRequest := $doc_test/csd:careServicesRequest
 
+
 for $doc in collection($doc_test/@db)
 where matches(document-uri($doc), $doc_test/@doc) 
-
 return csd_proc:process_CSR($careServicesRequest,$doc)
 
 };
+
 
 declare
   %rest:path("/CSD/test_source/{$test}")

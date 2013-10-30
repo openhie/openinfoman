@@ -21,12 +21,12 @@ else if ($careServicesRequest/expression)
 then
   csd_proc:process_CSR_adhoc($careServicesRequest/expression,$doc)
 else 
-  <rest:reponse>
+  <rest:response>
     <http:response status="400" message="Invalid care services request.">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
-  </rest:reponse>
+  </rest:response>
 
 
 };
@@ -34,12 +34,12 @@ else
 
 declare function csd_proc:process_CSR_adhoc($expression,$doc) as element() 
 {
-  <rest:reponse>
+  <rest:response>
     <http:response status="404" message="Ad-Hoc not imeplemented yet.">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
-  </rest:reponse>
+  </rest:response>
 
 
 };
@@ -75,19 +75,19 @@ then
        else
           $result
   else
-    <rest:reponse>
+    <rest:response>
      <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
      </http:response>
-    </rest:reponse>
+    </rest:response>
 else
-    <rest:reponse>
+    <rest:response>
      <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
      </http:response>
-    </rest:reponse>
+    </rest:response>
 
 };
 
