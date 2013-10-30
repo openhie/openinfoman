@@ -1,0 +1,3 @@
+<csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
+  <expression content-type='text/html'/>
+</csd:careServicesRequest>     
