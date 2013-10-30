@@ -1,6 +1,6 @@
 module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd = "urn:ihe:iti:csd:2013" at "../repo/csd_base_library.xqm";
-import module namespace csd_proc = "https://github.com/his-interop/openinfoman" at "../repo/csd_processor.xqm";
+import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
@@ -13,6 +13,6 @@ declare
 {
 for $doc in collection('provider_directory')
 where matches(document-uri($doc), 'providers.xml')
-return csd_proc:process_CSR($careServicesRequest/careServicesRequest,$doc)  
+return csr_proc:process_CSR($careServicesRequest/careServicesRequest,$doc)  
 };
 

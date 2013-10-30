@@ -4,22 +4,22 @@
 : @see https://github.com/his-interop/openinfoman
 :
 :)
-module namespace csd_proc = "https://github.com/his-interop/openinfoman";
+module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
 
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
-declare function csd_proc:process_CSR($careServicesRequest, $doc) 
+declare function csr_proc:process_CSR($careServicesRequest, $doc) 
 {
 
 if ($careServicesRequest/function) 
 then
-  csd_proc:process_CSR_stored($careServicesRequest/csd:function,$doc)
+  csr_proc:process_CSR_stored($careServicesRequest/csd:function,$doc)
 else if ($careServicesRequest/expression) 
 then
-  csd_proc:process_CSR_adhoc($careServicesRequest/expression,$doc)
+  csr_proc:process_CSR_adhoc($careServicesRequest/expression,$doc)
 else 
   <rest:response>
     <http:response status="400" message="Invalid care services request.">
@@ -32,7 +32,7 @@ else
 };
 
 
-declare function csd_proc:process_CSR_adhoc($expression,$doc) 
+declare function csr_proc:process_CSR_adhoc($expression,$doc) 
 {
 
 (:let $result := xquery:eval("<h2>{count(//*)}</h2>",map{"":=$doc}) :)
@@ -53,13 +53,13 @@ else
   </rest:response> 
 };
 
-declare function csd_proc:lookup_stored($uuid) 
+declare function csr_proc:lookup_stored($uuid) 
 {
 
 let $stored_functions :=
 <storedFunctions>
    <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' 
-   	     method='csd_proc:process_CSR_provider_search'	    
+   	     method='csr_proc:process_CSR_provider_search'	    
  	     content-type='text/xml; charset=utf-8'      
 	     />
 </storedFunctions>
@@ -69,16 +69,16 @@ return $stored_functions/function[@uuid = $uuid]
 };
 
 
-declare function csd_proc:process_CSR_stored($function,$doc) 
+declare function csr_proc:process_CSR_stored($function,$doc) 
 {
-let $stored := csd_proc:lookup_stored($function/@uuid) 
+let $stored := csr_proc:lookup_stored($function/@uuid) 
 let $method := if ($stored) then function-lookup( xs:QName(text{$stored/@method}), 2) else ()
 return if (exists($method ))
   then
       let $result :=  $method($function/requestParams,$doc)   
        return if ($function/@encapsulated) 
        then
-          csd_proc:wrap_result($result,$stored/@content-type)
+          csr_proc:wrap_result($result,$stored/@content-type)
        else
 	 (<rest:response>
 	   <http:response status="200" >
@@ -97,13 +97,13 @@ return if (exists($method ))
 
 };
 
-declare function csd_proc:wrap_result($result,$content-type) {
+declare function csr_proc:wrap_result($result,$content-type) {
  <careServicesResponse content-type="{$content-type}"><result>{$result}</result></careServicesResponse>
 };
 
 
 
-declare function csd_proc:process_CSR_provider_search($careServicesRequest, $doc) as element() 
+declare function csr_proc:process_CSR_provider_search($careServicesRequest, $doc) as element() 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory/>
