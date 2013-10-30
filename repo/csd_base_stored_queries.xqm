@@ -9,6 +9,7 @@ module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
+
 declare function csd_bsq:provider_search($requestParams, $doc) as element() 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
@@ -65,9 +66,10 @@ declare function csd_bsq:organization_search($requestParams, $doc) as element()
   <facilityDirectory/>
   <providerDirectory/>
 </CSD>
+};
 
 
-declare function csd_bsq:organization_search($requestParams, $doc) as element() 
+declare function csd_bsq:facility_search($requestParams, $doc) as element() 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory/>
@@ -84,7 +86,7 @@ declare function csd_bsq:organization_search($requestParams, $doc) as element()
    
       let $facs4 := csd:filter_by_address($facs3, $requestParams/address/addressLine) 
 
-      let $facs5 :=  csd:filter_by_record($fac4,$requestParams/record)      
+      let $facs5 :=  csd:filter_by_record($facs4,$requestParams/record)      
 
       return csd:limit_items($facs5,$requestParams/start,$requestParams/max)         
 
@@ -114,3 +116,4 @@ declare function csd_bsq:service_search($requestParams, $doc) as element()
   <providerDirectory/>
 </CSD>
     
+};

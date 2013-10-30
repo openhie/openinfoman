@@ -6,7 +6,7 @@
 :)
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
-import module namespace csd_sq = "https://github.com/his-interop/openinfoman/csd_sq" at "csd_sq.xqm";
+import module namespace csd_sq = "https://github.com/his-interop/openinfoman/csd_sq" at "csd_stored_queries.xqm";
 
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -58,16 +58,14 @@ else
 
 declare function csr_proc:process_CSR_stored($function,$doc) 
 {
-let $method_name := csd_sq:lookup_stored_method($function/@uuid) 
-let $content_type := (csd_sq:lookup_stored_content_type($function/@uuid) , "text/xml")[1] 
-let $method := if ($method_name) then function-lookup( xs:QName($method_name), 2) else ()
-return if (exists($method ))
+if (csd_sq:has_stored_query($function/@uuid)) 
+then
+  let $result := csd_sq:execute_stored_query($doc,$function/@uuid,$function/requestParams)
+  let $content_type := csd_sq:lookup_stored_content_type($function/@uuid)
+  return if ($function/@encapsulated) 
   then
-      let $result :=  $method($function/requestParams,$doc)   
-       return if ($function/@encapsulated) 
-       then
-          csr_proc:wrap_result($result,$content_type)
-       else
+         csr_proc:wrap_result($result,$content_type)
+  else
 	 (<rest:response>
 	   <http:response status="200" >
 	     <http:header name="Content-Type" value="{$content_type}"/>
@@ -75,7 +73,7 @@ return if (exists($method ))
 	 </rest:response>,
 	 $result
 	 )
-  else
+else
     <rest:response>
      <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
       <http:header name="Content-Language" value="en"/>
