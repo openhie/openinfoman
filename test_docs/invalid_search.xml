@@ -1,0 +1,5 @@
+<csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
+  <function uuid='blah blah invalid'>
+    <requestParams/>
+  </function>
+</csd:careServicesRequest>     
