@@ -12,6 +12,14 @@ declare
  csd_psd:poll_service_directory($name)
 };
 
+declare
+  %rest:path("/CSD/pollService/get_soap/{$name}")
+  %rest:GET
+  function page:poll_service_soap($name)
+{ 
+ csd_psd:get_service_directory_soap_request($name)
+};
+
 
 
 declare
@@ -24,11 +32,22 @@ declare
   <body>
     <h2>Service Directories</h2>
     <ul>
-      {for $srvc_dir in $csd_psd:services_library//serviceDirectory
-      order by $srvc_dir/@name
+      {for $name in csd_psd:get_services()
+      let $url := csd_psd:get_service_directory_url($name)
+      order by $name
       return 
       <li>
-	<b>{text{$srvc_dir/@name}}</b>: <a href="/CSD/pollService/get/{$srvc_dir/@name}"> Get Directory</a>  
+	<b>{$name}</b>: <a href="/CSD/pollService/get/{$name}"> Get Directory Contents</a> /  <a href="/CSD/pollService/get_soap/{$name}"> Get Soap Request</a>    
+	To test submission on your machine you can do:
+	<pre>
+	curl --form "fileupload=@soap.xml" {$url}
+	</pre>
+	or 
+	<pre>
+	curl -X POST -d @soap.xml {$url}
+	</pre>
+	where soap.xml is  the downloaded soap request document
+ 
       </li>
       }
     </ul>
