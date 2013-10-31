@@ -10,7 +10,6 @@ declare
   %rest:POST("{$updatedServicesRequest}")
   function page:updated_services($updatedServicesRequest) 
 { 
-
 for $doc in collection('provider_directory')
 where matches(document-uri($doc), 'providers.xml')
 return csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,$doc)   

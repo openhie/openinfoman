@@ -33,7 +33,7 @@ declare function csd_qus:get_updated_services($last_mtime,$doc) {
       <providerDirectory>
 	{$doc/csd:CSD/provdiderDirectory/provider[./record/@updated >= $last_mtime]}
       </providerDirectory>
-    </csd:CSD>
+   </csd:CSD>
   else 
     $doc
 };
