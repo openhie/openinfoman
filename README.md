@@ -17,10 +17,12 @@ Downloand the most current verion of <a href="http://basex.org">BaseX</a> and si
 - test_docs/
 to the root directory of the basex.
 
-Starting BaseX HTTP and you will have these endpoints:
-These the top-level endpoints are exposed
 
-- Hello  http://localhost:8984/CSD
+Endpoints
+=========
+Starting BaseX HTTP and you will have these endpoints expose at the top-level
+
+- Hello and welcome to CSD  http://localhost:8984/CSD
 - Endpoint for submitting careServiceRequest documents http://localhost:8984/CSD/careServiceRequest
 - Endpoint for submitting getUpdatedServices soap request http://localhost:8984/CSD/getUpdatedServices
 - poll registered service directories http://localhost:8984/CSD/pollService
