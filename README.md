@@ -28,4 +28,4 @@ Starting BaseX HTTP and you will have these endpoints expose at the top-level
 - poll registered service directories http://localhost:8984/CSD/pollService
 - list of test careServiceRequests http://localhost:8984/CSD/test
  
-<a href="http://www.youtube.com/watch?v=pBjvkHHuPHc"  style='color:rgb(0,0,0);text-decoration:none'>(tra-la-la)</a>
+(tra-la-la)
