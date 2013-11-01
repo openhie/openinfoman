@@ -6,7 +6,7 @@ OpenInfoMan is XQuery and RESTXQ based implementation of the Care Services Direc
     Info Manager : Find Matching Services (Ad-Hoc and Stored) [ITI-73]
     Services Directory : Query for Updated Services Transaction [ITI-74]
 
-OpenInfoMan has been developed as part of OpenHIE and is intended to be the engine behind the CSD compliant Provider Registry and to be incorporated in OpenHIM.
+OpenInfoMan has been developed as part of a href="http://ohie.org">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://groups.google.com/forum/#!forum/provider-registry">Provider Registry</a> and to be incorporated in <a href="http://openhim/">OpenHIM</a>.
 
 
 Installation
