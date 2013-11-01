@@ -32,23 +32,23 @@ declare function csd_psd:get_service_directory_mtime($name) {
   text{$csd_psd:services_library//serviceDirectory[@name=$name]/@last_mtime}
 };
 
-declare function csd_psd:get_service_directory_soap_request($name) 
+declare function csd_psd:get_service_directory_soap_request($name , $mtime) 
 {
-
- let $last_mtime := csd_psd:get_service_directory_mtime($name)
+ let $last_mtime := if ($mtime) then $mtime else csd_psd:get_service_directory_mtime($name)
  return csd_qus:create_last_update_request($last_mtime)
 
 };
 
-declare function csd_psd:poll_service_directory($name) 
+declare function csd_psd:poll_service_directory($name,$mtime) 
 {
+  let $last_mtime := if ($mtime) then $mtime else csd_psd:get_service_directory_mtime($name)
   let $url := csd_psd:get_service_directory_url($name)    
   let $request := <http:request 
       href='{$url}'  
       mime-type="application/x-www-form-urlencoded"
       method='post' >
       <http:body media-type='application/xml; charset=utf-8'>
-      {csd_psd:get_service_directory_soap_request($name)}
+      {csd_psd:get_service_directory_soap_request($name,$last_mtime)}
       </http:body>
     </http:request>
 

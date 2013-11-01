@@ -43,7 +43,7 @@ declare
     <div class="container">
       <div class='row'>
 	<div class="col-md-4">
-	  <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://groups.google.com/forum/#!forum/provider-registry">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
+	  <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
 	  
 	  Source code is on <a href="https://github.com/his-interop/openinfoman">github</a>
 	  </p>

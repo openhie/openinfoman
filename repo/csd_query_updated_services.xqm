@@ -13,29 +13,26 @@ declare namespace wsa="http://www.w3.org/2005/08/addressing" ;
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 declare function csd_qus:get_updated_services_soap($soap,$doc) {
-  let $last_mtime := $soap/soap:Envelope/csd:getModificationsRequest/csd:lastModified
+  let $last_mtime := $soap/soap:Body/csd:getModificationsRequest/csd:lastModified
   let $msgID := $soap/soap:Envelope/soap:Header/wsa:MessageID
   return csd_qus:create_last_update_response(csd_qus:get_updated_services($last_mtime,$doc),$msgID)
 };
 
-declare function csd_qus:get_updated_services($last_mtime,$doc) {
-  if ($last_mtime)  then
-   <csd:CSD>
-      <organizationDirectory>
-	{$doc/csd:CSD/organizatioDirectory/organization[./record/@updated >= $last_mtime]}
-      </organizationDirectory>
-      <serviceDirectory>
-	{$doc/csd:CSD/serviceDirectory/service[./record/@updated >= $last_mtime]}
-      </serviceDirectory>
-      <facilityDirectory>
-	{$doc/csd:CSD/facilityDirectory/facility[./record/@updated >= $last_mtime]}
-      </facilityDirectory>
-      <providerDirectory>
-	{$doc/csd:CSD/provdiderDirectory/provider[./record/@updated >= $last_mtime]}
-      </providerDirectory>
-   </csd:CSD>
-  else 
-    $doc
+declare function csd_qus:get_updated_services($mtime as xs:dateTime,$doc) {
+<csd:CSD xmlns="urn:ihe:iti:csd:2013" xmlns:csd="urn:ihe:iti:csd:2013">
+  <organizationDirectory>
+    {$doc/csd:CSD/organizationDirectory/organization[xs:dateTime(./record/@updated) >= $mtime]}
+  </organizationDirectory>
+  <serviceDirectory>
+    {$doc/csd:CSD/serviceDirectory/service[xs:dateTime(./record/@updated) >= $mtime]}
+  </serviceDirectory>
+  <facilityDirectory>
+    {$doc/csd:CSD/facilityDirectory/facility[xs:dateTime(./record/@updated) >= $mtime]}
+  </facilityDirectory>
+  <providerDirectory>
+    {$doc/csd:CSD/providerDirectory/provider[xs:dateTime(./record/@updated) >= $mtime] }
+  </providerDirectory>
+</csd:CSD>
 };
 
 declare function csd_qus:create_last_update_request($last_mtime) {

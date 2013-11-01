@@ -16,12 +16,3 @@ return csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,$
 
 };
 
-declare
-  %rest:path("/CSD/getUpdatedServices")
-  %rest:consumes("application/x-www-form-urlencoded")
-  %rest:POST("{$updatedServicesRequest}")
-  function page:updated_services_encoded($updatedServicesRequest) 
-{ 
- page:updated_services(parse-xml($updatedServicesRequest))
-};
-
