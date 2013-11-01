@@ -1,19 +1,30 @@
 OpenInfoMan
 ===========
 
-Reference Implementation of InfoManager actor in Care Services Discovery (CSD) using RESTXQ.
+OpenInfoMan is XQuery and RESTXQ based implementation of the Care Services Directory (CSD) profile from IHE which implements the following actors and transactions:
 
-This is currently being tested on BaseX.  Simply copy/link the files under:
+    Info Manager : Find Matching Services (Ad-Hoc and Stored) [ITI-73]
+    Services Directory : Query for Updated Services Transaction [ITI-74]
+
+OpenInfoMan has been developed as part of OpenHIE and is intended to be the engine behind the CSD compliant Provider Registry and to be incorporated in OpenHIM.
+
+
+Installation
+============
+Downloand the most current verion of <a href="http://basex.org">BaseX</a> and simply copy/link the files under:
 - repo/
 - webapp/
 - test_docs/
+to the root directory of the basex.
 
-Start BaseX HTTP and you will have these endpoints:
-- http://localhost:8984/CSD a hello page 
-- http://localhost:8984/CSD/careServicesRequest end point for the careServicesRequest
-- http://localhost:8984/CSD/getUpdatedServices end point for get updated services transaction 
-- http://localhost:8984/CSD/careServicesRequest/test  a list of test care services request
-- http://localhost:8984/CSD/pollService  a list of registered service directories to poll for updated services
+Starting BaseX HTTP and you will have these endpoints:
+These the top-level endpoints are exposed
+
+- Hello  http://localhost:8984/CSD
+- Endpoint for submitting careServiceRequest documents http://localhost:8984/CSD/careServiceRequest
+- Endpoint for submitting getUpdatedServices soap request http://localhost:8984/CSD/getUpdatedServices
+- poll registered service directories http://localhost:8984/CSD/pollService
+- list of test careServiceRequests http://localhost:8984/CSD/test
  
 
 (tra-la-lah)

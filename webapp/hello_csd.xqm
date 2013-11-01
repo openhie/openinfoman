@@ -13,17 +13,20 @@ declare
 { 
 <html>
   <h2>Welcome to OpenInfoMan</h2>
-  OpenInfoMan is XQuery and RESTXQ based implementation of the Care Services Directory profile from <a href="http://ihe.net">IHE</a> which implements the following actors an d transactions:
+  <b>OpenInfoMan</b> is XQuery and RESTXQ based implementation of the Care Services Directory (<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_CSD.pdf">CSD</a>) profile from <a href="http://ihe.net">IHE</a> which implements the following actors and transactions:
   <ul>
-  <li>Info Manager : AdHoc and Stored Queries Tranactions</li>
-  <li>Services Directory : Get Updated Services Transaction</li>
+  <li><i>Info Manager</i> : Find Matching Services (Ad-Hoc and Stored) [ITI-73]</li>
+  <li><i>Services Directory</i> : Query for  Updated Services Transaction [ITI-74]</li>
   </ul>
-  Top-Level Endpoints:
+  <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://groups.google.com/forum/#!forum/provider-registry">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.
+  </p>
+
+  <p>These the top-level endpoints are exposed</p>
   <ul>
-  <li>Endpoint for submitting careServiceRequest documents http://{request:hostname()}:{request:port()}/careServiceRequest</li>
-  <li>Endpoint for submitting getUpdatedServices soap request http://{request:hostname()}:{request:port()}/getUpdatedServices</li>
+  <li>Endpoint for submitting careServiceRequest documents <i>http://{request:hostname()}:{request:port()}/CSD/careServiceRequest</i></li>
+  <li>Endpoint for submitting getUpdatedServices soap request <i>http://{request:hostname()}:{request:port()}/CSD/getUpdatedServices</i></li>
   <li><a href="http://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
-  <li><a href="http://{request:hostname()}:{request:port()}/CSD/test">test of careServiceRequest </a></li>
+  <li><a href="http://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
   </ul>
   <a href="http://www.youtube.com/watch?v=pBjvkHHuPHc"  style='color:rgb(0,0,0);text-decoration:none'>(tra-la-la)</a>
 </html>
