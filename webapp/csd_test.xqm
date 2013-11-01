@@ -53,31 +53,51 @@ declare
   function page:list_tests() 
 {
 <html>
+  <head>
+    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+  </head>
   <body>
-    <h2>Tests</h2>
-    <p>
-    To test submission on your machine you can do:
-    <pre>
-    curl --form "fileupload=@test.xml" http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
-    </pre>
-    or 
-    <pre>
-    curl -X POST -d @test.xml http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
-    </pre>
-    where test.xml is one of the downloaded source documents below
-    </p>
-    <ul>
-        {for $test_doc in file:list("../test_docs/",boolean('false'),"*.xml")
-	 order by $test_doc
-	 let $test := file:base-name($test_doc,".xml")
-         return  <li>
-	   {$test}:<a href="test/{$test}"> process on server</a>  /
-	   <a href="test_source/{$test}"> download source</a> 
- 	 </li>
-        }
-    </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+      <div class='row'>
+	<h2>Tests</h2>
+	<p>
+	To test submission on your machine you can do:
+	<pre>
+	curl --form "fileupload=@test.xml" http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
+	</pre>
+	or 
+	<pre>
+	curl -X POST -d @test.xml http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
+	</pre>
+	where test.xml is one of the downloaded source documents below
+	</p>
+	<ul>
+          {for $test_doc in file:list("../test_docs/",boolean('false'),"*.xml")
+	  order by $test_doc
+	  let $test := file:base-name($test_doc,".xml")
+          return  <li>
+	  {$test}:<a href="test/{$test}"> process on server</a>  /
+	  <a href="test_source/{$test}"> download source</a> 
+ 	</li>
+          }
+	</ul>
+      </div>
+    </div>
   </body>
 </html>
 };
-  
+
 
