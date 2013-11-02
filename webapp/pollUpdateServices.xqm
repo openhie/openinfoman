@@ -2,8 +2,9 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 
 import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
+import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
 import module namespace request = "http://exquery.org/ns/request";
-
+import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
 
 declare
   %rest:path("/CSD/pollService/get/{$name}")
@@ -11,7 +12,7 @@ declare
   %rest:GET
   function page:poll_service($name,$mtime)
 { 
- csd_psd:poll_service_directory($name,$mtime)
+ csd_psd:poll_service_directory_soap_response($name,$mtime)
 };
 
 declare
@@ -20,7 +21,42 @@ declare
   %rest:GET
   function page:poll_service_soap($name,$mtime)
 { 
- csd_psd:get_service_directory_soap_request($name,$mtime)
+ csd_qus:create_last_update_request($mtime)
+};
+
+declare
+  %rest:path("/CSD/pollService/get_cache/{$name}")
+  %rest:GET
+  function page:get_cache($name)
+{ 
+<H2>NOT IMPLEMENTED</H2>
+(: 
+let $collection :=  collection('provider_directory')
+return csd_lsc:get_cache($colection,$name) :)
+};
+
+declare
+  %rest:path("/CSD/pollService/empty_cache/{$name}")
+  %rest:GET
+  function page:empty_cache($name)
+{ 
+<H2>NOT IMPLEMENTED</H2>
+(:
+let $collection :=  collection('provider_directory')
+return  csd_lsc:empty_cache($collection,$name) 
+:)
+};
+
+
+declare
+  %rest:path("/CSD/pollService/update_cache/{$name}")
+  %rest:GET
+  function page:update_cache($name)
+{ 
+<H2>NOT IMPLEMENTED</H2>
+(: 
+let $collection :=  collection('provider_directory')
+return csd_lsc:update_cache($collection,$name) :)
 };
 
 
@@ -32,6 +68,7 @@ declare
   function page:poll_service_list()
 { 
 let $services := csd_psd:get_services()
+let $collection :=  collection('provider_directory')
 return <html>
   <head>
 
@@ -73,12 +110,15 @@ return <html>
 	<ul>
 	  {for $name in $services
 	  let $url := csd_psd:get_service_directory_url($name)
-	  let $mtime := csd_psd:get_service_directory_mtime($name)
+	  let $mtime := csd_lsc:get_service_directory_mtime($collection,$name)
 	  order by $name
 	  return 
 	  <li>
 	    <b>{$name} last polled on {$mtime}</b>:
 	    <ul>
+	      <li><a href="/CSD/pollService/empty_cache/{$name}">Empty</a> local cache</li>
+	      <li><a href="/CSD/pollService/get_cache/{$name}">Get</a> local cache</li>
+	      <li><a href="/CSD/pollService/update_cache/{$name}">Update</a> local cache</li>
 	      <li><a href="/CSD/pollService/get/{$name}"> Query for Updated Services using stored last modified time</a> </li>
 	      <li><a href="/CSD/pollService/get_soap/{$name}"> Get Soap Query for Updated Services Request using stored last modified time</a>    </li>
 	      <li>
