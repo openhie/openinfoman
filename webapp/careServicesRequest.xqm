@@ -21,12 +21,3 @@ return csr_proc:process_CSR($careServicesRequest/careServicesRequest,$doc)
 };
 
 
-declare
-  %rest:path("/CSD/careServicesRequest")
-  %rest:consumes("application/x-www-form-urlencoded")
-  %rest:POST("{$careServicesRequest}")
-  function page:process_CSR_post_encoded($careServicesRequest) 
-{ 
- page:process_CSR_post(parse-xml($careServicesRequest))
-};
-

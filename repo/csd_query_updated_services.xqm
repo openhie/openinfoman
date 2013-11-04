@@ -13,9 +13,9 @@ declare namespace wsa="http://www.w3.org/2005/08/addressing" ;
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 declare function csd_qus:get_updated_services_soap($soap,$doc) {
-  let $last_mtime := $soap/soap:Body/csd:getModificationsRequest/csd:lastModified
+  let $last_mtime := text{$soap/soap:Body/csd:getModificationsRequest/csd:lastModified}
   let $msgID := $soap/soap:Envelope/soap:Header/wsa:MessageID
-  return csd_qus:create_last_update_response(csd_qus:get_updated_services($last_mtime,$doc),$msgID)
+  return csd_qus:create_last_update_response(csd_qus:get_updated_services($last_mtime,$doc),$msgID) 
 };
 
 declare function csd_qus:get_updated_services($mtime as xs:dateTime,$doc) {

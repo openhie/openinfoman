@@ -58,7 +58,7 @@ declare
     <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -78,10 +78,6 @@ declare
 	<pre>
 	curl --form "fileupload=@test.xml" http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
 	</pre>
-	or 
-	<pre>
-	curl -X POST -d @test.xml http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
-	</pre>
 	where test.xml is one of the downloaded source documents below
 	</p>
 	<ul>
@@ -96,6 +92,7 @@ declare
 	</ul>
       </div>
     </div>
+
   </body>
 </html>
 };

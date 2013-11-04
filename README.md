@@ -26,6 +26,7 @@ Starting BaseX HTTP and you will have these endpoints expose at the top-level
 - Endpoint for submitting careServiceRequest documents http://localhost:8984/CSD/careServiceRequest
 - Endpoint for submitting getUpdatedServices soap request http://localhost:8984/CSD/getUpdatedServices
 - poll registered service directories http://localhost:8984/CSD/pollService
+- administer local cache of registered service directories http://localhost:8984/CSD/cacheService
 - list of test careServiceRequests http://localhost:8984/CSD/test
  
 (tra-la-la)

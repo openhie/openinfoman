@@ -15,12 +15,12 @@ declare function csd_lsc:get_document_name($name) {
   concat("local_services_cache/",$name,".xml")
 };
 
-declare function csd_lsc:directory_exists($collection,$name) {
-  db:is-xml(db:name($collection),csd_lsc:get_document_name($name))
+declare function csd_lsc:directory_exists($db,$name) {
+  db:is-xml($db,csd_lsc:get_document_name($name))
 };
 
-declare updating function csd_lsc:create_cache($collection,$name) {  
-db:add( db:name($collection),  csd_lsc:blank_directory()  , csd_lsc:get_document_name($name)  )
+declare updating function csd_lsc:create_cache($db,$name) {  
+db:add( $db,  csd_lsc:blank_directory()  , csd_lsc:get_document_name($name)  )
 };
 
 
@@ -34,21 +34,21 @@ declare function csd_lsc:blank_directory()
 </CSD>
 };
 
-declare updating function csd_lsc:empty_cache($collection,$name) 
+declare updating function csd_lsc:empty_cache($db,$name) 
 {
-  if (csd_lsc:directory_exists($collection,$name)) 
+  if (csd_lsc:directory_exists($db,$name)) 
     then   
-    (db:delete(db:name($collection),csd_lsc:get_document_name($name)) ,
-    csd_lsc:create_cache($collection,$name))
+    (db:delete($db,csd_lsc:get_document_name($name)) ,
+    csd_lsc:create_cache($db,$name))
   else     
-    csd_lsc:create_cache($collection,$name)
+    csd_lsc:create_cache($db,$name)
     
 };
 
-declare function csd_lsc:get_cache($collection,$name) 
+declare function csd_lsc:get_cache($db,$name) 
 {
- if (csd_lsc:directory_exists($collection,$name)) then
-    db:open(db:name($collection),csd_lsc:get_document_name($name)) 
+ if (csd_lsc:directory_exists($db,$name)) then
+    db:open($db,csd_lsc:get_document_name($name)) 
   else csd_lsc:blank_directory()
 };
 
@@ -58,15 +58,15 @@ declare variable $csd_lsc:cache_meta_doc := 'local_cache_meta.xml';
 
 
 
-declare function csd_lsc:get_cache_data($collection,$name) 
+declare function csd_lsc:get_cache_data($db,$name) 
 {
-  if ( not( db:is-xml(db:name($collection),$csd_lsc:cache_meta_doc)))  then
+  if ( not( db:is-xml($db,$csd_lsc:cache_meta_doc)))  then
     if ($name) then
       ()
     else
       <cacheData/>
   else
-    let $meta_doc :=  db:open(db:name($collection),$csd_lsc:cache_meta_doc)
+    let $meta_doc :=  db:open($db,$csd_lsc:cache_meta_doc)
     return if ($name) then
       $meta_doc/cacheData/serviceCache[@name = $name]
     else
@@ -74,12 +74,12 @@ declare function csd_lsc:get_cache_data($collection,$name)
 };
 
 
-declare updating function csd_lsc:drop_cache_data($collection,$name) 
+declare updating function csd_lsc:drop_cache_data($db,$name) 
 {
-  if ( not(db:is-xml(db:name($collection),$csd_lsc:cache_meta_doc)))  then
+  if ( not(db:is-xml($db,$csd_lsc:cache_meta_doc)))  then
     ()
   else
-    let $meta_doc :=  db:open(db:name($collection),$csd_lsc:cache_meta_doc)
+    let $meta_doc :=  db:open($db,$csd_lsc:cache_meta_doc)
       return if ($name) then
 	delete node $meta_doc/cacheData/serviceCache[@name = $name]
       else
@@ -87,18 +87,18 @@ declare updating function csd_lsc:drop_cache_data($collection,$name)
 
 };
 
-declare updating function csd_lsc:init_cache_meta($collection) {
-  if ( not(db:is-xml(db:name($collection),$csd_lsc:cache_meta_doc)))  then
-    db:add(db:name($collection), <cacheData/>,$csd_lsc:cache_meta_doc)
+declare updating function csd_lsc:init_cache_meta($db) {
+  if ( not(db:is-xml($db,$csd_lsc:cache_meta_doc)))  then
+    db:add($db, <cacheData/>,$csd_lsc:cache_meta_doc)
     else 
       ()
 };
 
-declare updating function csd_lsc:set_service_directory_mtime($collection,$name,$mtime) 
+declare updating function csd_lsc:set_service_directory_mtime($db,$name,$mtime) 
 {
-  ( csd_lsc:init_cache_meta($collection)
+  ( csd_lsc:init_cache_meta($db)
   ,
-  let $meta :=  db:open(db:name($collection),$csd_lsc:cache_meta_doc)/cacheData      
+  let $meta :=  db:open($db,$csd_lsc:cache_meta_doc)/cacheData      
   return
     if (not(exists($meta/serviceCache[@name = $name])))  then
       insert node <serviceCache name="{$name}" mtime="{$csd_lsc:beginning_of_time}"/> into $meta
@@ -110,10 +110,10 @@ declare updating function csd_lsc:set_service_directory_mtime($collection,$name,
   
 };
 
-declare function csd_lsc:get_service_directory_mtime($collection,$name) 
+declare function csd_lsc:get_service_directory_mtime($db,$name) 
 {
-  if ( db:is-xml(db:name($collection),$csd_lsc:cache_meta_doc))  then
-    let $mtime := text{db:open(db:name($collection),$csd_lsc:cache_meta_doc)/cacheData/serviceCache[@name = $name]/@mtime}
+  if ( db:is-xml($db,$csd_lsc:cache_meta_doc))  then
+    let $mtime := text{db:open($db,$csd_lsc:cache_meta_doc)/cacheData/serviceCache[@name = $name]/@mtime}
     return if ($mtime) then
 	$mtime
       else 
@@ -124,33 +124,46 @@ declare function csd_lsc:get_service_directory_mtime($collection,$name)
 };
 
 
-declare updating function csd_lsc:update_cache($collection,$name) 
+declare  updating  function csd_lsc:update_cache($db,$name)  
 {
-  (
-    if (not(csd_lsc:directory_exists($collection,$name)))
-      then csd_lsc:create_cache($collection,$name) else ()
-  ,
-  let $mtime :=  csd_lsc:get_service_directory_mtime($collection,$name)
-(:  let $result2 := csd_psd:poll_service_directory($name,$mtime)  :)
-  let $result := () 
-  let $cache_doc := csd_lsc:get_cache($collection,$name) 
-  let $mtime := current-dateTime()
+
+  let $mtime :=  csd_lsc:get_service_directory_mtime($db,$name)
+(:  querying against self during an update will cause a deadlock :)
+(:  see https://github.com/BaseXdb/basex/issues/173  or :)
+(:  http://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.htmlhttp://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.html  :)
+(:  possible work-around: http://docs.basex.org/wiki/Server_Protocol ? :)
+(:  let $result := csd_psd:poll_service_directory($name,$mtime)    :)
+  let $result := ()
+  let $currtime := current-dateTime()
+  let $cache_doc := csd_lsc:get_cache($db,$name) 
   return (
-    csd_lsc:set_service_directory_mtime($collection,$name,$mtime),
-    csd_lsc:refresh_doc($cache_doc,$result)
+    if (not(csd_lsc:directory_exists($db,$name)))
+      then csd_lsc:create_cache($db,$name) else ()
+      , csd_lsc:refresh_doc($cache_doc,$result)   
+      , csd_lsc:set_service_directory_mtime($db,$name,$currtime)
+      
   )
-  )
+
 
 };
 
 
 declare updating function csd_lsc:refresh_doc($cache_doc,$updates) 
 {
-  let $providerDir := $cache_doc/CSD/providerDirectory
-  for $new in  $updates/providerDirectory/*
-  let $old := $providerDir/provider[@oid = $new/@oid]
+  (
+  csd_lsc:update_directory($cache_doc/CSD/providerDirectory,$updates/CSD/organizationDirectory)
+  ,csd_lsc:update_directory($cache_doc/CSD/facilityDirectory,$updates/CSD/facilityDirectory)
+  ,csd_lsc:update_directory($cache_doc/CSD/serviceDirectory,$updates/CSD/serviceDirectory)
+  ,csd_lsc:update_directory($cache_doc/CSD/providerDirectory,$updates/CSD/providerDirectory)
+  )
+};
+
+declare updating function csd_lsc:update_directory($oldDir,$newDir) 
+{
+  for $new in  $newDir/*
+  let $old := $oldDir/*[@oid = $new/@oid]
   return if ($old) then
     replace  node $old with $new
   else
-    insert node $new into $providerDir
+    insert node $new into $oldDir
 };

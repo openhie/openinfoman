@@ -35,7 +35,7 @@ declare function csd_psd:poll_service_directory($name,$mtime)
 {
   let $soap := csd_psd:poll_service_directory_soap_response($name,$mtime)
   return  if ($soap) then
-    $soap/soap:Envelope/soap:Body/csd:CSD
+     $soap/soap:Envelope/soap:Body/csd:getModificationsResponse/csd:CSD
   else
     ()
 };
@@ -45,13 +45,12 @@ declare function csd_psd:poll_service_directory_soap_response($name,$mtime)
   let $url := csd_psd:get_service_directory_url($name)    
   let $request := <http:request 
       href='{$url}'  
-      mime-type="application/x-www-form-urlencoded"
+      mime-type="multipart/form-data"
       method='post' >
       <http:body media-type='application/xml; charset=utf-8'>
 	{csd_qus:create_last_update_request($mtime)}
       </http:body>
     </http:request>
-
   let $response := http:send-request($request)   
   let $status := text{$response[1]/@status}
   return if ($status = "200") 
