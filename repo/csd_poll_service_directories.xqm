@@ -13,9 +13,9 @@ declare namespace csd = "urn:ihe:iti:csd:2013";
 declare variable $csd_psd:services_library :=
 <serviceDirectoryLibrary>
    <serviceDirectory 
-        name='simple_provider'
-        url='http://csd.ihris.org:8984/CSD/getUpdatedServices'/>	
-
+        name='rhea_simple_provider'
+        url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'
+	/>
 </serviceDirectoryLibrary>
 ;
 
