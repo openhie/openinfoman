@@ -35,7 +35,7 @@ declare function csd_qus:get_updated_services($mtime as xs:dateTime,$doc) {
 </csd:CSD>
 };
 
-declare function csd_qus:create_last_update_request($last_mtime) {
+declare function csd_qus:create_last_update_request($url,$last_mtime) {
   <soap:Envelope 
    xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
    xmlns:wsa="http://www.w3.org/2005/08/addressing" 
@@ -46,7 +46,7 @@ declare function csd_qus:create_last_update_request($last_mtime) {
       <wsa:ReplyTo soap:mustUnderstand="1">
 	<wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address> 
       </wsa:ReplyTo>
-      <wsa:To soap:mustUnderstand="1">http://host/csDirectory</wsa:To> 
+      <wsa:To soap:mustUnderstand="1">{$url}</wsa:To> 
     </soap:Header>
     <soap:Body> 
       <csd:getModificationsRequest>

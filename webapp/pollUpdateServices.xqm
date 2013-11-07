@@ -24,10 +24,11 @@ declare
   %rest:GET
   function page:poll_service_soap($name,$mtime)
 { 
- if ($mtime) then
-   csd_qus:create_last_update_request($mtime)
+ let $url := csd_psd:get_service_directory_url($name)    
+ return if ($mtime) then
+   csd_qus:create_last_update_request($url,$mtime)
  else
-  csd_qus:create_last_update_request(csd_lsc:get_service_directory_mtime($page:db,$name))
+  csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($page:db,$name))
 };
 
 

@@ -53,7 +53,7 @@ declare function csd_psd:poll_service_directory_soap_response($name,$mtime)
 	<http:header name="Content-Disposition" value='form-data; name="file"; filename="soap.xml"'/>
 	<http:header name="Content-Type" value="application/xml; charset=utf-8"/>	
         <http:body  media-type='application/xml; charset=utf-8' method='xml'>
- 	 {csd_qus:create_last_update_request($mtime)} 
+ 	 {csd_qus:create_last_update_request($url,$mtime)} 
         </http:body>      
       </http:multipart>
     </http:request>
