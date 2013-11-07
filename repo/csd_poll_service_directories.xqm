@@ -40,16 +40,22 @@ declare function csd_psd:poll_service_directory($name,$mtime)
     ()
 };
 
+
+
 declare function csd_psd:poll_service_directory_soap_response($name,$mtime) 
 {
   let $url := csd_psd:get_service_directory_url($name)    
-  let $request := <http:request 
+  let $boundary := concat("----------------", random:uuid())
+  let $request := <http:request
       href='{$url}'  
-      mime-type="multipart/form-data"
       method='post' >
-      <http:body media-type='application/xml; charset=utf-8'>
-	{csd_qus:create_last_update_request($mtime)}
-      </http:body>
+      <http:multipart media-type='multipart/form-data' boundary="{$boundary}">
+	<http:header name="Content-Disposition" value='form-data; name="file"; filename="soap.xml"'/>
+	<http:header name="Content-Type" value="application/xml; charset=utf-8"/>	
+        <http:body  media-type='application/xml; charset=utf-8' method='xml'>
+ 	 {csd_qus:create_last_update_request($mtime)} 
+        </http:body>      
+      </http:multipart>
     </http:request>
   let $response := http:send-request($request)   
   let $status := text{$response[1]/@status}
