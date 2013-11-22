@@ -25,10 +25,20 @@ declare
   function page:poll_service_soap($name,$mtime)
 { 
  let $url := csd_psd:get_service_directory_url($name)    
- return if ($mtime) then
-   csd_qus:create_last_update_request($url,$mtime)
- else
-  csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($page:db,$name))
+ return (
+ <rest:response>
+   <http:response status="200" >
+     <http:header name="Content-Type" value="text/xml; charset=utf-8"/>
+     <http:header name="Content-Disposition"  value="inline; filename=soap_query_updated_services_{$name}"/>
+   </http:response>
+   </rest:response>
+   ,
+   if ($mtime) then
+     csd_qus:create_last_update_request($url,$mtime)
+   else
+     csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($page:db,$name))
+ )
+
 };
 
 
@@ -103,7 +113,7 @@ return
 		</li>
 		<li>
 	        Get {$name}'s SOAP reuest for Query for Updated Services by time
-		<form method='get' action="/CSD/pollService/get_soap/{$name}">
+		<form method='get' action="/CSD/pollService/soap_query_updated_services_{$name}">
 	          <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value="{$mtime}"/>   
 		  <input type='submit' />
 		</form> 
@@ -111,8 +121,8 @@ return
 
 	      </ul>
 	      To test submission on your machine you can do:
-	      <pre>curl --form "fileupload=@soap.xml" {$url}</pre>
-	      where soap.xml is  the downloaded soap request document
+	      <pre>curl --form "fileupload=@soap_query_updated_services_{$name}.xml" {$url}</pre>
+	      where soap_updated_services_{$name}.xml is  the downloaded soap request document
 		
 	    </li>
 	    }
