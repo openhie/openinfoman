@@ -139,7 +139,7 @@ let $response:=
 	    order by $name
 	    return 
 	    <li>
-	      <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService">cached</a> on {$mtime}
+	      <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService/directory/{$name}">cached</a> on {$mtime}
 	      <br/>
 	      <b>Services:</b>  {page:service_menu($name)}
 	    </li>

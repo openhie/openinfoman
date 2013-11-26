@@ -39,15 +39,29 @@ declare
 {
   csd_lsc:get_cache_data($page:db,())
 };
+
+
 declare
-  %rest:path("/CSD/cacheService/cache_meta/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}")
+  %rest:GET
+  %output:method("xhtml")
+  function page:get_service_menu($name)
+{
+  let $response := page:services_menu($name) 
+  return page:wrapper($response)
+};
+
+declare
+  %rest:path("/CSD/cacheService/directory/{$name}/cache_meta")
   %rest:GET
   function page:get_service_cache_meta($name)
 {
   csd_lsc:get_cache_data($page:db,$name) 
 };
+
+
 declare updating
-  %rest:path("/CSD/cacheService/create_cache/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}/create_cache")
   %rest:GET
   function page:create_cache($name)
 {
@@ -61,7 +75,7 @@ declare updating
 };
 
 declare updating
-  %rest:path("/CSD/cacheService/drop_cache_meta/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}/drop_cache_meta")
   %rest:GET
   function page:drop_service_cache_meta($name)
 {
@@ -75,7 +89,7 @@ declare updating
 };
 
 declare
-  %rest:path("/CSD/cacheService/get_cache/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}/get_cache")
   %rest:GET
   function page:get_cache($name)
 { 
@@ -83,7 +97,7 @@ declare
 };
 
 declare updating
-  %rest:path("/CSD/cacheService/empty_cache/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}/empty_cache")
   %rest:GET
   function page:empty_cache($name)
 { 
@@ -98,7 +112,7 @@ declare updating
 
 
 declare updating   
-  %rest:path("/CSD/cacheService/update_cache/{$name}")
+  %rest:path("/CSD/cacheService/directory/{$name}/update_cache")
   %rest:GET
   function page:update_cache($name)
 { 
@@ -111,16 +125,7 @@ declare updating
 };
 
 
-
-declare
-  %rest:path("/CSD/cacheService")
-  %rest:GET
-  %output:method("xhtml")
-  function page:poll_service_list()
-{ 
-let $services := csd_psd:get_services()
-return
-page:nocache(
+declare function page:wrapper($response) {
  <html>
   <head>
 
@@ -140,7 +145,19 @@ page:nocache(
         </div>
       </div>
     </div>
+    {$response}
+  </body>
+ </html>
+};
 
+declare
+  %rest:path("/CSD/cacheService")
+  %rest:GET
+  %output:method("xhtml")
+  function page:poll_service_list()
+{ 
+let $services := csd_psd:get_services()
+let $response :=
     <div class='container'>
       <div class='row'>
  	<div class="col-md-8">
@@ -162,31 +179,14 @@ page:nocache(
 	  <h2>Service Directory Operations</h2>
 	  <ul>
 	    {for $name in $services
-	    let $url := csd_psd:get_service_directory_url($name)
 	    let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
-	      where $name != 'localhost'
+	    where $name != 'localhost'
 	    order by $name
 	    return 
 	    <li>
-	      <b>{$name} last cached on {$mtime}</b>:
-	      <ul>
-	        {if (not(csd_lsc:directory_exists($page:db,$name))) then
-		  <li><a href="/CSD/cacheService/create_cache/{$name}">Create cache of {$name}</a> </li>
-		else 
-		  (
-		  <li><a href="/CSD/cacheService/empty_cache/{$name}">Empty local cache of {$name}</a> </li>,
-		  <li><a href="/CSD/cacheService/get_cache/{$name}">Get local cache  of {$name}</a> </li>,
-		  <li>
-		    <a href="/CSD/cacheService/update_cache/{$name}" >Update local cache  of {$name}</a> 
-		    <p>
-		      <b >WARNING:</b>An InfoMan trying to cache its own service directory will result in a deadlock.  see <a href="https://github.com/BaseXdb/basex/issues/173">this issue</a>
-		    </p>
-		  </li>,
-		  <li><a href="/CSD/cacheService/cache_meta/{$name}">Get cache Meta Data  for {$name}</a></li>,
-		  <li><a href="/CSD/cacheService/drop_cache_meta/{$name}">Drop cache Meta Data  of {$name}</a></li>
-		  )
-		  }
-	      </ul>
+	      <b><a href="/CSD/cacheService/directory/{$name}">{$name}</a> last cached on {$mtime}</b>:
+	      <br/>
+	      {page:services_menu($name)}
 	    </li>
 	    }
 	  </ul>
@@ -195,7 +195,34 @@ page:nocache(
       else ()
       }
     </div>
-  </body>
-</html>
-)
+return page:nocache(  page:wrapper($response))
+
+
+};
+
+
+
+
+declare function page:services_menu($name) {
+  let $url := csd_psd:get_service_directory_url($name)
+  let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+  return 
+  <ul>
+    {if (not(csd_lsc:directory_exists($page:db,$name))) then
+    <li><a href="/CSD/cacheService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
+  else 
+    (
+    <li><a href="/CSD/cacheService/directory/{$name}/empty_cache">Empty local cache of {$name}</a> </li>,
+    <li><a href="/CSD/cacheService/directory/{$name}/get_cache">Get local cache  of {$name}</a> </li>,
+    <li>
+      <a href="/CSD/cacheService/directory/{$name}/update_cache" >Update local cache  of {$name}</a> 
+      <p>
+	<b >WARNING:</b>An InfoMan trying to cache its own service directory will result in a deadlock.  see <a href="https://github.com/BaseXdb/basex/issues/173">this issue</a>
+      </p>
+      </li>,
+      <li><a href="/CSD/cacheService/directory/{$name}/cache_meta">Get cache Meta Data  for {$name}</a></li>,
+      <li><a href="/CSD/cacheService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>
+  )
+    }
+  </ul>
 };
