@@ -1,8 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
-import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "../repo/csd_merge_cached_services.xqm";
-import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace request = "http://exquery.org/ns/request";
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -10,7 +9,7 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
 declare variable $page:db := 'provider_directory';
-declare variable $page:csd_docs := ( $csd_mcs:merged_services_doc,csd_lsd:sample_directories());
+declare variable $page:csd_docs := csd_dm:registered_documents($page:db);
 
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest")
@@ -18,9 +17,11 @@ declare
   %rest:POST("{$careServicesRequest}")
   function page:csr($name,$careServicesRequest) 
 { 
-for $doc in collection($page:db)
-where( matches(document-uri($doc), $name) and $name = $page:csd_docs)
-return csr_proc:process_CSR($careServicesRequest/careServicesRequest,$doc)   
+if (csd_dm:document_source_exists($page:db,$name)) then 
+ csr_proc:process_CSR($careServicesRequest/careServicesRequest,csd_dm:open_document($page:db,$name))   
+else
+  (:need appropriate error handling:)
+  ()
 
 };
 
@@ -76,7 +77,7 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    {$response}
+    <div class='container'>  {$response}</div>
   </body>
  </html>
 };

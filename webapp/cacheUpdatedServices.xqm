@@ -2,6 +2,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 
 import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
 import module namespace request = "http://exquery.org/ns/request";
 import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
@@ -47,7 +48,7 @@ declare
   %output:method("xhtml")
   function page:get_service_menu($name)
 {
-  let $response := page:services_menu($name) 
+  let $response := <span><h3>{$name}</h3>{page:services_menu($name) }</span>
   return page:nocache(page:wrapper($response))
 };
 
@@ -145,7 +146,7 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    {$response}
+    <div class='container'>    {$response}</div>
   </body>
  </html>
 };
@@ -156,9 +157,9 @@ declare
   %output:method("xhtml")
   function page:poll_service_list()
 { 
-let $services := csd_psd:get_services()
+let $services := csd_psd:registered_directories($page:db)
 let $response :=
-    <div class='container'>
+    <div >
       <div class='row'>
  	<div class="col-md-8">
 	  <h2>Global Operations</h2>
@@ -201,9 +202,31 @@ return page:nocache(  page:wrapper($response))
 
 
 
+declare updating   
+  %rest:path("/CSD/cacheService/directory/{$name}/register")
+  %rest:GET
+  function page:register($name)
+{ 
+(
+  csd_dm:register_document($page:db,$name,csd_lsc:get_document_name($name)) ,
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+)
+};
+
+declare updating   
+  %rest:path("/CSD/cacheService/directory/{$name}/deregister")
+  %rest:GET
+  function page:deregister($name)
+{ 
+(
+  csd_dm:deregister_document($page:db,$name),
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+)
+};
+
 
 declare function page:services_menu($name) {
-  let $url := csd_psd:get_service_directory_url($name)
+  let $url := csd_psd:get_service_directory_url($page:db,$name)
   let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
   return 
   <ul>
@@ -220,7 +243,11 @@ declare function page:services_menu($name) {
       </p>
       </li>,
       <li><a href="/CSD/cacheService/directory/{$name}/cache_meta">Get cache Meta Data  for {$name}</a></li>,
-      <li><a href="/CSD/cacheService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>
+      <li><a href="/CSD/cacheService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>,
+      if (not(csd_dm:is_registered($page:db,$name))) then 
+        <li><a href="/CSD/cacheService/directory/{$name}/register">Register local cache of {$name} with document manager</a></li>
+      else
+        <li><a href="/CSD/cacheService/directory/{$name}/deregister">Deregister local cache  of {$name} with document manager</a></li>
   )
     }
   </ul>

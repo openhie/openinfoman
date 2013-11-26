@@ -5,9 +5,96 @@ import module namespace csd_psd = "https://github.com/his-interop/openinfoman/cs
 import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
 import module namespace request = "http://exquery.org/ns/request";
 import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
+
 declare variable $page:db := 'provider_directory';
 
 
+declare variable $page:samples :=
+<serviceDirectoryLibrary>
+  <serviceDirectory  name='rhea_simple_provider' url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'/>
+  <serviceDirectory   name='openinfoman'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices'/>
+  <serviceDirectory   name='openhim'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'>
+    <credentials type='basic_auth' username='test'  password='test'  />
+  </serviceDirectory>
+</serviceDirectoryLibrary>;
+
+
+declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
+{
+  <restxq:redirect>{ $redirect }</restxq:redirect>
+};
+
+declare function page:nocache($response) {
+(<http:response status="200" message="OK">  
+  <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
+</http:response>,
+$response)
+};
+
+
+declare updating
+  %rest:path("/CSD/registerService/init")
+  function page:init() 
+{
+  (
+    csd_psd:init($page:db)
+  ,
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  )
+};
+
+declare updating
+  %rest:path("/CSD/registerService/deregister/{$name}")
+  %output:method("xhtml")
+  %rest:GET
+  function page:deregister_named($name) 
+{
+
+  (
+    csd_psd:deregister_service($page:db,$name)
+  ,
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  )
+};
+
+
+
+declare updating
+  %rest:path("/CSD/registerService/named/{$name}")
+  %output:method("xhtml")
+  %rest:GET
+  function page:register_named($name) 
+{
+
+  (
+    let $sample := $page:samples//serviceDirectory[@name=$name]
+    return if (exists($sample)) then
+      csd_psd:register_service($page:db,$name,text{$sample/@url},$sample/credentials)
+    else ()
+  ,
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  )
+};
+
+declare updating
+  %rest:path("/CSD/registerService/basic_auth")
+  %output:method("xhtml")
+  %rest:query-param("name", "{$name}")
+  %rest:query-param("url", "{$url}")
+  %rest:query-param("password", "{$password}")
+  %rest:query-param("username", "{$username}")
+  %rest:GET
+  function page:register_basic_auth($name,$url,$username,$password) 
+{
+
+  (
+    let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
+    return csd_psd:register_service($page:db,$name,$url,$credentials)
+      ,
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  )
+
+};
 
 
 declare
@@ -23,7 +110,7 @@ declare
 	</div>
       </div>
     </div>
-  return page:wrapper($response)
+  return page:nocache(page:wrapper($response))
 };
 
 
@@ -34,9 +121,9 @@ declare
   function page:poll_service($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory_soap_response($name,$mtime)
+ csd_psd:poll_service_directory_soap_response($page:db,$name,$mtime)
 else
- csd_psd:poll_service_directory_soap_response($name,csd_lsc:get_service_directory_mtime($page:db,$name))
+ csd_psd:poll_service_directory_soap_response($page:db,$name,csd_lsc:get_service_directory_mtime($page:db,$name))
 };
 
 
@@ -47,9 +134,9 @@ declare
   function page:poll_service_csd($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory($name,$mtime)
+ csd_psd:poll_service_directory($page:db,$name,$mtime)
 else
- csd_psd:poll_service_directory($name,csd_lsc:get_service_directory_mtime($page:db,$name))
+ csd_psd:poll_service_directory($page:db,$name,csd_lsc:get_service_directory_mtime($page:db,$name))
 };
 
 declare
@@ -58,7 +145,7 @@ declare
   %rest:GET
   function page:poll_service_soap($name,$mtime)
 { 
- let $url := csd_psd:get_service_directory_url($name)    
+ let $url := csd_psd:get_service_directory_url($page:db,$name)    
  return (
  <rest:response>
    <http:response status="200" >
@@ -91,8 +178,7 @@ declare function page:wrapper($response) {
     <script type="text/javascript">
     $( document ).ready(function() {{
       {
-	let $services := csd_psd:get_services()
-	for $name in $services 
+	for $name in csd_psd:registered_directories($page:db)
 	return (
 	"$('#datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'});",
 	"$('#soap_datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'}); ")
@@ -113,7 +199,7 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    {$response}
+    <div class='container'> {$response}</div>
   </body>
  </html>
 };
@@ -126,36 +212,83 @@ declare
   %output:method("xhtml")
   function page:poll_service_list()
 { 
-let $services := csd_psd:get_services()
-let $response:=
-  <div>
-    <div class='container'>
-      <div class='row'>
- 	<div class="col-md-8">
-	  <h2>Service Directories</h2>
-	  <ul>
-	    {for $name in $services
-	    let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
-	    order by $name
-	    return 
-	    <li>
-	      <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService/directory/{$name}">cached</a> on {$mtime}
-	      <br/>
-	      <b>Services:</b>  {page:service_menu($name)}
-	    </li>
-	    }
-	  </ul>
-	</div>
-      </div>
-    </div>
-  </div>
+
+let $response :=
+  if (not(csd_psd:dm_exists($page:db))) then
+  <span>
+    <h2>No Service Directory Manager </h2>
+    Please <a href="/CSD/registerService/init">intialize the services directory manager</a> in order to start polling remote service directories.
+  </span>
+  else 
+    let $services := csd_psd:registered_directories($page:db)
+    let $unreg_services := 
+    for $sample in $page:samples//serviceDirectory
+    where not(csd_psd:is_registered($page:db,$sample/text{@name}))
+      return  $sample
+   return
+   <div>
+     <div class='row'>
+       <div class="col-md-4">
+	 <h3>Add New Service (Basic Auth)</h3>
+	 <form method='get' action="/CSD/registerService/basic_auth">
+	   <ul>
+	     <li><label for='name'> Name</label><input class='pull-right'  size="35"      name='name' type="text" value=""/>   </li>
+	     <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value=""/>   </li>
+	     <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
+	     <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="text" value=""/>   </li>
+	   </ul>
+	   <input type='submit' />
+	 </form> 
+	 
+       </div>
+       <div class="col-md-4">
+	 {
+	   if (count($unreg_services) > 0) then
+	   <span>
+	     <h2>Add New Default Service</h2>
+	     <ul>
+	       {for $sample in $unreg_services
+	       let $name := $sample/text{@name}
+	       return 
+	       <li>
+		 <a href="/CSD/registerService/named/{$name}">Register {$name}</a>
+	       </li>
+	       }
+	     </ul>
+	   </span>
+	 else ()
+}
+       </div>
+     </div>
+     <div class='row'>
+       <div class="col-md-8">
+	 <h2>Registered Service Directories</h2>
+	 {if (count($services) = 0) 
+	 then <h4>No Services Registered</h4>
+       else 
+       <ul>
+	 {for $name in $services
+	 let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+	 order by $name
+	 return 
+	 <li>
+	   <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService/directory/{$name}">cached</a> on {$mtime}
+	   <br/>
+	   <b>Services:</b>  {page:service_menu($name)}
+	 </li>
+	 }
+       </ul>
+	 }
+       </div>
+     </div>
+   </div>
   
-return page:wrapper($response)
+return page:nocache(page:wrapper($response))
 
 };
 
 declare function page:service_menu($name) {
-  let $url := csd_psd:get_service_directory_url($name)
+  let $url := csd_psd:get_service_directory_url($page:db,$name)
   let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
   return 
 <span>
@@ -163,6 +296,7 @@ declare function page:service_menu($name) {
     <li><a href="/CSD/pollService/{$name}/get"> Query  {$name} for Updated Services using stored last modified time (SOAP result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_csd"> Query  {$name} for Updated Services using stored last modified time (CSD result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_soap"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
+    <li><a href="/CSD/registerServices/deregisgter/{$name}"> Deregister This Service</a>    </li>
     <li>
     Query {$name} for Updated Services by time
     <form method='get' action="/CSD/pollService/{$name}/get">

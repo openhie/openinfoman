@@ -4,18 +4,30 @@ import module namespace csr_proc = "https://github.com/his-interop/openinfoman/c
 import module namespace request = "http://exquery.org/ns/request";
 
 
-declare
-  %rest:path("/CSD/test/{$test}")
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
+declare variable $page:db := 'provider_directory';
+declare variable $page:test_docs :=  file:list("../test_docs/",boolean('false'),"*.xml");
+
+
+
+declare 
+  %output:method("xhtml")
+  %rest:path("/CSD/test/{$name}")
   %rest:GET
-  function page:test(
-    $test as xs:string)
+function page:show_test_menu($name) {
+  page:wrapper(page:test_menu($name))
+};
+
+declare
+  %rest:path("/CSD/test/{$name}/{$test}")
+  %rest:GET
+  function page:test($name, $test as xs:string)
 {
 let $test_doc := page:get_test_doc($test)
 return if ($test_doc) then
- for $doc in collection('provider_directory')
- where matches(document-uri($doc), 'providers.xml')
- return csr_proc:process_CSR($test_doc/csd:careServicesRequest,$doc)
+  csr_proc:process_CSR($test_doc/csd:careServicesRequest,csd_dm:open_document($page:db,$name))
 else
+   (:need better error handling:)
   <h2>Shame on you</h2>
 
 };
@@ -52,12 +64,55 @@ declare
   %output:method("xhtml")
   function page:list_tests() 
 {
-<html>
+let $response:=    
+<span>
+  <h2>Registered Documents</h2>
+  {
+    for $name in csd_dm:registered_documents($page:db) 
+    return <div class='row'><h4>Tests for <a href="/CSD/test/{$name}">{$name}</a></h4>{page:test_menu($name)}</div>
+  }
+</span>
+return page:wrapper($response)
+};
+
+
+
+declare function page:test_menu($name) 
+{
+<span>
+  <p>
+  To test submission on your machine you can do:
+  <pre>
+  curl --form "fileupload=@test.xml" {request:scheme()}://{request:hostname()}:{request:port()}/CSD/csr/{$name}/careServicesRequest
+  </pre>
+  where test.xml is one of the downloaded source documents below
+  </p>
+  <ul>
+    {for $test_doc in $page:test_docs
+    order by $test_doc
+    let $test := file:base-name($test_doc,".xml")
+    return  <li>
+    {$test}:<a href="/CSD/{$name}/test/{$test}"> process on server</a>  /
+    <a href="/CSD/test_source/{$test}"> download source</a> 
+  </li>
+    }
+  </ul>
+</span>
+};    
+
+
+declare function page:wrapper($response) {
+ <html>
   <head>
+
     <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    
+
+    <script src="https://code.jquery.com/jquery.js"/>
+    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
   </head>
-  <body>
+  <body>  
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -70,31 +125,7 @@ declare
         </div>
       </div>
     </div>
-    <div class='container'>
-      <div class='row'>
-	<h2>Tests</h2>
-	<p>
-	To test submission on your machine you can do:
-	<pre>
-	curl --form "fileupload=@test.xml" {request:scheme()}://{request:hostname()}:{request:port()}/CSD/careServicesRequest
-	</pre>
-	where test.xml is one of the downloaded source documents below
-	</p>
-	<ul>
-          {for $test_doc in file:list("../test_docs/",boolean('false'),"*.xml")
-	  order by $test_doc
-	  let $test := file:base-name($test_doc,".xml")
-          return  <li>
-	  {$test}:<a href="test/{$test}"> process on server</a>  /
-	  <a href="test_source/{$test}"> download source</a> 
- 	</li>
-          }
-	</ul>
-      </div>
-    </div>
-
+    <div class='container'>{$response}</div>
   </body>
-</html>
+ </html>
 };
-
-

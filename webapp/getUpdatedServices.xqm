@@ -1,8 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_qus = "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
-import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "../repo/csd_merge_cached_services.xqm";
-import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace request = "http://exquery.org/ns/request";
 
 import module namespace file = "http://expath.org/ns/file";
@@ -10,7 +9,9 @@ declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 
 
 declare variable $page:db := 'provider_directory';
-declare variable $page:csd_docs := ( $csd_mcs:merged_services_doc,csd_lsd:sample_directories());
+declare variable $page:csd_docs := csd_dm:registered_documents($page:db);
+
+
 
 declare
   %rest:path("/CSD/getUpdatedServices/{$name}/soap")
@@ -33,16 +34,17 @@ declare
  
 };
 
+
 declare
   %rest:path("/CSD/getUpdateServices/{$name}/get")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")
   %rest:POST("{$updatedServicesRequest}")
   function page:updated_services($name,$updatedServicesRequest) 
 { 
-for $doc in collection($page:db)
-where( matches(document-uri($doc), $name) and $name = $page:csd_docs)
-return csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,$doc)   
-
+if (csd_dm:document_source_exists($page:db,$name)) then 
+   csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,csd_dm:open_document($page:db,$name))   
+else 
+  ()
 };
 
 
@@ -58,28 +60,9 @@ let $response :=
     <ul>
       {
 	for $name in $page:csd_docs
-	return 
-	<li>
-	  Service Directory: <b>{$name}</b>
-	  <ul>
-	    <li>
-	    Query {$name} for Updated Services by time
-	    <form method='get' action="/CSD/getUpdatedServices/{$name}/get">
-	      <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value=""/>   
-	      <input type='submit' />
-	    </form> 
-	    </li>
-	    <li>
-	    Get {$name}'s SOAP reuest for Query for Updated Services by time
-	    <form method='get' action="/CSD/getUpdatedServices/{$name}/soap">
-	      <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value=""/>   
-	      <input type='submit' />
-	    </form> 
-	    </li>
-	    Submit {$name} SOAP request to:
-	    <pre>{request:scheme()}://{request:hostname()}:{request:port()}//CSD/getUpdatedServices/{$name}/get</pre> 
-
-	  </ul>
+	return 	<li>
+	<h3>Service Directory:<a href="/CSD/getUpdatedServices/{$name}">{$name}</a></h3>
+	  {page:service_menu($name)}
 	</li>
       }
     </ul>
@@ -87,6 +70,39 @@ let $response :=
   return page:wrapper($response)
 };
 
+declare
+  %rest:path("/CSD/getUpdatedServices/{$name}")
+  %rest:GET
+  %output:method("xhtml")
+function page:show_service_menu($name) {
+  page:wrapper(<span><h3>{$name}</h3>{page:service_menu($name)}</span>)
+};
+
+
+declare function page:service_menu($name) 
+{
+  <span>
+    <ul>
+    <li>
+    Query {$name} for Updated Services by time
+    <form method='get' action="/CSD/getUpdatedServices/{$name}/get">
+      <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value=""/>   
+      <input type='submit' />
+    </form> 
+    </li>
+    <li>
+    Get {$name}'s SOAP reuest for Query for Updated Services by time
+    <form method='get' action="/CSD/getUpdatedServices/{$name}/soap">
+      <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value=""/>   
+      <input type='submit' />
+    </form> 
+    </li>
+    Submit {$name} SOAP request to:
+    <pre>{request:scheme()}://{request:hostname()}:{request:port()}//CSD/getUpdatedServices/{$name}/get</pre> 
+
+    </ul>
+  </span>
+};
 
 declare function page:wrapper($response) {
  <html>
@@ -102,8 +118,6 @@ declare function page:wrapper($response) {
     <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
     <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
     <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
     <script type="text/javascript">
     $( document ).ready(function() {{
@@ -129,7 +143,7 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    {$response}
+    <div class='container'>  {$response}</div>
   </body>
  </html>
 };

@@ -58,7 +58,7 @@ declare updating function csd_lsd:reload($db,$name) {
       ()
     else ()
     ,
-    csd_lsd:load($db,name)
+    csd_lsd:load($db,$name)
   )
 };
 

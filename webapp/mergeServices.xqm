@@ -2,9 +2,12 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 
 import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "../repo/csd_merge_cached_services.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace request = "http://exquery.org/ns/request";
 
 declare variable $page:db := 'provider_directory';
+declare variable $page:merge_doc_name := 'merged_remote_services';
+
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
@@ -18,6 +21,28 @@ declare function page:nocache($response) {
   <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
 </http:response>,
 $response)
+};
+
+
+declare updating   
+  %rest:path("/CSD/mergeServices/register")
+  %rest:GET
+  function page:register() { 
+(
+  csd_dm:register_document($page:db,$page:merge_doc_name,$csd_mcs:merged_services_doc),
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
+)
+};
+
+declare updating   
+  %rest:path("/CSD/mergeServices/deregister")
+  %rest:GET
+  function page:deregister() 
+{ 
+(
+  csd_dm:deregister_document($page:db,$page:merge_doc_name),
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
+)
 };
 
 
@@ -75,7 +100,11 @@ let $response:=
 	      (
 	      <li><a href="/CSD/mergeServices/merge">merge services</a></li>,
 	      <li><a href="/CSD/mergeServices/get">get merged services</a></li>,
-	      <li><a href="/CSD/mergeServices/empty">empty services</a></li>
+	      <li><a href="/CSD/mergeServices/empty">empty services</a></li>,
+	      if (csd_dm:is_registered($page:db,$page:merge_doc_name)) then
+	      <li><a href="/CSD/mergeServices/deregister">deregister merge of remote from document store </a></li>
+               else
+	       <li><a href="/CSD/mergeServices/register">register merge of remote services from document manager</a></li>
 	      )
 	    }
 	  </ul>

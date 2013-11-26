@@ -1,6 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace file = "http://expath.org/ns/file";
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 import module namespace request = "http://exquery.org/ns/request";
@@ -54,9 +55,31 @@ declare updating
   csd_lsd:load($page:db,$name)   ,
   db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
 )
-
-
 };
+
+declare updating   
+  %rest:path("/CSD/initSampleDirectory/directory/{$name}/register")
+  %rest:GET
+  function page:register($name)
+{ 
+(
+  csd_dm:register_document($page:db,$name,csd_lsd:get_document_name($name)),
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+)
+};
+
+declare updating   
+  %rest:path("/CSD/initSampleDirectory/directory/{$name}/deregister")
+  %rest:GET
+  function page:deregister($name)
+{ 
+(
+  csd_dm:deregister_document($page:db,$name),
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+)
+};
+
+
 declare updating   
   %rest:path("/CSD/initSampleDirectory/directory/{$name}/reload")
   %rest:GET
@@ -135,7 +158,11 @@ declare function page:services_menu($name) {
   else 
     (
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get  {$name}</a></li>,
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload {$name}</a></li>
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload {$name}</a></li>,
+    if (csd_dm:is_registered($page:db,$name)) then
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/deregister">De-Register {$name} from Document Manager</a></li>
+    else 
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/register">Register {$name} with Document Manager</a></li>
   )
     }
   </ul>

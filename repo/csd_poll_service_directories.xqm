@@ -11,54 +11,81 @@ declare namespace http = "http://expath.org/ns/http-client" ;
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 
-declare variable $csd_psd:services_library :=
-<serviceDirectoryLibrary>
 
+declare variable $csd_psd:directory_manager := 'csd_directories.xml';
 
-   <serviceDirectory 
-        name='rhea_simple_provider'
-	url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'
-	/>
-   <serviceDirectory 
-        name='openinfoman'
-        url='http://csd.ihris.org:8984/CSD/getUpdatedServices'
-	username=''
-	password=''
-	/>
-   <serviceDirectory 
-        name='openhim'
-        url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'
-        url2='https://54.204.35.85:5000/CSD/getUpdatedServices'
-	username='test'
-	password='test'
-	/>
-
-</serviceDirectoryLibrary>
-;
-
-
-declare function csd_psd:get_services() { 
-  $csd_psd:services_library//serviceDirectory/text{@name}
+declare updating function csd_psd:init($db) {
+  if ( not(csd_psd:dm_exists($db)))  then
+    db:add($db, <serviceDirectoryLibrary/>,$csd_psd:directory_manager)
+  else 
+      ()
 };
 
-declare function csd_psd:get_service_directory_url($name) {
- text{ $csd_psd:services_library//serviceDirectory[@name=$name]/@url}
+declare function csd_psd:dm_exists($db) {
+  db:is-xml($db,$csd_psd:directory_manager)
 };
 
-declare function csd_psd:get_service_directory_password($name) {
- text{ $csd_psd:services_library//serviceDirectory[@name=$name]/@password}
-};
 
-declare function csd_psd:get_service_directory_username($name) {
- text{ $csd_psd:services_library//serviceDirectory[@name=$name]/@username}
+declare  function csd_psd:is_registered($db,$name) {
+  if ( not(csd_psd:dm_exists($db)))  then
+    false()
+  else
+    let $dm :=  db:open($db,$csd_psd:directory_manager)/serviceDirectoryLibrary
+    return exists($dm/serviceDirectory[@name = $name])
 };
 
 
 
+declare updating function csd_psd:register_service($db,$name,$url,$credentials) {
+  let $dm :=  db:open($db,$csd_psd:directory_manager)/serviceDirectoryLibrary
+  (:bad bad plain text password:)
+  let $reg_doc := <serviceDirectory name="{$name}" url="{$url}">{$credentials}</serviceDirectory>
+  let $existing := $dm/serviceDirectory[@name = $name]
+  return
+    if (not(exists($existing)))  then
+      insert node $reg_doc into $dm
+    else 
+      replace  node $existing with $reg_doc
+  
 
-declare function csd_psd:poll_service_directory($name,$mtime) 
+};
+
+declare updating function csd_psd:deregister_service($db,$name) {
+  if (csd_psd:dm_exists($db)) then
+    let $dm :=  db:open($db,$csd_psd:directory_manager)/serviceDirectoryLibrary
+    let $existing := $dm/serviceDirectory[@name = $name]
+    return if (exists($existing))  then
+      delete node $existing
+    else 
+      ()
+   else ()
+
+};
+
+declare function csd_psd:registered_directories($db) {
+  if (csd_psd:dm_exists($db)) then
+    db:open($db,$csd_psd:directory_manager)//serviceDirectory/text{@name}
+  else
+    ()
+};
+
+
+
+declare function csd_psd:get_service_directory_url($db,$name) {
+  text{ db:open($db,$csd_psd:directory_manager)/serivceDirectoryLibrary/serviceDirectory[@name=$name]/@url}
+};
+
+
+declare function csd_psd:get_service_directory_credentials($db,$name) {
+  db:open($db,$csd_psd:directory_manager)/serivceDirectoryLibrary/serviceDirectory[@name=$name]/credentials
+};
+
+
+
+
+declare function csd_psd:poll_service_directory($db,$name,$mtime) 
 {
-  let $soap := csd_psd:poll_service_directory_soap_response($name,$mtime)
+  let $soap := csd_psd:poll_service_directory_soap_response($db,$name,$mtime)
   return  if ($soap) then
      $soap/soap:Envelope/soap:Body/csd:getModificationsResponse
 (:     $soap//csd:CSD :)
@@ -68,9 +95,9 @@ declare function csd_psd:poll_service_directory($name,$mtime)
 
 
 
-declare function csd_psd:poll_service_directory_soap_response($name,$mtime) 
+declare function csd_psd:poll_service_directory_soap_response($db,$name,$mtime) 
 {
-  let $url := csd_psd:get_service_directory_url($name)    
+  let $url := csd_psd:get_service_directory_url($db,$name)    
   let $boundary := concat("----------------", random:uuid()) 
   let $message :=       <http:multipart media-type='multipart/form-data' boundary="{$boundary}" method='xml' accept='*/*'> 
 	<http:header name="Content-Disposition" value="form-data; name=&quot;fileupload&quot;; filename=&quot;soap.xml&quot;"/>
@@ -82,15 +109,15 @@ declare function csd_psd:poll_service_directory_soap_response($name,$mtime)
  	 {csd_qus:create_last_update_request($url,$mtime)} 
         </http:body>      
       </http:multipart>
-  let $user := csd_psd:get_service_directory_username($name)
-  let $pass := csd_psd:get_service_directory_password($name)
+      
+  let $credentials := csd_psd:get_service_directory_credentials($db,$name)
   let $request := 
-    if ($user and $pass) 
+    if ($credentials/@type = 'basic_auth' and $credentials/@username ) 
       then 
       <http:request
       href='{$url}'  
-      username='{$user}'
-      password='{$pass}'    
+      username='{$credentials/username}'
+      password='{$credentials/password}'    
       send-authorization='true'
       method='post' >
       {$message}
