@@ -12,10 +12,17 @@ declare variable $page:db := 'provider_directory';
 
 declare
   %rest:path("/CSD/pollService/{$name}")
+  %output:method("xhtml")
   %rest:GET
   function page:display_service_menu($name) 
 {
-  let $response := page:service_menu($name)
+  let $response :=     <div class='container'>
+      <div class='row'>
+ 	<div class="col-md-8">
+	{page:service_menu($name)}
+	</div>
+      </div>
+    </div>
   return page:wrapper($response)
 };
 
@@ -132,7 +139,7 @@ let $response:=
 	    order by $name
 	    return 
 	    <li>
-	      <b>{$name}</b> last <a href="/CSD/cacheService">cached</a> on {$mtime}
+	      <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService">cached</a> on {$mtime}
 	      <br/>
 	      <b>Services:</b>  {page:service_menu($name)}
 	    </li>
