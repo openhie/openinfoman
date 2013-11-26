@@ -26,14 +26,14 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
-    <link rel="stylesheet" type="text/css" media="screen"   href="http://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
     <script src="https://code.jquery.com/jquery.js"/>
-    <script src="http://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
+    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -44,7 +44,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@ declare updating
   (
   csd_mcs:init_store($page:db)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
   )
 
 };
@@ -110,7 +110,7 @@ declare updating
   (
   csd_mcs:merge($page:db)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
   )
 
 };
@@ -123,7 +123,7 @@ declare updating
   (
   csd_mcs:merge($page:db)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/mergeServices")))
   )
 
 };

@@ -52,7 +52,7 @@ declare updating
 { 
 (
   csd_lsd:load($page:db,$name)   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
 )
 
 
@@ -64,7 +64,7 @@ declare updating
 { 
 (
   csd_lsd:reload($page:db,$name)   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
 )
 
 
@@ -75,8 +75,8 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -87,7 +87,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
