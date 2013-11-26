@@ -36,12 +36,15 @@ declare function csd_lsc:blank_directory()
 
 declare updating function csd_lsc:empty_cache($db,$name) 
 {
-  if (csd_lsc:directory_exists($db,$name)) 
+  (if (csd_lsc:directory_exists($db,$name)) 
     then   
     (db:delete($db,csd_lsc:get_document_name($name)) ,
     csd_lsc:create_cache($db,$name))
   else     
     csd_lsc:create_cache($db,$name)
+    ,
+    csd_lsc:set_service_directory_mtime($db,$name,$csd_lsc:beginning_of_time) 
+    )
     
 };
 
@@ -87,10 +90,15 @@ declare updating function csd_lsc:drop_cache_data($db,$name)
 
 };
 
+declare  function csd_lsc:cache_meta_exists($db) {
+  db:is-xml($db,$csd_lsc:cache_meta_doc)
+};
+
+
 declare updating function csd_lsc:init_cache_meta($db) {
-  if ( not(db:is-xml($db,$csd_lsc:cache_meta_doc)))  then
+  if ( not(csd_lsc:cache_meta_exists($db)))  then
     db:add($db, <cacheData/>,$csd_lsc:cache_meta_doc)
-    else 
+  else 
       ()
 };
 
@@ -102,8 +110,11 @@ declare updating function csd_lsc:set_service_directory_mtime($db,$name,$mtime)
   return
     if (not(exists($meta/serviceCache[@name = $name])))  then
       insert node <serviceCache name="{$name}" mtime="{$csd_lsc:beginning_of_time}"/> into $meta
-    else 
-      replace value of node$meta/serviceCache[@name = $name]/@mtime with $mtime
+    else if (not(exists($meta/serviceCache[@name = $name]/@mtime))) then
+      let $attr := attribute {"mtime"}{ $csd_lsc:beginning_of_time}
+      return ( insert  node $attr into $meta/serviceCache[@name = $name])
+    else
+      replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
   )
       
 
@@ -124,23 +135,22 @@ declare function csd_lsc:get_service_directory_mtime($db,$name)
 };
 
 
+
 declare  updating  function csd_lsc:update_cache($db,$name)  
 {
 
   let $mtime :=  csd_lsc:get_service_directory_mtime($db,$name)
 (:  querying against self during an update will cause a deadlock :)
-(:  see https://github.com/BaseXdb/basex/issues/173  or :)
+(:  see or :)
 (:  http://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.htmlhttp://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.html  :)
 (:  possible work-around: http://docs.basex.org/wiki/Server_Protocol ? :)
-(:  let $result := csd_psd:poll_service_directory($name,$mtime)    :)
-  let $result := ()
-  let $currtime := current-dateTime()
+  let $result := csd_psd:poll_service_directory($name,$mtime)    
   let $cache_doc := csd_lsc:get_cache($db,$name) 
+
+  let $currtime := current-dateTime()
   return (
-    if (not(csd_lsc:directory_exists($db,$name)))
-      then csd_lsc:create_cache($db,$name) else ()
-      , csd_lsc:refresh_doc($cache_doc,$result)   
-      , csd_lsc:set_service_directory_mtime($db,$name,$currtime)
+    csd_lsc:refresh_doc($cache_doc,$result)   
+    ,csd_lsc:set_service_directory_mtime($db,$name,$currtime) 
       
   )
 
@@ -151,10 +161,10 @@ declare  updating  function csd_lsc:update_cache($db,$name)
 declare updating function csd_lsc:refresh_doc($cache_doc,$updates) 
 {
   (
-  csd_lsc:update_directory($cache_doc/CSD/providerDirectory,$updates/CSD/organizationDirectory)
-  ,csd_lsc:update_directory($cache_doc/CSD/facilityDirectory,$updates/CSD/facilityDirectory)
-  ,csd_lsc:update_directory($cache_doc/CSD/serviceDirectory,$updates/CSD/serviceDirectory)
-  ,csd_lsc:update_directory($cache_doc/CSD/providerDirectory,$updates/CSD/providerDirectory)
+  csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/csd:CSD/csd:organizationDirectory)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:facilityDirectory,$updates/csd:CSD/csd:facilityDirectory)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:serviceDirectory,$updates/csd:CSD/csd:serviceDirectory)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/csd:CSD/csd:providerDirectory)
   )
 };
 

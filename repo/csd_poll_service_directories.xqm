@@ -31,8 +31,8 @@ declare variable $csd_psd:services_library :=
 	/>
    <serviceDirectory 
         name='openhim'
-        url2='https://openhim.jembi.org:5000/CSD/getUpdatedServices'
-        url='https://54.204.35.85:5000/CSD/getUpdatedServices'
+        url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'
+        url2='https://54.204.35.85:5000/CSD/getUpdatedServices'
 	username='test'
 	password='test'
 	/>
@@ -64,7 +64,8 @@ declare function csd_psd:poll_service_directory($name,$mtime)
 {
   let $soap := csd_psd:poll_service_directory_soap_response($name,$mtime)
   return  if ($soap) then
-     $soap/soap:Envelope/soap:Body/csd:getModificationsResponse/csd:CSD
+     $soap/soap:Envelope/soap:Body/csd:getModificationsResponse
+(:     $soap//csd:CSD :)
   else
     ()
 };
@@ -104,12 +105,12 @@ declare function csd_psd:poll_service_directory_soap_response($name,$mtime)
       method='post' >
       {$message}
     </http:request>   
-   
   let $response := http:send-request($request)   
   let $status := text{$response[1]/@status}
   return if ($status = "200") 
   then
-    $response[2]    
+  (    $response[2]    
+)
   else
     ()
 
