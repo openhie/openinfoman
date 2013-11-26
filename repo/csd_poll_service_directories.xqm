@@ -16,10 +16,6 @@ declare variable $csd_psd:services_library :=
 
 
    <serviceDirectory 
-        name='localhost'
-	url='{request:scheme()}://localhost:{request:port()}/CSD/getUpdatedServices'
-	/>
-   <serviceDirectory 
         name='rhea_simple_provider'
 	url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'
 	/>

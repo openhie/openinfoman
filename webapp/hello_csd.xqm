@@ -62,9 +62,11 @@ declare
 	  <p>These the top-level endpoints are exposed</p>
 	  <ul>
 	    <li>Endpoint for submitting careServiceRequest documents <i>http://{request:hostname()}:{request:port()}/CSD/careServiceRequest</i></li>
-	    <li>Endpoint for submitting getUpdatedServices soap request <i>http://{request:hostname()}:{request:port()}/CSD/getUpdatedServices</i></li>
+	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/initSampleDirectory">Initialize Sample Directories </a></li>
+	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
 	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
 	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/cacheService">administer local cache of registered service directories </a></li>
+	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/mergeServices">merge caches or registered services directories </a></li>
 	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
 	  </ul>
 	</div>

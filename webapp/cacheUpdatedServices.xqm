@@ -48,7 +48,7 @@ declare
   function page:get_service_menu($name)
 {
   let $response := page:services_menu($name) 
-  return page:wrapper($response)
+  return page:nocache(page:wrapper($response))
 };
 
 declare
@@ -180,7 +180,6 @@ let $response :=
 	  <ul>
 	    {for $name in $services
 	    let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
-	    where $name != 'localhost'
 	    order by $name
 	    return 
 	    <li>
