@@ -77,7 +77,7 @@ let $response :=
 	    </form> 
 	    </li>
 	    Submit {$name} SOAP request to:
-	    <pre>{request:hostname()}:{request:port()}//CSD/getUpdatedServices/{$name}/get</pre> 
+	    <pre>{request:scheme()}://{request:hostname()}:{request:port()}//CSD/getUpdatedServices/{$name}/get</pre> 
 
 	  </ul>
 	</li>

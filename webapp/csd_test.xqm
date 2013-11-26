@@ -54,8 +54,8 @@ declare
 {
 <html>
   <head>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-static-top">
@@ -66,7 +66,7 @@ declare
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@ declare
 	<p>
 	To test submission on your machine you can do:
 	<pre>
-	curl --form "fileupload=@test.xml" http://{request:hostname()}:{request:port()}/CSD/careServicesRequest
+	curl --form "fileupload=@test.xml" {request:scheme()}://{request:hostname()}:{request:port()}/CSD/careServicesRequest
 	</pre>
 	where test.xml is one of the downloaded source documents below
 	</p>

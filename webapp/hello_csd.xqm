@@ -13,8 +13,8 @@ declare
 { 
 <html>
   <head>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -25,7 +25,7 @@ declare
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -61,13 +61,13 @@ declare
 	
 	  <p>These the top-level endpoints are exposed</p>
 	  <ul>
-	    <li>Endpoint for submitting careServiceRequest documents <i>http://{request:hostname()}:{request:port()}/CSD/careServiceRequest</i></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/initSampleDirectory">Initialize Sample Directories </a></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/cacheService">administer local cache of registered service directories </a></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/mergeServices">merge caches or registered services directories </a></li>
-	    <li><a href="http://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
+	    <li>Endpoint for submitting careServiceRequest documents <i>{request:scheme()}://{request:hostname()}:{request:port()}/CSD/careServiceRequest</i></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/initSampleDirectory">Initialize Sample Directories </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService">administer local cache of registered service directories </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/mergeServices">merge caches or registered services directories </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
 	  </ul>
 	</div>
       </div>

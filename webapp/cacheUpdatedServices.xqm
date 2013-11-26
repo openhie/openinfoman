@@ -27,7 +27,7 @@ declare updating
 {
   (csd_lsc:init_cache_meta($page:db)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
   )
   
 };
@@ -68,7 +68,7 @@ declare updating
   (
   csd_lsc:create_cache($page:db,$name)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
   )
 
 
@@ -82,7 +82,7 @@ declare updating
   (
   csd_lsc:drop_cache_data($page:db,$name)
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
   )
 
 
@@ -104,7 +104,7 @@ declare updating
 (
   csd_lsc:empty_cache($page:db,$name) 
   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
   )
 
 };
@@ -118,7 +118,7 @@ declare updating
 { 
 (
   csd_lsc:update_cache($page:db,$name)   ,
-  db:output(page:redirect(concat("http://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
 )
 
 
@@ -129,8 +129,8 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="http://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -141,7 +141,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -164,9 +164,9 @@ let $response :=
 	  <h2>Global Operations</h2>
 	  <ul>
 	    {   if ( csd_lsc:cache_meta_exists($page:db)) then
-	       <li> <a href="http://{request:hostname()}:{request:port()}/CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
+	       <li> <a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
 	     else 
-	       <li> <a href="http://{request:hostname()}:{request:port()}/CSD/cacheService/init_cache_meta">Init cache Meta-Data</a></li>
+	       <li> <a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService/init_cache_meta">Init cache Meta-Data</a></li>
 
 	    }
 	  </ul>
