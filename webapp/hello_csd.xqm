@@ -61,8 +61,8 @@ declare
 	
 	  <p>These the top-level endpoints are exposed</p>
 	  <ul>
-	    <li>Endpoint for submitting careServiceRequest documents <i>{request:scheme()}://{request:hostname()}:{request:port()}/CSD/careServiceRequest</i></li>
 	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/initSampleDirectory">Initialize Sample Directories </a></li>
+	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/csr">Care Services Request </a></li>
 	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
 	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
 	    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService">administer local cache of registered service directories </a></li>
