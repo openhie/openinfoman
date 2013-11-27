@@ -72,12 +72,12 @@ declare function csd_psd:registered_directories($db) {
 
 
 declare function csd_psd:get_service_directory_url($db,$name) {
-  text{ db:open($db,$csd_psd:directory_manager)/serivceDirectoryLibrary/serviceDirectory[@name=$name]/@url}
+  text{ db:open($db,$csd_psd:directory_manager)//serviceDirectory[@name=$name]/@url}
 };
 
 
 declare function csd_psd:get_service_directory_credentials($db,$name) {
-  db:open($db,$csd_psd:directory_manager)/serivceDirectoryLibrary/serviceDirectory[@name=$name]/credentials
+  db:open($db,$csd_psd:directory_manager)//serviceDirectory[@name=$name]/credentials
 };
 
 
@@ -94,22 +94,16 @@ declare function csd_psd:poll_service_directory($db,$name,$mtime)
 };
 
 
-
-declare function csd_psd:poll_service_directory_soap_response($db,$name,$mtime) 
-{
+declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
   let $url := csd_psd:get_service_directory_url($db,$name)    
   let $boundary := concat("----------------", random:uuid()) 
   let $message :=       <http:multipart media-type='multipart/form-data' boundary="{$boundary}" method='xml' accept='*/*'> 
 	<http:header name="Content-Disposition" value="form-data; name=&quot;fileupload&quot;; filename=&quot;soap.xml&quot;"/>
 	<http:header name="Content-Type" value="application/xml"/>	
-(:	<http:header name="Content-Type" value="application/xml; charset=utf-8"/>	 :)
-(:	<http:header name="Media-Type" value="application/xml; charset=utf-8"/>	 :)
-(:	<http:header name="Accept" value="*/*"/>	:)
         <http:body   media-type="application/xml" method='xml' >
  	 {csd_qus:create_last_update_request($url,$mtime)} 
         </http:body>      
-      </http:multipart>
-      
+      </http:multipart>     
   let $credentials := csd_psd:get_service_directory_credentials($db,$name)
   let $request := 
     if ($credentials/@type = 'basic_auth' and $credentials/@username ) 
@@ -128,7 +122,13 @@ declare function csd_psd:poll_service_directory_soap_response($db,$name,$mtime)
       method='post' >
       {$message}
     </http:request>   
-  let $response := http:send-request($request)   
+  return $request
+};
+
+declare function csd_psd:poll_service_directory_soap_response($db,$name,$mtime) 
+{
+  let $request := csd_psd:generate_soap_request($db,$name,$mtime)
+  let $response := http:send-request($request)
   let $status := text{$response[1]/@status}
   return if ($status = "200") 
   then
