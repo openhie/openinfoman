@@ -5,6 +5,7 @@
 :
 :)
 module namespace csd = "urn:ihe:iti:csd:2013" ;
+declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 (:~
  : this function accepts a list of items to filter by address 
@@ -127,15 +128,15 @@ declare function csd:filter_by_primary_id($items as item()*,$id as item()) as it
 :)
 declare function csd:filter_by_other_id($items as item()*,$id as item()) as item()* 
 {
-       if ($id/@assigningAuthority) 
+       if ($id/@assigningAuthorityName) 
        then 
            let $aaName := fn:upper-case($id/@assigningAuthorityName	) 
            let $code := fn:upper-case($id/@code)		
-           return $items[
-                         otherID[ 
+           return $items[ 
+                          otherID[ 
                             fn:upper-case(@assigningAuthorityName)=$aaName
                             and
- 			                fn:upper-case(@code)=$code
+ 			   fn:upper-case(@code)=$code
                          ]
                         ]   
         else $items
