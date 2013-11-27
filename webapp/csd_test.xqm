@@ -92,7 +92,7 @@ declare function page:test_menu($name)
     order by $test_doc
     let $test := file:base-name($test_doc,".xml")
     return  <li>
-    {$test}:<a href="/CSD/{$name}/test/{$test}"> process on server</a>  /
+    {$test}:<a href="/CSD/test/{$name}/{$test}"> process on server</a>  /
     <a href="/CSD/test_source/{$test}"> download source</a> 
   </li>
     }
