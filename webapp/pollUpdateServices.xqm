@@ -12,8 +12,8 @@ declare variable $page:db := 'provider_directory';
 declare variable $page:samples :=
 <serviceDirectoryLibrary>
   <serviceDirectory  name='rhea_simple_provider' url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'/>
-  <serviceDirectory   name='openinfoman'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices'/>
-  <serviceDirectory   name='openhim'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'>
+  <serviceDirectory   name='openinfoman'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices/openinfoman/get'/>
+  <serviceDirectory   name='openhim'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/openhim/get'>
     <credentials type='basic_auth' username='test'  password='test'  />
   </serviceDirectory>
 </serviceDirectoryLibrary>;
@@ -296,7 +296,7 @@ declare function page:service_menu($name) {
     <li><a href="/CSD/pollService/{$name}/get"> Query  {$name} for Updated Services using stored last modified time (SOAP result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_csd"> Query  {$name} for Updated Services using stored last modified time (CSD result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_soap"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
-    <li><a href="/CSD/registerServices/deregisgter/{$name}"> Deregister This Service</a>    </li>
+    <li><a href="/CSD/registerService/deregister/{$name}"> Deregister This Service</a>    </li>
     <li>
     Query {$name} for Updated Services by time
     <form method='get' action="/CSD/pollService/{$name}/get">

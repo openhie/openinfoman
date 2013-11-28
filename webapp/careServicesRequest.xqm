@@ -25,6 +25,22 @@ else
 
 };
 
+declare
+  %rest:path("/CSD/csr/{$name}/adhoc")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
+  %rest:POST("{$adhoc}")
+  %rest:query-param("content", "{$content}")
+function page:adhoc($name,$adhoc,$content) {    
+if (csd_dm:document_source_exists($page:db,$name)) then 
+  let  $adhoc_doc := csr_proc:create_adhoc_doc($adhoc,$content)
+(:  return csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($page:db,$name))    :)
+  return $adhoc_doc 
+else
+  (:need appropriate error handling:)
+  ()
+
+};
+
 
 declare
   %rest:path("/CSD/csr")
@@ -42,6 +58,15 @@ let $response :=
 	<li>
 	  Submit Care Services Request for {$name} at:
 	  <pre>{request:scheme()}://{request:hostname()}:{request:port()}//CSD/csr/{$name}/careServicesRequest</pre> 
+	  <br/>
+	  Submit ad-hoc query:
+	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">
+	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc"/>
+	    <br/>
+	    <label for="content">Content Type</label><input    cols="80" name="content" value="application/xml"/>
+	    <br/>
+	    <input type="submit" value="submit"/>
+	  </form>
 	</li>
       }
     </ul>

@@ -89,4 +89,14 @@ declare function csr_proc:wrap_result($result,$content-type) {
 
 
 
+declare function csr_proc:create_adhoc_doc($adhoc_query,$content_type) {
+(:let $content := if ($content_type) then $content_type else "application/xml" 
+return:) <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
+(:  <expression content-type='{$content_type}'>
+  {$adhoc_query}
+  </expression> :)
+</csd:careServicesRequest>     
 
+
+
+};

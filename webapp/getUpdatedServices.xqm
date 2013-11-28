@@ -36,7 +36,7 @@ declare
 
 
 declare
-  %rest:path("/CSD/getUpdateServices/{$name}/get")
+  %rest:path("/CSD/getUpdatedServices/{$name}/get")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")
   %rest:POST("{$updatedServicesRequest}")
   function page:updated_services($name,$updatedServicesRequest) 
@@ -98,7 +98,7 @@ declare function page:service_menu($name)
     </form> 
     </li>
     Submit {$name} SOAP request to:
-    <pre>{request:scheme()}://{request:hostname()}:{request:port()}//CSD/getUpdatedServices/{$name}/get</pre> 
+    <pre>{request:scheme()}://{request:hostname()}:{request:port()}/CSD/getUpdatedServices/{$name}/get</pre> 
 
     </ul>
   </span>
