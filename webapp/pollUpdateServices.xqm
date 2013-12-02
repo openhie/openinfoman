@@ -16,6 +16,9 @@ declare variable $page:samples :=
   <serviceDirectory   name='openhim_providers'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/providers/get'>
     <credentials type='basic_auth' username='test'  password='test'  />
   </serviceDirectory>
+  <serviceDirectory   name='openhim_old'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'>
+    <credentials type='basic_auth' username='test'  password='test'  />
+  </serviceDirectory>
 </serviceDirectoryLibrary>;
 
 

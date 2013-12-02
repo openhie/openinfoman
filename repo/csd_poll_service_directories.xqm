@@ -86,11 +86,11 @@ declare function csd_psd:get_service_directory_credentials($db,$name) {
 declare function csd_psd:poll_service_directory($db,$name,$mtime) 
 {
   let $soap := csd_psd:poll_service_directory_soap_response($db,$name,$mtime)
-  return  if ($soap) then
-     $soap/soap:Envelope/soap:Body/csd:getModificationsResponse
-(:     $soap//csd:CSD :)
+  let $resp := $soap/soap:Envelope/soap:Body/csd:getModificationsResponse
+  return  if (exists($resp)) then
+     $resp
   else
-    ()
+    () 
 };
 
 
@@ -110,8 +110,8 @@ declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
       then 
       <http:request
       href='{$url}'  
-      username='{$credentials/username}'
-      password='{$credentials/password}'    
+      username='{$credentials/@username}'
+      password='{$credentials/@password}'    
       send-authorization='true'
       method='post' >
       {$message}
@@ -136,7 +136,6 @@ declare function csd_psd:poll_service_directory_soap_response($db,$name,$mtime)
 )
   else
     ()
-
 };
 
 
