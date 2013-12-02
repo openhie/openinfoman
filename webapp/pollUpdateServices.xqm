@@ -12,8 +12,8 @@ declare variable $page:db := 'provider_directory';
 declare variable $page:samples :=
 <serviceDirectoryLibrary>
   <serviceDirectory  name='rhea_simple_provider' url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'/>
-  <serviceDirectory   name='openinfoman'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices/openinfoman/get'/>
-  <serviceDirectory   name='openhim'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/openhim/get'>
+  <serviceDirectory   name='openinfoman_providers'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices/providers/get'/>
+  <serviceDirectory   name='openhim_providers'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/providers/get'>
     <credentials type='basic_auth' username='test'  password='test'  />
   </serviceDirectory>
 </serviceDirectoryLibrary>;
