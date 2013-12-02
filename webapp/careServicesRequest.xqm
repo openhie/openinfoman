@@ -25,16 +25,20 @@ else
 
 };
 
+
 declare
   %rest:path("/CSD/csr/{$name}/adhoc")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")
-  %rest:POST("{$adhoc}")
-  %rest:query-param("content", "{$content}")
+  %rest:POST
+  %rest:form-param("adhoc","{$adhoc}")
+  %rest:form-param("content", "{$content}","application/xml")
 function page:adhoc($name,$adhoc,$content) {    
 if (csd_dm:document_source_exists($page:db,$name)) then 
-  let  $adhoc_doc := csr_proc:create_adhoc_doc($adhoc,$content)
-(:  return csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($page:db,$name))    :)
-  return $adhoc_doc 
+(:  csr_proc:process_CSR_adhoc(fn:parse-xml($adhoc),csd_dm:open_document($page:db,$name)) :)
+let  $adhoc_doc := csr_proc:create_adhoc_doc(fn:root(fn:parse-xml($adhoc)),$content)
+return  csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($page:db,$name))
+(:  
+  return  csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($page:db,$name))      :)
 else
   (:need appropriate error handling:)
   ()
@@ -61,9 +65,18 @@ let $response :=
 	  <br/>
 	  Submit ad-hoc query:
 	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">
-	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc"/>
+	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc" ><![CDATA[<html xmlns:csd='urn:ihe:iti:csd:2013'>
+  <body>
+    <ul>
+      <li>You have {count(/csd:CSD/csd:providerDirectory/*)} providers.</li>
+      <li>You have {count(/csd:CSD/csd:facilityDirectory/*)} facilities.</li>
+      <li>You have {count(/csd:CSD/csd:organizationDirectory/*)} organizations.</li>
+      <li>You have {count(/csd:CSD/csd:serviceDirectory/*)} services.</li>
+    </ul>
+  </body>
+</html> ]]> </textarea>
 	    <br/>
-	    <label for="content">Content Type</label><input    cols="80" name="content" value="application/xml"/>
+	    <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
 	    <br/>
 	    <input type="submit" value="submit"/>
 	  </form>

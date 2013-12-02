@@ -12,15 +12,17 @@ import module namespace csd_sq = "https://github.com/his-interop/openinfoman/csd
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
+
 declare function csr_proc:process_CSR($careServicesRequest, $doc) 
 {
-
-if ($careServicesRequest/function) 
+let $func :=$careServicesRequest//csd:function
+let $adhoc :=$careServicesRequest//csd:expression
+return if (exists($func)) 
 then
-  csr_proc:process_CSR_stored($careServicesRequest/csd:function,$doc)
-else if ($careServicesRequest/expression) 
+  csr_proc:process_CSR_stored($func,$doc)
+else if (exists($adhoc))
 then
-  csr_proc:process_CSR_adhoc($careServicesRequest/expression,$doc)
+  csr_proc:process_CSR_adhoc($adhoc,$doc) 
 else 
   <rest:response>
     <http:response status="400" message="Invalid care services request.">
@@ -36,7 +38,6 @@ else
 declare function csr_proc:process_CSR_adhoc($expression,$doc) 
 {
 
-(:let $result := xquery:eval("<h2>{count(//*)}</h2>",map{"":=$doc}) :)
 let $expr :=serialize($expression/*)
 return if ($expr) then
   let $result := xquery:eval($expr,map{"":=$doc})
@@ -90,11 +91,12 @@ declare function csr_proc:wrap_result($result,$content-type) {
 
 
 declare function csr_proc:create_adhoc_doc($adhoc_query,$content_type) {
-(:let $content := if ($content_type) then $content_type else "application/xml" 
-return:) <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
-(:  <expression content-type='{$content_type}'>
+let $content := if ($content_type) then $content_type else "application/xml" 
+return
+ <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013'>
+  <csd:expression content-type='{$content}'>
   {$adhoc_query}
-  </expression> :)
+  </csd:expression> 
 </csd:careServicesRequest>     
 
 
