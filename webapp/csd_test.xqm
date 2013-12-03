@@ -6,7 +6,8 @@ import module namespace request = "http://exquery.org/ns/request";
 
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 declare variable $page:db := 'provider_directory';
-declare variable $page:test_docs :=  file:list("../test_docs/",boolean('false'),"*.xml");
+declare variable $page:test_doc_dir := "../resources/test_docs/";
+declare variable $page:test_docs :=  file:list($page:test_doc_dir,boolean('false'),"*.xml");
 
 
 
@@ -48,10 +49,9 @@ else
 };
 
 declare function page:get_test_doc($test) {
-let $dir_base := "../test_docs/"
-let $dir := file:resolve-path($dir_base)
-let $file := file:resolve-path(concat($dir_base,$test,".xml"))
-return if (starts-with($file,$dir) and file:exists($file)) 
+let $dir_base := file:resolve-path($page:test_doc_dir)
+let $file := file:resolve-path(concat($dir_base , "/" ,$test,".xml"))
+return if ( file:exists($file)) 
 then
   doc($file)
 else

@@ -6,7 +6,7 @@
 :)
 module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd";
 
-declare variable $csd_lsd:base_path := "../service_directories/";
+declare variable $csd_lsd:base_path := "../resources/service_directories/";
 
 declare function csd_lsd:sample_directories() {
   let $files := file:list($csd_lsd:base_path,true(),'*.xml')
