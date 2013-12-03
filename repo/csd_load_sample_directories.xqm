@@ -9,7 +9,9 @@ module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd";
 declare variable $csd_lsd:base_path := "../service_directories/";
 
 declare function csd_lsd:sample_directories() {
-  file:base-name(file:list($csd_lsd:base_path,false(),'*.xml'),".xml")
+  let $files := file:list($csd_lsd:base_path,true(),'*.xml')
+  for $file in $files
+  return file:base-name($file,".xml")
 };
 
 declare function csd_lsd:get_document_names() {
