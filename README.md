@@ -15,12 +15,13 @@ Installation
 Downloand the most current version of <a href="http://basex.org">BaseX</a> (the .zip version) and simply copy/link the files under:
 - repo/
 - webapp/
+- webapp/static
 - test_docs/
 to the root directory of the basex.
 
-You will also need to create a database with some test data to get things working. To do this navigate to basex/bin and execute the following:
+You will also need to create a database  get things working. To do this navigate to basex/bin and execute the following:
 
-  `./basex -Vc "CREATE DATABASE provider_directory /path/to/openinfoman/service_directories/providers.xml"`
+  `./basex -Vc "CREATE DATABASE provider_directory"`
 
 Endpoints
 =========
