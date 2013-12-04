@@ -1,0 +1,18 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.105" version="20131201" displayName="CSD Provider Type Codes">
+	<ConceptList xml:lang="en-US">
+		<Concept code="105-001" displayName="Certified Nurse Midwife" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-002" displayName="Podiatry" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-003" displayName="Nurse Practitioner" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-004" displayName="Audiologist" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-005" displayName="Licensed Clinical Social Worker" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-006" displayName="Physician/Emergency Medicine" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-007" displayName="Physician/Medical Oncology" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-008" displayName="Physician/Gynecological Oncology" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-009" displayName="Physician/Pediatric Medicine" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-110" displayName="Physician/Thoracic Surgery" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-111" displayName="Physician/General Practice" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-112" displayName="Anesthesiology Assistant" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-113" displayName="Physician/Mammographer" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="105-114" displayName="Radiology Technician" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+	</ConceptList>
+</ValueSet>

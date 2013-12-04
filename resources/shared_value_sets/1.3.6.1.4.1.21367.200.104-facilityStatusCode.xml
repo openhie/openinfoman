@@ -1,0 +1,7 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.104" version="20131201" displayName="CSD Facility Status Codes">
+	<ConceptList xml:lang="en-US">
+		<Concept code="104-001" displayName="Open" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="104-002" displayName="Closed" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="104-003" displayName="Under Construction" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+	</ConceptList>
+</ValueSet>

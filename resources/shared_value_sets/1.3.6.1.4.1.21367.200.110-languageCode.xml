@@ -1,0 +1,18 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.110" version="20131201" displayName="CSD Language Codes">
+	<ConceptList xml:lang="en-US">
+		<Concept code="ar" displayName="Arabic" codeSystem="BCP 47"/>
+		<Concept code="bn" displayName="Bengali" codeSystem="BCP 47"/>
+		<Concept code="ny" displayName="Chichewa" codeSystem="BCP 47"/>
+		<Concept code="zh" displayName="Chinese" codeSystem="BCP 47"/>
+		<Concept code="en" displayName="English" codeSystem="BCP 47" />
+		<Concept code="fr" displayName="French" codeSystem="BCP 47"/>
+		<Concept code="de" displayName="German" codeSystem="BCP 47"/>
+		<Concept code="ja" displayName="Japanese" codeSystem="BCP 47"/>
+		<Concept code="ko" displayName="Korean" codeSystem="BCP 47"/>
+		<Concept code="mi" displayName="Maori" codeSystem="BCP 47"/>
+		<Concept code="es" displayName="Spanish" codeSystem="BCP 47"/>
+		<Concept code="sw" displayName="Swahili" codeSystem="BCP 47"/>
+		<Concept code="ty" displayName="Tahitian" codeSystem="BCP 47"/>
+		<Concept code="vi" displayName="Vietnamese" codeSystem="BCP 47"/>
+	</ConceptList>
+</ValueSet>

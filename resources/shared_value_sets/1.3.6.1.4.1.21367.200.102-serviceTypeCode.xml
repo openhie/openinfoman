@@ -1,0 +1,17 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.102" version="20131201" displayName="CSD Service Type Codes">
+	<ConceptList xml:lang="en-US">
+		<Concept code="101-001" displayName="Hospital - Outpatient" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-002" displayName="Radiation Therapy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-003" displayName="Dialysis" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-004" displayName="Routine Exam" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-005" displayName="Well Baby Care" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-006" displayName="Laboratory" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-007" displayName="Occupational Therapy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-008" displayName="Generic Prescription Drug - Formulary" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-009" displayName="Massage Therapy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-110" displayName="Screening X-Ray" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-111" displayName="Vision - Frames" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-112" displayName="Gynecological" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="101-113" displayName="Screening Mammography" codeSystem="1.3.6.1.4.1.21367.100.1"></Concept>
+	</ConceptList>
+</ValueSet>

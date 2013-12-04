@@ -1,0 +1,16 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.103" version="20131201" displayName="CSD Facility Type Codes">
+	<ConceptList xml:lang="en-US">
+		<Concept code="103-001" displayName="Ambulatory Surgery Center" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-002" displayName="Cancer Center" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-003" displayName="Dialysis Center" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-004" displayName="Hearing Services" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-005" displayName="Hospital" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-006" displayName="Laboratory" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-007" displayName="Occupational Therapy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-008" displayName="Pharmacy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-009" displayName="Physical Therapy" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-110" displayName="Radiology - Imaging Services" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-111" displayName="Vision Center" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="103-112" displayName="Womens Health" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+	</ConceptList>
+</ValueSet>

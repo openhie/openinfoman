@@ -1,0 +1,9 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="1.3.6.1.4.1.21367.200.101" version="20131201" displayName="CSD Organization Type Codes">
+  <ConceptList xml:lang="en-US">
+    <Concept code="101-001" displayName="Healthcare Information Exchange" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+    <Concept code="101-002" displayName="Integrated Delivery Network" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+    <Concept code="101-003" displayName="Non-government Organization" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+    <Concept code="101-004" displayName="Faith-based Organization" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+    <Concept code="101-005" displayName="Family Practice" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+  </ConceptList>
+</ValueSet>
