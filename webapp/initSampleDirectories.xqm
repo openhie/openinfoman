@@ -2,8 +2,6 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-import module namespace file = "http://expath.org/ns/file";
-declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 import module namespace request = "http://exquery.org/ns/request";
 
 declare variable $page:db := 'provider_directory';

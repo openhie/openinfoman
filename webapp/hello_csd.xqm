@@ -28,6 +28,7 @@ declare
   %output:method("xhtml")
   function page:list_functionality()
 { 
+
 let $what_is_dm :=   
 <p>
   The document manger registers documents to perform  careServicesRequests and getUpdatedServices requests  against.  Registered documents can be any of:
@@ -37,13 +38,14 @@ let $what_is_dm :=
     <li>The merged result of remote service directories</li>
   </ul>
 </p>
-let $response := if (not(csd_dm:dm_exists($page:db))) then
+let $please_init:=
  <span>
    <h3>No Document Manager Exists</h3>
    <p>Please <a href="/CSD/initDocumentManager">initialize the document manager</a></p> 
    Please make sure you have created the database {$page:db}!
    {$what_is_dm}
  </span>
+let $csd := if (not(csd_dm:dm_exists($page:db))) then $please_init
 else 
 <span>       
   {$what_is_dm}
@@ -63,7 +65,14 @@ else
     <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
   </ul>
 </span>
-return page:nocache(page:wrapper($response))
+let $svs := if (not(csd_dm:dm_exists($page:db))) then $please_init else
+<span>
+  In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
+  <ul>
+    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
+  </ul>
+</span>
+return page:nocache(page:wrapper($csd,$svs))
 };
 
 
@@ -76,18 +85,43 @@ $response)
 };
 
 
-declare function page:wrapper($response) {
-<html>
+declare function page:wrapper($csd,$svs) {
+  let $generic := 
+  <span>
+    <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
+    
+    Source code is on <a href="https://github.com/his-interop/openinfoman">github</a>
+    </p>
+  </span>
+
+  return <html>
   <head>
 
     <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
-    <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/tab.js"/>
 
     <script src="https://code.jquery.com/jquery.js"/>
     <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
+   <script type="text/javascript">
+    $( document ).ready(function() {{
+      $('#tab_csd a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
+      $('#tab_home a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
+      $('#tab_svs a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
+    }});
+   </script>
+
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -102,39 +136,65 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    <div class="jumbotron">
-      <div class="container">
-	<h2>Welcome to OpenInfoMan</h2>
-	<b>OpenInfoMan</b> is XQuery and RESTXQ based implementation of the Care Services Directory (<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_CSD.pdf">CSD</a>) profile from <a href="http://ihe.net">IHE</a> which implements the following actors and transactions:
-	<ul>
-	  <li>
-	    <i>Info Manager</i> : 
-	    <div style="padding-left:9em;margin-top:-2.1em;">
-	    Find Matching Services (Ad-Hoc and Stored) [ITI-73]<br/>
-	    Query for  Updated Services Transaction [ITI-74]
-	    </div>
-	  </li>
-	  <li>
-	    <i>Services Directory</i> : 
-	    <div style="padding-left:9em;margin-top:-2.1em;">Query for  Updated Services Transaction [ITI-74]</div>
-	  </li>
-
-	</ul>
-      </div>
-    </div>
     <div class="container">
-      <div class='row'>
-	<div class="col-md-4">
-	  <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
-	  
-	  Source code is on <a href="https://github.com/his-interop/openinfoman">github</a>
-	  </p>
+      <ul class="nav nav-tabs">
+	<li id='tab_home' class="active"><a  href="#home">Introduction</a></li>
+	<li id='tab_csd'><a  href="#csd">CSD Endpoints</a></li>
+	<li id='tab_svs'><a  href="#svs">SVS Endpoints</a></li>
+      </ul>
+      <div class="tab-content panel">
+	<div class="tab-pane active panel-body" id="home">
+	  <div class="jumbotron">
+
+	    <div class='row'>
+	      <div class="col-md-8">
+		<h2>Welcome to OpenInfoMan</h2>
+		<p>
+		  <b>OpenInfoMan</b> is an XQuery and RESTXQ based implementation of the Care Services Directory (<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_CSD.pdf">CSD</a>) profile from <a href="http://ihe.net">IHE</a> which implements the following actors and transactions:
+		</p>
+		<ul>
+		  <li>
+		    <i>Info Manager</i> : 
+		    <div style="padding-left:9em;margin-top:-2.1em;">
+		    Find Matching Services (Ad-Hoc and Stored) [ITI-73]<br/>
+		    Query for  Updated Services Transaction [ITI-74]
+		    </div>
+		  </li>
+		  <li>
+		    <i>Services Directory</i> : 
+		    <div style="padding-left:9em;margin-top:-2.1em;">Query for  Updated Services Transaction [ITI-74]</div>
+		  </li>
+		</ul>
+	      </div>
+	      <div class="col-md-4">
+		{$generic}
+	      </div>
+	    </div>
+	  </div>
 	</div>
-	<div class="col-md-6">
-	  {$response}
+	<div class="tab-pane panel-body" id="csd">
+	  <div class='row'>
+	    <div class="col-md-4">
+	      {$generic}
+	    </div>
+	    <div class="col-md-6">
+	      {$csd}
+	    </div>
+	  </div>
+	</div>
+	<div class="tab-pane panel-body" id="svs">
+	  <div class='row'>
+	    <div class="col-md-4">
+	      {$generic}
+	    </div>
+	    <div class="col-md-6">
+	      {$svs}
+	    </div>
+	  </div>
 	</div>
       </div>
     </div>
+
     <div class="footer">
       <div class="container">
 	<div class='row'>
@@ -144,7 +204,7 @@ declare function page:wrapper($response) {
 	</div>
       </div>
     </div>
-  </body>
+  </body> 
 </html>
 };
 
