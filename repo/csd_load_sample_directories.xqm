@@ -12,7 +12,7 @@ declare function csd_lsd:fn_base_name($file,$ext) {
   let $old_base_name := fn:function-lookup(xs:QName("file:base-name"), 2)
   return
     if (not(exists($old_base_name))) then
-      fn:function-lookup(xs:QName("file:name"), 2)($file,$ext)
+      fn:replace(fn:function-lookup(xs:QName("file:name"), 1)($file), fn:concat($ext, "$"), "")
     else
       $old_base_name($file,$ext)
 };
