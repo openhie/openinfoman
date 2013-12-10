@@ -2,6 +2,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd = "urn:ihe:iti:csd:2013" at "../repo/csd_base_library.xqm";
 import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
 import module namespace request = "http://exquery.org/ns/request";
+import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
 
 
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
@@ -90,7 +91,7 @@ declare function page:test_menu($name)
   <ul>
     {for $test_doc in $page:test_docs
     order by $test_doc
-    let $test := file:base-name($test_doc,".xml")
+    let $test := csd_lsd:fn_base_name($test_doc,".xml")
     return  <li>
     {$test}:<a href="/CSD/test/{$name}/{$test}"> process on server</a>  /
     <a href="/CSD/test_source/{$test}"> download source</a> 
