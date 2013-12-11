@@ -4,9 +4,9 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
-import module namespace request = "http://exquery.org/ns/request";
 import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
-declare variable $page:db := 'provider_directory';
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
+
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
 {
@@ -26,9 +26,9 @@ declare updating
   %rest:GET
   function page:init_cache_meta()
 {
-  (csd_lsc:init_cache_meta($page:db)
+  (csd_lsc:init_cache_meta($csd_webconf:db)
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
   )
   
 };
@@ -38,7 +38,7 @@ declare
   %rest:GET
   function page:get_cache_meta()
 {
-  csd_lsc:get_cache_data($page:db,())
+  csd_lsc:get_cache_data($csd_webconf:db,())
 };
 
 
@@ -57,7 +57,7 @@ declare
   %rest:GET
   function page:get_service_cache_meta($name)
 {
-  csd_lsc:get_cache_data($page:db,$name) 
+  csd_lsc:get_cache_data($csd_webconf:db,$name) 
 };
 
 
@@ -67,9 +67,9 @@ declare updating
   function page:create_cache($name)
 {
   (
-  csd_lsc:create_cache($page:db,$name)
+  csd_lsc:create_cache($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
   )
 
 
@@ -81,9 +81,9 @@ declare updating
   function page:drop_service_cache_meta($name)
 {
   (
-  csd_lsc:drop_cache_data($page:db,$name)
+  csd_lsc:drop_cache_data($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/cacheService")))
   )
 
 
@@ -94,7 +94,7 @@ declare
   %rest:GET
   function page:get_cache($name)
 { 
- csd_lsc:get_cache($page:db,$name) 
+ csd_lsc:get_cache($csd_webconf:db,$name) 
 };
 
 declare updating
@@ -103,9 +103,9 @@ declare updating
   function page:empty_cache($name)
 { 
 (
-  csd_lsc:empty_cache($page:db,$name) 
+  csd_lsc:empty_cache($csd_webconf:db,$name) 
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
   )
 
 };
@@ -118,8 +118,8 @@ declare updating
   function page:update_cache($name)
 { 
 (
-  csd_lsc:update_cache($page:db,$name)   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  csd_lsc:update_cache($csd_webconf:db,$name)   ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/cacheService")))
 )
 
 
@@ -130,8 +130,8 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -142,7 +142,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -157,30 +157,30 @@ declare
   %output:method("xhtml")
   function page:poll_service_list()
 { 
-let $services := csd_psd:registered_directories($page:db)
+let $services := csd_psd:registered_directories($csd_webconf:db)
 let $response :=
     <div >
       <div class='row'>
  	<div class="col-md-8">
 	  <h2>Global Operations</h2>
 	  <ul>
-	    {   if ( csd_lsc:cache_meta_exists($page:db)) then
-	       <li> <a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
+	    {   if ( csd_lsc:cache_meta_exists($csd_webconf:db)) then
+	       <li> <a href="{$csd_webconf:baseurl}CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
 	     else 
-	       <li> <a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService/init_cache_meta">Init cache Meta-Data</a></li>
+	       <li> <a href="{$csd_webconf:baseurl}CSD/cacheService/init_cache_meta">Init cache Meta-Data</a></li>
 
 	    }
 	  </ul>
 	</div>
       </div>
       {   
-      if ( csd_lsc:cache_meta_exists($page:db)) then
+      if ( csd_lsc:cache_meta_exists($csd_webconf:db)) then
       <div class='row'>
  	<div class="col-md-8">
 	  <h2>Service Directory Operations</h2>
 	  <ul>
 	    {for $name in $services
-	    let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+	    let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
 	    order by $name
 	    return 
 	    <li>
@@ -208,8 +208,8 @@ declare updating
   function page:register($name)
 { 
 (
-  csd_dm:register_document($page:db,$name,csd_lsc:get_document_name($name)) ,
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  csd_dm:register_document($csd_webconf:db,$name,csd_lsc:get_document_name($name)) ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
 )
 };
 
@@ -219,18 +219,18 @@ declare updating
   function page:deregister($name)
 { 
 (
-  csd_dm:deregister_document($page:db,$name),
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/cacheService")))
+  csd_dm:deregister_document($csd_webconf:db,$name),
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
 )
 };
 
 
 declare function page:services_menu($name) {
-  let $url := csd_psd:get_service_directory_url($page:db,$name)
-  let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+  let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name)
+  let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
   return 
   <ul>
-    {if (not(csd_lsc:directory_exists($page:db,$name))) then
+    {if (not(csd_lsc:directory_exists($csd_webconf:db,$name))) then
     <li><a href="/CSD/cacheService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
   else 
     (
@@ -244,7 +244,7 @@ declare function page:services_menu($name) {
       </li>,
       <li><a href="/CSD/cacheService/directory/{$name}/cache_meta">Get cache Meta Data  for {$name}</a></li>,
       <li><a href="/CSD/cacheService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>,
-      if (not(csd_dm:is_registered($page:db,$name))) then 
+      if (not(csd_dm:is_registered($csd_webconf:db,$name))) then 
         <li><a href="/CSD/cacheService/directory/{$name}/register">Register local cache of {$name} with document manager</a></li>
       else
         <li><a href="/CSD/cacheService/directory/{$name}/deregister">Deregister local cache  of {$name} with document manager</a></li>
