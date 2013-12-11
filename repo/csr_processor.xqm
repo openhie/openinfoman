@@ -20,7 +20,7 @@ let $func :=$careServicesRequest//csd:function
 let $adhoc :=$careServicesRequest//csd:expression
 return if (exists($func)) 
 then
-  csr_proc:process_CSR_stored($func,$doc)
+ csr_proc:process_CSR_stored($func,$doc) 
 else if (exists($adhoc))
 then
   csr_proc:process_CSR_adhoc($adhoc,$doc) 
