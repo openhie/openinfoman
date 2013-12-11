@@ -6,11 +6,12 @@
 :)
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
-import module namespace csd_sq = "https://github.com/his-interop/openinfoman/csd_sq" at "csd_stored_queries.xqm";
 
+import module namespace csd_webconf = "https://github.com/his-interop/openinfoman/csd_webconf" at "csd_webapp_config.xqm";
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
+
 
 
 declare function csr_proc:process_CSR($careServicesRequest, $doc) 
@@ -59,10 +60,10 @@ else
 
 declare function csr_proc:process_CSR_stored($function,$doc) 
 {
-if (csd_sq:has_stored_query($function/@uuid)) 
+if (csd_webconf:has_stored_query($function/@uuid)) 
 then
-  let $result := csd_sq:execute_stored_query($doc,$function/@uuid,$function/requestParams)
-  let $content_type := csd_sq:lookup_stored_content_type($function/@uuid)
+  let $result := csd_webconf:execute_stored_query($doc,$function/@uuid,$function/requestParams)
+  let $content_type := csd_webconf:lookup_stored_content_type($function/@uuid)
   return if ($function/@encapsulated) 
   then
          csr_proc:wrap_result($result,$content_type)
