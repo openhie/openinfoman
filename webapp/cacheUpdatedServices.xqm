@@ -83,7 +83,7 @@ declare updating
   (
   csd_lsc:drop_cache_data($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
   )
 
 
@@ -119,7 +119,7 @@ declare updating
 { 
 (
   csd_lsc:update_cache($csd_webconf:db,$name)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/cacheService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService")))
 )
 
 

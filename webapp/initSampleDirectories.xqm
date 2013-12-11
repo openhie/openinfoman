@@ -2,9 +2,8 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-import module namespace request = "http://exquery.org/ns/request";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
 
-declare variable $page:db := 'provider_directory';
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
@@ -37,7 +36,7 @@ declare
   %rest:GET
   function page:get_directory($name)
 {
-  csd_lsd:get($page:db,$name) 
+  csd_lsd:get($csd_webconf:db,$name) 
 };
 
 
@@ -50,8 +49,8 @@ declare updating
   function page:load($name)
 { 
 (
-  csd_lsd:load($page:db,$name)   ,
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  csd_lsd:load($csd_webconf:db,$name)   ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 };
 
@@ -61,8 +60,8 @@ declare updating
   function page:register($name)
 { 
 (
-  csd_dm:register_document($page:db,$name,csd_lsd:get_document_name($name)),
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  csd_dm:register_document($csd_webconf:db,$name,csd_lsd:get_document_name($name)),
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 };
 
@@ -72,8 +71,8 @@ declare updating
   function page:deregister($name)
 { 
 (
-  csd_dm:deregister_document($page:db,$name),
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  csd_dm:deregister_document($csd_webconf:db,$name),
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 };
 
@@ -84,8 +83,8 @@ declare updating
   function page:reload($name)
 { 
 (
-  csd_lsd:reload($page:db,$name)   ,
-  db:output(page:redirect(concat(request:scheme() , "://",request:hostname(),":",request:port(),"/CSD/initSampleDirectory")))
+  csd_lsd:reload($csd_webconf:db,$name)   ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 
 
@@ -96,8 +95,8 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -108,7 +107,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -151,13 +150,13 @@ return page:nocache(  page:wrapper($response))
 
 declare function page:services_menu($name) {
   <ul>
-    {if (not(csd_lsd:exists($page:db,$name))) then
+    {if (not(csd_lsd:exists($csd_webconf:db,$name))) then
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/load">Initialize {$name}</a> </li>
   else 
     (
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get  {$name}</a></li>,
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload {$name}</a></li>,
-    if (csd_dm:is_registered($page:db,$name)) then
+    if (csd_dm:is_registered($csd_webconf:db,$name)) then
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/deregister">De-Register {$name} from Document Manager</a></li>
     else 
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/register">Register {$name} with Document Manager</a></li>

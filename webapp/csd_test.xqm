@@ -1,12 +1,10 @@
 module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd = "urn:ihe:iti:csd:2013" at "../repo/csd_base_library.xqm";
 import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
-import module namespace request = "http://exquery.org/ns/request";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
 import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd" at "../repo/csd_load_sample_directories.xqm";
-
-
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-declare variable $page:db := 'provider_directory';
+
 declare variable $page:test_doc_dir := "../resources/test_docs/";
 declare variable $page:test_docs :=  file:list($page:test_doc_dir,boolean('false'),"*.xml");
 
@@ -27,7 +25,7 @@ declare
 {
 let $test_doc := page:get_test_doc($test)
 return if ($test_doc) then
-  csr_proc:process_CSR($test_doc/csd:careServicesRequest,csd_dm:open_document($page:db,$name))
+  csr_proc:process_CSR($test_doc/csd:careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))
 else
    (:need better error handling:)
   <h2>Shame on you</h2>
@@ -69,7 +67,7 @@ let $response:=
 <span>
   <h2>Registered Documents</h2>
   {
-    for $name in csd_dm:registered_documents($page:db) 
+    for $name in csd_dm:registered_documents($csd_webconf:db) 
     return <div class='row'><h4>Tests for <a href="/CSD/test/{$name}">{$name}</a></h4>{page:test_menu($name)}</div>
   }
 </span>
@@ -84,7 +82,7 @@ declare function page:test_menu($name)
   <p>
   To test submission on your machine you can do:
   <pre>
-  curl --form "fileupload=@test.xml" {request:scheme()}://{request:hostname()}:{request:port()}/CSD/csr/{$name}/careServicesRequest
+  curl --form "fileupload=@test.xml" {$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest
   </pre>
   where test.xml is one of the downloaded source documents below
   </p>
@@ -106,12 +104,12 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
     <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
+    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -122,7 +120,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>

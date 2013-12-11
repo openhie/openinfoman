@@ -3,10 +3,8 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
 import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
-import module namespace request = "http://exquery.org/ns/request";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
 import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
-
-declare variable $page:db := 'provider_directory';
 
 
 declare variable $page:samples :=
@@ -40,9 +38,9 @@ declare updating
   function page:init() 
 {
   (
-    csd_psd:init($page:db)
+    csd_psd:init($csd_webconf:db)
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
 };
 
@@ -54,9 +52,9 @@ declare updating
 {
 
   (
-    csd_psd:deregister_service($page:db,$name)
+    csd_psd:deregister_service($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
 };
 
@@ -72,10 +70,10 @@ declare updating
   (
     let $sample := $page:samples//serviceDirectory[@name=$name]
     return if (exists($sample)) then
-      csd_psd:register_service($page:db,$name,text{$sample/@url},$sample/credentials)
+      csd_psd:register_service($csd_webconf:db,$name,text{$sample/@url},$sample/credentials)
     else ()
   ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
 };
 
@@ -92,9 +90,9 @@ declare updating
 
   (
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
-    return csd_psd:register_service($page:db,$name,$url,$credentials)
+    return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
       ,
-  db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD/pollService")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
 
 };
@@ -124,9 +122,9 @@ declare
   function page:poll_service($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory_soap_response($page:db,$name,$mtime)
+ csd_psd:poll_service_directory_soap_response($csd_webconf:db,$name,$mtime)
 else
- csd_psd:poll_service_directory_soap_response($page:db,$name,csd_lsc:get_service_directory_mtime($page:db,$name))
+ csd_psd:poll_service_directory_soap_response($csd_webconf:db,$name,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
 };
 
 
@@ -137,9 +135,9 @@ declare
   function page:poll_service_csd($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory($page:db,$name,$mtime)
+ csd_psd:poll_service_directory($csd_webconf:db,$name,$mtime)
 else
- csd_psd:poll_service_directory($page:db,$name,csd_lsc:get_service_directory_mtime($page:db,$name))
+ csd_psd:poll_service_directory($csd_webconf:db,$name,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
 };
 
 declare
@@ -148,7 +146,7 @@ declare
   %rest:GET
   function page:poll_service_soap($name,$mtime)
 { 
- let $url := csd_psd:get_service_directory_url($page:db,$name)    
+ let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name)    
  return (
  <rest:response>
    <http:response status="200" >
@@ -160,7 +158,7 @@ declare
    if ($mtime) then
      csd_qus:create_last_update_request($url,$mtime)
    else
-     csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($page:db,$name))
+     csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
  )
 
 };
@@ -169,19 +167,19 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
-    <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
     <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
-    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
+    <script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
     <script type="text/javascript">
     $( document ).ready(function() {{
       {
-	for $name in csd_psd:registered_directories($page:db)
+	for $name in csd_psd:registered_directories($csd_webconf:db)
 	return (
 	"$('#datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'});",
 	"$('#soap_datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'}); ")
@@ -198,7 +196,7 @@ declare function page:wrapper($response) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
@@ -217,16 +215,16 @@ declare
 { 
 
 let $response :=
-  if (not(csd_psd:dm_exists($page:db))) then
+  if (not(csd_psd:dm_exists($csd_webconf:db))) then
   <span>
     <h2>No Service Directory Manager </h2>
     Please <a href="/CSD/registerService/init">intialize the services directory manager</a> in order to start polling remote service directories.
   </span>
   else 
-    let $services := csd_psd:registered_directories($page:db)
+    let $services := csd_psd:registered_directories($csd_webconf:db)
     let $unreg_services := 
     for $sample in $page:samples//serviceDirectory
-    where not(csd_psd:is_registered($page:db,$sample/text{@name}))
+    where not(csd_psd:is_registered($csd_webconf:db,$sample/text{@name}))
       return  $sample
    return
    <div>
@@ -271,7 +269,7 @@ let $response :=
        else 
        <ul>
 	 {for $name in $services
-	 let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+	 let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
 	 order by $name
 	 return 
 	 <li>
@@ -291,8 +289,8 @@ return page:nocache(page:wrapper($response))
 };
 
 declare function page:service_menu($name) {
-  let $url := csd_psd:get_service_directory_url($page:db,$name)
-  let $mtime := csd_lsc:get_service_directory_mtime($page:db,$name)
+  let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name)
+  let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
   return 
 <span>
   <ul>

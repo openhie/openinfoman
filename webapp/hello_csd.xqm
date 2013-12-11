@@ -2,17 +2,18 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 
 import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-import module namespace request = "http://exquery.org/ns/request";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
 
-declare variable $page:db := 'provider_directory';
+
+
 
 declare updating
   %rest:path("/CSD/initDocumentManager")
   %rest:GET
   function page:init_dm()
 { 
-(csd_dm:init($page:db),
-db:output(page:redirect(concat(request:scheme(),"://",request:hostname(),":",request:port(),"/CSD")))
+(csd_dm:init($csd_webconf:db),
+db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
 )
 };
 
@@ -42,34 +43,34 @@ let $please_init:=
  <span>
    <h3>No Document Manager Exists</h3>
    <p>Please <a href="/CSD/initDocumentManager">initialize the document manager</a></p> 
-   Please make sure you have created the database {$page:db}!
+   Please make sure you have created the database {$csd_webconf:db}!
    {$what_is_dm}
  </span>
-let $csd := if (not(csd_dm:dm_exists($page:db))) then $please_init
+let $csd := if (not(csd_dm:dm_exists($csd_webconf:db))) then $please_init
 else 
 <span>       
   {$what_is_dm}
   <p>
-    {let $docs := csd_dm:registered_documents($page:db)  
+    {let $docs := csd_dm:registered_documents($csd_webconf:db)  
     return ( "You have ", count($docs) , " registered document(s) available: ", <b> {string-join($docs,", ")}</b> )
     }
   </p>
   <p>These the top-level endpoints are exposed</p>
   <ul>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/initSampleDirectory">Initialize Sample Directories </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/csr">Care Services Request </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/pollService">poll registered service directories </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/cacheService">administer local cache of registered service directories </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/mergeServices">merge caches or registered services directories </a></li>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/test">list of test careServiceRequests </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Initialize Sample Directories </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/csr">Care Services Request </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/pollService">poll registered service directories </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/cacheService">administer local cache of registered service directories </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">merge caches or registered services directories </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/test">list of test careServiceRequests </a></li>
   </ul>
 </span>
-let $svs := if (not(csd_dm:dm_exists($page:db))) then $please_init else
+let $svs := if (not(csd_dm:dm_exists($csd_webconf:db))) then $please_init else
 <span>
   In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
   <ul>
-    <li><a href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
   </ul>
 </span>
 return page:nocache(page:wrapper($csd,$svs))
@@ -97,14 +98,14 @@ declare function page:wrapper($csd,$svs) {
   return <html>
   <head>
 
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
-    <link rel="stylesheet" type="text/css" media="screen"   href="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/tab.js"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>
 
     <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{request:scheme()}://{request:hostname()}:{request:port()}/static/bootstrap/js/bootstrap.min.js"/>
+    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
    <script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_csd a').click(function (e) {{
@@ -132,7 +133,7 @@ declare function page:wrapper($csd,$svs) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{request:scheme()}://{request:hostname()}:{request:port()}/CSD">OpenInfoMan</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
     </div>
