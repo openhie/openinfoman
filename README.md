@@ -19,9 +19,22 @@ Downloand the most current version of <a href="http://basex.org">BaseX</a> (the 
 - test_docs/
 to the root directory of the basex.
 
+Database
+========
 You will also need to create a database  get things working. To do this navigate to basex/bin and execute the following:
 
   `./basex -Vc "CREATE DATABASE provider_directory"`
+  
+You can use a different database by editing the repo/csd_webapp_config.xqm file and changing the value of $csd_webconf:db
+
+Base URL
+========
+If OpenInfoMan is intened to work behind a proxy you will need to specify the public-facing base url by editing the repo/csd_webapp_config.xqm file and changing the value of $csd_webconf:baseurl
+
+Stored Function Libraries
+=========================
+OpenInfoMan is intended to provide a core set of functionality to meet the CSD specification.  Other functionality is expected to be added through libraries of stored funcitons.
+-nacesnt provider registry library https://github.com/his-interop/openinfoman-pr
 
 Endpoints
 =========
