@@ -73,9 +73,9 @@
   <xforms:instance>
     <careServicesRequest>
       <id/>
-      <primaryName/>
-      <name/>
-      <type/>
+      <otherID/>
+      <commonName/>
+      <codedType/>
       <address/>
       <start/>
       <max/>
