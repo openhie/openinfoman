@@ -5,6 +5,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
+  xmlns="urn:ihe:iti:csd:2013" 
   uuid="e3d8ecd0-f605-11e2-b778-0800200c9a66">
   <xsd:import namespace="urn:ihe:iti:csd:2013" schemaLocation="CSD.xsd"/>
   <description> 

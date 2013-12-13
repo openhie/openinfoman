@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns="urn:ihe:iti:csd:2013"
   xmlns:xforms="http://www.w3.org/2002/xforms"
   xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
