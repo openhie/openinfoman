@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:csd="urn:ihe:iti:csd:2013" 
+  uuid="e3d8ecd0-f605-11e2-b778-0800200c9a66">
+  <xsd:import namespace="urn:ihe:iti:csd:2013" schemaLocation="CSD.xsd"/>
+  <description> 
+    <p>
+    Performs a search for all search by coded type or ID.   
+    </p>
+    <p>
+      The result set consists of all serices matching the  <i>search parameters</i> ( <b>id</b> and <b>codedType</b> ).
+     </p>
+     <p>   
+      The results set may be further restricted according to the <i>limit parameters</i> (<b>start</b>, <b>max</b>, <b>record/@status</b> and <b>record/@updated</b>).  An ordering of the result set is not specified.
+    </p>
+    <p>
+    <h2>Response</h2>
+    Results are returned as a valid CSD document with a root document element of &lt;CSD/&gt;.  The results set is contained entirely within the &lt;serviceDirectory/&gt; element and consists of the full content of the &lt;service/&gt; elements of matching services as maintained by the Care Services InfoManager.
+    </p>
+    <h2>Parameters</h2> Query
+    Parameters are defined as the content of following elements:
+    <ul>
+      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @oid attribute contains a non-empty value, it is a ID which uniquely identifies a service. This is an exact match.  
+      </li>
+      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those services whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingSchema attribute.  Case insensitive.
+      </li>
+      <li>&lt;start/&gt; <i> xs:int</i>: (optional) The starting index for results returned. Defaults to 1, which indexes the first service matching the search parameters</li>
+      <li>&lt;max/&gt; <i> xs:int</i>: (optional) The maximum number of results returned.  A value of less than zero implies no maximum.</li>
+      <li>
+	&lt;record/&gt; <i> csd:record </i>: (optional) A child element to limit results according to
+	<ul>
+	  <li>@status <i>xs:string</i>: (optional) If present and contains a non-empty value, the result set should be restricted to those serivces whose record/@status equals this value.  Case insensitive.</li>
+	  <li>@updated<i>xs:dateTime</i>: (optional) If present and contains a non-empty value, the result set should be restricted to those serivces whose record/@updated is at least the given value.</li>
+	</ul>
+      </li>
+    </ul>
+    <h2>Example Request</h2>
+    <pre>
+         &lt;careServicesRequest&gt;
+           &lt;function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'&gt;
+             &lt;codedType code="76499" codingSchema="HCPCS" /&gt;
+             &lt;start&gt;101&lt;/max&gt;
+           &lt;/function&gt;
+         &lt;/careServicesRequest&gt;         
+      </pre>
+  </description>
+  <definition><xi:include href="service_search.xq" parse='text'/></definition>
+  <xforms:instance>
+    <id/>
+    <codedType/>
+    <start/>
+    <max/>
+    <record/>
+  </xforms:instance>
+  <xforms:bind nodeset="id" type="csd:uniqueID"/>
+  <xforms:bind nodeset="codedType" type="csd:codedtype"/>
+  <xforms:bind nodeset="start" type="xs:int"/>
+  <xforms:bind nodeset="max" type="xs:int"/>
+  <xforms:bind nodeset="record" type="csd:record"/>
+</careServicesFunction>

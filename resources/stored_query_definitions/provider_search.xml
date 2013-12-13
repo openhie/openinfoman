@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<careServicesFunction xmlns="urn:ihe:iti:csd:2013"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:csd="urn:ihe:iti:csd:2013"
+  xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  uuid="4e8bbeb9-f5f5-11e2-b778-0800200c9a66" content-type="text/xml">
+  <description>
+    <p> Performs a search for all providers by name, coded type, address or ID. </p>
+    <p> The result set consists of all providers matching the <i>search parameters</i> ( <b>id</b>,
+        <b>otherID</b>, <b>commonName</b>,<b>codedType</b> and <b>address</b> ). </p>
+    <p> The results set may be further restricted according to the <i>limit parameters</i>
+        (<b>start</b>, <b>max</b>, <b>record/@status</b> and <b>record/@updated</b>). An ordering of
+      the result set is not specified. </p>
+    <p>
+      <h2>Response</h2> Results are returned as a valid CSD document with a root document element of
+      &lt;CSD/&gt;. The results set is contained entirely within the &lt;providerDirectory/&gt;
+      element and consists of the full content of the &lt;provider/&gt; elements of matching
+      providers as maintained by the Care Services InfoManager. </p>
+    <h2>Parameters</h2> Query Parameters are defined as the content of following elements: <ul>
+      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @oid attribute contains a
+        non-empty value, it is a ID which uniquely identifies a provider. This is an exact match. </li>
+      <li> &lt;otherID/&gt; <i>csd:otherID</i>: (optional) If present and the
+        @assigningAuthorityName attribute contains a non-empty value, then the result set is
+        restricted to only those providers which have a &lt;otherID/&gt; with the given
+        assigingAuthorityName and @code </li> <li>&lt;commonName/&gt; <i>xsd:string</i>: (optional)
+        If present and contains a non-empty value, then the result set should be restricted to those
+        providers which have a &lt;demographic/name/commonName/&gt; containing this value. Case
+        insensitive.</li>
+      <li>&lt;codedType/&gt; <i>csd:codedtype</i>: If present and contains a non-empty value the
+        result set should be restricted to those providers whose &lt;codeType/@code&gt; equals this
+        value for the coding schema specified by the @codingSchema attribute. Case insensitive. </li>
+      <li> &lt;address/&gt; <i>csd:address</i>: (optional) Contains of any-number of child
+        &lt;addressLine/&gt; elements as follows: <ul>
+          <li>Text content <i>xsd:string</i>: (optional) If present and contains a non-empty value,
+            then the results set should be restricted to those providers whose have an
+            &lt;addressLine/&gt; with specified @component containing this value exactly. Case
+            insensitive. </li>
+          <li>@component <i>xsd:string</i> : (Required attribute) The component of the address we
+            are searching. Case insensitive.</li>
+        </ul>
+      </li>
+      <li>&lt;start/&gt; <i> xsd:int</i>: (optional) The starting index for results returned.
+        Defaults to 1, which indexes the first provider matching the search parameters</li>
+      <li>&lt;max/&gt; <i> xsd:int</i>: (optional) The maximum number of results returned. A value
+        of less than zero implies no maximum.</li>
+      <li> &lt;record/&gt; <i> csd:record </i>: (optional) A child element to limit results
+        according to <ul>
+          <li>@status <i>xsd:string</i>: (optional) If present and contains a non-empty value, the
+            result set should be restricted to those providers whose record/@status equals this
+            value. Case insensitive.</li>
+          <li>@updated <i>xsd:dateTime</i>: (optional) If present and contains a non-empty value,
+            the result set should be restricted to those providers whose record/@updated is at least
+            the given value.</li>
+        </ul>
+      </li>
+    </ul>
+    <h2>Example Request</h2>
+    <pre>
+         &lt;careServicesRequest&gt;
+           &lt;function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66'&gt;
+               &lt;codedType code="2221" codingSchema="ISCO-08" /&lt;
+               &lt;address&gt;
+                 &lt;addressLine component='city'&gt;Kigali&lt;/addressLine&gt;
+	       &lt;/address&gt;
+               &lt;max&gt;5&lt;/max&gt;
+           &lt;/function&gt;
+         &lt;/careServicesRequest&gt;         
+      </pre>
+  </description>
+  <definition><xi:include href="provider_search.xq" parse="text"/></definition>
+  <xforms:instance>
+    <careServicesRequest>
+      <id/>
+      <primaryName/>
+      <name/>
+      <type/>
+      <address/>
+      <start/>
+      <max/>
+      <record/>
+    </careServicesRequest>
+  </xforms:instance>
+  <xforms:bind nodeset="id" type="csd:uniqueID"/>
+  <xforms:bind nodeset="otherID" type="csd:otherID"/>
+  <xforms:bind nodeset="commonName" type="xsd:string"/>
+  <xforms:bind nodeset="codedType" type="csd:codedtype"/>
+  <xforms:bind nodeset="address" type="csd:address"/>
+  <xforms:bind nodeset="start" type="xsd:int"/>
+  <xforms:bind nodeset="max" type="xsd:int"/>
+  <xforms:bind nodeset="record" type="csd:record"/>
+</careServicesFunction>
