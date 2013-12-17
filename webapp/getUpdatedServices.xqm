@@ -107,15 +107,15 @@ declare function page:wrapper($response) {
  <html>
   <head>
 
-    <link href="{$csd_webconf:baseurl}/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
     
 
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
     <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}/static/bootstrap/js/bootstrap.min.js"/>
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
     <script src="{$csd_webconf:baseurl}/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
     <script type="text/javascript">
