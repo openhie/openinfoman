@@ -315,8 +315,8 @@ declare function page:service_menu($name) {
 
   </ul>
   To test submission on your machine you can do:
-  <pre>curl --form "fileupload=@soap_query_updated_services_{$name}.xml" {$url}</pre>
-  where soap_updated_services_{$name}.xml is  the downloaded soap request document
+  <pre>curl --header "content-type: application/soap+xml" --data "@soap_query_updated_services_{$name}.xml" {$url}</pre>
+  where soap_updated_services_{$name}.xml is  the downloaded soap request document.  Add authorization parameters as neccesary.
 </span>
 };  
 
