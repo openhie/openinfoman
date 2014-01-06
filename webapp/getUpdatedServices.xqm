@@ -14,7 +14,6 @@ declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
 
 declare
   %rest:path("/CSD/getUpdatedServices/{$name}/soap")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
   %rest:query-param("mtime", "{$mtime}")
   %rest:GET
   function page:updated_service_soap($name,$mtime)
@@ -23,8 +22,8 @@ declare
  return (
  <rest:response>
    <http:response status="200" >
-     <http:header name="Content-Type" value="text/xml; charset=utf-8"/>
-     <http:header name="Content-Disposition"  value="inline; filename=soap_query_updated_services_{$name}"/>
+     <http:header name="Content-Type" value="application/soap+xml; charset=utf-8"/>
+     <http:header name="Content-Disposition"  value="inline; filename=soap_query_updated_services_{$name}.xml"/>
    </http:response>
    </rest:response>
    ,
@@ -36,12 +35,22 @@ declare
 
 declare
   %rest:path("/CSD/getUpdatedServices/{$name}/get")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
+  %rest:consumes("application/xml", "text/xml", "application/soap+xml")
   %rest:POST("{$updatedServicesRequest}")
   function page:updated_services($name,$updatedServicesRequest) 
 { 
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-   csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,csd_dm:open_document($csd_webconf:db,$name))   
+  (
+  <rest:response>
+    <http:response status="200" >
+      <http:header name="Content-Type" value="application/soap+xml; charset=utf-8"/>
+      <http:header name="Content-Disposition"  value="inline; filename=response_query_updated_services_{$name}.xml"/>
+    </http:response>
+  </rest:response>
+  ,
+  csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,csd_dm:open_document($csd_webconf:db,$name))
+ 							  
+  )
 else 
   ()
 };

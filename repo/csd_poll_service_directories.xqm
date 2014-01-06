@@ -94,16 +94,15 @@ declare function csd_psd:poll_service_directory($db,$name,$mtime)
 };
 
 
+
 declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
   let $url := csd_psd:get_service_directory_url($db,$name)    
-  let $boundary := concat("----------------", random:uuid()) 
-  let $message :=       <http:multipart media-type='multipart/form-data' boundary="{$boundary}" method='xml' accept='*/*'> 
-	<http:header name="Content-Disposition" value="form-data; name=&quot;fileupload&quot;; filename=&quot;soap.xml&quot;"/>
-	<http:header name="Content-Type" value="application/xml"/>	
-        <http:body   media-type="application/xml" method='xml' >
- 	 {csd_qus:create_last_update_request($url,$mtime)} 
-        </http:body>      
-      </http:multipart>     
+  let $message :=       
+    (<http:header name="Content-Type" value="application/soap+xml"/>	
+     , <http:body   media-type="application/soap+xml" method='xml' >
+        {csd_qus:create_last_update_request($url,$mtime)} 
+      </http:body>      
+    )
   let $credentials := csd_psd:get_service_directory_credentials($db,$name)
   let $request := 
     if ($credentials/@type = 'basic_auth' and $credentials/@username ) 
