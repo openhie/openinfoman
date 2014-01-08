@@ -78,9 +78,11 @@ declare function csd_bsq:organization_search($requestParams, $doc) as element()
    
       let $orgs4 := csd:filter_by_address($orgs3, $requestParams/address/addressLine) 
       
-      let $orgs5 :=  csd:filter_by_record($orgs4,$requestParams/record)      
+      let $orgs5 := csd:filter_by_record($orgs4,$requestParams/record)      
 
-      return csd:limit_items($orgs5,$requestParams/start,$requestParams/max)         
+	  let $orgs6 := csd:filter_by_other_id($orgs5,$requestParams/otherID)
+
+      return csd:limit_items($orgs6,$requestParams/start,$requestParams/max)         
 
     }     
   </organizationDirectory>
@@ -108,9 +110,11 @@ declare function csd_bsq:facility_search($requestParams, $doc) as element()
    
       let $facs4 := csd:filter_by_address($facs3, $requestParams/address/addressLine) 
 
-      let $facs5 :=  csd:filter_by_record($facs4,$requestParams/record)      
+      let $facs5 := csd:filter_by_record($facs4,$requestParams/record)      
 
-      return csd:limit_items($facs5,$requestParams/start,$requestParams/max)         
+      let $facs6 := csd:filter_by_other_id($facs5,$requestParams/otherID)      
+
+      return csd:limit_items($facs6,$requestParams/start,$requestParams/max)         
 
     }     
   </facilityDirectory>
