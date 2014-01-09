@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+	<organizationDirectory/>
+	<serviceDirectory>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.101">
+			<codedType code="101-001" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.102">
+			<codedType code="101-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.103">
+			<codedType code="101-003" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+			<codedType code="101-004" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.105">
+			<codedType code="101-005" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.106">
+			<codedType code="101-006" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.107">
+			<codedType code="101-007" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.108">
+			<codedType code="101-008" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.109">
+			<codedType code="101-009" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.110">
+			<codedType code="101-110" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.111">
+			<codedType code="101-111" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.112">
+			<codedType code="101-112" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service oid="1.3.6.1.4.1.21367.200.99.111.101.113">
+			<codedType code="101-113" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+	</serviceDirectory>
+	<facilityDirectory/>
+	<providerDirectory/>
+</CSD>

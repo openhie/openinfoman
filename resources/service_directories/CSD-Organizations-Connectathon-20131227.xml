@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+	<organizationDirectory>
+		<organization oid="1.3.6.1.4.1.21367.200.99.1">
+			<codedType code="101-002" codingSchema="1.3.6.1.4.1.21367.100.1">Integrated Delivery Network</codedType>
+			<primaryName>Connectathon CSD IDN One</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">1234 Cactus Way</addressLine>
+				<addressLine component="city">Santa Fe</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87501</addressLine>
+			</address>
+			<address type="Mailing">
+				<addressLine component="streetAddress">7890 Forest Road</addressLine>
+				<addressLine component="city">Santa Fe</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87505</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Contact, Connie</commonName>
+						<forename>Connie</forename>
+						<surname>Contact</surname>
+					</name>
+					<address>
+						<addressLine component="StreetAddress">7890 Forest Road</addressLine>
+						<addressLine component="City">Santa Fe</addressLine>
+						<addressLine component="Country">NM</addressLine>
+						<addressLine component="PostCode">87505</addressLine>
+					</address>
+				</person>
+			</contact>
+			<credential>
+				<codedType code="108-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+				<number>200-1</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2013-12-01</credentialIssueDate>
+			</credential>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="ko" codingSchema="BCP 47">Korean</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<language code="bn" codingSchema="BCP 47">Bengali</language>
+			<contactPoint>
+				<codedType code="BP" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1001</codedType>
+			</contactPoint>
+			<contactPoint>
+				<codedType code="FAX" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1011</codedType>
+			</contactPoint>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</organization>
+		<organization oid="1.3.6.1.4.1.21367.200.99.2">
+			<codedType code="101-003" codingSchema="1.3.6.1.4.1.21367.100.1">Non-government Organization</codedType>
+			<primaryName>Connectathon CSD NGO One</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">4212 Maguire Way</addressLine>
+				<addressLine component="city">Augusta</addressLine>
+				<addressLine component="stateProvince">NJ</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">07822</addressLine>
+			</address>
+			<address type="Mailing">
+				<addressLine component="streetAddress">4212 Maguire Way</addressLine>
+				<addressLine component="city">Augusta</addressLine>
+				<addressLine component="stateProvince">NJ</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">07822</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">MacDonald, Merideth</commonName>
+						<forename>Merideth</forename>
+						<surname>MacDonald</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">4212 Maguire Way</addressLine>
+						<addressLine component="city">Augusta</addressLine>
+						<addressLine component="stateProvince">NJ</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">07822</addressLine>
+					</address>
+				</person>
+			</contact>
+			<credential>
+				<codedType code="108-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+				<number>200-1</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2013-12-13</credentialIssueDate>
+			</credential>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<contactPoint>
+				<codedType code="BP" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1001</codedType>
+			</contactPoint>
+			<contactPoint>
+				<codedType code="FAX" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1011</codedType>
+			</contactPoint>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</organization>
+		<organization oid="1.3.6.1.4.1.21367.200.99.3">
+			<codedType code="101-003" codingSchema="1.3.6.1.4.1.21367.100.1">Non-government Organization</codedType>
+			<primaryName>Connectathon CSD NGO Two</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">11 Oak Lane</addressLine>
+				<addressLine component="city">Harrisburg</addressLine>
+				<addressLine component="stateProvince">OR</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">97466</addressLine>
+			</address>
+			<address type="Mailing">
+				<addressLine component="streetAddress">11 Oak Lane</addressLine>
+				<addressLine component="city">Harrisburg</addressLine>
+				<addressLine component="stateProvince">OR</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">97466</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Ortiz, Manuel</commonName>
+						<forename>Manuel</forename>
+						<surname>Ortiz</surname>
+					</name>
+					<address type="Mailing">
+						<addressLine component="streetAddress">11 Oak Lane</addressLine>
+						<addressLine component="city">Harrisburg</addressLine>
+						<addressLine component="stateProvince">OR</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">97466</addressLine>
+					</address>
+				</person>
+			</contact>
+			<credential>
+				<codedType code="108-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+				<number>200-1</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2013-12-13</credentialIssueDate>
+			</credential>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<contactPoint>
+				<codedType code="BP" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1001</codedType>
+			</contactPoint>
+			<contactPoint>
+				<codedType code="FAX" codingSchema="urn:ihe:iti:csd:2013:contactPoint">800-555-1011</codedType>
+			</contactPoint>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</organization>
+		<organization oid="1.3.6.1.4.1.21367.200.99.4">
+			<codedType code="101-003" codingSchema="1.3.6.1.4.1.21367.100.1">Non-government Organization</codedType>
+			<primaryName>Connectathon CSD NGO Quatre</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">22 rue du général de Gaulle </addressLine>
+				<addressLine component="city">Nancy</addressLine>
+				<addressLine component="country">France</addressLine>
+				<addressLine component="postalCode">54000</addressLine>
+			</address>
+			<address type="Mailing">
+				<addressLine component="streetAddress">22 rue du général de Gaulle </addressLine>
+				<addressLine component="city">Nancy</addressLine>
+				<addressLine component="country">France</addressLine>
+				<addressLine component="postalCode">54000</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="fr">Galon, Marie-Christine</commonName>
+						<forename>Marie-Christine</forename>
+						<surname>Galon</surname>
+					</name>
+					<address type="Mailing">
+						<addressLine component="streetAddress">22 rue du général de Gaulle </addressLine>
+						<addressLine component="city">Nancy</addressLine>
+						<addressLine component="country">France</addressLine>
+						<addressLine component="postalCode">54000</addressLine>
+					</address>
+				</person>
+			</contact>
+			<credential>
+				<codedType code="108-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+				<number>200-1</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2013-12-13</credentialIssueDate>
+			</credential>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="fr" codingSchema="BCP 47">French</language>
+			<contactPoint>
+				<codedType code="BP" codingSchema="urn:ihe:iti:csd:2013:contactPoint">03.33.45.67.12</codedType>
+			</contactPoint>
+			<contactPoint>
+				<codedType code="FAX" codingSchema="urn:ihe:iti:csd:2013:contactPoint">03.33.45.67.22</codedType>
+			</contactPoint>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</organization>
+		<organization oid="1.3.6.1.4.1.21367.200.99.5">
+			<codedType code="101-003" codingSchema="1.3.6.1.4.1.21367.100.1">Non-government Organization</codedType>
+			<primaryName>Connectathon CSD NGO Trois</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">45 Avenue des Ternes</addressLine>
+				<addressLine component="city">Paris</addressLine>
+				<addressLine component="country">France</addressLine>
+				<addressLine component="postalCode">75008</addressLine>
+			</address>
+			<address type="Mailing">
+				<addressLine component="streetAddress">45 Avenue des Ternes</addressLine>
+				<addressLine component="city">Paris</addressLine>
+				<addressLine component="country">France</addressLine>
+				<addressLine component="postalCode">75008</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="fr">Du Puits, Jean-Marc</commonName>
+						<forename>Jean-Marc</forename>
+						<surname>Du Puits</surname>
+					</name>
+					<address type="Mailing">
+						<addressLine component="streetAddress">45 Avenue des Ternes</addressLine>
+						<addressLine component="city">Paris</addressLine>
+						<addressLine component="country">France</addressLine>
+						<addressLine component="postalCode">75008</addressLine>
+					</address>
+				</person>
+			</contact>
+			<credential>
+				<codedType code="108-002" codingSchema="1.3.6.1.4.1.21367.100.1"/>
+				<number>200-1</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2013-12-13</credentialIssueDate>
+			</credential>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="fr" codingSchema="BCP 47">French</language>
+			<contactPoint>
+				<codedType code="BP" codingSchema="urn:ihe:iti:csd:2013:contactPoint">01.22.45.67.89</codedType>
+			</contactPoint>
+			<contactPoint>
+				<codedType code="FAX" codingSchema="urn:ihe:iti:csd:2013:contactPoint">01.22.45.67.99</codedType>
+			</contactPoint>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</organization>
+	</organizationDirectory>
+	<serviceDirectory/>
+	<facilityDirectory/>
+	<providerDirectory/>
+</CSD>

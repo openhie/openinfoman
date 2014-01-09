@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+	<organizationDirectory/>
+	<serviceDirectory/>
+	<facilityDirectory>
+		<facility oid="1.3.6.1.4.1.21367.200.99.11">
+			<codedType code="103-110" codingSchema="1.3.6.1.4.1.21367.100.1">Radiology - Imaging Services</codedType>
+			<primaryName>Connectathon Radiology Facility</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">1234 Cactus Way</addressLine>
+				<addressLine component="city">Santa Fe</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87501</addressLine>
+			</address>
+			<address type="Practice">
+				<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+				<addressLine component="city">Santa Fe</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87124</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Anderson, Andrew</commonName>
+						<forename>Andrew</forename>
+						<surname>Anderson</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+						<addressLine component="city">Santa Fe</addressLine>
+						<addressLine component="stateProvince">NM</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">87124</addressLine>
+					</address>
+				</person>
+			</contact>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Juarez, Julio</commonName>
+						<forename>Julio</forename>
+						<surname>Juarez</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+						<addressLine component="city">Santa Fe</addressLine>
+						<addressLine component="stateProvince">NM</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">87124</addressLine>
+					</address>
+				</person>
+			</contact>
+			<geocode>
+				<latitude>35.05</latitude>
+				<longitude>106.60</longitude>
+			</geocode>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<organizations>
+				<organization oid="1.3.6.1.4.1.21367.200.99.1">
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.102">
+						<name>
+							<commonName language="en">Connectathon Radiation Therapy</commonName>
+						</name>
+						<language code="en" codingSchema="BCP 47">English</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>12:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>3</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>12:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>12:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.113">
+						<name>
+							<commonName language="en">Connectathon Women's Imaging Service</commonName>
+						</name>
+						<language code="en" codingSchema="BCP 47">English</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>3</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.113">
+						<name>
+							<commonName language="es">Connectathon Servicio de Radiologica de la Mujer</commonName>
+						</name>
+						<language code="es" codingSchema="BCP 47">Spanish</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>2</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>4</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.110">
+						<name>
+							<commonName language="en">Connectathon Screening X-ray</commonName>
+						</name>
+						<language code="en" codingSchema="BCP 47">English</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>2</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>3</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>4</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>6</dayOfTheWeek>
+							<beginningHour>08:00:00</beginningHour>
+							<endingHour>18:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+				</organization>
+			</organizations>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>1</dayOfTheWeek>
+				<beginningHour>08:00:00</beginningHour>
+				<endingHour>18:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>2</dayOfTheWeek>
+				<beginningHour>13:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>3</dayOfTheWeek>
+				<beginningHour>09:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>4</dayOfTheWeek>
+				<beginningHour>13:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>5</dayOfTheWeek>
+				<beginningHour>09:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</facility>
+		<facility oid="1.3.6.1.4.1.21367.200.99.12">
+			<codedType code="103-003" codingSchema="1.3.6.1.4.1.21367.100.1">Dialysis</codedType>
+			<primaryName>Connectathon Dialysis Facility One</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">1234 Cactus Way</addressLine>
+				<addressLine component="city">Santa Fe</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87501</addressLine>
+			</address>
+			<address type="Practice">
+				<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+				<addressLine component="city">Rio Rancho</addressLine>
+				<addressLine component="stateProvince">NM</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">87124</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Benson, Barbara</commonName>
+						<forename>Barbara</forename>
+						<surname>Benson</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+						<addressLine component="stateProvince">NM</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">87124</addressLine>
+					</address>
+				</person>
+			</contact>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Martinez, Ruby</commonName>
+						<forename>Ruby</forename>
+						<surname>Martinez</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">2222 19th Ave SW</addressLine>
+						<addressLine component="stateProvince">NM</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">87124</addressLine>
+					</address>
+				</person>
+			</contact>
+			<geocode>
+				<latitude>35.05</latitude>
+				<longitude>106.60</longitude>
+			</geocode>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<organizations>
+				<organization oid="1.3.6.1.4.1.21367.200.99.1">
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+						<name>
+							<commonName language="en">Connectathon Dialysis Service</commonName>
+						</name>
+						<language code="en" codingSchema="BCP 47">English</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>2</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>3</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+						<name>
+							<commonName language="en">Connectathon Diálisis Servicio</commonName>
+						</name>
+						<language code="es" codingSchema="BCP 47">Spanish</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>4</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+				</organization>
+			</organizations>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>1</dayOfTheWeek>
+				<beginningHour>08:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>5</dayOfTheWeek>
+				<beginningHour>05:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</facility>
+		<facility oid="1.3.6.1.4.1.21367.200.99.13">
+			<codedType code="103-003" codingSchema="1.3.6.1.4.1.21367.100.1">Dialysis</codedType>
+			<primaryName>Connectathon Dialysis Facility Two</primaryName>
+			<address type="Billing">
+				<addressLine component="streetAddress">434 W. Gurley Street</addressLine>
+				<addressLine component="city">Prescott</addressLine>
+				<addressLine component="stateProvince">AZ</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">86301</addressLine>
+			</address>
+			<address type="Practice">
+				<addressLine component="streetAddress">434 W. Gurley Street</addressLine>
+				<addressLine component="city">Prescott</addressLine>
+				<addressLine component="stateProvince">AZ</addressLine>
+				<addressLine component="country">USA</addressLine>
+				<addressLine component="postalCode">86301</addressLine>
+			</address>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Robertson, Robert</commonName>
+						<forename>Robert</forename>
+						<surname>Robertson</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">434 W. Gurley Street</addressLine>
+						<addressLine component="city">Prescott</addressLine>
+						<addressLine component="stateProvince">AZ</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">86301</addressLine>
+					</address>
+				</person>
+			</contact>
+			<contact>
+				<person>
+					<name>
+						<commonName language="en">Juarez, Angel</commonName>
+						<forename>Angel</forename>
+						<surname>Juarez</surname>
+					</name>
+					<address>
+						<addressLine component="streetAddress">434 W. Gurley Street</addressLine>
+						<addressLine component="city">Prescott</addressLine>
+						<addressLine component="stateProvince">AZ</addressLine>
+						<addressLine component="country">USA</addressLine>
+						<addressLine component="postalCode">86301</addressLine>
+					</address>
+				</person>
+			</contact>
+			<geocode>
+				<latitude>34.5441</latitude>
+				<longitude>122.4717</longitude>
+			</geocode>
+			<language code="en" codingSchema="BCP 47">English</language>
+			<language code="es" codingSchema="BCP 47">Spanish</language>
+			<organizations>
+				<organization oid="1.3.6.1.4.1.21367.200.99.1">
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+						<name>
+							<commonName language="en">Connectathon Dialysis Service</commonName>
+						</name>
+						<language code="en" codingSchema="BCP 47">English</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>2</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>3</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>4</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>6</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+					<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+						<name>
+							<commonName language="en">Connectathon Diálisis Servicio</commonName>
+						</name>
+						<language code="es" codingSchema="BCP 47">Spanish</language>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>09:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+						</operatingHours>
+					</service>
+				</organization>
+			</organizations>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>1</dayOfTheWeek>
+				<beginningHour>08:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<operatingHours>
+				<openFlag>1</openFlag>
+				<dayOfTheWeek>5</dayOfTheWeek>
+				<beginningHour>05:00:00</beginningHour>
+				<endingHour>17:00:00</endingHour>
+				<beginEffectiveDate>2013-12-01</beginEffectiveDate>
+			</operatingHours>
+			<record created="2013-12-13T12:00:00+00:00" updated="2013-12-13T12:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</facility>
+	</facilityDirectory>
+	<providerDirectory/>
+</CSD>
