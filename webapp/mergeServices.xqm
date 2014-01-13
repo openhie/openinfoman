@@ -150,7 +150,7 @@ declare updating
   function page:empty()
 { 
   (
-  csd_mcs:merge($csd_webconf:db)
+  csd_mcs:empty($csd_webconf:db)
   ,
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
   )

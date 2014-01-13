@@ -18,25 +18,16 @@ declare function csd_mcs:store_exists($db) {
   db:is-xml($db,$csd_mcs:merged_services_doc)
 };
 
-
-
 declare updating function csd_mcs:init_store($db) {
   db:add($db, csd_lsc:blank_directory(),$csd_mcs:merged_services_doc)
 };
 
 declare updating function csd_mcs:merge($db) {
-  let $services := ('rhea_simple_provider')
-  return
-  (if (csd_mcs:store_exists($db)) 
-  then csd_mcs:empty($db) else (),
-  csd_mcs:init_store($db),
-  for $name in $services
-    return csd_lsc:refresh_doc(db:open($db,$csd_mcs:merged_services_doc),csd_lsc:get_cache($db,$name))
-  )
+
+  for $name in csd_psd:registered_directories($db)
+  return csd_lsc:refresh_doc(db:open($db,$csd_mcs:merged_services_doc),csd_lsc:get_cache($db,$name))
     
 };
-
-
 
 declare function csd_mcs:get($db) {
   db:open($db,$csd_mcs:merged_services_doc)
