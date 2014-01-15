@@ -14,7 +14,7 @@ declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
 
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
   %rest:POST("{$careServicesRequest}")
   function page:csr($name,$careServicesRequest) 
 { 
@@ -25,7 +25,6 @@ else
   ()
 
 };
-
 
 declare
   %rest:path("/CSD/csr/{$name}/adhoc")
@@ -55,7 +54,20 @@ declare
 { 
 let $response := 
   <span>
-    <h2>Care Services Request</h2>
+    <h2>Care Services Request - Stored Queries</h2>
+    <ul>
+      { 
+      for $function in $csd_webconf:stored_functions
+      let  $uuid := string($function/@uuid)
+      return  
+      <li>
+      UUID: {$uuid}  <br/>
+      Method: {csd_webconf:lookup_stored_method($uuid)} <br/>
+      Content: {csd_webconf:lookup_stored_content_type($uuid) }
+      </li>
+      }
+    </ul>
+    <h2>Care Services Request - Ad Hoc Option</h2>
     <ul>
       {
 	for $name in $page:csd_docs
