@@ -6,7 +6,7 @@
 :)
 module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
 
-import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "../repo/csd_merge_cached_services.xqm";
+import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "csd_merge_cached_services.xqm";
 
 declare namespace csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
