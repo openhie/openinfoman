@@ -96,7 +96,7 @@ declare function page:test_menu($name)
   <p>
   To test submission on your machine you can do:
   <pre>
-  curl --form "fileupload=@test.xml" {$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest
+  curl --data "@test.xml" {$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest --header "content-type: text/xml"
   </pre>
   where test.xml is one of the downloaded source documents below
   </p>
