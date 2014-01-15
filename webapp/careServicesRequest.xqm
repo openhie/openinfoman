@@ -61,9 +61,9 @@ let $response :=
       let  $uuid := string($function/@uuid)
       return  
       <li>
-      UUID: {$uuid}  <br/>
-      Method: {csd_webconf:lookup_stored_method($uuid)} <br/>
-      Content: {csd_webconf:lookup_stored_content_type($uuid) }
+      UUID: {string($uuid)}  <br/>
+      Method: {string(csd_webconf:lookup_stored_method($uuid))} <br/>
+      Content: {string(csd_webconf:lookup_stored_content_type($uuid)) }
       </li>
       }
     </ul>
