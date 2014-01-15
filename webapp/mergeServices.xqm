@@ -6,10 +6,6 @@ import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd
 import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
 
 
-declare variable $page:merge_doc_name := 'merged_remote_services';
-
-
-
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
 {
   <restxq:redirect>{ $redirect }</restxq:redirect>
@@ -29,7 +25,7 @@ declare updating
   %rest:GET
   function page:register() { 
 (
-  csd_dm:register_document($csd_webconf:db,$page:merge_doc_name,$csd_mcs:merged_services_doc),
+  csd_dm:register_document($csd_webconf:db,csd_mcs:get_merge_doc_name(),$csd_mcs:merged_services_doc),
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
 )
 };
@@ -40,7 +36,7 @@ declare updating
   function page:deregister() 
 { 
 (
-  csd_dm:deregister_document($csd_webconf:db,$page:merge_doc_name),
+  csd_dm:deregister_document($csd_webconf:db,csd_mcs:get_merge_doc_name()),
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
 )
 };
@@ -101,7 +97,7 @@ let $response:=
 	      <li><a href="/CSD/mergeServices/merge">merge services</a></li>,
 	      <li><a href="/CSD/mergeServices/get">get merged services</a></li>,
 	      <li><a href="/CSD/mergeServices/empty">empty services</a></li>,
-	      if (csd_dm:is_registered($csd_webconf:db,$page:merge_doc_name)) then
+	      if (csd_dm:is_registered($csd_webconf:db,csd_mcs:get_merge_doc_name())) then
 	      <li><a href="/CSD/mergeServices/deregister">deregister merge of remote from document store </a></li>
                else
 	       <li><a href="/CSD/mergeServices/register">register merge of remote services from document manager</a></li>
