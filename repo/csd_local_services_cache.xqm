@@ -161,7 +161,7 @@ declare  updating  function csd_lsc:update_cache($db,$name)
 declare updating function csd_lsc:refresh_doc($cache_doc,$updates) 
 {
   (
-   csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/csd:CSD/csd:organizationDirectory)
+   csd_lsc:update_directory($cache_doc/csd:CSD/csd:organizationDirectory,$updates/csd:CSD/csd:organizationDirectory)
   ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:facilityDirectory,$updates/csd:CSD/csd:facilityDirectory)
   ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:serviceDirectory,$updates/csd:CSD/csd:serviceDirectory)
   ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/csd:CSD/csd:providerDirectory)
@@ -173,7 +173,7 @@ declare updating function csd_lsc:update_directory($oldDir,$newDir)
   for $new in  $newDir/*
   let $old := $oldDir/*[@oid = $new/@oid]
   return if ($old) then
-    replace  node $old with $new
+    replace node $old with $new
   else
     insert node $new into $oldDir
 };

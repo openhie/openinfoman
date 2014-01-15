@@ -70,18 +70,13 @@ declare function csd_psd:registered_directories($db) {
 };
 
 
-
 declare function csd_psd:get_service_directory_url($db,$name) {
   text{ db:open($db,$csd_psd:directory_manager)//serviceDirectory[@name=$name]/@url}
 };
 
-
 declare function csd_psd:get_service_directory_credentials($db,$name) {
   db:open($db,$csd_psd:directory_manager)//serviceDirectory[@name=$name]/credentials
 };
-
-
-
 
 declare function csd_psd:poll_service_directory($db,$name,$mtime) 
 {
