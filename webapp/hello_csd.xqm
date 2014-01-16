@@ -57,13 +57,13 @@ else
   </p>
   <p>These the top-level endpoints are exposed</p>
   <ul>
-    <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Initialize Sample Directories </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/csr">Care Services Request </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/pollService">poll registered service directories </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/cacheService">administer local cache of registered service directories </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">merge caches or registered services directories </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/test">list of test careServiceRequests </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Initialize Sample Directories</a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/csr">Care Services Request</a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request</a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/pollService">Poll registered service directories </a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/cacheService">Administer local cache of registered service directories</a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">Merge registered documents</a></li>
+    <li><a href="{$csd_webconf:baseurl}CSD/test">List test careServiceRequests</a></li>
   </ul>
 </span>
 let $svs := if (not(csd_dm:dm_exists($csd_webconf:db))) then $please_init else

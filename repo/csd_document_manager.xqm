@@ -6,8 +6,6 @@
 :)
 module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
 
-import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs" at "../repo/csd_merge_cached_services.xqm";
-
 declare namespace csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
@@ -43,9 +41,9 @@ declare updating function csd_dm:register_document($db,$name,$source) {
   let $reg_doc := <document name="{$name}" source="{$source}"/>
   let $existing := $dm/document[@name = $name]
   return if (not(exists($existing)))  then
-      (insert node $reg_doc into $dm, csd_mcs:merge($db))
+      insert node $reg_doc into $dm
     else 
-      (replace  node $existing with $reg_doc, csd_mcs:merge($db))
+      replace  node $existing with $reg_doc
 };
 
 
@@ -64,7 +62,7 @@ declare updating function csd_dm:deregister_document($db,$name) {
     let $dm :=  db:open($db,$csd_dm:document_manager)/documentLibrary
     let $existing := $dm/document[@name = $name]
     return if (exists($existing))  then
-      (delete node $existing, csd_mcs:merge($db))
+      delete node $existing
     else ()
   else ()
 
