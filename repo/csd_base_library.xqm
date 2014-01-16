@@ -253,7 +253,7 @@ declare function csd:filter_by_record($items as item()*, $record as item()) as i
              let $u_status:= fn:upper-case($record/@status)
              return $items[fn:upper-case(record/@status) = $u_status]             
     return 
-        if (not($record/@updated) or not(xs:dateTime($record/@updated)))
+        if (not($record/@updated) ) 
         then $items1
         else $items1[record/@updated >= $record/@updated ]
             
