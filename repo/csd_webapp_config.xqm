@@ -12,13 +12,13 @@ import module namespace request = "http://exquery.org/ns/request";
 
 (:Import statements for stored queries.  Each module needs to be imported:)
 import module namespace csd_bsq =  "https://github.com/his-interop/openinfoman/csd_bsq" at "csd_base_stored_queries.xqm";
-(:import module namespace csd_prsq = "https://github.com/his-interop/openinfoman-pr/csd_prsq" at  "csd_provider_registry_stored_queries.xqm";  :)
+import module namespace csd_prsq = "https://github.com/his-interop/openinfoman-pr/csd_prsq" at  "csd_provider_registry_stored_queries.xqm";  
 
 (:import list of registered stored functions from modules :)
 declare variable $csd_webconf:stored_functions :=
 (
   $csd_bsq:stored_functions
-(:  , $csd_prsq:stored_functions :)
+  , $csd_prsq:stored_functions 
 );
 
 (:Database we are working on:)
@@ -38,11 +38,24 @@ declare function csd_webconf:get_stored_query($uuid) {
 
 };
 
+declare function csd_webconf:get_updating_stored_query($uuid) {
+  let $method_name := csd_webconf:lookup_updating_stored_method($uuid) 
+  return if ($method_name) then function-lookup( xs:QName($method_name), 2) else ()
+
+};
+
 
 declare function csd_webconf:has_stored_query($uuid) {
   let $sq := csd_webconf:get_stored_query($uuid)
-  return if (exists($sq))  then true() else false()
+  return if (exists($sq) )  then true() else false()
 };
+
+declare function csd_webconf:has_updating_stored_query($uuid) {
+  let $sq := csd_webconf:get_updating_stored_query($uuid)
+  return if (exists($sq) )  then true() else false()
+};
+
+
 
 declare function csd_webconf:execute_stored_query($doc,$uuid,$requestParams) {
   let $method := csd_webconf:get_stored_query($uuid)
@@ -54,9 +67,16 @@ declare function csd_webconf:execute_stored_query($doc,$uuid,$requestParams) {
 
 };
 
+
+
 declare function csd_webconf:lookup_stored_method($uuid) 
 {
-  $csd_webconf:stored_functions[@uuid = $uuid]/@method
+  $csd_webconf:stored_functions[@uuid = $uuid and not(@updating)]/@method
+};
+
+declare function csd_webconf:lookup_updating_stored_method($uuid) 
+{
+  $csd_webconf:stored_functions[@uuid = $uuid and @updating = 1]/@method
 };
 
 

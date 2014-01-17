@@ -91,6 +91,7 @@ declare function csr_proc:wrap_result($result,$content-type) {
 
 
 
+
 declare function csr_proc:create_adhoc_doc($adhoc_query,$content_type) {
 let $content := if ($content_type) then $content_type else "application/xml" 
 return
@@ -103,3 +104,32 @@ return
 
 
 };
+
+
+
+
+
+declare updating function csr_proc:process_updating_CSR($careServicesRequest, $doc) 
+{
+(:not allowing ad-hoc updates:)
+let $func :=$careServicesRequest//csd:function
+let $method :=  
+  if (exists($func) and csd_webconf:has_updating_stored_query($func/@uuid))
+    then csd_webconf:get_updating_stored_query($func/@uuid) else ()
+return 
+  if (exists($method)) then
+    (:Assumes called method handles db:output.  Nothing is encapsulated :)
+    db:output(
+      $method($careServicesRequest//csd:function/requestParams,$doc)
+       )
+  else 
+  db:output(<rest:response>
+    <http:response status="404" message="No registered updating function with UUID='{$func/@uuid}.'">
+      <http:header name="Content-Language" value="en"/>
+      <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+    </http:response>
+  </rest:response>
+     )
+};
+
+

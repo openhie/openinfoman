@@ -26,6 +26,22 @@ else
 
 };
 
+
+declare updating
+  %rest:path("/CSD/csr/{$name}/careServicesRequest/update")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
+  %rest:POST("{$careServicesRequest}")
+  function page:csr_updating($name,$careServicesRequest) 
+{ 
+if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+ csr_proc:process_updating_CSR($careServicesRequest/careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))   
+else
+  (:need appropriate error handling:)
+  ()
+
+};
+
+
 declare
   %rest:path("/CSD/csr/{$name}/adhoc")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")
