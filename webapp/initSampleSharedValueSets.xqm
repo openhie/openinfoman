@@ -47,8 +47,9 @@ declare
 };
 
 declare
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/svs/{$id}/get")
+  %rest:path("/CSD/SVS/RetrieveValueSet")
   %rest:GET
+  %rest:query-param("id", "{$id}")
   function page:get_shared_value_set($id)
 {
   svs_lsvs:get($csd_webconf:db,$id) 
@@ -183,7 +184,7 @@ declare function page:svs_menu($id) {
           <li><a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/load">Initialize {$id} ({$disp})</a> </li>
           else 
 	  (
-	  <li><a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/get">Get  {$id}</a></li>,
+	  <li><a href="/CSD/SVS/RetrieveValueSet?id={$id}">Get  {$id}</a></li>,
 	  <li><a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/reload">Reload {$id}</a></li>,
 	  <li><form action="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
