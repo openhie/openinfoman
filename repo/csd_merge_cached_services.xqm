@@ -6,8 +6,8 @@
 :)
 module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs";
 import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "csd_local_services_cache.xqm";
-import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "csd_poll_service_directories.xqm";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "csd_document_manager.xqm";
+import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
 
 declare namespace csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
