@@ -12,13 +12,13 @@ import module namespace request = "http://exquery.org/ns/request";
 
 (:Import statements for stored queries.  Each module needs to be imported:)
 import module namespace csd_bsq =  "https://github.com/his-interop/openinfoman/csd_bsq" at "csd_base_stored_queries.xqm";
-import module namespace csd_prsq = "https://github.com/his-interop/openinfoman-pr/csd_prsq" at  "csd_provider_registry_stored_queries.xqm";  
+(:import module namespace csd_prsq = "https://github.com/his-interop/openinfoman-pr/csd_prsq" at  "csd_provider_registry_stored_queries.xqm";   :)
 
 (:import list of registered stored functions from modules :)
 declare variable $csd_webconf:stored_functions :=
 (
   $csd_bsq:stored_functions
-  , $csd_prsq:stored_functions 
+(:  , $csd_prsq:stored_functions  :)
 );
 
 (:Database we are working on:)
