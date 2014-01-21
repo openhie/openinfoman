@@ -149,7 +149,7 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
   let $dvs14 := if (not($filter/@RevisionDateBefore = '')) then $dvs13[./svs:RevisionDate < @RevisionDateBefore] else $dvs13
   let $dvs15 := if (not($filter/@RevisionDateAfter = '')) then $dvs14[./svs:RevisionDate > @RevisionDateAfter] else $dvs14
 
-  return  <RetrieveMultipleValueSetsResponse >{$dvs15} </RetrieveMultipleValueSetsResponse>
+  return  <svs:RetrieveMultipleValueSetsResponse >{$dvs15} </svs:RetrieveMultipleValueSetsResponse>
 
 };
 
@@ -168,7 +168,7 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
       $vs1/svs:ConceptList
       
   return
-  <RetrieveValueSetResponse version="{$vers}" id="{$id}">
+  <svs:RetrieveValueSetResponse version="{$vers}" id="{$id}">
     {
       for $concept_list in $concept_lists
       let $val_set := $concept_list/..
@@ -179,7 +179,7 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
 	</svs:ValueSet>
 
     }
-  </RetrieveValueSetResponse>
+  </svs:RetrieveValueSetResponse>
 };
 
 
