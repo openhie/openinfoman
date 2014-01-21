@@ -70,7 +70,7 @@ declare function csd:filter_by_coded_type($items as item()*, $codedtype as item(
 declare function csd:filter_by_primary_name($items as item()*,$primaryName as item()) as item()* 
 {
 
-      if ($primaryName) 
+      if (not($primaryName = '')) 
       then 
           let $u_primaryName := fn:upper-case($primaryName)
           return $items[contains(fn:upper-case(./primaryName) , $u_primaryName)]
@@ -89,14 +89,17 @@ declare function csd:filter_by_primary_name($items as item()*,$primaryName as it
 :)
 declare function csd:filter_by_name($items as item()*,$name as item()) as item()* 
 {
-       if ($name) 
-       then  
-          let $u_name := fn:upper-case($name)
-          return $items[
-                   contains(fn:upper-case(./primaryName) , $u_name) 
-                   or ./otherName[contains(fn:upper-case(.),$u_name)]
-                   ]
-       else $items            
+  if (not($name = '')) 
+    then  
+    let $u_name:= fn:upper-case($name)
+    for $item in $items
+      let $matches0:= 
+        for $name in $item/otherName
+	return if (contains(upper-case($name),$u_name)) then ($name) else ()
+      let $matches1 := ($matches0, $item[contains(upper-case(primaryName),$u_name)])
+      where  count($matches1) > 0
+     return $item
+  else $items            
 };  
 
 
@@ -142,6 +145,9 @@ declare function csd:filter_by_other_id($items as item()*,$id as item()) as item
         else $items
 };
 
+
+
+
 (:~
  : this function accepts a list of items to filter by their common name
  :
@@ -153,10 +159,15 @@ declare function csd:filter_by_other_id($items as item()*,$id as item()) as item
 :)
 declare function csd:filter_by_common_name($items as item()*, $name as item()) as item()*
 {
-       if ($name) 
-       then
-           let $u_name:= fn:upper-case($name)
-           return $items[contains(fn:upper-case(demographic/name/commonName) ,$u_name)]
+       if (not($name = ''))
+	 then
+	 let $u_name:= fn:upper-case($name)
+	 for $item in $items
+	 let $matches:= 
+	   for $name in $item/demographic/name/commonName 
+	     return if (contains(upper-case($name),$u_name)) then ($name) else ()
+	 where count($matches) > 0
+	 return $item
        else $items
 };
 
@@ -171,10 +182,15 @@ declare function csd:filter_by_common_name($items as item()*, $name as item()) a
 :)
 declare function csd:filter_by_surname($items as item()*, $name as item()) as item()*
 {
-       if ($name) 
+       if (not($name = ''))
        then
-           let $u_name:= fn:upper-case($name)
-           return $items[contains(fn:upper-case(demographic/name/surname) ,$u_name)]
+	 let $u_name:= fn:upper-case($name)
+	 for $item in $items
+	 let $matches:= 
+	   for $name in $item/demographic/name/surname
+	     return if (contains(upper-case($name),$u_name)) then ($name) else ()
+	 where count($matches) > 0
+	 return $item
        else $items
 };
 
@@ -189,10 +205,15 @@ declare function csd:filter_by_surname($items as item()*, $name as item()) as it
 :)
 declare function csd:filter_by_surname_starts_with($items as item()*, $name as item()) as item()*
 {
-       if ($name) 
+       if (not($name = '')) 
        then
-           let $u_name:= fn:upper-case($name)
-           return $items[starts-with(fn:upper-case(demographic/name/surname) ,$u_name)]
+	 let $u_name:= fn:upper-case($name)
+	 for $item in $items
+	 let $matches:= 
+	   for $name in $item/demographic/name/surname
+	     return if (starts-with(upper-case($name),$u_name)) then ($name) else ()
+	 where count($matches) > 0
+	 return $item
        else $items
 };
 
@@ -208,10 +229,15 @@ declare function csd:filter_by_surname_starts_with($items as item()*, $name as i
 :)
 declare function csd:filter_by_forename($items as item()*, $name as item()) as item()*
 {
-       if ($name) 
+       if (not($name = '')) 
        then
-           let $u_name:= fn:upper-case($name)
-           return $items[contains(fn:upper-case(demographic/name/forename) ,$u_name)]
+	 let $u_name:= fn:upper-case($name)
+	 for $item in $items
+	 let $matches:= 
+	   for $name in $item/demographic/name/forename
+	     return if (contains(upper-case($name),$u_name)) then ($name) else ()
+	 where count($matches) > 0
+	 return $item
        else $items
 };
 
@@ -227,10 +253,15 @@ declare function csd:filter_by_forename($items as item()*, $name as item()) as i
 :)
 declare function csd:filter_by_forename_starts_with($items as item()*, $name as item()) as item()*
 {
-       if ($name) 
+       if (not($name ='')) 
        then
-           let $u_name:= fn:upper-case($name)
-           return $items[starts-with(fn:upper-case(demographic/name/forename) ,$u_name)]
+	 let $u_name:= fn:upper-case($name)
+	 for $item in $items
+	 let $matches:= 
+	   for $name in $item/demographic/name/forename
+	     return if (starts-with(upper-case($name),$u_name)) then ($name) else ()
+	 where count($matches) > 0
+	 return $item
        else $items
 };
 
