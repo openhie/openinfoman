@@ -47,7 +47,7 @@ declare function csd_bsq:provider_search($requestParams, $doc) as element()
          
       let $provs2 := csd:filter_by_common_name($provs1,$requestParams/commonName)
     
-      let $provs3 := csd:filter_by_coded_type($provs2,$requestParams/type) 
+      let $provs3 := csd:filter_by_coded_type($provs2,$requestParams/codedType) 
    
       let $provs4 := csd:filter_by_address($provs3, $requestParams/address/addressLine) 
 
@@ -80,7 +80,7 @@ declare function csd_bsq:organization_search($requestParams, $doc) as element()
       
       let $orgs5 := csd:filter_by_record($orgs4,$requestParams/record)      
 
-	  let $orgs6 := csd:filter_by_other_id($orgs5,$requestParams/otherID)
+      let $orgs6 := csd:filter_by_other_id($orgs5,$requestParams/otherID)
 
       return csd:limit_items($orgs6,$requestParams/start,$requestParams/max)         
 
