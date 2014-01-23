@@ -211,7 +211,7 @@ declare function csd_bsq:service_search($requestParams, $doc) as element()
       else
 	if (exists($requestParams/max)) 
 	  then csd:limit_items(svcs2,<start/>,$requestParams/max)         
-	else svcs2
+	else $svcs2
 
     }     
   </serviceDirectory>
