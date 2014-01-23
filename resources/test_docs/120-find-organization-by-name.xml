@@ -2,15 +2,7 @@
 <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
   <function uuid='dc6aedf0-f609-11e2-b778-0800200c9a66'>
     <requestParams>
-      <id/>
-      <otherID/>
       <primaryName>Connectathon CSD IDN One</primaryName>
-      <name/>
-      <codedType/>
-      <address/>
-      <start/>
-      <max/>
-      <record/>
     </requestParams>
   </function>
 </csd:careServicesRequest>   
