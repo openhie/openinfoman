@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
+  <function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'>
+    <requestParams>
+      <id/>
+      <codedType/>
+      <start/>
+      <max/>
+      <record/>
+    </requestParams>
+  </function>
+</csd:careServicesRequest>   
