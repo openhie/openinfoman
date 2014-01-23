@@ -43,12 +43,12 @@ declare function csd:filter_by_address($items as item()*,$components as item()*)
 :)
 declare function csd:filter_by_coded_type($items as item()*, $codedtype as item()) as item()*
 {
-     if ($codedtype/@code and $codedtype/@codingSchema)
+     if (exists($codedtype/@code) and exists($codedtype/@codingSchema))
      then
         let $code := fn:upper-case($codedtype/@code)
 	    let $cSchema := $codedtype/@codingSchema
         return $items[codedType[
-                @code = @code
+                @code = $code
  	            and
                 @codingSchema = $cSchema
                 ]
