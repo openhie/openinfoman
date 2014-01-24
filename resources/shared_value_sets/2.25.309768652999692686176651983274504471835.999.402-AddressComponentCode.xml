@@ -1,0 +1,9 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="2.25.309768652999692686176651983274504471835.999.402" version="20140122" displayName="CSD Address Component Codes">
+  <ConceptList xml:lang="en-US">
+    <Concept code="streetAddress" displayName="Street Address" codeSystem="urn:ihe:iti:csd:2013:address"/>
+    <Concept code="city" displayName="City" codeSystem="urn:ihe:iti:csd:2013:address"/>
+    <Concept code="stateProvince" displayName="State/Province" codeSystem="urn:ihe:iti:csd:2013:address"/>
+    <Concept code="country" displayName="Country" codeSystem="urn:ihe:iti:csd:2013:address"/>
+    <Concept code="postalCode" displayName="Postal Code" codeSystem="urn:ihe:iti:csd:2013:address"/>
+  </ConceptList>
+</ValueSet>

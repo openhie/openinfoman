@@ -1,0 +1,7 @@
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="2.25.309768652999692686176651983274504471835.999.404" version="20140122" displayName="Address Type Codes">
+  <ConceptList xml:lang="en-US">
+    <Concept code="Mailing" displayName="Mailing" codeSystem="urn:ihe:iti:csd:2013:addressType"/>
+    <Concept code="Billing" displayName="Billing" codeSystem="urn:ihe:iti:csd:2013:addressType"/>
+    <Concept code="Practice" displayName="Practice" codeSystem="urn:ihe:iti:csd:2013:addressType"/>
+  </ConceptList>
+</ValueSet>
