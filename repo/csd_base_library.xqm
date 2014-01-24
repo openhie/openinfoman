@@ -24,12 +24,36 @@ declare function csd:filter_by_address($items as item()*,$components as item()*)
     ) 
     then  $items
     else  
-           let $comp := fn:upper-case($components[1]/@component)
-           let $val := fn:upper-case($components[1]/text())
+           let $comp := $components[1]/@component
+           let $val := fn:upper-case($components[1]/text())	     
            return csd:filter_by_address(
-              $items[address/addressLine[fn:upper-case(@component) = $comp and fn:upper-case(text()) = $val]],
-              fn:subsequence($components,2)
-          )
+	     $items[address/addressLine[@component = $comp and fn:upper-case(text()) = $val]],
+	     fn:subsequence($components,2))
+};
+
+
+(:~
+ : this function accepts a list of items to filter by address 
+ :
+ : @param $items - a list of items to filter by their <address/> child elements
+ : @param $components - a list of address component values.  Each item should have an @component attribute indicating the component type. The text content is the component value.
+ : @return all items in $items which have address/addressLine which matches exactly (case insensitive) on each of the given components.
+ : @since 1.0
+ : 
+:)
+declare function csd:filter_by_demographic_address($items as item()*,$components as item()*) as item()* 
+{
+    if (count($components) = 0 
+       or not ($components[1]/@component)
+       or not ($components[1]/text())
+    ) 
+    then  $items
+    else  
+           let $comp := $components[1]/@component
+           let $val := fn:upper-case($components[1]/text())	     
+           return csd:filter_by_address(
+	     $items[demographic/address/addressLine[@component = $comp and fn:upper-case(text()) = $val]],
+	     fn:subsequence($components,2))
 };
 
 (:~

@@ -58,7 +58,7 @@ declare function csd_bsq:provider_search($requestParams, $doc) as element()
       else $provs2
    
       let $provs4 := if (exists($requestParams/address/addressLine))
-	then csd:filter_by_address($provs3, $requestParams/address/addressLine) 
+	then csd:filter_by_demographic_address($provs3, $requestParams/address/addressLine) 
       else $provs3
 
       let $provs5 :=  if (exists($requestParams/record)) 
