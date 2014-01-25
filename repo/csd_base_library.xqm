@@ -305,8 +305,8 @@ declare function csd:filter_by_record($items as item()*, $record as item()) as i
         if (not($record/@status) )
         then $items
         else 
-             let $u_status:= fn:upper-case($record/@status)
-             return $items[fn:upper-case(record/@status) = $u_status]             
+             let $status:= $record/@status
+             return $items[record/@status = $status]
     return 
         if (not($record/@updated) ) 
         then $items1
