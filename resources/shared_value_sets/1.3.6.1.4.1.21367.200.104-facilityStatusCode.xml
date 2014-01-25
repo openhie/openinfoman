@@ -3,5 +3,7 @@
 		<Concept code="104-001" displayName="Open" codeSystem="1.3.6.1.4.1.21367.100.1"/>
 		<Concept code="104-002" displayName="Closed" codeSystem="1.3.6.1.4.1.21367.100.1"/>
 		<Concept code="104-003" displayName="Under Construction" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="104-004" displayName="Active" codeSystem="1.3.6.1.4.1.21367.100.1"/>
+		<Concept code="104-005" displayName="Inactive" codeSystem="1.3.6.1.4.1.21367.100.1"/>
 	</ConceptList>
 </ValueSet>
