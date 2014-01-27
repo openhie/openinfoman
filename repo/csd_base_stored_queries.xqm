@@ -206,11 +206,11 @@ declare function csd_bsq:service_search($requestParams, $doc) as element()
 
       return if (exists($requestParams/start)) then
 	if (exists($requestParams/max)) 
-	  then csd:limit_items(svcs2,$requestParams/start,$requestParams/max)         
-	else csd:limit_items(svcs2,$requestParams/start,<max/>)         
+	  then csd:limit_items($svcs2,$requestParams/start,$requestParams/max)         
+	else csd:limit_items($svcs2,$requestParams/start,<max/>)         
       else
 	if (exists($requestParams/max)) 
-	  then csd:limit_items(svcs2,<start/>,$requestParams/max)         
+	  then csd:limit_items($svcs2,<start/>,$requestParams/max)         
 	else $svcs2
 
     }     
