@@ -1,6 +1,6 @@
-<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="2.25.309768652999692686176651983274504471835.999.406" version="20131201" displayName="CSD Facility Status Codes">
+<ValueSet xmlns="urn:ihe:iti:svs:2008" xmlns:svs="urn:ihe:iti:svs:2008" id="2.25.309768652999692686176651983274504471835.999.406" version="20131201" displayName="CSD Service Status Codes">
 	<ConceptList xml:lang="en-US">
-		<Concept code="Active" displayName="Open" codeSystem="urn:ihe:iti:csd:2013:seviceStatusCode"/>
-		<Concept code="Inactive" displayName="Closed" codeSystem="urn:ihe:iti:csd:2013:serviceStatusCode"/>
+		<Concept code="Active" displayName="Active" codeSystem="urn:ihe:iti:csd:2013:seviceStatusCode"/>
+		<Concept code="Inactive" displayName="Inactive" codeSystem="urn:ihe:iti:csd:2013:serviceStatusCode"/>
 	</ConceptList>
 </ValueSet>
