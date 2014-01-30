@@ -39,7 +39,7 @@ else
 declare function csr_proc:process_CSR_adhoc($expression,$doc) 
 {
 
-let $expr :=serialize($expression/*)
+let $expr :=string($expression)
 return if ($expr) then
   let $result := xquery:eval($expr,map{"":=$doc})
   return(  
