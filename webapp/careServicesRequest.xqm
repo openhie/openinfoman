@@ -51,7 +51,7 @@ declare
 function page:adhoc($name,$adhoc,$content) {    
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
 (:  csr_proc:process_CSR_adhoc(fn:parse-xml($adhoc),csd_dm:open_document($csd_webconf:db,$name)) :)
-let  $adhoc_doc := csr_proc:create_adhoc_doc(fn:root(fn:parse-xml($adhoc)),$content)
+let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
 return  csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($csd_webconf:db,$name))
 (:  
   return  csr_proc:process_CSR($adhoc_doc,csd_dm:open_document($csd_webconf:db,$name))      :)
