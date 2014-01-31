@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<c:careServicesRequest xmlns:c="urn:ihe:iti:csd:2013">
+  <c:expression content-type="text/xml"><![CDATA[
+  declare namespace c = "urn:ihe:iti:csd:2013";
+  
+  declare variable $providers := /c:CSD/c:providerDirectory/c:provider;
+  declare variable $orgs := /c:CSD/c:organizationDirectory/c:organization;
+  
+  <names>
+    {
+    for $provider in $providers
+    let $gender := $provider/c:demographic/c:gender
+    let $providerType := $provider/c:codedType/@code
+    let $orgOids := $provider/c:organizations/c:organization/@oid
+    
+    where $gender='F'
+    and $providerType='105-003'
+    and (some $orgOid in $orgOids
+    satisfies $orgs[@oid=$orgOid]//c:addressLine[@component="postalCode"]='97466')
+    
+    return <name>{$provider/c:demographic/c:name/c:commonName/text()}</name>}
+  </names>
+  ]]></c:expression>
+</c:careServicesRequest>
+
