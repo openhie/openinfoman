@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<c:careServicesRequest xmlns:c="urn:ihe:iti:csd:2013">
+  <c:expression content-type="text/html"><![CDATA[
+declare namespace c = "urn:ihe:iti:csd:2013";
+
+declare variable $facilities := /c:CSD/c:facilityDirectory/c:facility;
+declare variable $organizations := /c:CSD/c:organizationDirectory/c:organization;
+
+<dxf xmlns="http://dhis2.org/schema/dxf/2.0">
+<dataValueSet>
+{
+	let $fac := (for $i in $facilities where $i/c:primaryName[.="Connectathon Radiology Facility"] return $i)[1]
+
+	let $facorg := (for $i in $fac/c:organizations/c:organization where $i/c:service[@oid="1.3.6.1.4.1.21367.200.99.111.101.102"] return $i)[1]
+
+	let $org := (for $i in $organizations[@oid=$facorg/@oid] return $i)[1]
+
+	return 
+	<dataValue name="{$org/c:primaryName}"><address>{$org/c:address[@type="Mailing"]}</address>
+	<credential>{$org/c:credential}</credential>
+</dataValue>
+}
+</dataValueSet>
+</dxf>]]>
+  </c:expression>
+</c:careServicesRequest>
