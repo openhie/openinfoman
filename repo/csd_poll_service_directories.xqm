@@ -93,8 +93,8 @@ declare function csd_psd:poll_service_directory($db,$name,$mtime)
 declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
   let $url := csd_psd:get_service_directory_url($db,$name)    
   let $message :=       
-    (<http:header name="Content-Type" value="application/soap+xml"/>	
-     , <http:body   media-type="application/soap+xml" method='xml' >
+    (<http:header name="Content-Type" value="application/soap+xml"/>
+     , <http:body   media-type="application/soap+xm">   
         {csd_qus:create_last_update_request($url,$mtime)} 
       </http:body>      
     )
@@ -113,6 +113,7 @@ declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
     else
     <http:request
       href='{$url}'  
+      send-authorization='false'
       method='post' >
       {$message}
     </http:request>   

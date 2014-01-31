@@ -22,7 +22,7 @@ declare
  return (
  <rest:response>
    <http:response status="200" >
-     <http:header name="Content-Type" value="application/soap+xml; charset=utf-8"/>
+     <http:header name="Content-Type" value="application/soap+xml"/>
      <http:header name="Content-Disposition"  value="inline; filename=soap_query_updated_services_{$name}.xml"/>
    </http:response>
    </rest:response>
@@ -43,7 +43,7 @@ if (csd_dm:document_source_exists($csd_webconf:db,$name)) then
   (
   <rest:response>
     <http:response status="200" >
-      <http:header name="Content-Type" value="application/soap+xml; charset=utf-8"/>
+      <http:header name="Content-Type" value="application/soap+xml"/>
       <http:header name="Content-Disposition"  value="inline; filename=response_query_updated_services_{$name}.xml"/>
     </http:response>
   </rest:response>
