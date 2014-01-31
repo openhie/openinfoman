@@ -94,13 +94,13 @@ declare function csd_psd:generate_soap_request ($db,$name,$mtime)  {
   let $url := csd_psd:get_service_directory_url($db,$name)    
   let $message :=       
     (<http:header name="Content-Type" value="application/soap+xml"/>
-     , <http:body   media-type="application/soap+xm">   
+     , <http:body   media-type="application/soap+xml">   
         {csd_qus:create_last_update_request($url,$mtime)} 
       </http:body>      
     )
   let $credentials := csd_psd:get_service_directory_credentials($db,$name)
   let $request := 
-    if ($credentials/@type = 'basic_auth' and $credentials/@username ) 
+    if ($credentials/@type = 'basic_auth' and $credentials/@username != '') 
       then 
       <http:request
       href='{$url}'  
