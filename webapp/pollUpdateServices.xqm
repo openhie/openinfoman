@@ -150,7 +150,7 @@ declare
  return (
  <rest:response>
    <http:response status="200" >
-     <http:header name="Content-Type" value="application/soap+xml; charset=UTF-8"/>
+     <http:header name="Content-Type" value="application/soap+xml"/>
      <http:header name="Content-Disposition"  value="inline; filename=soap_query_updated_services_{$name}"/>
    </http:response>
    </rest:response>
