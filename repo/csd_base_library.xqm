@@ -7,6 +7,24 @@
 module namespace csd = "urn:ihe:iti:csd:2013" ;
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
+
+
+import module namespace random = "http://basex.org/modules/random";
+
+(:~
+ :Generate UUID as OID according to http://www.itu.int/ITU-T/asn1/uuid.html
+ :)
+declare function csd:uuid_as_oid() {
+  let $zero := convert:binary-to-bytes('0')
+  let $nine := convert:binary-to-bytes('9')
+  let $a := convert:binary-to-bytes('A')
+  let $e := convert:binary-to-bytes('E')
+  let $uuid := convert:binary-to-bytes(upper-case(translate(random:uuid(),'-','')))
+  let $uuid_dec := $uuid
+    ! xs:decimal(if ( (. >= $zero and . <= $nine)) then (.  - $zero) else if ( (. >= $a and . <= $e)) then (. - $a + 10) else ())
+  return concat('2.25.',   fold-left($uuid_dec, 0, function($a, $b) { $a * 16 + $b }) )
+};
+
 (:~
  : this function accepts a list of items to filter by address 
  :
