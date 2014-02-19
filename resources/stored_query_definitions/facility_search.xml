@@ -7,7 +7,6 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
   uuid="c7640530-f600-11e2-b778-0800200c9a66">
-  <xsd:import namespace="urn:ihe:iti:csd:2013" schemaLocation="CSD.xsd"/>
   <description> 
     <p>
     Performs a search for all facilities by name, type, address or ID.   
@@ -61,15 +60,21 @@
          &lt;/careServicesRequest&gt;         
       </pre>
   </description>
-  <definition><xi:include href="facility_search.xq" parse='text'/></definition>
+  <definition>
+    import module namespace csd_bsq =  "https://github.com/his-interop/openinfoman/csd_bsq" at "../repo/csd_base_stored_queries.xqm";
+    declare  variable $careServicesRequest external;
+    csd_bsq:facility_search($careServicesRequest,.)
+  </definition>
   <xforms:instance>
-    <id/>
-    <primaryName/>
-    <name/>
-    <codedType/>
-    <address/>
-    <start/>
-    <max/>
+    <careServicesRequest>
+      <id/>
+      <primaryName/>
+      <name/>
+      <codedType/>
+      <address/>
+      <start/>
+      <max/>
+    </careServicesRequest>
     <record/>
   </xforms:instance>
   <xforms:bind nodeset="id" type="csd:uniqueID"/>

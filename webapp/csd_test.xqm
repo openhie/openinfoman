@@ -82,7 +82,14 @@ let $response:=
   }
   <h2>Available Stored Functions:</h2>
   <ul>
-    {for $sf in $csd_webconf:stored_functions return <li>{text{$sf/@uuid}} implemented by {text{$sf/@method}}() and returns {text{$sf/@content-type}}</li>}
+    {for $sf in ($csd_webconf:stored_functions,$csd_webconf:stored_updating_functions) 
+    return
+    <li>
+    UUID: {string($sf/@uuid)}<br/> 
+    Returns: {csd_webconf:lookup_stored_content_type($sf/@uuid)}<br/>
+    Description:<blockquote> {$sf/csd:description/*}</blockquote>
+    </li>
+    }
   </ul>
 </span>
 return page:wrapper($response)

@@ -7,7 +7,6 @@
   xmlns:csd="urn:ihe:iti:csd:2013" 
   xmlns="urn:ihe:iti:csd:2013" 
   uuid="e3d8ecd0-f605-11e2-b778-0800200c9a66">
-  <xsd:import namespace="urn:ihe:iti:csd:2013" schemaLocation="CSD.xsd"/>
   <description> 
     <p>
     Performs a search for all search by coded type or ID.   
@@ -49,13 +48,19 @@
          &lt;/careServicesRequest&gt;         
       </pre>
   </description>
-  <definition><xi:include href="service_search.xq" parse='text'/></definition>
+  <definition>
+    import module namespace csd_bsq =  "https://github.com/his-interop/openinfoman/csd_bsq" at "../repo/csd_base_stored_queries.xqm";
+    declare  variable $careServicesRequest external;
+    csd_bsq:service_search($careServicesRequest,.)
+  </definition>
   <xforms:instance>
-    <id/>
-    <codedType/>
-    <start/>
-    <max/>
-    <record/>
+    <careServicesRequest>
+      <id/>
+      <codedType/>
+      <start/>
+      <max/>
+      <record/>
+    </careServicesRequest>
   </xforms:instance>
   <xforms:bind nodeset="id" type="csd:uniqueID"/>
   <xforms:bind nodeset="codedType" type="csd:codedtype"/>

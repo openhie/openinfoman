@@ -11,24 +11,14 @@ import module namespace csd = "urn:ihe:iti:csd:2013" at "csd_base_library.xqm";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 declare variable $csd_bsq:stored_functions :=
+for $doc in 
 (
-   <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' 
-   	     method='csd_bsq:provider_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='dc6aedf0-f609-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:organization_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:service_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='c7640530-f600-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:facility_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />
-);
+  doc("../resources/stored_query_definitions/facility_search.xml"),
+  doc("../resources/stored_query_definitions/provider_search.xml"),
+  doc("../resources/stored_query_definitions/organization_search.xml"),
+  doc("../resources/stored_query_definitions/service_search.xml")
+) 
+return $doc/careServicesFunction;
 
 
 

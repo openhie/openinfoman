@@ -7,8 +7,8 @@ import module namespace csd_webconf =  "https://github.com/his-interop/openinfom
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
-
-
+declare   namespace   xforms = "http://www.w3.org/2002/xforms";
+declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 
 declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
 
@@ -62,62 +62,51 @@ else
 };
 
 
+declare function page:function_list()  {
+  <span>
+    <h2>Care Services Request - Stored Queries</h2>
+    <ul>
+      { 
+      for $function in ($csd_webconf:stored_functions,$csd_webconf:stored_updating_functions)
+      let  $uuid := string($function/@uuid)
+      order by $function/@uuid
+      return  
+      <li>
+      UUID: {string($uuid)}  <br/>
+      Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
+      Content: {string(csd_webconf:lookup_stored_content_type($uuid)) }
+      Description: <blockquote>{$function/description/*}</blockquote>
+      Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':='yes'})} </pre></blockquote>
+      {if (exists($function/xs:schema)) then  ("Schema: ",string($function/xs:schema),<br/>) else () }
+      {if (count( $function/xforms:bind) > 0) then
+       ("Bindings: ",
+       <blockquote>
+	 <ul>
+           {for $bind in $function/xforms:bind return <li><b>Node set</b>: {string($bind/@nodeset)} <br/><b>Type</b>: {string($bind/@type)}</li>}
+	 </ul>
+       </blockquote>
+       ) else () 
+       }
+      </li>      
+      }
+    </ul>
+  </span>
+};
+
+
 declare
   %rest:path("/CSD/csr")
   %rest:GET
   %output:method("xhtml")
   function page:csr_list() 
 { 
-let $response := 
-  <span>
-    <h2>Care Services Request - Stored Queries</h2>
-    <ul>
-      { 
-      for $function in $csd_webconf:stored_functions
-      let  $uuid := string($function/@uuid)
-      return  
-      <li>
-      UUID: {string($uuid)}  <br/>
-      Method: {string(csd_webconf:lookup_stored_method($uuid))} <br/>
-      Content: {string(csd_webconf:lookup_stored_content_type($uuid)) }
-      </li>
-      }
-    </ul>
-    <h2>Care Services Request - Ad Hoc Option</h2>
-    <ul>
-      {
-	for $name in $page:csd_docs
-	return 
-	<li>
-	  Submit Care Services Request for {$name} at:
-	  <pre>{$csd_webconf:baseurl}//CSD/csr/{$name}/careServicesRequest</pre> 
-	  <br/>
-	  Submit ad-hoc query:
-	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">
-	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc" ><![CDATA[<html xmlns:csd='urn:ihe:iti:csd:2013'>
-  <body>
-    <ul>
-      <li>You have {count(/csd:CSD/csd:providerDirectory/*)} providers.</li>
-      <li>You have {count(/csd:CSD/csd:facilityDirectory/*)} facilities.</li>
-      <li>You have {count(/csd:CSD/csd:organizationDirectory/*)} organizations.</li>
-      <li>You have {count(/csd:CSD/csd:serviceDirectory/*)} services.</li>
-    </ul>
-  </body>
-</html> ]]> </textarea>
-	    <br/>
-	    <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
-	    <br/>
-	    <input type="submit" value="submit"/>
-	  </form>
-	</li>
-      }
-    </ul>
-  </span>
-  return page:wrapper($response)
+let $list := page:function_list()
+let $response := page:endpoints()
+return page:wrapper($list,$response)
 };
 
 
-declare function page:wrapper($response) {
+declare function page:wrapper($list,$requests) {
  <html>
   <head>
 
@@ -130,6 +119,19 @@ declare function page:wrapper($response) {
 
     <script src="https://code.jquery.com/jquery.js"/>
     <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
+   <script type="text/javascript">
+    $( document ).ready(function() {{
+      $('#tab_list a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
+      $('#tab_requests a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
+    }});
+   </script>
+
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
@@ -144,13 +146,62 @@ declare function page:wrapper($response) {
         </div>
       </div>
     </div>
-    <div class='container'>  {$response}</div>
+    <div class='container'>
+      <ul class="nav nav-tabs">
+	<li id='tab_list' class="active"><a  href="#list">Available Functions</a></li>
+	<li id='tab_requests'><a  href="#requests">careServiceRequest Endpoints</a></li>
+      </ul>
+      <div class="tab-content panel">
+	<div class="tab-pane active panel-body" id="list">{$list}</div>
+	<div class="tab-pane active panel-body" id="requests">{$requests}</div>
+      </div>
+    </div>
   </body>
  </html>
 };
 
 
+declare function page:endpoints() {
+<span>
+    <h2>Care Services Request - Endpoints</h2>
+    <ul>
+      {
+	for $name in $page:csd_docs
+	return 
+	<li>
+	  Submit Care Services Request for {$name} at:
+	  <pre>{$csd_webconf:baseurl}//CSD/csr/{$name}/careServicesRequest</pre> 
+	  <br/>
+	  Submit ad-hoc query:
+	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">
+	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc" >{$page:sample}</textarea>
+	    <br/>
+	    <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
+	    <br/>
+	    <input type="submit" value="submit"/>
+	  </form>
+	</li>
+      }
+    </ul>
+  </span>
+};
 
+
+
+
+
+
+declare variable $page:sample := 
+"<html xmlns:csd='urn:ihe:iti:csd:2013'>
+<body>
+<ul>
+  <li>You have {count(/csd:CSD/csd:providerDirectory/*)} providers.</li>
+  <li>You have {count(/csd:CSD/csd:facilityDirectory/*)} facilities.</li>
+<li>You have {count(/csd:CSD/csd:organizationDirectory/*)} organizations.</li>
+<li>You have {count(/csd:CSD/csd:serviceDirectory/*)} services.</li>
+</ul>
+</body>
+</html>";
 
 
 

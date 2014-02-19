@@ -20,7 +20,7 @@ let $func :=$careServicesRequest//csd:function
 let $adhoc :=$careServicesRequest//csd:expression
 return if (exists($func)) 
 then
- csr_proc:process_CSR_stored($func,$doc) 
+csr_proc:process_CSR_stored($func,$doc) 
 else if (exists($adhoc))
 then
   csr_proc:process_CSR_adhoc($adhoc,$doc) 
@@ -41,7 +41,7 @@ declare function csr_proc:process_CSR_adhoc($expression,$doc)
 
 let $expr :=string($expression)
 return if ($expr) then
-  let $result := xquery:eval($expr,map{"":=$doc})
+  let $result := xquery:evaluate($expr,map{"":=$doc})
   return(  
    <rest:response>
    <http:response status="200" >
@@ -112,19 +112,13 @@ return
 declare updating function csr_proc:process_updating_CSR($careServicesRequest, $doc) 
 {
 (:not allowing ad-hoc updates:)
-let $func :=$careServicesRequest//csd:function
-let $method :=  
-  if (exists($func) and csd_webconf:has_updating_stored_query($func/@uuid))
-    then csd_webconf:get_updating_stored_query($func/@uuid) else ()
-return 
-  if (exists($method)) then
+let $function :=$careServicesRequest//csd:function
+return if (csd_webconf:has_stored_query($function/@uuid)) then
     (:Assumes called method handles db:output.  Nothing is encapsulated :)
-    db:output(
-      $method($careServicesRequest//csd:function/requestParams,$doc)
-       )
+      csd_webconf:execute_stored_updating_query($doc,$function/@uuid,$function/requestParams)
   else 
   db:output(<rest:response>
-    <http:response status="404" message="No registered updating function with UUID='{$func/@uuid}.'">
+    <http:response status="404" message="No registered updating function with UUID='{$function/@uuid}.'">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
