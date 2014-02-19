@@ -153,7 +153,7 @@ declare function page:wrapper($list,$requests) {
       </ul>
       <div class="tab-content panel">
 	<div class="tab-pane active panel-body" id="list">{$list}</div>
-	<div class="tab-pane active panel-body" id="requests">{$requests}</div>
+	<div class="tab-pane panel-body" id="requests">{$requests}</div>
       </div>
     </div>
   </body>
