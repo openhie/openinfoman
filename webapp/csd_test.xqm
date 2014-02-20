@@ -32,7 +32,7 @@ declare
 {
 let $test_doc := page:get_test_doc($test)
 return if ($test_doc) then
-  csr_proc:process_CSR($test_doc/csd:careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))
+  csr_proc:process_CSR($csd_webconf:db,$test_doc/csd:careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))
 else
    (:need better error handling:)
   <h2>Bad Test Doc</h2>

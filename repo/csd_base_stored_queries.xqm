@@ -10,37 +10,12 @@ import module namespace csd = "urn:ihe:iti:csd:2013" at "csd_base_library.xqm";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
-declare variable $csd_bsq:stored_functions :=
-(
-   <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' 
-   	     method='csd_bsq:provider_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='dc6aedf0-f609-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:organization_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:service_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />,
-   <function uuid='c7640530-f600-11e2-b778-0800200c9a66'
-   	     method='csd_bsq:facility_search'	    
- 	     content-type='text/xml; charset=utf-8'      
-	     />
-);
-
 
 
 declare function csd_bsq:provider_search($requestParams, $doc) as element() 
 {
-<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-  <organizationDirectory/>
-  <serviceDirectory/>
-  <facilityDirectory/>
-  <providerDirectory>
-    {
 
+ csd:wrap_providers(
       let $provs0 := if (exists($requestParams/id))
 	then csd:filter_by_primary_id($doc/CSD/providerDirectory/*,$requestParams/id)
       else $doc/CSD/providerDirectory/*
@@ -73,10 +48,7 @@ declare function csd_bsq:provider_search($requestParams, $doc) as element()
 	if (exists($requestParams/max)) 
 	  then csd:limit_items($provs5,<start/>,$requestParams/max)         
 	else $provs5
-
-    }     
-  </providerDirectory>
-</CSD>
+)
 
 };
 
@@ -85,9 +57,7 @@ declare function csd_bsq:provider_search($requestParams, $doc) as element()
 
 declare function csd_bsq:organization_search($requestParams, $doc) as element() 
 {
-<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-  <organizationDirectory>
-    {
+ csd:wrap_organizations(
       let $orgs0 := if (exists($requestParams/id))
 	then csd:filter_by_primary_id($doc/CSD/organizationDirectory/*,$requestParams/id)
 	else $doc/CSD/organizationDirectory/*
@@ -124,23 +94,13 @@ declare function csd_bsq:organization_search($requestParams, $doc) as element()
 	if (exists($requestParams/max)) 
 	  then csd:limit_items($orgs6,<start/>,$requestParams/max)         
 	else $orgs6
-
-    }     
-  </organizationDirectory>
-  <serviceDirectory/>
-  <facilityDirectory/>
-  <providerDirectory/>
-</CSD>
+)
 };
 
 
 declare function csd_bsq:facility_search($requestParams, $doc) as element() 
 {
-<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-  <organizationDirectory/>
-  <serviceDirectory/>
-  <facilityDirectory>
-    {
+csd:wrap_facilities(
       let $facs0 := if (exists($requestParams/id))
 	then csd:filter_by_primary_id($doc/CSD/facilityDirectory/*,$requestParams/id)
       else $doc/CSD/facilityDirectory/*
@@ -178,20 +138,13 @@ declare function csd_bsq:facility_search($requestParams, $doc) as element()
 	  then csd:limit_items($facs6,<start/>,$requestParams/max)         
 	else $facs6
 
-
-    }     
-  </facilityDirectory>
-  <providerDirectory/>
-</CSD>
+)
 };
 
 
 declare function csd_bsq:service_search($requestParams, $doc) as element() 
 {
-<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-  <organizationDirectory/>
-  <serviceDirectory>
-    {
+csd:wrap_services(
       let $svcs0 := if (exists($requestParams/id))
 	then csd:filter_by_primary_id($doc/CSD/serviceDirectory/*,$requestParams/id)
       else $doc/CSD/serviceDirectory/*
@@ -213,10 +166,5 @@ declare function csd_bsq:service_search($requestParams, $doc) as element()
 	  then csd:limit_items($svcs2,<start/>,$requestParams/max)         
 	else $svcs2
 
-    }     
-  </serviceDirectory>
-  <facilityDirectory/>
-  <providerDirectory/>
-</CSD>
-    
+)    
 };

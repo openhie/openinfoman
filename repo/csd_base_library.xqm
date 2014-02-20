@@ -11,6 +11,63 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 import module namespace random = "http://basex.org/modules/random";
 
+
+(:Utility methods:)
+declare function csd:wrap_providers($providers) 
+{
+<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
+  <organizationDirectory/>
+  <serviceDirectory/>
+  <facilityDirectory/>
+  <providerDirectory>
+  {$providers}
+  </providerDirectory>
+</CSD>
+
+};
+
+
+declare function csd:wrap_organizations($organizations) 
+{
+<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
+  <organizationDirectory>
+  {$organizations}
+  </organizationDirectory>
+  <serviceDirectory/>
+  <facilityDirectory/>
+  <providerDirectory/>
+</CSD>
+
+};
+
+declare function csd:wrap_facilities($facilities) 
+{
+<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
+  <organizationDirectory/>
+  <serviceDirectory/>
+  <facilityDirectory>
+  {$facilities}
+  </facilityDirectory>
+  <providerDirectory/>
+</CSD>
+
+};
+
+
+declare function csd:wrap_services($services) 
+{
+<CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
+  <organizationDirectory/>
+  <serviceDirectory>
+    {$services}
+  </serviceDirectory>
+  <facilityDirectory/>
+  <providerDirectory/>
+</CSD>
+
+};
+
+
 (:~
  :Generate UUID as OID according to http://www.itu.int/ITU-T/asn1/uuid.html
  :)

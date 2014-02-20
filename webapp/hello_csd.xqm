@@ -57,6 +57,7 @@ else
   </p>
   <p>These the top-level endpoints are exposed</p>
   <ul>
+    <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Function</a></li>
     <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Initialize Sample Directories</a></li>
     <li><a href="{$csd_webconf:baseurl}CSD/csr">Care Services Request</a></li>
     <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request</a></li>
