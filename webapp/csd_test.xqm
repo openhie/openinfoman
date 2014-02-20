@@ -76,21 +76,16 @@ declare
 let $response:=    
 <span>
   <h2>Registered Documents</h2>
+  <ul>
+  {
+    for $name in csd_dm:registered_documents($csd_webconf:db)
+    return <li><a href="{concat('#',$name)}">{$name}</a></li>
+  }
+  </ul>
   {
     for $name in csd_dm:registered_documents($csd_webconf:db) 
-    return <span class='row'><h4>Tests for <a href="/CSD/test/{$name}">{$name}</a></h4>{page:test_menu($name)}</span>
+    return <span class='row' id='{$name}'><h4>Tests for <a href="/CSD/test/{$name}">{$name}</a></h4>{page:test_menu($name)}</span>
   }
-  <h2>Available Stored Functions:</h2>
-  <ul>
-    {for $sf in ($csd_webconf:stored_functions,$csd_webconf:stored_updating_functions) 
-    return
-    <li>
-    UUID: {string($sf/@uuid)}<br/> 
-    Returns: {csd_webconf:lookup_stored_content_type($sf/@uuid)}<br/>
-    Description:<blockquote> {$sf/csd:description/*}</blockquote>
-    </li>
-    }
-  </ul>
 </span>
 return page:wrapper($response)
 };
