@@ -60,11 +60,7 @@
          &lt;/careServicesRequest&gt;         
       </pre>
   </description>
-  <definition>
-    import module namespace csd_bsq =  "https://github.com/his-interop/openinfoman/csd_bsq" at "../repo/csd_base_stored_queries.xqm";
-    declare  variable $careServicesRequest external;
-    csd_bsq:facility_search($careServicesRequest,.)
-  </definition>
+  <definition><xi:include parse='text' href='facility_search.xq'/></definition>
   <xforms:instance>
     <careServicesRequest>
       <id/>

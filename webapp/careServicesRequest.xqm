@@ -67,14 +67,14 @@ declare function page:function_list()  {
     <h2>Care Services Request - Stored Queries</h2>
     <ul>
       { 
-      for $function in ($csd_webconf:stored_functions,$csd_webconf:stored_updating_functions)
+      for $function in ($csr_proc:stored_functions,$csr_proc:stored_updating_functions)
       let  $uuid := string($function/@uuid)
       order by $function/@uuid
       return  
       <li>
       UUID: {string($uuid)}  <br/>
       Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
-      Content: {string(csd_webconf:lookup_stored_content_type($uuid)) }
+      Content: {string(csr_proc:lookup_stored_content_type($uuid)) }
       Description: <blockquote>{$function/description/*}</blockquote>
       Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':='yes'})} </pre></blockquote>
       {if (exists($function/xs:schema)) then  ("Schema: ",string($function/xs:schema),<br/>) else () }
