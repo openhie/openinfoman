@@ -6,7 +6,8 @@ declare   namespace   xforms = "http://www.w3.org/2002/xforms";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
-
+import module namespace random = "http://basex.org/modules/random";
+import module namespace bin = "http://expath.org/ns/binary";
 declare variable $page:xsl := "../resources/doc_careServiceFunctions.xsl";
 
 declare
@@ -22,7 +23,7 @@ if (not (db:is-xml($csd_webconf:db,$csr_proc:stored_functions_doc))) then
   </span>
   return page:wrapper_simple($content)
 else 
-  let $new := ()
+  let $new := page:new_stored_function()
   let $reload:= <span>
     <h2>Load Registered Functions</h2>
     <a href="/CSD/storedFunctions/reload">Reload stored functions from disk</a> 
@@ -31,6 +32,82 @@ else
   return page:wrapper(($reload,$list),$new)
 };
 
+declare updating
+  %rest:path("/CSD/storedFunctions/upload")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
+  %rest:form-param("upload","{$upload}")
+  %rest:POST
+  function page:upload($upload) 
+{
+ for $name    in map:keys($upload)
+ let $content := $upload($name)
+ let $func := parse-xml(bin:decode-string($content, 'UTF-8'))
+ return
+   (
+     csr_proc:load_stored_function($csd_webconf:db,$func/careServicesFunction)
+     ,
+   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+  )
+
+
+};
+
+declare function page:new_stored_function() 
+{
+  <span>
+   <h2>Upload careServicesFunction Document</h2>
+   <form method='post' action="/CSD/storedFunctions/upload"  enctype="multipart/form-data">
+   <label for="upload">Upload</label><input name='upload' type='file'/>
+   <input type="submit" value="submit"/>
+   </form>
+   <h2>Create New Stored Function</h2>
+   <form method='post' action="/CSD/storedFunctions/create"  enctype="multipart/form-data">
+     <label for="uuid">UUID</label><input    size="42" name="uuid" value="{random:uuid()}"  readonly="readonly"/>
+     <br/>
+     <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
+     <br/>
+     <label for="description">Description</label><textarea  rows="20" cols="80" name="description" ></textarea>
+     <br/>
+     <label for="query">XQuery</label><textarea  rows="20" cols="80" name="query" ></textarea>
+     <br/>
+     <input type="submit" value="submit"/>
+   </form>
+ </span>
+};
+
+
+declare  updating 
+  %rest:path("/CSD/storedFunctions/delete/{$uuid}")
+  function page:delete($uuid) 
+  {
+    (
+      csr_proc:delete_stored_function($csd_webconf:db,$uuid),
+      db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+    )
+
+};
+
+declare  updating 
+  %rest:path("/CSD/storedFunctions/create")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
+  %rest:POST
+  %rest:form-param("query","{$query}")
+  %rest:form-param("description","{$description}")
+  %rest:form-param("content", "{$content}","application/xml")
+  %rest:form-param("uuid", "{$uuid}")
+  function page:create($uuid,$query,$description,$content)
+{ 
+(  if ($uuid) then 
+   let $func := 
+   <careServicesFunction uuid="{$uuid}" content-type="{$content}">
+     <description>{$description}</description>
+     <definition>{$query}</definition>
+   </careServicesFunction>
+   return csr_proc:load_stored_function($csd_webconf:db,$func)
+  else (),
+    db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+)
+};
 
 
 declare updating
@@ -64,7 +141,7 @@ declare function page:redirect($redirect as xs:string) as element(restxq:redirec
 
 declare function page:display_function($function,$updating) {
   let  $uuid := string($function/@uuid)
-  return  <span>
+  return  <span id="{$function/@uuid}">
     {if ($updating) then  "(Updating) " else ()}
     UUID: {string($uuid)}  <br/>
     Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
@@ -109,16 +186,27 @@ declare function page:function_list()  {
     {count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/>
     <a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_doc">Export Documentation</a>
     <ul>
-    {(
-      for $function in (csr_proc:stored_functions($csd_webconf:db))
+    {
+      for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
+      return  
+      <li>UUID: {string($function/@uuid)} {"  "}
+      <i>
+	{substring(string($function/description),1,100)}
+	{if (string-length(string($function/description)) > 100) then "..." else ()}
+      </i>
+      <br/>
+      <a href="#{$function/@uuid}">View</a>
+      <a href="/CSD/storedFunctions/delete/{$function/@uuid}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
+      </li>
+    }
+    </ul>
+
+    <ul>
+    {
+      for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
       return  
       <li>{page:display_function($function,false())}</li>
-      ,
-      for $function in (csr_proc:stored_updating_functions($csd_webconf:db))
-      return  
-      <li>{page:display_function($function,true())}</li>
-
-    )}
+    }
     </ul>
   </span>
 };
@@ -178,6 +266,8 @@ declare function page:wrapper($list,$new) {
   </body>
  </html>
 };
+
+
 
 
  

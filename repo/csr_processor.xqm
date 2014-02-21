@@ -63,7 +63,15 @@ declare updating function csr_proc:load_functions_from_files($db) {
   )
 };
 
-
+declare updating function csr_proc:delete_stored_function($db,$uuid) {
+  let $stored_updating_functions := db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions/*
+  let $stored_functions := db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions/*
+  let $functions := ($stored_functions,$stored_updating_functions)
+    
+  let $old := $functions[@uuid = $uuid]
+  return if ($old) then delete node $old else ()
+    
+};
 
 declare updating function csr_proc:load_stored_updating_function($db,$func) {
   let $stored_updating_functions := db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions
