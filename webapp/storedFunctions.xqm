@@ -7,7 +7,7 @@ declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
-
+declare variable $page:xsl := "../resources/doc_careServiceFunctions.xsl";
 
 declare
   %rest:path("/CSD/storedFunctions")
@@ -85,12 +85,29 @@ declare function page:display_function($function,$updating) {
   </span>
 };
 
+declare 
+  %rest:path("/CSD/storedFunctions/export_doc")
+  %rest:GET
+  %output:method("xhtml")
+  function page:export_doc() 
+{
+  let $funcs := <careServiceFunctions>
+  {(
+    csr_proc:stored_functions($csd_webconf:db)
+    ,csr_proc:stored_functions($csd_webconf:db)
+   )}
+ </careServiceFunctions>
+ 
+ return xslt:transform($funcs,doc($page:xsl))   
+};
 
 
 declare function page:function_list()  {
   <span>
     <h2>Registered Stored Queries</h2>
-    {count(csr_proc:stored_functions($csd_webconf:db))}
+    {count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/>
+    {count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/>
+    <a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_doc">Export Documentation</a>
     <ul>
     {(
       for $function in (csr_proc:stored_functions($csd_webconf:db))
