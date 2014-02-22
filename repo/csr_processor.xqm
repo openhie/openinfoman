@@ -76,12 +76,14 @@ declare updating function csr_proc:delete_stored_function($db,$uuid) {
 declare updating function csr_proc:load_stored_updating_function($db,$func) {
   let $stored_updating_functions := db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions
   let $uuid := $func/@uuid
-  let $old := $stored_updating_functions[@uuid = $uuid]
+  let $old := $stored_updating_functions/careServicesFunction[@uuid = $uuid]
   return 
     if (exists($uuid)) then	  
       if (exists($old)) 
 	then
-	replace node $old with $func
+	(delete node $old,
+	insert node $func into $stored_updating_functions
+	)
       else
 	insert node $func into $stored_updating_functions
   else ()
@@ -90,12 +92,14 @@ declare updating function csr_proc:load_stored_updating_function($db,$func) {
 declare updating function csr_proc:load_stored_function($db,$func) {
   let $stored_functions := db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions
   let $uuid := $func/@uuid
-  let $old := $stored_functions[@uuid = $uuid]
+  let $old := $stored_functions/careServicesFunction[@uuid = $uuid]
   return 
     if (exists($uuid) and exists($stored_functions)) then	  
       if (exists($old)) 
 	then
-	replace node $old with $func
+	(delete node $old,
+	insert node $func into $stored_functions
+	)
       else
 	insert node $func into $stored_functions
     else ()
