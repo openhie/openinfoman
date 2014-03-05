@@ -179,7 +179,7 @@ declare
      >
   {(
     csr_proc:stored_functions($csd_webconf:db)
-    ,csr_proc:stored_functions($csd_webconf:db)
+    ,csr_proc:stored_updating_functions($csd_webconf:db)
    )}
  </careServiceFunctions>
 (: return $funcs :)
