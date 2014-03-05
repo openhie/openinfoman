@@ -168,13 +168,21 @@ declare
   %output:method("xhtml")
   function page:export_doc() 
 {
-  let $funcs := <careServiceFunctions>
+  let $funcs := 
+  <careServiceFunctions 
+    xmlns:xforms="http://www.w3.org/2002/xforms" 
+    xmlns:csd="urn:ihe:iti:csd:2013" 
+    xmlns:xi="http://www.w3.org/2001/XInclude" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" 
+     >
   {(
     csr_proc:stored_functions($csd_webconf:db)
     ,csr_proc:stored_functions($csd_webconf:db)
    )}
  </careServiceFunctions>
- 
+(: return $funcs :)
  return xslt:transform($funcs,doc($page:xsl))   
 };
 

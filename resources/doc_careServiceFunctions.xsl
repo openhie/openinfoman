@@ -2,6 +2,7 @@
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:xi="http://www.w3.org/2001/XInclude"
 		xmlns:csd="urn:ihe:iti:csd:2013"
+		xmlns:xforms = "http://www.w3.org/2002/xforms"
 		xmlns="urn:ihe:iti:csd:2013"
 		>
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
