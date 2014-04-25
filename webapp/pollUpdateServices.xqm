@@ -7,18 +7,6 @@ import module namespace csd_webconf =  "https://github.com/his-interop/openinfom
 import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
 
 
-declare variable $page:samples :=
-<serviceDirectoryLibrary>
-  <serviceDirectory  name='rhea_simple_provider' url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'/>
-  <serviceDirectory   name='openinfoman_providers'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices/providers/get'/>
-  <serviceDirectory   name='openhim_providers'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/providers/get'>
-    <credentials type='basic_auth' username='test'  password='test'  />
-  </serviceDirectory>
-  <serviceDirectory   name='openhim_old'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'>
-    <credentials type='basic_auth' username='test'  password='test'  />
-  </serviceDirectory>
-</serviceDirectoryLibrary>;
-
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
 {
@@ -68,7 +56,7 @@ declare updating
 {
 
   (
-    let $sample := $page:samples//serviceDirectory[@name=$name]
+    let $sample := $csd_webconf:remote_services//serviceDirectory[@name=$name]
     return if (exists($sample)) then
       csd_psd:register_service($csd_webconf:db,$name,text{$sample/@url},$sample/credentials)
     else ()
@@ -214,19 +202,15 @@ declare
   function page:poll_service_list()
 { 
 
-let $response :=
-  if (not(csd_psd:dm_exists($csd_webconf:db))) then
-  <span>
-    <h2>No Service Directory Manager </h2>
-    Please <a href="/CSD/registerService/init">intialize the services directory manager</a> in order to start polling remote service directories.
-  </span>
-  else 
-    let $services := csd_psd:registered_directories($csd_webconf:db)
-    let $unreg_services := 
-    for $sample in $page:samples//serviceDirectory
-    where not(csd_psd:is_registered($csd_webconf:db,$sample/text{@name}))
-      return  $sample
-   return
+if (not(csd_psd:dm_exists($csd_webconf:db))) then
+   page:redirect(concat($csd_webconf:baseurl,"CSD/registerService/init"))
+ else 
+   let $services := csd_psd:registered_directories($csd_webconf:db)
+   let $unreg_services := 
+     for $sample in  $csd_webconf:remote_services//serviceDirectory
+     where not(csd_psd:is_registered($csd_webconf:db,$sample/text{@name}))
+     return  $sample
+    let $response :=
    <div>
      <div class='row'>
        <div class="col-md-4">
@@ -284,8 +268,8 @@ let $response :=
      </div>
    </div>
   
-return page:nocache(page:wrapper($response))
-
+  return page:nocache(page:wrapper($response))
+ 
 };
 
 declare function page:service_menu($name) {

@@ -17,11 +17,7 @@ declare
   function page:csr_list() 
 { 
 if (not (db:is-xml($csd_webconf:db,$csr_proc:stored_functions_doc))) then
-  let $content:= <span>
-    <h2>No Registered Functions</h2>
-    Please <a href="/CSD/storedFunctions/init">intialize the stored function  manager</a> in order to start using the stored functions
-  </span>
-  return page:wrapper_simple($content)
+  page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions/init"))
 else 
   let $new := page:new_stored_function()
   let $reload:= <span>
@@ -211,9 +207,13 @@ declare function page:function_list()  {
 
     <ul>
     {
-      for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
-      return  
-      <li>{page:display_function($function,false())}</li>
+      (
+	for $function in csr_proc:stored_functions($csd_webconf:db)
+	return   <li>{page:display_function($function,false())}</li>
+       ,
+        for $function in csr_proc:stored_updating_functions($csd_webconf:db)
+        return  <li>{page:display_function($function,true())}</li>
+      )
     }
     </ul>
   </span>

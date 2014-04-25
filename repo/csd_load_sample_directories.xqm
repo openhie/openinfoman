@@ -61,15 +61,10 @@ declare function csd_lsd:get($db,$name) {
     ()
 };
 
-declare updating function csd_lsd:reload($db,$name) {
-  (if (csd_lsd:exists($db,$name)) then
-     if (csd_lsd:valid_doc($name)) then
-       db:delete($db,csd_lsd:get_document_name($name))
-     else
-      ()
-    else ()
-    ,
-    csd_lsd:load($db,$name)
-  )
+declare updating function csd_lsd:delete($db,$name) {
+  if (csd_lsd:exists($db,$name) and csd_lsd:valid_doc($name)) then
+    db:delete($db,csd_lsd:get_document_name($name))
+  else
+    ()
 };
 

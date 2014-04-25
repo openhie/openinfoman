@@ -12,7 +12,8 @@ declare updating
   %rest:GET
   function page:init_dm()
 { 
-(csd_dm:init($csd_webconf:db),
+(
+csd_dm:init($csd_webconf:db),
 db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
 )
 };
@@ -29,52 +30,46 @@ declare
   %output:method("xhtml")
   function page:list_functionality()
 { 
-
-let $what_is_dm :=   
-<p>
-  The document manger registers documents to perform  careServicesRequests and getUpdatedServices requests  against.  Registered documents can be any of:
-  <ul>
-    <li>Local cache of a remote service directory -- this is useful for turning a Care Services Directory into an Open Info Manager</li>
-    <li>Sample Directories -- these loaded from an XML source file on the system and are useful for testing</li>
-    <li>The merged result of remote service directories</li>
-  </ul>
-</p>
-let $please_init:=
- <span>
-   <h3>No Document Manager Exists</h3>
-   <p>Please <a href="/CSD/initDocumentManager">initialize the document manager</a></p> 
-   Please make sure you have created the database {$csd_webconf:db}!
-   {$what_is_dm}
- </span>
-let $csd := if (not(csd_dm:dm_exists($csd_webconf:db))) then $please_init
-else 
-<span>       
-  {$what_is_dm}
+if (not(csd_dm:dm_exists($csd_webconf:db))) then 
+  page:redirect(concat($csd_webconf:baseurl,"CSD/initDocumentManager"))
+else
+  let $what_is_dm :=   
   <p>
-    {let $docs := csd_dm:registered_documents($csd_webconf:db)  
-    return ( "You have ", count($docs) , " registered document(s) available: ", <b> {string-join($docs,", ")}</b> )
-    }
+    The document manger registers documents to perform  careServicesRequests and getUpdatedServices requests  against.  Registered documents can be any of:
+    <ul>
+      <li>Local cache of a remote service directory -- this is useful for turning a Care Services Directory into an Open Info Manager</li>
+      <li>Sample Directories -- these loaded from an XML source file on the system and are useful for testing</li>
+      <li>The merged result of remote service directories</li>
+    </ul>
   </p>
-  <p>These the top-level endpoints are exposed</p>
-  <ul>
-    <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Function</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Initialize Sample Directories</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/csr">Care Services Request</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices soap request</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/pollService">Poll registered service directories </a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/cacheService">Administer local cache of registered service directories</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">Merge registered documents</a></li>
-    <li><a href="{$csd_webconf:baseurl}CSD/test">List test careServiceRequests</a></li>
-  </ul>
-</span>
-let $svs := if (not(csd_dm:dm_exists($csd_webconf:db))) then $please_init else
-<span>
-  In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
-  <ul>
-    <li><a href="{$csd_webconf:baseurl}CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
-  </ul>
-</span>
-return page:nocache(page:wrapper($csd,$svs))
+  let $csd := 
+  <span>       
+    {$what_is_dm}
+    <p>
+      {let $docs := csd_dm:registered_documents($csd_webconf:db)  
+      return ( "You have ", count($docs) , " registered document(s) available: ", <b> {string-join($docs,", ")}</b> )
+      }
+    </p>
+    <p>These the top-level endpoints are exposed</p>
+    <ul>
+      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Functions</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Load and Register Sample Service Directories</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/pollService">Register and Poll Remote Service Service directories </a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/cacheService">Administer local cache of registered service directories</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">Merge registered documents</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/csr">Execute Ad-Hoc Care Services Requests and View Care Service Request Endpoints for Registered Documents</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices Soap Request for Registered Documents</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/test">Execute test careServiceRequests against Registered Documents</a></li>
+    </ul>
+  </span>
+  let $svs :=
+  <span>
+    In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
+    <ul>
+      <li><a href="{$csd_webconf:baseurl}CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
+    </ul>
+  </span>
+  return page:nocache(page:wrapper($csd,$svs))
 };
 
 

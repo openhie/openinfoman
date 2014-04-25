@@ -228,12 +228,10 @@ declare
   %output:method("xhtml")
   function page:svs_list()
 {
-page:nocache(  
-if (not(svs_lsvs:store_exists($csd_webconf:db))) 
-  then
-    page:wrapper(  <span> Your first need to <a href="/CSD/SVS/initSampleSharedValueSet/init">initialize</a> the Shared Value Sets store </span>)
+if (not(svs_lsvs:store_exists($csd_webconf:db))) then
+    page:redirect(concat($csd_webconf:baseurl,"/CSD/SVS/initSampleSharedValueSet/init"))
 else 
-  page:wrapper_double(
+ page:nocache( page:wrapper_double(
     <span >
       <h2>Shared Value Sets</h2>
       <p>
@@ -270,7 +268,7 @@ else
     </span>
 	       )
 
-)
+      )
 
 };
 

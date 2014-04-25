@@ -50,6 +50,7 @@ declare updating
 { 
 (
   csd_lsd:load($csd_webconf:db,$name)   ,
+  csd_dm:register_document($csd_webconf:db,$name,csd_lsd:get_document_name($name)),
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 };
@@ -83,8 +84,8 @@ declare updating
   function page:reload($name)
 { 
 (
-  csd_lsd:reload($csd_webconf:db,$name)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
+  csd_lsd:delete($csd_webconf:db,$name)   ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,concat("CSD/initSampleDirectory/directory/",$name,"/load"))))
 )
 
 
@@ -149,17 +150,17 @@ return page:nocache(  page:wrapper($response))
 
 
 declare function page:services_menu($name) {
-  <ul>
+  <ul> 
     {if (not(csd_lsd:exists($csd_webconf:db,$name))) then
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/load">Initialize {$name}</a> </li>
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/load">Initialize </a> {$name} </li>
   else 
     (
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get  {$name}</a></li>,
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload {$name}</a></li>,
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get </a> {$name}</li>,
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload </a>{$name}</li>,
     if (csd_dm:is_registered($csd_webconf:db,$name)) then
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/deregister">De-Register {$name} from Document Manager</a></li>
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/deregister">De-Register </a>{$name} from Document Manager</li>
     else 
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/register">Register {$name} with Document Manager</a></li>
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/register">Register </a>{$name} with Document Manager</li>
   )
     }
   </ul>

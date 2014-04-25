@@ -7,9 +7,10 @@
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
 
-import module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq" at "csd_base_stored_queries.xqm";
+(:import module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq" at "csd_base_stored_queries.xqm";
 import module namespace csd_hwr = "https://github.com/his-interop/openinfoman-hwr/csd_hwr" at "csd_health_worker_registry.xqm";
 import module namespace csd_hwru = "https://github.com/his-interop/openinfoman-hwr/csd_hwru" at "csd_health_worker_registry_updating.xqm";
+:)
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";

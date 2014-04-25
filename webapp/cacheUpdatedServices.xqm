@@ -157,26 +157,24 @@ declare
   %output:method("xhtml")
   function page:poll_service_list()
 { 
-let $services := csd_psd:registered_directories($csd_webconf:db)
-let $response :=
-    <div >
-      <div class='row'>
- 	<div class="col-md-8">
-	  <h2>Global Operations</h2>
-	  <ul>
-	    {   if ( csd_lsc:cache_meta_exists($csd_webconf:db)) then
-	       <li> <a href="{$csd_webconf:baseurl}CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
-	     else 
-	       <li> <a href="{$csd_webconf:baseurl}CSD/cacheService/init_cache_meta">Init cache Meta-Data</a></li>
-
-	    }
-	  </ul>
-	</div>
+if ( not(csd_lsc:cache_meta_exists($csd_webconf:db))) then
+  page:redirect(concat($csd_webconf:baseurl,"CSD/cacheService/init_cache_meta"))
+else 
+  let $services := csd_psd:registered_directories($csd_webconf:db)
+  let $response :=
+  <div >
+    <div class='row'>
+      <div class="col-md-8">
+	<h2>Global Operations</h2>
+	<ul>
+	  <li> <a href="{$csd_webconf:baseurl}CSD/cacheService/cache_meta">Get all cache Meta-Data</a></li>
+	</ul>
       </div>
-      {   
-      if ( csd_lsc:cache_meta_exists($csd_webconf:db)) then
+    </div>
+    {   
+    if ( csd_lsc:cache_meta_exists($csd_webconf:db)) then
       <div class='row'>
- 	<div class="col-md-8">
+	<div class="col-md-8">
 	  <h2>Service Directory Operations</h2>
 	  <ul>
 	    {for $name in $services
@@ -192,10 +190,10 @@ let $response :=
 	  </ul>
 	</div>
       </div>
-      else ()
-      }
-    </div>
-return page:nocache(  page:wrapper($response))
+    else ()
+    }
+  </div>
+  return page:nocache(  page:wrapper($response))
 
 
 };

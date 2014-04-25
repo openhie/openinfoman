@@ -82,26 +82,24 @@ declare
   %output:method("xhtml")
   function page:merge_menu()
 { 
-let $response:=
+if (not(csd_mcs:store_exists($csd_webconf:db))) then
+  page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices/init"))
+else 
+  let $response:=
   <div>
     <div class='container'>
       <div class='row'>
  	<div class="col-md-8">
 	  <h2>Merge Cached Service Directories</h2>
 	  <ul>
+	    <li><a href="/CSD/mergeServices/merge">merge services</a></li>
+	    <li><a href="/CSD/mergeServices/get">get merged services</a></li>
+	    <li><a href="/CSD/mergeServices/empty">empty services</a></li>
 	    {
-	      if (not(csd_mcs:store_exists($csd_webconf:db))) then
-	      <li><a href="/CSD/mergeServices/init"> init merge services store</a></li>
-	    else 
-	      (
-	      <li><a href="/CSD/mergeServices/merge">merge services</a></li>,
-	      <li><a href="/CSD/mergeServices/get">get merged services</a></li>,
-	      <li><a href="/CSD/mergeServices/empty">empty services</a></li>,
 	      if (csd_dm:is_registered($csd_webconf:db,csd_mcs:get_merge_doc_name())) then
 	      <li><a href="/CSD/mergeServices/deregister">deregister merge of remote from document store </a></li>
-               else
-	       <li><a href="/CSD/mergeServices/register">register merge of remote services from document manager</a></li>
-	      )
+            else
+	    <li><a href="/CSD/mergeServices/register">register merge of remote services from document manager</a></li>
 	    }
 	  </ul>
 	</div>
