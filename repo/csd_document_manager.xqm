@@ -25,7 +25,7 @@ declare function csd_dm:dm_exists($db) {
 
 declare  function csd_dm:document_source_exists($db,$name) {
   let $source := csd_dm:document_source($db,$name)
-  return  (db:is-xml($db,$source)) 
+  return  if ($source) then (db:is-xml($db,$source)) else false()
 
 };
 
