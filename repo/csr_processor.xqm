@@ -135,7 +135,7 @@ declare function csr_proc:process_CSR_adhoc($expression,$doc)
 
 let $expr :=string($expression)
 return if ($expr) then
-  let $result := xquery:evaluate($expr,map{"":=$doc})
+  let $result := xquery:eval($expr,map{"":=$doc})
   return(  
    <rest:response>
    <http:response status="200" >
@@ -157,17 +157,12 @@ declare function csr_proc:process_CSR_stored($db,$function,$doc)
 let $uuid := $function/@uuid
 let $stored_functions := csr_proc:stored_functions($db)
 let $definition := $stored_functions[@uuid = $uuid][1]/definition/text()
-let $method_name := $stored_functions[@uuid = $uuid][1]/definition/@method
-let $method :=  if ($method_name) then function-lookup( xs:QName($method_name), 2) else ()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
 let $result0 := 
-  if (exists($method)) then
-    $method($function/requestParams,$doc)
+  if (exists($definition)) then
+    xquery:eval($definition,map{'':=$doc,'careServicesRequest':=$function/requestParams})      
   else
-    if (exists($definition)) then
-      xquery:evaluate($definition,map{'':=$doc,'careServicesRequest':=$function/requestParams})      
-    else
-      ()
+    ()
 let $result1:= 
   if ($function/@encapsulated) then
     csr_proc:wrap_result($result0,$content_type)
@@ -222,17 +217,14 @@ declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest
 let $function :=$careServicesRequest//csd:function
 let $uuid := $function/@uuid
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
-let $method_name := $stored_updating_functions[@uuid = $uuid][1]/csd:definition/@method
-let $method :=  if ($method_name) then function-lookup( xs:QName($method_name), 2) else ()
+let $definition := $stored_updating_functions[@uuid = $uuid][1]/definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
-return  if (exists($method)) then
-    db:output(
-      $method($function/requestParams,$doc)
-    )
-  else
+return if (exists($definition)) then
+  xquery:update($definition,map{'':=$doc,'careServicesRequest':=$function/requestParams})      
+else 
     db:output(
     <rest:response>
-      <http:response status="404" message="No registered updating function with UUID='{$function/@uuid} or method name '{$method_name}'">
+      <http:response status="404" message="No registered updating function with UUID='{$function/@uuid} ">
 	<http:header name="Content-Language" value="en"/>
 	<http:header name="Content-Type" value="text/html; charset=utf-8"/>
       </http:response>
