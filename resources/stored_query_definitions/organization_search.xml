@@ -60,7 +60,7 @@
          &lt;/careServicesRequest&gt;         
       </pre>
   </description>
-  <definition method='csd_bsq:organization_search'><xi:include parse='text' href='organization_search.xq'/></definition>
+  <definition ><xi:include parse='text' href='organization_search.xq'/></definition>
   <xforms:instance>
     <careServicesRequest>
       <id/>
