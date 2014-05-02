@@ -21,9 +21,17 @@ if (not (db:is-xml($csd_webconf:db,$csr_proc:stored_functions_doc))) then
 else 
   let $new := page:new_stored_function()
   let $reload:= <span>
-    <h2>Load Registered Functions</h2>
-    <a href="/CSD/storedFunctions/reload">Reload stored functions from disk</a> 
-  </span>  
+    <h2>Registered Stored Queries</h2>
+    <ul>
+      <li>{count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/></li>
+      <li>{count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/></li>
+      <li><a href="/CSD/storedFunctions/reload">Reload stored functions from disk</a> </li>
+
+      <li>    <a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_doc">Export Documentation</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_funcs">Export Functions</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions/clear">Clear All Stored Functions</a></li>
+    </ul>
+  </span>
   let $list := page:function_list()
   return page:wrapper(($reload,$list),$new)
 };
@@ -78,6 +86,18 @@ declare  updating
   {
     (
       csr_proc:delete_stored_function($csd_webconf:db,$uuid),
+      db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+    )
+
+};
+
+
+declare  updating 
+  %rest:path("/CSD/storedFunctions/clear")
+  function page:clear() 
+  {
+    (
+      csr_proc:clear_stored_functions($csd_webconf:db),
       db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
     )
 
@@ -159,6 +179,26 @@ declare function page:display_function($function,$updating) {
 };
 
 declare 
+  %rest:path("/CSD/storedFunctions/export_funcs")
+  %rest:GET
+  function page:export_funcs() 
+{
+  <careServiceFunctions 
+    xmlns:xforms="http://www.w3.org/2002/xforms" 
+    xmlns:csd="urn:ihe:iti:csd:2013" 
+    xmlns:xi="http://www.w3.org/2001/XInclude" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" 
+     >
+  {(
+    csr_proc:stored_functions($csd_webconf:db)
+    ,csr_proc:stored_updating_functions($csd_webconf:db)
+   )}
+ </careServiceFunctions>
+};
+
+declare 
   %rest:path("/CSD/storedFunctions/export_doc")
   %rest:GET
   %output:method("xhtml")
@@ -185,10 +225,7 @@ declare
 
 declare function page:function_list()  {
   <span>
-    <h2>Registered Stored Queries</h2>
-    {count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/>
-    {count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/>
-    <a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_doc">Export Documentation</a>
+    <h2>Function List</h2>
     <ul>
     {
       for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))

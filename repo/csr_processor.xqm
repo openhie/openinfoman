@@ -48,6 +48,18 @@ declare updating function csr_proc:init($db) {
   )
 };
 
+declare updating function csr_proc:clear_stored_functions($db) { 
+  let $stored_functions := (
+    db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions/* ,
+    db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions/*
+    )
+    
+  return 
+  for $function in $stored_functions
+    return ( delete node $function)
+      
+};
+
 declare updating function csr_proc:load_functions_from_files($db) {
   (
     if (file:is-dir($csr_proc:stored_query_dir)) then
