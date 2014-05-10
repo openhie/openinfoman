@@ -506,24 +506,13 @@ Values must be conformant to
               </xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="definition">
+        <xs:element name="definition" type="xs:string">
           <xs:annotation>
             <xs:documentation>The xquery which defines the result that the Care Services InfoManager will return upon request by the Service Finder to execute the query.
                 
 The function will assumed to be exectued such that against the root node of CSD document managed by the InfoManager.  Any parameters passed to the function are accesible in the dynamic context of the function under the variable $careServicesRequest.
              </xs:documentation>
           </xs:annotation>
-          <xs:complexType>
-            <xs:complexContent>
-              <xs:extension base="xs:anyType">
-                <xs:anyAttribute>
-                  <xs:annotation>
-                    <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
-                  </xs:annotation>
-                </xs:anyAttribute>
-              </xs:extension>
-            </xs:complexContent>
-          </xs:complexType>
         </xs:element>
         <xs:element ref="xforms:instance" minOccurs="0"/>
         <xs:element ref="xs:schema" minOccurs="0" maxOccurs="1"/>
