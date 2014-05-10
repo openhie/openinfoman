@@ -51,7 +51,8 @@
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="code" use="required"/>
-        <xs:attribute name="codingSchema" use="required"/>
+        <xs:attribute name="codingScheme" use="required"/>
+	<xs:anyAttribute/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
