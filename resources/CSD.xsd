@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms"
-  elementFormDefault="qualified" 
-  targetNamespace="urn:ihe:iti:csd:2013" 
-  xmlns="urn:ihe:iti:csd:2013"
-  xmlns:xml="http://www.w3.org/XML/1998/namespace"
-  >
+  elementFormDefault="qualified" targetNamespace="urn:ihe:iti:csd:2013" xmlns="urn:ihe:iti:csd:2013"
+  xmlns:xml="http://www.w3.org/XML/1998/namespace">
   <xs:import namespace="http://www.w3.org/2001/XMLSchema"
     schemaLocation="http://www.w3.org/2001/XMLSchema.xsd"/>
   <xs:import namespace="http://www.w3.org/2002/xforms"
     schemaLocation="http://www.w3.org/MarkUp/Forms/2002/XForms-Schema.xsd"/>
-  <xs:import namespace = "http://www.w3.org/XML/1998/namespace"/>  
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
 
   <xs:simpleType name="oid">
     <xs:restriction base="xs:string">
@@ -274,7 +271,7 @@
       </xs:element>
       <xs:element name="honorific" type="xs:string" minOccurs="0"/>
       <xs:element name="forename" type="xs:string" minOccurs="0"/>
-      <xs:element name="otherNames" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="otherName" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="surname" type="xs:string" minOccurs="0"/>
       <xs:element name="suffix" type="xs:string" minOccurs="0"/>
     </xs:sequence>
