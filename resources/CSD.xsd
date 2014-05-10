@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms"
-  elementFormDefault="qualified" targetNamespace="urn:ihe:iti:csd:2013" xmlns="urn:ihe:iti:csd:2013">
+  elementFormDefault="qualified" 
+  targetNamespace="urn:ihe:iti:csd:2013" 
+  xmlns="urn:ihe:iti:csd:2013"
+  xmlns:xml="http://www.w3.org/XML/1998/namespace"
+  >
   <xs:import namespace="http://www.w3.org/2001/XMLSchema"
     schemaLocation="http://www.w3.org/2001/XMLSchema.xsd"/>
   <xs:import namespace="http://www.w3.org/2002/xforms"
     schemaLocation="http://www.w3.org/MarkUp/Forms/2002/XForms-Schema.xsd"/>
+  <xs:import namespace = "http://www.w3.org/XML/1998/namespace"/>  
 
   <xs:simpleType name="oid">
     <xs:restriction base="xs:string">
@@ -52,7 +57,7 @@
       <xs:extension base="xs:string">
         <xs:attribute name="code" use="required"/>
         <xs:attribute name="codingScheme" use="required"/>
-	<xs:anyAttribute/>
+        <xs:anyAttribute/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -73,7 +78,15 @@
           <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
           <xs:element name="primaryName" type="xs:string"/>
-          <xs:element name="otherName" type="name" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="otherName" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
           <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contact">
             <xs:complexType>
@@ -103,7 +116,15 @@
           <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
           <xs:element name="primaryName" type="xs:string"/>
-          <xs:element name="otherName" type="name" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="otherName" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
           <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="contact">
             <xs:complexType>
@@ -247,15 +268,13 @@
       <xs:element name="commonName" maxOccurs="unbounded">
         <xs:complexType>
           <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute name="language"/>
-            </xs:extension>
+            <xs:extension base="xs:string"> </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
       <xs:element name="honorific" type="xs:string" minOccurs="0"/>
       <xs:element name="forename" type="xs:string" minOccurs="0"/>
-      <xs:element name="otherNames" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="otherNames" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="surname" type="xs:string" minOccurs="0"/>
       <xs:element name="suffix" type="xs:string" minOccurs="0"/>
     </xs:sequence>
@@ -263,7 +282,15 @@
 
   <xs:complexType name="person">
     <xs:sequence>
-      <xs:element name="name" type="name" maxOccurs="unbounded"/>
+      <xs:element name="name" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="name">
+              <xs:attribute ref="xml:lang"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="contactPoint" type="contactPoint" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="gender" type="xs:string" minOccurs="0"/>
