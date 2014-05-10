@@ -134,10 +134,10 @@
           <xs:element name="geocode" type="geocode" minOccurs="0"/>
           <xs:element name="language" type="codedtype" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="contactPoint" type="contactPoint" maxOccurs="unbounded" minOccurs="0"/>
-          <xs:element maxOccurs="unbounded" name="organizations">
+          <xs:element name="organizations" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="organization" maxOccurs="1">
+                <xs:element name="organization" maxOccurs="unbounded" minOccurs="0">
                   <xs:complexType>
                     <xs:complexContent>
                       <xs:extension base="uniqueID">
@@ -189,10 +189,10 @@
           <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
           <xs:element name="demographic" type="person"/>
           <xs:element name="language" type="codedtype" maxOccurs="unbounded" minOccurs="0"/>
-          <xs:element maxOccurs="unbounded" name="organizations" minOccurs="0">
+          <xs:element name="organizations" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="organization" maxOccurs="1">
+                <xs:element name="organization" maxOccurs="unbounded" minOccurs="0">
                   <xs:complexType>
                     <xs:complexContent>
                       <xs:extension base="uniqueID">
@@ -211,10 +211,10 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-          <xs:element name="facilities" minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="facilities" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="facility">
+                <xs:element name="facility" maxOccurs="unbounded" minOccurs="0">
                   <xs:complexType>
                     <xs:complexContent>
                       <xs:extension base="uniqueID">
