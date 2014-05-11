@@ -239,6 +239,8 @@
                               </xs:complexContent>
                             </xs:complexType>
                           </xs:element>
+                          <xs:element name="operatingHours" type="operatingHours" minOccurs="0"
+                            maxOccurs="unbounded"/>
                           <xs:element minOccurs="0" maxOccurs="unbounded" name="extension"
                             type="extension"/>
                         </xs:sequence>
@@ -347,7 +349,7 @@
   <xs:complexType name="operatingHours">
     <xs:sequence>
       <xs:element name="openFlag" type="xs:boolean"/>
-      <xs:element name="dayOfTheWeek" type="xs:integer"/>
+      <xs:element name="dayOfTheWeek" type="xs:integer" maxOccurs="unbounded" minOccurs="0"/>
       <xs:element name="beginningHour" type="xs:time" minOccurs="0"/>
       <xs:element name="endingHour" type="xs:time" minOccurs="0"/>
       <xs:element name="beginEffectiveDate" type="xs:date"/>
