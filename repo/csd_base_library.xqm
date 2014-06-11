@@ -406,7 +406,7 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
             then $items
             else $items[position() <= xs:integer($max)]
         else if (fn:number($max) and xs:integer($max) >= 0) 
-        then $items[position() >= xs:integer($start) and position() < (xs:integer($start) + xs:integer(max))]
+        then $items[position() >= xs:integer($start) and position() < (xs:integer($start) + xs:integer($max))]
         else $items[position() >= xs:integer($start)]
         
  };
