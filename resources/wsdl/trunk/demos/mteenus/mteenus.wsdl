@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd">
+	<wsdl:types>
+		<schema targetNamespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+
+<xsd:complexType name="isik">
+    <xsd:all>
+    <xsd:element name="isikukood" type="xsd:string">
+        <xsd:annotation>
+        <xsd:appinfo>
+         <xtee:title>Isikukood</xtee:title>
+        </xsd:appinfo>
+        </xsd:annotation>
+    </xsd:element>
+	</xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="IsikMobiilSeos">
+    <xsd:all>
+        <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+                </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+
+<xsd:complexType name="LisaMobiilSisu">
+    <xsd:all>
+        <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="aktiveerimisvoti" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Aktiveerimisvoti</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="MuudaMobiilSisu">
+    <xsd:all>
+        <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="aktiivne" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Seos aktiivne</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="aktiveerimisvoti" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Aktiveerimisvoti</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="EemaldaMobiilSisu">
+    <xsd:all>
+        <xsd:element name="isikukood" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="teenusID">
+ <xsd:all>
+  <xsd:element name="id" type="xsd:int">
+   <xsd:annotation>
+    <xsd:appinfo>
+     <xtee:title>Teenuse ID</xtee:title>
+    </xsd:appinfo>
+   </xsd:annotation>
+  </xsd:element>
+ </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="LisaTeenusSisu">
+    <xsd:all>
+        <xsd:element name="nimetus" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse nimetus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kirjeldus" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kirjeldus</xtee:title>
+                    <xtee:fieldtype>textarea</xtee:fieldtype>
+                    <xtee:fieldrows>5</xtee:fieldrows>
+                    <xtee:fieldcols>30</xtee:fieldcols>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saatja_number" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Telefoninumber teavituse saatmisel</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kategooria" minOccurs="0">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kategooria</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  	<xsd:enumeration value="1">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Operatiivteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="2">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Meelelahutus</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="3">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Finantsteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="ametnik_registreerib" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Ametnik kinnitab teenuse registreerimise</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="regsms" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teavita kasutajat registreerimisest</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="asukohapohine" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Asukohapõhine teenus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kinnitusega" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Küsida sõnumite kohalejõudmise kinnitust</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="MuudaTeenusSisu">
+    <xsd:all>
+        <xsd:element name="id" type="xsd:int">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse ID</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="nimetus" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse nimetus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kirjeldus" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kirjeldus</xtee:title>
+                    <xtee:fieldtype>textarea</xtee:fieldtype>
+                    <xtee:fieldrows>5</xtee:fieldrows>
+                    <xtee:fieldcols>30</xtee:fieldcols>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saatja_number" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Telefoninumber teavituse saatmisel</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kategooria" minOccurs="0">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kategooria</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  	<xsd:enumeration value="1">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Operatiivteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="2">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Meelelahutus</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="3">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Finantsteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="ametnik_registreerib" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Ametnik kinnitab teenuse registreerimise</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="regsms" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teavita kasutajat registreerimisest</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="asukohapohine" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Asukohapõhine teenus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kinnitusega" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Küsida sõnumite kohalejõudmise kinnitust</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="AnnaTeenusVastus">
+    <xsd:all>
+        <xsd:element name="result" minOccurs="1">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Päringu tulemus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                <xsd:all>
+                    <xsd:element name="resultCode" type="xsd:int">
+                        <annotation>
+                            <appinfo>
+                              <xtee:title>Vea kood</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </xsd:element>
+                    <xsd:element name="resultText" nillable="true" type="xsd:string">
+                        <annotation>
+                        <appinfo>
+                          <xtee:title>Veateade</xtee:title>
+                        </appinfo>
+                        </annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="id" type="xsd:int">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse ID</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="nimetus" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse nimetus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kirjeldus" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kirjeldus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saatja_number" nillable="true" type="xsd:string">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Telefoninumber teavituse saatmisel</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kategooria" minOccurs="0">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse kategooria</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  	<xsd:enumeration value="1">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Operatiivteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="2">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Meelelahutus</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                  	<xsd:enumeration value="3">
+                       	<xsd:annotation>
+                           	<xsd:appinfo>
+                                <xtee:title>Finantsteated</xtee:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:enumeration>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="ametnik_registreerib" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Ametnik kinnitab teenuse registreerimise</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="regsms" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teavita kasutajat registreerimisest</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="asukohapohine" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Asukohapõhine teenus</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kinnitusega" nillable="true" type="xsd:boolean">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Küsida sõnumite kohalejõudmise kinnitust</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="TeavitusSisu">
+    <xsd:all>
+        <xsd:element name="teenusId" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse ID</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="isikukood" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saatja_number" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saatja telefoninumber</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="sisu" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teate sisu</xtee:title>
+                    <xtee:fieldtype>textarea</xtee:fieldtype>
+                    <xtee:fieldrows>5</xtee:fieldrows>
+                    <xtee:fieldcols>50</xtee:fieldcols>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kinnitus" nillable="true" type="xsd:boolean">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saada teavitus kinnitusega</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saada_wap" nillable="true" type="xsd:boolean">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saada teavitus WAP lingina</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="tkalparams" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teavituskalendri parameetrid</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+		<xsd:element name="asukoht" nillable="true">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Asukoht</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:all>
+                <xsd:element name="kordinaadid" nillable="true" type="xsd:string">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Koordinaadid x,y </xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+                <xsd:element name="raadius" nillable="true" type="xsd:float">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Teavitus raadius </xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+                <xsd:element name="aadress" nillable="true">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Aadress</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="koik_aadressid" nillable="true" type="xsd:boolean">
+                           <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Saada kõigile aadressidele</xtee:title>
+                                </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="ehak" nillable="true" type="xtee:ehak">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Aadressi EHAK</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="tanav" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Tänav</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="majaNr" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Maja number</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="korter" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Korter</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                    </xsd:complexType>
+                </xsd:element>
+              </xsd:all>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="TeavitusSisuMMS">
+    <xsd:all>
+        <xsd:element name="teenusId" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teenuse ID</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="mobiil" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Mobiil</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="isikukood" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Isikukood</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="saatja_number" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saatja telefoninumber</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="sisu" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teatele lisatav tekst</xtee:title>
+                    <xtee:fieldtype>textarea</xtee:fieldtype>
+                    <xtee:fieldrows>5</xtee:fieldrows>
+                    <xtee:fieldcols>50</xtee:fieldcols>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="kinnitus" nillable="true" type="xsd:boolean">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saada teavitus kinnitusega</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="tkalparams" nillable="true" type="xsd:string">
+           <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Teavituskalendri parameetrid</xtee:title>
+                </xsd:appinfo>
+           </xsd:annotation>
+        </xsd:element>
+		<xsd:element name="asukoht" nillable="true">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Asukoht</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:all>
+                <xsd:element name="kordinaadid" nillable="true" type="xsd:string">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Koordinaadid x,y </xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+                <xsd:element name="raadius" nillable="true" type="xsd:float">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Teavitus raadius </xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+                <xsd:element name="aadress" nillable="true">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Aadress</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:complexType>
+                    <xsd:all>
+                        <xsd:element name="koik_aadressid" nillable="true" type="xsd:boolean">
+                           <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Saada kõigile aadressidele</xtee:title>
+                                </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="ehak" nillable="true" type="xtee:ehak">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Aadressi EHAK</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="tanav" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Tänav</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="majaNr" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Maja number</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="korter" nillable="true" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Korter</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                    </xsd:complexType>
+                </xsd:element>
+              </xsd:all>
+            </xsd:complexType>
+        </xsd:element>
+	    <xsd:element name="failid" nillable="true" minOccurs="0">
+            <xsd:annotation>
+                <xsd:appinfo>
+                    <xtee:title>Saadetavad failid MMS sõnumile</xtee:title>
+                </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+                <xsd:complexContent>
+                    <xsd:restriction base="SOAP-ENC:Array">
+                        <xsd:sequence>
+                            <xsd:element maxOccurs="unbounded" minOccurs="0" name="item">
+                                 <xsd:complexType>
+                                    <xsd:all>
+                            		    <xsd:element name="name" type="xsd:string">
+                                            <xsd:annotation>
+                                                <xsd:appinfo>
+                                                    <xtee:title>Failinimi</xtee:title>
+                                                </xsd:appinfo>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                        <xsd:element name="type" type="xsd:string">
+                                            <xsd:annotation>
+                                                <xsd:appinfo>
+                                                    <xtee:title>Sisu MIME tüüp</xtee:title>
+                                                </xsd:appinfo>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                        <xsd:element name="data" type="xsd:base64Binary">
+                                            <xsd:annotation>
+                                                <xsd:appinfo>
+                                                    <xtee:title>Fail</xtee:title>
+                                                </xsd:appinfo>
+                                            </xsd:annotation>
+                                        </xsd:element>
+                                    </xsd:all>
+                                 </xsd:complexType>
+                            </xsd:element>
+						</xsd:sequence>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="TeenuseKasutajadVastus">
+  <xsd:all>
+    <xsd:element name="result" minOccurs="1">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="resultCode" type="xsd:int">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Vea kood</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="resultText" nillable="true" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Veateade</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="isikud" minOccurs="0">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<xtee:title>Teenuse tellijad</xtee:title>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexType>
+		<xsd:complexContent>
+		<xsd:restriction base="SOAP-ENC:Array">
+			<xsd:sequence>
+				<xsd:element maxOccurs="unbounded" minOccurs="1" name="isik">
+					<xsd:sequence>
+					<xsd:element name="isikukood" type="xsd:string" minOccurs="1">
+						<xsd:annotation>
+						<xsd:appinfo>
+							<xtee:title>Isikukood</xtee:title>
+						</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					</xsd:sequence>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:restriction>
+		</xsd:complexContent>
+   </xsd:complexType>
+   </xsd:element>
+  </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="suunamineAktiivneVastus">
+  <xsd:all>
+    <xsd:element name="result" minOccurs="1">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="resultCode" type="xsd:int">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Vea kood</xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+                <xsd:element name="resultText" nillable="true" type="xsd:string">
+                    <annotation>
+                        <appinfo>
+                            <xtee:title>Veateade</xtee:title>
+                        </appinfo>
+                    </annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+  </xsd:element>
+	<xsd:element name="suunamised" minOccurs="0">
+		<xsd:annotation>
+			<xsd:appinfo>
+				<xtee:title>Kasutaja suunamised mobiilidele</xtee:title>
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:complexContent>
+			<xsd:restriction base="SOAP-ENC:Array">
+            <xsd:sequence>
+                <xsd:element maxOccurs="unbounded" minOccurs="0" name="seos">
+                 <xsd:complexType>
+                    <xsd:all>
+            		    <xsd:element name="isikukood" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Isikukood</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="mobiil" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <xtee:title>Mobiil</xtee:title>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:all>
+                 </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+         </xsd:restriction>
+    </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="StandardVastus">
+  <xsd:all>
+    <xsd:element name="result" minOccurs="1">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="resultCode" type="xsd:int">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Vea kood</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="resultText" nillable="true" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Veateade</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+  </xsd:element>
+    <xsd:element name="kirjeteArv" nillable="true" type="xsd:int">
+    <annotation>
+        <appinfo>
+            <xtee:title>Andmebaasis muudetud kirjete arv</xtee:title>
+        </appinfo>
+    </annotation>
+  </xsd:element>
+    <xsd:element name="id" nillable="true" type="xsd:int">
+    <annotation>
+        <appinfo>
+            <xtee:title>Uue kirje lisamise selle unikaalne ID</xtee:title>
+        </appinfo>
+    </annotation>
+  </xsd:element>
+  </xsd:all>
+</xsd:complexType>
+
+<xsd:complexType name="TeavitusVastus">
+  <xsd:all>
+    <xsd:element name="result" minOccurs="1">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="resultCode" type="xsd:int">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Vea kood</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="resultText" nillable="true" type="xsd:string">
+                    <xsd:annotation>
+                        <xsd:appinfo>
+                            <xtee:title>Veateade</xtee:title>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+  </xsd:element>
+    <xsd:element name="kirjeteArv" nillable="true" type="xsd:int">
+    <annotation>
+        <appinfo>
+            <xtee:title>Saadetud sõnumite arv</xtee:title>
+        </appinfo>
+    </annotation>
+  </xsd:element>
+  </xsd:all>
+</xsd:complexType>
+
+</schema>
+	</wsdl:types>
+	<!--   MESSSAGES -->
+	<wsdl:message name="isikLisaMobiilRequest">
+		<wsdl:part name="keha" type="tns:LisaMobiilSisu"/>
+	</wsdl:message>
+	<wsdl:message name="isikLisaMobiilResponse">
+		<wsdl:part name="paring" type="tns:LisaMobiilSisu"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="isikMuudaMobiilRequest">
+		<wsdl:part name="keha" type="tns:MuudaMobiilSisu"/>
+	</wsdl:message>
+	<wsdl:message name="isikMuudaMobiilResponse">
+		<wsdl:part name="paring" type="tns:MuudaMobiilSisu"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="isikEemaldaMobiilRequest">
+		<wsdl:part name="keha" type="tns:EemaldaMobiilSisu"/>
+	</wsdl:message>
+	<wsdl:message name="isikEemaldaMobiilResponse">
+		<wsdl:part name="paring" type="tns:EemaldaMobiilSisu"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="LisaTeenusRequest">
+		<wsdl:part name="keha" type="tns:LisaTeenusSisu"/>
+	</wsdl:message>
+	<wsdl:message name="LisaTeenusResponse">
+		<wsdl:part name="paring" type="tns:LisaTeenusSisu"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="MuudaTeenusRequest">
+		<wsdl:part name="keha" type="tns:MuudaTeenusSisu"/>
+	</wsdl:message>
+	<wsdl:message name="MuudaTeenusResponse">
+		<wsdl:part name="paring" type="tns:MuudaTeenusSisu"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="AnnaTeenusRequest">
+		<wsdl:part name="keha" type="tns:teenusID"/>
+	</wsdl:message>
+	<wsdl:message name="AnnaTeenusResponse">
+		<wsdl:part name="paring" type="tns:teenusID"/>
+		<wsdl:part name="keha" type="tns:AnnaTeenusVastus"/>
+	</wsdl:message>
+	<wsdl:message name="KustutaTeenusRequest">
+		<wsdl:part name="keha" type="tns:teenusID"/>
+	</wsdl:message>
+	<wsdl:message name="KustutaTeenusResponse">
+		<wsdl:part name="paring" type="tns:teenusID"/>
+		<wsdl:part name="keha" type="tns:StandardVastus"/>
+	</wsdl:message>
+	<wsdl:message name="TeenusKasutajadRequest">
+		<wsdl:part name="keha" type="tns:teenusID"/>
+	</wsdl:message>
+	<wsdl:message name="TeenusKasutajadResponse">
+		<wsdl:part name="paring" type="tns:teenusID"/>
+		<wsdl:part name="keha" type="tns:TeenuseKasutajadVastus"/>
+	</wsdl:message>
+	<wsdl:message name="suunamineAktiivneRequest">
+		<wsdl:part name="keha" type="tns:isik"/>
+	</wsdl:message>
+
+	<wsdl:message name="suunamineAktiivneResponse">
+		<wsdl:part name="paring" type="tns:isik"/>
+		<wsdl:part name="keha" type="tns:suunamineAktiivneVastus"/>
+	</wsdl:message>	
+
+	<wsdl:message name="SmsTeavitusRequest">
+		<wsdl:part name="keha" type="tns:TeavitusSisu"/>
+	</wsdl:message>
+	<wsdl:message name="SmsTeavitusResponse">
+		<wsdl:part name="paring" type="tns:TeavitusSisu"/>
+		<wsdl:part name="keha" type="tns:TeavitusVastus"/>
+	</wsdl:message>
+
+	<wsdl:message name="MmsTeavitusRequest">
+		<wsdl:part name="keha" type="tns:TeavitusSisuMMS"/>
+	</wsdl:message>
+	<wsdl:message name="MmsTeavitusResponse">
+		<wsdl:part name="paring" type="tns:TeavitusSisuMMS"/>
+		<wsdl:part name="keha" type="tns:TeavitusVastus"/>
+    </wsdl:message>
+
+    <wsdl:message name="pais">
+        <part name="asutus" element="xtee:asutus" />
+        <part name="andmekogu" element="xtee:andmekogu" />
+        <part name="isikukood" element="xtee:isikukood" />
+        <part name="id" element="xtee:id" />
+        <part name="nimi" element="xtee:nimi" />
+    </wsdl:message>
+
+    <!--  PORTTYPE -->
+	<wsdl:portType name="MTEENUSPort">
+		<wsdl:operation name="SMSteavitus">
+            <documentation>
+                <xtee:title>SMS teavitus</xtee:title>
+            </documentation>
+            <wsdl:input message="tns:SmsTeavitusRequest"/>
+			<wsdl:output message="tns:SmsTeavitusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="MMSteavitus">
+            <documentation>
+                <xtee:title>MMS teavitus</xtee:title>
+            </documentation>
+            <wsdl:input message="tns:MmsTeavitusRequest"/>
+			<wsdl:output message="tns:MmsTeavitusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="isikLisaMobiil">
+            <documentation>
+                <xtee:title>Isiku ja mobiili seostamine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:isikLisaMobiilRequest"/>
+			<wsdl:output message="tns:isikLisaMobiilResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="isikMuudaMobiil">
+            <documentation>
+                <xtee:title>Isiku ja mobiili seose aktiveerimine/deaktiveerimine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:isikMuudaMobiilRequest"/>
+			<wsdl:output message="tns:isikMuudaMobiilResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="isikEemaldaMobiil">
+            <documentation>
+                <xtee:title>Isiku ja mobiili seose lõpetamine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:isikEemaldaMobiilRequest"/>
+			<wsdl:output message="tns:isikEemaldaMobiilResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="lisaTeenus">
+            <documentation>
+                <xtee:title>Mobiilse teenuse lisamine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:LisaTeenusRequest"/>
+			<wsdl:output message="tns:LisaTeenusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="muudaTeenus">
+            <documentation>
+                <xtee:title>Mobiilse teenuse muutmine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:MuudaTeenusRequest"/>
+			<wsdl:output message="tns:MuudaTeenusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="annaTeenus">
+            <documentation>
+                <xtee:title>Mobiilse teenuse andmete pärimine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:AnnaTeenusRequest"/>
+			<wsdl:output message="tns:AnnaTeenusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="kustutaTeenus">
+            <documentation>
+                <xtee:title>Mobiilse teenuse kustutamine</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:KustutaTeenusRequest"/>
+			<wsdl:output message="tns:KustutaTeenusResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="teenuseKasutajad">
+            <documentation>
+                <xtee:title>Mobiilse teenuse kasutajad</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:TeenusKasutajadRequest"/>
+			<wsdl:output message="tns:TeenusKasutajadResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="suunamineAktiivne">
+            <documentation>
+                <xtee:title>Isiku aktiivsed mobiilid</xtee:title>
+            </documentation>
+			<wsdl:input message="tns:suunamineAktiivneRequest"/>
+			<wsdl:output message="tns:suunamineAktiivneResponse"/>
+		</wsdl:operation>
+
+	</wsdl:portType>
+	<!--  BINDING -->
+	<wsdl:binding name="MTEENUSBinding" type="tns:MTEENUSPort">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SMSteavitus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MMSteavitus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="isikLisaMobiil">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+        </wsdl:operation>
+		<wsdl:operation name="isikMuudaMobiil">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+        </wsdl:operation>
+		<wsdl:operation name="isikEemaldaMobiil">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+        </wsdl:operation>
+		<wsdl:operation name="lisaTeenus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="muudaTeenus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="annaTeenus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="kustutaTeenus">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="teenuseKasutajad">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="suunamineAktiivne">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction=""/>
+              <wsdl:input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:input>
+              <wsdl:output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                           namespace="http://producers.mteenus.xtee.riik.ee/producer/mteenus"
+                           use="encoded" />
+                <soap:header encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             message="tns:pais"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+                             part="*" use="encoded" />
+              </wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!--  SERVICE -->
+	<wsdl:service name="MTEENUSservice">
+		<wsdl:port binding="tns:MTEENUSBinding" name="MTEENUSservice">
+			<soap:address location="https://www.teine.eesti.ee/portaal/=mteenus.x_tee_teenus"/>
+			<xtee:title>Mobiilsed teenused</xtee:title>
+			<xtee:address producer="mteenus"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

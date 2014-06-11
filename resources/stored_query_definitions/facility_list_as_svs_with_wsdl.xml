@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  targetNamespace="urn:ihe:iti:csd:2013"
+  urn="urn:openhie:org:openinfoman:svs_directory" 
+  >
+  <csd:description>
+    Export facility, organization and service lists as SVS.
+    List OIDs are $baseOID.1 = service, $baseOID.2 = organization, $baseOID.3 = facility
+  </csd:description>
+  <csd:definition name='svs_request'>
+    <![CDATA[
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare namespace svs = "urn:ihe:iti:svs:2008";
+
+(:
+  The following context items are set on excution:
+   *$id which is an xs:string.  OID of requested list.   
+   *$version which is an xs:string.  Not used, but would need to be to be the full SVS Repository
+   *$lang which is an xs:string.  Not used, but would need to be to be the full SVS Repository
+  Note:  does not allow publish and subsequent querying by version, nor does it support mulitple languages.
+:)
+
+let $base_oid := 2.25.123123121232138219032112314  //should be jurisdiction defined base OID for the three CSD directories as SVS
+let $entities := 
+   if ($id = concat($base_oid, '.3')) then /csd:CSD/csd:facilityDirectory/* 
+   else if ($id = concat($base_oid,'.1')) then /csd:CSD/csd:serviceDirectory/*
+   else if ($id = concat($base_oid,'.2')) then /csd:CSD/csd:organizationDirectory/*
+   else ()
+let $displayName := 
+   if ($directory = 3) then "CSD Facility List"
+   else if ($directory = 1) then "CSD Service List"
+   else if ($directory = 2) then "CSD Organization"
+   else "Undefined List"  
+let $max_date_time:= ($entities/csd:record/@updated))
+let $date_time := if (contains($max_date_time,'+')) then string-before('-',$max_date_time) else $max_date_time
+let $version := translate($date_time,':-T','')
+let $valueSet :=
+  <svs:ValueSet  xmlns:svs="urn:ihe:iti:svs:2008"  id="{$oid}" version="{$version}" displayName="{$displayName}">
+	<svs:ConceptList xml:lang="en-US">
+	  {
+            for $entity in $entities
+	       return 
+	         <svs:Concept 
+		    code="{$entity/csd:codedType/@code}" 
+		    codeSystem="{$entity/csd:codedType/@codingScheme}"
+		    displayName="{$entity/csd:primaryName}" 
+		    />
+           }
+	</svs:ConceptList>
+ </svs:ValueSet>
+return $valueSet
+    ]]>
+  </csd:definition>
+
+
+
+  <wsdl:definitions>
+
+    <wsdl:message name='svs_request'>
+      <wsdl:part name="id" type="xsd:string"/>
+      <wsdl:part name="version" type="xsd:string"/> 
+      <wsdl:part name='lang' type='xs:string'/>
+    </wsdl:message>
+
+
+    <wsdl:message name='svs_response'>
+      <wsdl:part name="ValueSet" type="svs:ValueSet"/>
+    </wsdl:message>
+
+
+    <wsdl:portType name="svs_port_type">
+      <wsdl:operation name="RetrieveValueSet"> 
+	<wsdl:output message="svs_request"/>
+	<wsdl:output message="svs_response"/>
+      </wsdl:operation>
+    </wsdl:portType>
+
+
+    <wsdl:binding name="svs_binding" type="svs_port_type">
+      <http:binding verb="GET"/>
+      <wsdl:operation name="RetrieveValueSet">  
+        <http:operation location="RetrieveValueSet"/> 
+	<!-- At GET request to an InfoMan the $location := concat($BASURL,"/careServicesRequest/urn:openhie:org:openinfoman:svs_directory/RetrieveValueSet")  will retrive
+  urn="
+	     ValueSet as   https://example.com/careServicesRequest/urn:openhie:org:openingoman:svs_directory/RetrieveValueSet?id=1.2.840.10008.6.1.308&version=20061023&lang=en-US
+	-->
+        <wsdl:input>
+          <http:urlEncoded/>
+        </wsdl:input>
+        <wsdl:output>
+          <mime:content type="application/xml"/>
+        </wsdl:output>
+      </wsdl:operation>
+    </wsdl:binding>
+
+  </wsdl:definitions>
+</csd:careServicesFunction>

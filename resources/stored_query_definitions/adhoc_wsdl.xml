@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  targetNamespace="urn:ihe:iti:csd:2013"
+  urn="urn:dhis2:org:number_of_healthworker_by_facility" 
+  >
+  <csd:description>
+    Ad-hoc XQuery Option
+  </csd:description>
+  <csd:definition name='adhoc_request'>
+    <![CDATA[
+declare namespace csd = "urn:ihe:iti:csd:2013";
+
+declare variable $facilities := /csd:CSD/csd:facilityDirectory/csd:facility;
+declare variable $providers := /csd:CSD/csd:providerDirectory/csd:provider;
+
+<dxf xmlns="http://dhis2.org/schema/dxf/2.0">
+  <dataValueSet>
+{
+  for $fac in $facilities
+    let $date := current-date()
+    let $year := string-before('-',$date)
+    let $month := xsd:int(string-before('-',string-after('-',$date)))
+    let $period := concat($year,$month)
+    let $facoid := $fac/@oid
+    let $faccode := $fac/csd:otherID[@assigningAuthorityName="dhis2-uid"]/@code
+    let $facProviders := $providers[csd:facilities/csd:facility/@oid=$facoid]
+        where $faccode
+        return  <dataValue period='{$period}' orgUnit='{$faccode}' dataElement='numProviders' value='{count($facProviders)}'/>
+}
+  </dataValueSet>
+</dxf>	     
+    ]]>
+  </csd:definition>
+
+
+  <wsdl:definitions>
+
+    <wsdl:message name='dxf_response'>
+      <wsdl:part name="dxf" type="dxf:dxf"/>
+    </wsdl:message>
+
+
+    <wsdl:portType name="dxf_port_type">
+      <wsdl:operation name="dxf"> 
+	<!-- This is a "Notification Operation (2.4.4 in WSDL 1.1 spec).  No input message needed -->
+	<wsdl:output message="csd:dxf_response"/>
+      </wsdl:operation>
+    </wsdl:portType>
+
+
+    <wsdl:binding name="dxf_binding" type="dxf_port_type">
+      <http:binding verb="GET"/>
+      <wsdl:operation name="dxf">  
+        <http:operation location="dxf"/> 
+	<!-- At GET request to an InfoMan the $location := concat($BASURL,"/careServicesRequest/urn:dhis2:org:number_of_healthworker/dxf")  will get a DXF file -->
+        <wsdl:input>
+          <http:urlEncoded/>
+        </wsdl:input>
+        <wsdl:output>
+          <mime:content type="application/xml"/>
+        </wsdl:output>
+      </wsdl:operation>
+    </wsdl:binding>
+
+  </wsdl:definitions>
+</csd:careServicesFunction>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:chiba="http://chiba.sourceforge.net/xforms"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:events="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <xhtml:head>
+      <xhtml:title>Comment describing your root element</xhtml:title>
+      <xforms:model>
+         <xforms:instance id="purchaseOrder.instance">
+            <purchaseOrder xmlns:tns="purchaseOrder" xsi:nil="false" xsi:type="tns:purchaseOrderType"
+                           customerId="">
+               <headerInformation xsi:nil="false" xsi:type="tns:headerType">
+                  <streetAddress xsi:nil="true" xsi:type="xsd:string"/>
+                  <state_or_province xsi:nil="true" xsi:type="tns:baseNAState"/>
+                  <name xsi:nil="true" xsi:type="xsd:string"/>
+                  <rushDelivery xsi:nil="true" xsi:type="xsd:boolean">false</rushDelivery>
+               </headerInformation>
+               <phoneNumber xsi:nil="false" xsi:type="tns:phoneNumberType" customerType="">
+                  <areaCode xsi:nil="true" xsi:type="xsd:string"/>
+                  <number xsi:nil="true" xsi:type="xsd:nonNegativeInteger"/>
+                  <longEnum xsi:nil="true" xsi:type="tns:longEnumType"/>
+                  <shortEnum xsi:nil="true" xsi:type="tns:shortEnumType"/>
+                  <longList xsi:nil="true" xsi:type="tns:longListType"/>
+                  <shortList xsi:nil="true" xsi:type="tns:shortListType"/>
+               </phoneNumber>
+            </purchaseOrder>
+         </xforms:instance>
+         <xforms:instance id="temp">
+            <temp>
+               <relevant xsi:type="boolean">true</relevant>
+            </temp>
+         </xforms:instance>
+         <xforms:submission id="purchaseOrder.submission" action="purchaseOrder.xml" method="put">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-done">Submit done</xforms:message>
+            <xforms:message level="modal" events:event="xforms-submit-error">Submit error</xforms:message>
+         </xforms:submission>
+         <xforms:bind xmlns:tns="purchaseOrder" nodeset="/purchaseOrder"
+                      xforms:type="tns:purchaseOrderType">
+            <xforms:bind nodeset="headerInformation" xforms:type="tns:headerType">
+               <xforms:bind nodeset="streetAddress" xforms:type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="state_or_province" xforms:type="tns:baseNAState">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="name" xforms:type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="rushDelivery" xforms:type="xsd:boolean">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="phoneNumber" xforms:type="tns:phoneNumberType">
+               <xforms:bind nodeset="areaCode" xforms:type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="number" xforms:type="xsd:nonNegativeInteger">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="longEnum" xforms:type="tns:longEnumType">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="shortEnum" xforms:type="tns:shortEnumType">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="longList" xforms:type="tns:longListType">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="shortList" xforms:type="tns:shortListType">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="@customerType"/>
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="@customerId"/>
+            <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+         </xforms:bind>
+      </xforms:model>
+   </xhtml:head>
+   <xhtml:body>
+      <xhtml:h1>Comment describing your root element</xhtml:h1>
+      <xhtml:div class="form_row">
+         <xforms:group ref="/purchaseOrder">
+            <xforms:label>Comment describing your root element</xforms:label>
+            <xhtml:div class="form_row">
+               <xforms:group ref="headerInformation">
+                  <xforms:label>Header Information</xforms:label>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="streetAddress">
+                        <xforms:label>Enter the street address.</xforms:label>
+                        <xforms:label>For example, 160 Manitoba Street.</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="state_or_province">
+                        <xforms:label>State_or_province</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="name">
+                        <xforms:label>Name</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="rushDelivery">
+                        <xforms:label>Rush Delivery</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+               </xforms:group>
+            </xhtml:div>
+            <xhtml:div class="form_row">
+               <xforms:group ref="phoneNumber">
+                  <xforms:label>Phone Number</xforms:label>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="areaCode">
+                        <xforms:label>Area Code</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:input ref="number">
+                        <xforms:label>Number</xforms:label>
+                     </xforms:input>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:select1 ref="longEnum">
+                        <xforms:label>Long Enum</xforms:label>
+                        <xforms:item>
+                           <xforms:label>FIRST_VALUE</xforms:label>
+                           <xforms:value>FIRST_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SECOND_VALUE</xforms:label>
+                           <xforms:value>SECOND_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>THIRD_VALUE</xforms:label>
+                           <xforms:value>THIRD_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FOURTH_VALUE</xforms:label>
+                           <xforms:value>FOURTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FIFTH_VALUE</xforms:label>
+                           <xforms:value>FIFTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SIXTH_VALUE</xforms:label>
+                           <xforms:value>SIXTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SEVENTH_VALUE</xforms:label>
+                           <xforms:value>SEVENTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>EIGHTH_VALUE</xforms:label>
+                           <xforms:value>EIGHTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>NINTH_VALUE</xforms:label>
+                           <xforms:value>NINTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>TENTH_VALUE</xforms:label>
+                           <xforms:value>TENTH_VALUE</xforms:value>
+                        </xforms:item>
+                     </xforms:select1>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:select1 ref="shortEnum">
+                        <xforms:label>Short Enum</xforms:label>
+                        <xforms:item>
+                           <xforms:label>FIRST_VALUE</xforms:label>
+                           <xforms:value>FIRST_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SECOND_VALUE</xforms:label>
+                           <xforms:value>SECOND_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>THIRD_VALUE</xforms:label>
+                           <xforms:value>THIRD_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FOURTH_VALUE</xforms:label>
+                           <xforms:value>FOURTH_VALUE</xforms:value>
+                        </xforms:item>
+                     </xforms:select1>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:select ref="longList">
+                        <xforms:label>Long List</xforms:label>
+                        <xforms:item>
+                           <xforms:label>FIRST_VALUE</xforms:label>
+                           <xforms:value>FIRST_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SECOND_VALUE</xforms:label>
+                           <xforms:value>SECOND_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>THIRD_VALUE</xforms:label>
+                           <xforms:value>THIRD_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FOURTH_VALUE</xforms:label>
+                           <xforms:value>FOURTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FIFTH_VALUE</xforms:label>
+                           <xforms:value>FIFTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SIXTH_VALUE</xforms:label>
+                           <xforms:value>SIXTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SEVENTH_VALUE</xforms:label>
+                           <xforms:value>SEVENTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>EIGHTH_VALUE</xforms:label>
+                           <xforms:value>EIGHTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>NINTH_VALUE</xforms:label>
+                           <xforms:value>NINTH_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>TENTH_VALUE</xforms:label>
+                           <xforms:value>TENTH_VALUE</xforms:value>
+                        </xforms:item>
+                     </xforms:select>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:select ref="shortList">
+                        <xforms:label>Short List</xforms:label>
+                        <xforms:item>
+                           <xforms:label>FIRST_VALUE</xforms:label>
+                           <xforms:value>FIRST_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>SECOND_VALUE</xforms:label>
+                           <xforms:value>SECOND_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>THIRD_VALUE</xforms:label>
+                           <xforms:value>THIRD_VALUE</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>FOURTH_VALUE</xforms:label>
+                           <xforms:value>FOURTH_VALUE</xforms:value>
+                        </xforms:item>
+                     </xforms:select>
+                  </xhtml:div>
+                  <xhtml:div class="form_row">
+                     <xforms:select1 ref="@customerType">
+                        <xforms:label>Customer Type</xforms:label>
+                        <xforms:item>
+                           <xforms:label>RESIDENTIAL_CUSTOMER</xforms:label>
+                           <xforms:value>RESIDENTIAL_CUSTOMER</xforms:value>
+                        </xforms:item>
+                        <xforms:item>
+                           <xforms:label>BUSINESS_CUSTOMER</xforms:label>
+                           <xforms:value>BUSINESS_CUSTOMER</xforms:value>
+                        </xforms:item>
+                     </xforms:select1>
+                  </xhtml:div>
+               </xforms:group>
+            </xhtml:div>
+            <xhtml:div class="form_row">
+               <xforms:input ref="@customerId">
+                  <xforms:label>Customer Id</xforms:label>
+               </xforms:input>
+            </xhtml:div>
+         </xforms:group>
+      </xhtml:div>
+      <xforms:submit submission="purchaseOrder.submission">
+         <xforms:label>Submit</xforms:label>
+      </xforms:submit>
+   </xhtml:body>
+</xhtml:html>

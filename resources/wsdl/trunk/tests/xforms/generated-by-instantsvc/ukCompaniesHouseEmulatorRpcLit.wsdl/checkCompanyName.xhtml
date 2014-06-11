@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:events="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://posr.no-ip.org/instantsvc/services/soap.php/ukCompaniesHouseEmulatorRpcLit">
+   <xhtml:head>
+      <xforms:model>
+         <xforms:instance id=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.input">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+               <SOAP-ENV:Header/>
+               <SOAP-ENV:Body>
+                  <ns5:checkCompanyName xmlns:ns5="http://posr.no-ip.org/instantsvc/services/soap.php/ukCompaniesHouseEmulatorRpcLit">
+                     <companyName/>
+                  </ns5:checkCompanyName>
+               </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+         </xforms:instance>
+         <xforms:instance id=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </xforms:instance>
+         <xforms:instance xmlns:chiba="http://chiba.sourceforge.net/xforms" id="temp">
+            <temp>
+               <relevant xsi:type="boolean">true</relevant>
+            </temp>
+         </xforms:instance>
+         <xforms:bind nodeset="instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.input')/SOAP-ENV:Body/tns:checkCompanyName">
+            <xforms:bind nodeset="companyName">
+               <xforms:bind xmlns:chiba="http://chiba.sourceforge.net/xforms" nodeset="@xsi:nil"
+                            relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:submission id=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.submission"
+                            action="http://posr.no-ip.org/instantsvc/services/soap.php/ukCompaniesHouseEmulatorRpcLit"
+                            mediatype="text/xml"
+                            ref="instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.input')"
+                            method="post"
+                            replace="instance"
+                            instance=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Please ensure that all field have valid contents.</xforms:message>
+         </xforms:submission>
+         <xhtml:div class="form_row">
+            <xforms:toggle case=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.request"
+                           events:event="xforms-ready"
+                           if="not(boolean(instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output')/SOAP-ENV:Body))"/>
+            <xforms:toggle case=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.response"
+                           events:event="xforms-ready"
+                           if="boolean(instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output')/SOAP-ENV:Body)"/>
+         </xhtml:div>
+      </xforms:model>
+      <xhtml:style type="text/css">
+        @namespace xf url("http://www.w3.org/2002/xforms");
+        @namespace url("http://www.w3.org/1999/xhtml");
+
+        body {
+            font-size: 75%;
+            font-family: sans-serif;
+        }
+
+        div {
+            padding: 5px 0px 5px 0px;
+            vertical-align: top;
+        }
+
+        xf|input, 
+        xf|secret, 
+        xf|textarea, 
+        xf|output, 
+        xf|trigger, 
+        xf|submit,
+        xf|select,
+        xf|select1 {
+            display: table-cell;
+            vertical-align: bottom;
+            line-height: 1em;
+            padding: 0px 5px 0px 5px;
+        }
+
+        xf|input &gt; xf|label, 
+        xf|secret &gt; xf|label, 
+        xf|textarea &gt; xf|label, 
+        xf|output &gt; xf|label, 
+        xf|trigger &gt; xf|label, 
+        xf|submit &gt; xf|label,
+        xf|select &gt; xf|label,
+        xf|select1 &gt; xf|label {
+            display: table-caption;
+            white-space: nowrap; /* avoids word wrapping of labels */
+            text-align: left;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        xf|group {
+            display: table-cell;
+            line-height: 1em;
+            vertical-align: top;
+            margin: 5px; /* doesn't work; I guess, because of display: table-cell; */
+            padding: 5px;
+            border-collapse: collapse;
+            border: 1px dashed grey;
+        }
+
+        xf|group &gt; xf|label {
+            display: table-caption;
+            font-weight: bold;
+            text-align: center;
+            background-color: #cccccc;
+            margin-bottom: 7px;
+            padding: 3px 0px 3px 0px;
+            width: 100%;
+        }
+         
+        *:required {
+            background-color: yellow;
+        }
+         
+        *:invalid  {
+            background-color: pink;
+        }
+    </xhtml:style>
+   </xhtml:head>
+   <xhtml:body>
+      <xhtml:div class="form_row">
+         <xforms:switch>
+            <xforms:case id=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.request">
+               <xhtml:div class="form_row">
+                  <xforms:group ref="instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.input')/SOAP-ENV:Body/tns:checkCompanyName">
+                     <xhtml:div xmlns:chiba="http://chiba.sourceforge.net/xforms" class="form_row">
+                        <xforms:input ref="companyName">
+                           <xforms:label>companyName</xforms:label>
+                        </xforms:input>
+                     </xhtml:div>
+                  </xforms:group>
+               </xhtml:div>
+               <xforms:group class="actions">
+                  <xhtml:div class="form_row">
+                     <xforms:submit submission=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.submission">
+                        <xforms:label>Submit</xforms:label>
+                     </xforms:submit>
+                  </xhtml:div>
+               </xforms:group>
+            </xforms:case>
+            <xforms:case id=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.response">
+               <xhtml:div class="form_row">
+                  <xforms:group ref="instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output')/SOAP-ENV:Body/tns:checkCompanyNameResponse">
+                     <xhtml:div xmlns:chiba="http://chiba.sourceforge.net/xforms" class="form_row">
+                        <xforms:group ref="return">
+                           <xforms:label>return</xforms:label>
+                           <xhtml:div class="form_row">
+                              <xforms:repeat nodeset="tns:ukCompanyInfo" id="repeat-d4e11">
+                                 <xhtml:div class="form_row">
+                                    <xforms:output ref="tns:number">
+                                       <xforms:label>Number</xforms:label>
+                                    </xforms:output>
+                                 </xhtml:div>
+                                 <xhtml:div class="form_row">
+                                    <xforms:output ref="tns:name">
+                                       <xforms:label>Name</xforms:label>
+                                    </xforms:output>
+                                 </xhtml:div>
+                                 <xhtml:div class="form_row">
+                                    <xforms:output ref="tns:status">
+                                       <xforms:label>Status</xforms:label>
+                                    </xforms:output>
+                                 </xhtml:div>
+                              </xforms:repeat>
+                           </xhtml:div>
+                        </xforms:group>
+                     </xhtml:div>
+                  </xforms:group>
+               </xhtml:div>
+               <xhtml:div class="form_row">
+                  <xforms:group ref="instance('.ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.output')/SOAP-ENV:Body/SOAP-ENV:Fault"
+                                class="fault">
+                     <xforms:output ref="faultstring"/>
+                  </xforms:group>
+               </xhtml:div>
+               <xhtml:div class="form_row">
+                  <xforms:group class="actions">
+                     <xhtml:div class="form_row">
+                        <xforms:trigger>
+                           <xforms:label>Back</xforms:label>
+                           <xforms:toggle events:event="DOMActivate"
+                                          case=".ukCompaniesHouseEmulatorRpcLitPortType.checkCompanyName.request"/>
+                        </xforms:trigger>
+                     </xhtml:div>
+                  </xforms:group>
+               </xhtml:div>
+            </xforms:case>
+         </xforms:switch>
+      </xhtml:div>
+   </xhtml:body>
+</xhtml:html>

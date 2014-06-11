@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xhtml:html xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:chiba="http://chiba.sourceforge.net/xforms"
+            xmlns:events="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+            xmlns:mteenus="http://producers.mteenus.xtee.riik.ee/producer/mteenus">
+   <xhtml:head>
+      <xhtml:title>Isiku aktiivsed mobiilid</xhtml:title>
+      <xforms:model>
+         <xforms:instance id="mteenus.suunamineAktiivne.v1.input">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+               <SOAP-ENV:Header>
+                  <xtee:asutus>70006317</xtee:asutus>
+                  <xtee:andmekogu>mteenus</xtee:andmekogu>
+                  <xtee:isikukood>EE37605124217</xtee:isikukood>
+                  <xtee:id>735c380d1c319482355c2a28977fa4cc0ada041b</xtee:id>
+                  <xtee:nimi>mteenus.suunamineAktiivne.v1</xtee:nimi>
+                  <xtee:amet>tester</xtee:amet>
+                  <xtee:toimik>1</xtee:toimik>
+                  <xtee:ametnik>37605124217</xtee:ametnik>
+               </SOAP-ENV:Header>
+               <SOAP-ENV:Body>
+                  <ns5:suunamineAktiivne xmlns:ns5="http://producers.mteenus.xtee.riik.ee/producer/mteenus">
+                     <keha xsi:nil="false">
+                        <isikukood xsi:nil="true" xsi:type="xsd:string"/>
+                     </keha>
+                  </ns5:suunamineAktiivne>
+               </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+         </xforms:instance>
+         <xforms:instance id="mteenus.suunamineAktiivne.v1.output">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </xforms:instance>
+         <xforms:instance id="temp">
+            <temp>
+               <relevant xsi:type="boolean">true</relevant>
+            </temp>
+         </xforms:instance>
+         <xforms:instance id="texts">
+            <texts>
+               <boolean value="true">jah</boolean>
+               <boolean value="false">ei</boolean>
+               <no_data>Andmeid ei tulnud.</no_data>
+            </texts>
+         </xforms:instance>
+         <xforms:bind nodeset="instance('mteenus.suunamineAktiivne.v1.input')/SOAP-ENV:Body/mteenus:suunamineAktiivne">
+            <xforms:bind nodeset="keha">
+               <xforms:bind nodeset="isikukood">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:bind nodeset="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body/mteenus:suunamineAktiivneResponse">
+            <xforms:bind nodeset="keha">
+               <xforms:bind nodeset="result">
+                  <xforms:bind nodeset="resultCode" type="xsd:int"/>
+                  <xforms:bind nodeset="resultText" type="xsd:string"/>
+               </xforms:bind>
+               <xforms:bind nodeset="suunamised">
+                  <xforms:bind nodeset="*">
+                     <xforms:bind nodeset="isikukood" type="xsd:string"/>
+                     <xforms:bind nodeset="mobiil" type="xsd:string"/>
+                  </xforms:bind>
+               </xforms:bind>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:submission id="mteenus.suunamineAktiivne.v1.submission"
+                            action="http://localhost:3000/cgi-bin/consumer_proxy"
+                            mediatype="text/xml"
+                            ref="instance('mteenus.suunamineAktiivne.v1.input')"
+                            method="post"
+                            replace="instance"
+                            instance="mteenus.suunamineAktiivne.v1.output">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="mteenus.suunamineAktiivne.v1.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Veendu, et k&#245;ik v&#228;ljad on korrektselt t&#228;idetud!</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="mteenus.suunamineAktiivne.v1.debug"
+                            action="{$contextroot}/resources/jsp/debug-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('mteenus.suunamineAktiivne.v1.input')"
+                            method="post"
+                            replace="all"
+                            validate="false">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="mteenus.suunamineAktiivne.v1.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Veendu, et k&#245;ik v&#228;ljad on korrektselt t&#228;idetud!</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="mteenus.suunamineAktiivne.v1.savexml"
+                            action="{$contextroot}/resources/jsp/return-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('mteenus.suunamineAktiivne.v1.output')"
+                            method="post"
+                            replace="all"/>
+         <xforms:toggle case="mteenus.suunamineAktiivne.v1.request" events:event="xforms-ready"
+                        if="not(boolean(instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body))"/>
+         <xforms:toggle case="mteenus.suunamineAktiivne.v1.response" events:event="xforms-ready"
+                        if="boolean(instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body)"/>
+      </xforms:model>
+   </xhtml:head>
+   <xhtml:body>
+      <xhtml:h1>Isiku aktiivsed mobiilid</xhtml:h1>
+      <xforms:switch>
+         <xforms:case id="mteenus.suunamineAktiivne.v1.request">
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.input')/SOAP-ENV:Body/mteenus:suunamineAktiivne">
+               <xforms:group ref="keha">
+                  <xforms:input ref="isikukood">
+                     <xforms:label>Isikukood</xforms:label>
+                  </xforms:input>
+               </xforms:group>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:submit submission="mteenus.suunamineAktiivne.v1.submission">
+                  <xforms:label>Esita p&#228;ring</xforms:label>
+               </xforms:submit>
+               <xforms:submit submission="mteenus.suunamineAktiivne.v1.debug">
+                  <xforms:label>Debug</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+         <xforms:case id="mteenus.suunamineAktiivne.v1.response">
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Header">
+               <xforms:output ref="xtee:id" class="serviceid">
+                  <xforms:label>P&#228;ringu id</xforms:label>
+               </xforms:output>
+            </xforms:group>
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body/mteenus:suunamineAktiivneResponse">
+               <xforms:group ref="keha">
+                  <xforms:group ref="result">
+                     <xforms:label>P&#228;ringu tulemus</xforms:label>
+                     <xforms:output ref="resultCode">
+                        <xforms:label>Vea kood</xforms:label>
+                     </xforms:output>
+                     <xforms:output ref="resultText">
+                        <xforms:label>Veateade</xforms:label>
+                     </xforms:output>
+                  </xforms:group>
+                  <xforms:group ref="suunamised">
+                     <xforms:label>Kasutaja suunamised mobiilidele</xforms:label>
+                     <xforms:repeat nodeset="*" id="repeat-d5e1398">
+                        <xforms:output ref="isikukood">
+                           <xforms:label>Isikukood</xforms:label>
+                        </xforms:output>
+                        <xforms:output ref="mobiil">
+                           <xforms:label>Mobiil</xforms:label>
+                        </xforms:output>
+                     </xforms:repeat>
+                  </xforms:group>
+               </xforms:group>
+            </xforms:group>
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body/mteenus:suunamineAktiivneResponse[keha = '']"
+                          class="info">
+               <xforms:output ref="instance('texts')/no_data"/>
+            </xforms:group>
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body/mteenus:suunamineAktiivneResponse/keha/faultString"
+                          class="info">
+               <xforms:output ref="."/>
+            </xforms:group>
+            <xforms:group ref="instance('mteenus.suunamineAktiivne.v1.output')/SOAP-ENV:Body/SOAP-ENV:Fault"
+                          class="fault">
+               <xforms:output ref="faultstring"/>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:trigger>
+                  <xforms:label>Uuesti</xforms:label>
+                  <xforms:toggle events:event="DOMActivate" case="mteenus.suunamineAktiivne.v1.request"/>
+               </xforms:trigger>
+               <xforms:submit submission="mteenus.suunamineAktiivne.v1.savexml">
+                  <xforms:label>Show XML</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+      </xforms:switch>
+   </xhtml:body>
+</xhtml:html>

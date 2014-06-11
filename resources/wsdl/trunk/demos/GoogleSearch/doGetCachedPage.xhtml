@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:chiba="http://chiba.sourceforge.net/xforms"
+            xmlns:events="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:GoogleSearch">
+   <xhtml:head>
+      <xforms:model>
+         <xforms:instance id="doGetCachedPage.input">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+               <SOAP-ENV:Header/>
+               <SOAP-ENV:Body>
+                  <ns5:doGetCachedPage xmlns:ns5="urn:GoogleSearch">
+                     <key/>
+                     <url/>
+                  </ns5:doGetCachedPage>
+               </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+         </xforms:instance>
+         <xforms:instance id="doGetCachedPage.output">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </xforms:instance>
+         <xforms:instance id="temp">
+            <temp>
+               <relevant xsi:type="boolean">true</relevant>
+            </temp>
+         </xforms:instance>
+         <xforms:bind nodeset="instance('doGetCachedPage.input')/SOAP-ENV:Body/tns:doGetCachedPage">
+            <xforms:bind nodeset="key">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="url">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:bind nodeset="instance('doGetCachedPage.output')/SOAP-ENV:Body/tns:doGetCachedPageResponse">
+            <xforms:bind nodeset="return" type="xsd:base64Binary">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:submission id="doGetCachedPage.submission" action="http://api.google.com/search/beta2"
+                            mediatype="text/xml"
+                            ref="instance('doGetCachedPage.input')"
+                            method="post"
+                            replace="instance"
+                            instance="doGetCachedPage.output">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="doGetCachedPage.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Please ensure that all field have valid contents.</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="doGetCachedPage.debug"
+                            action="{$contextroot}/resources/jsp/debug-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('doGetCachedPage.input')"
+                            method="post"
+                            replace="all"
+                            validate="false">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="doGetCachedPage.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Please ensure that all field have valid contents.</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="doGetCachedPage.savexml"
+                            action="{$contextroot}/resources/jsp/return-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('doGetCachedPage.output')"
+                            method="post"
+                            replace="all"/>
+         <xforms:toggle case="doGetCachedPage.request" events:event="xforms-ready"
+                        if="not(boolean(instance('doGetCachedPage.output')/SOAP-ENV:Body))"/>
+         <xforms:toggle case="doGetCachedPage.response" events:event="xforms-ready"
+                        if="boolean(instance('doGetCachedPage.output')/SOAP-ENV:Body)"/>
+      </xforms:model>
+   </xhtml:head>
+   <xhtml:body>
+      <xforms:switch>
+         <xforms:case id="doGetCachedPage.request">
+            <xforms:group ref="instance('doGetCachedPage.input')/SOAP-ENV:Body/tns:doGetCachedPage">
+               <xforms:input ref="key">
+                  <xforms:label>key</xforms:label>
+               </xforms:input>
+               <xforms:input ref="url">
+                  <xforms:label>url</xforms:label>
+               </xforms:input>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:submit submission="doGetCachedPage.submission">
+                  <xforms:label>Submit</xforms:label>
+               </xforms:submit>
+               <xforms:submit submission="doGetCachedPage.debug">
+                  <xforms:label>Debug</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+         <xforms:case id="doGetCachedPage.response">
+            <xforms:group ref="instance('doGetCachedPage.output')/SOAP-ENV:Body/tns:doGetCachedPageResponse">
+               <xforms:output ref="return">
+                  <xforms:label>return</xforms:label>
+               </xforms:output>
+            </xforms:group>
+            <xforms:group ref="instance('doGetCachedPage.output')/SOAP-ENV:Body/SOAP-ENV:Fault"
+                          class="fault">
+               <xforms:output ref="faultstring"/>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:trigger>
+                  <xforms:label>Back</xforms:label>
+                  <xforms:toggle events:event="DOMActivate" case="doGetCachedPage.request"/>
+               </xforms:trigger>
+               <xforms:submit submission="doGetCachedPage.savexml">
+                  <xforms:label>Show XML</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+      </xforms:switch>
+   </xhtml:body>
+</xhtml:html>

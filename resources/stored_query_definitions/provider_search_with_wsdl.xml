@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  targetNamespace="urn:ihe:iti:csd:2013"
+  urn="urn:ihe:iti:csd:2013:stored_query:provider_search" 
+  >
+  <csd:description>
+    Performs a search for all providers by name, coded type, address or ID. (WSDL INCLUDED)
+  </csd:description>
+  <csd:definition ><xi:include parse='text' href='provider_search_parameterized.xq'/></csd:definition>
+
+  <xforms:instance>
+    <careServicesRequest>
+      <id/>
+      <otherID/>
+      <commonName/>
+      <codedType/>
+      <address/>
+      <start/>
+      <max/>
+      <record/>
+    </careServicesRequest>
+  </xforms:instance>
+  <xforms:bind nodeset="id" type="csd:uniqueID"/>
+  <xforms:bind nodeset="otherID" type="csd:otherID"/>
+  <xforms:bind nodeset="commonName" type="xsd:string"/>
+  <xforms:bind nodeset="codedType" type="csd:codedtype"/>
+  <xforms:bind nodeset="address" type="csd:address"/>
+  <xforms:bind nodeset="start" type="xsd:int"/>
+  <xforms:bind nodeset="max" type="xsd:int"/>
+  <xforms:bind nodeset="record" type="csd:record"/>
+
+  <csd:extension name='urn:openhie:org:csd:wsdl' type='interface'>
+    <!-- allow to have multiple messages but @name='input' is required.  @name='output' is not required, but if used can be used to generate the wsdl-->
+    <!-- context of executed xquery defined above has variables $id,$otherID to execute on the message -->
+    <!-- maybe can associate associated to any of the messages, or should all messages be executed against same xquery? -->
+    <csd:definition name='full_search_input'><xi:include parse='text' href='provider_search_parameterized.xq'/></csd:definition>
+    <wsdl:defintions>
+      <wsdl:message name='search_output'>
+	<wsdl:part name="CSD" type="csd:CSD"/>
+      </wsdl:message>
+
+      <wsdl:message name='full_search_input'>        
+	<wsdl:part name="id" type="csd:uniqueID"/>
+	<wsdl:part name="otherID" type="csd:otherID"/>
+	<wsdl:part name="commonName" type="xsd:string"/>
+	<wsdl:part name="codedType" type="csd:codedtype"/>
+	<wsdl:part name="address" type="csd:address"/>
+	<wsdl:part name="start" type="xsd:int"/>
+	<wsdl:part name="max" type="xsd:int"/>
+	<wsdl:part name="record" type="csd:record"/>    
+      </wsdl:message>
+
+      <wsdl:message name='id_search_input'>
+	<wsdl:part name="id" type="csd:uniqueID"/>
+      </wsdl:message>
+
+      <wsdl:message name='name_search_input'>
+	<wsdl:part name="id" type="csd:uniqueID"/>
+      </wsdl:message>
+
+
+
+      <wsdl:portType name="full_search_port_type">
+	<wsdl:operation name="full_search">
+	  <wsdl:input message="csd:full_search_input"/>
+	  <wsdl:output message="csd:search_output"/>
+	</wsdl:operation>
+      </wsdl:portType>
+
+
+      <wsdl:binding name="full_search_binding" type="full_search_port_type">
+	<http:binding verb="POST"/>
+	<wsdl:operation name="full_search">
+          <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+          <wsdl:input>
+            <mime:content type="application/xml"/>
+          </wsdl:input>
+          <wsdl:output>
+            <mime:content type="application/xml"/>
+          </wsdl:output>
+	</wsdl:operation>
+      </wsdl:binding>
+
+
+      <wsdl:binding name="full_search_binding_soap" type="full_search_port_type">
+	<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+	<wsaw:UsingAddressing wsdl:required="true"/>
+	<wsdl:operation name="directoryModifications">
+          <soap12:operation soapAction="urn:ihe:iti:csd:2013:stored_query:provider_search" />
+	  <wsdl:input>
+            <soap12:body use="literal" />
+          </wsdl:input>
+          <wsdl:output>
+            <soap12:body use="literal" namespace="urn:ihe:iti:csd:2013"/>
+          </wsdl:output>
+	</wsdl:operation>
+      </wsdl:binding>
+
+
+      <wsdl:portType name="id_search_port_type">
+	<wsdl:operation name="id_search">
+	  <wsdl:input message="tns:id_search_input"/>
+	  <wsdl:output message="tns:search_output"/>
+	</wsdl:operation>
+      </wsdl:portType>
+
+
+      <wsdl:binding name="id_search_binding" type="id_search_port_type">
+	<http:binding verb="GET"/>
+	<wsdl:operation name="id_search">  <!-- @name should match what is in the port type -->
+          <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+          <wsdl:input>
+            <http:urlEncoded/>
+          </wsdl:input>
+          <wsdl:output>
+            <mime:content type="application/xml"/>
+          </wsdl:output>
+	</wsdl:operation>
+      </wsdl:binding>
+
+
+
+      <wsdl:portType name="name_search_port_type">
+	<wsdl:operation name="name_search">
+	  <wsdl:input message="tns:name_search_input"/>
+	  <wsdl:output message="tns:search_output"/>
+	</wsdl:operation>
+      </wsdl:portType>
+
+
+      <wsdl:binding name="name_search_binding" type="name_search_port_type">
+	<http:binding verb="GET"/>
+	<wsdl:operation name="name_search">  <!-- @name should match what is in the port type -->
+          <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+          <wsdl:input>
+            <http:urlEncoded/>
+          </wsdl:input>
+          <wsdl:output>
+            <mime:content type="application/xml"/>
+          </wsdl:output>
+	</wsdl:operation>
+      </wsdl:binding>
+
+    </wsdl:defintions>
+  </csd:extension>
+</csd:careServicesFunction>
+
+
+
+
+//A WSDL portType is mapped to an XQuery module
+//A WSDL operation is mapped to an XQuery function:
+
+
+
+
+//register care service functions wsdls with jUDDI:An open source implementation of OASIS's UDDI v3 specification
+
+
+accessing careServicesRequest?LIST  returns a list of all @urns somehow...
+
+accessing careServicesRequest/$urn?WSDL you should get
+ let $location := ($csd_webconf:baseurl ,'/careServicesRequest/'  , $careServicesFunction/@urn) 
+ return csd:create_wsdl_from_service_template($careServiceFunction,$location)
+
+
+
+(:~
+ : this function transforms a csd:careServicesFunction to a wsdl:definitions.  
+ :
+ : @param $careServicesFunction - 
+ : @param $baseURL - base URL at which the service will be published relative to
+ : @return the WSDL for the serviceTemplate with a wsdl:service with name matching the urn associated to the $careServicesFunction
+ : @since 1.0
+ : 
+:)
+declare function csd:create_wsdl_from_service_template($careServicesFunction as csd:careServicesFunction,$baseURL as xsd:string) as wsdl:definitions
+{
+    return 
+      <wsdl:definitions>{
+       ( $careServicesFunction/csd:serviceTemplate/* ,
+            <wsdl:service name="{$careServicesFunction/@urn}"> 
+	      (
+              for $binding in $careServicesFunction/csd:serviceTemplate/wsdl:binding[@name != '' and exists(./http:binding)]
+              let $port :=  	     
+                <wsdl:port binding="{$binding/@name}" name="{$binding/@name}_port">
+                 <http:address location="{$location}"/> 
+	        </wsdl:port>
+	      return $port
+	      ,
+              for $binding in $careServicesFunction/csd:serviceTemplate/wsdl:binding[@name != '' and exists(./soap:binding)]
+              let $port :=  	     
+                <wsdl:port binding="{$binding/@name}" name="{$binding/@name}_port">
+                 <soap:address location="{$location}"/> 
+	        </wsdl:port>
+	      return $port
+	      )
+  	   </wsdl:service>
+	  )}
+      </wsdl:definitions>
+}
+
+declare variable $page:wsdl_to_html := "../resources/wsdl-viewer.xsl";
+
+declare function csd:wsdl_to_doc($wsdl as $wsdl:definitions) as $item  
+{
+ return xslt:transform($wsdl,doc($page:wsdl_to_xtml)) 
+}
+https://code.google.com/p/wsdl-viewer/
+
+    
+

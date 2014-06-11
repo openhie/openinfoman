@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:defintions
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+  targetNamespace="urn:ihe:iti:csd:2013"
+  urn="urn:ihe:iti:csd:2013:stored_query:provider_search" 
+  >
+  <wsdl:message name='search_output'>
+    <wsdl:part name="CSD" type="csd:CSD"/>
+  </wsdl:message>
+
+  <wsdl:message name='full_search_input'>        
+    <wsdl:part name="id" type="csd:uniqueID"/>
+    <wsdl:part name="otherID" type="csd:otherID"/>
+    <wsdl:part name="commonName" type="xsd:string"/>
+    <wsdl:part name="codedType" type="csd:codedtype"/>
+    <wsdl:part name="address" type="csd:address"/>
+    <wsdl:part name="start" type="xsd:int"/>
+    <wsdl:part name="max" type="xsd:int"/>
+    <wsdl:part name="record" type="csd:record"/>    
+  </wsdl:message>
+
+  <wsdl:message name='id_search_input'>
+    <wsdl:part name="id" type="csd:uniqueID"/>
+  </wsdl:message>
+
+  <wsdl:message name='name_search_input'>
+    <wsdl:part name="id" type="csd:uniqueID"/>
+  </wsdl:message>
+
+
+
+  <wsdl:portType name="full_search_port_type">
+    <wsdl:operation name="full_search">
+      <wsdl:input message="csd:full_search_input"/>
+      <wsdl:output message="csd:search_output"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+
+  <wsdl:binding name="full_search_binding" type="full_search_port_type">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="full_search">
+      <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+      <wsdl:input>
+        <mime:content type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+
+  <wsdl:binding name="full_search_binding_soap" type="full_search_port_type">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsaw:UsingAddressing wsdl:required="true"/>
+    <wsdl:operation name="directoryModifications">
+      <soap12:operation soapAction="urn:ihe:iti:csd:2013:stored_query:provider_search" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="urn:ihe:iti:csd:2013"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+
+  <wsdl:portType name="id_search_port_type">
+    <wsdl:operation name="id_search">
+      <wsdl:input message="tns:id_search_input"/>
+      <wsdl:output message="tns:search_output"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+
+  <wsdl:binding name="id_search_binding" type="id_search_port_type">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="id_search">  <!-- @name should match what is in the port type -->
+      <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+
+
+  <wsdl:portType name="name_search_port_type">
+    <wsdl:operation name="name_search">
+      <wsdl:input message="tns:name_search_input"/>
+      <wsdl:output message="tns:search_output"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+
+  <wsdl:binding name="name_search_binding" type="name_search_port_type">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="name_search">  <!-- @name should match what is in the port type -->
+      <http:operation location="urn:csd:"/> urn:ihe:iti:csd:2013:stored_query:provider_search
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+</wsdl:defintions>
+
+    
+

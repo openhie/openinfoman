@@ -120,7 +120,7 @@ declare updating function csr_proc:load_stored_function($db,$func) {
 	  
 
 
-declare function csr_proc:process_CSR($db,$careServicesRequest, $doc) 
+declare function csr_proc:process_CSR($db, $doc,$urn,$bindinhs) 
 {
 let $func :=$careServicesRequest/function
 let $adhoc :=$careServicesRequest/expression

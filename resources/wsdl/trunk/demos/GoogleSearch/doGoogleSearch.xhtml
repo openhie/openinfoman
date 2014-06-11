@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xhtml:html xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:xhtml="http://www.w3.org/1999/xhtml"
+            xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xforms="http://www.w3.org/2002/xforms"
+            xmlns:chiba="http://chiba.sourceforge.net/xforms"
+            xmlns:events="http://www.w3.org/2001/xml-events"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="urn:GoogleSearch">
+   <xhtml:head>
+      <xforms:model>
+         <xforms:instance id="doGoogleSearch.input">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+               <SOAP-ENV:Header/>
+               <SOAP-ENV:Body>
+                  <ns5:doGoogleSearch xmlns:ns5="urn:GoogleSearch">
+                     <key/>
+                     <q/>
+                     <start/>
+                     <maxResults/>
+                     <filter/>
+                     <restrict/>
+                     <safeSearch/>
+                     <lr/>
+                     <ie/>
+                     <oe/>
+                  </ns5:doGoogleSearch>
+               </SOAP-ENV:Body>
+            </SOAP-ENV:Envelope>
+         </xforms:instance>
+         <xforms:instance id="doGoogleSearch.output">
+            <SOAP-ENV:Envelope SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </xforms:instance>
+         <xforms:instance id="temp">
+            <temp>
+               <relevant xsi:type="boolean">true</relevant>
+            </temp>
+         </xforms:instance>
+         <xforms:bind nodeset="instance('doGoogleSearch.input')/SOAP-ENV:Body/tns:doGoogleSearch">
+            <xforms:bind nodeset="key">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="q">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="start">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="maxResults">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="filter">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="restrict">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="safeSearch">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="lr">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="ie">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+            <xforms:bind nodeset="oe">
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:bind nodeset="instance('doGoogleSearch.output')/SOAP-ENV:Body/tns:doGoogleSearchResponse">
+            <xforms:bind nodeset="return">
+               <xforms:bind nodeset="documentFiltering" type="xsd:boolean">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="searchComments" type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="estimatedTotalResultsCount" type="xsd:int">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="estimateIsExact" type="xsd:boolean">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="resultElements">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="searchQuery" type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="startIndex" type="xsd:int">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="endIndex" type="xsd:int">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="searchTips" type="xsd:string">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="directoryCategories">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="searchTime" type="xsd:double">
+                  <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+               </xforms:bind>
+               <xforms:bind nodeset="@xsi:nil" relevant="false()"/>
+            </xforms:bind>
+         </xforms:bind>
+         <xforms:submission id="doGoogleSearch.submission" action="http://api.google.com/search/beta2"
+                            mediatype="text/xml"
+                            ref="instance('doGoogleSearch.input')"
+                            method="post"
+                            replace="instance"
+                            instance="doGoogleSearch.output">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="doGoogleSearch.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Please ensure that all field have valid contents.</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="doGoogleSearch.debug"
+                            action="{$contextroot}/resources/jsp/debug-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('doGoogleSearch.input')"
+                            method="post"
+                            replace="all"
+                            validate="false">
+            <xforms:action events:event="xforms-submit">
+               <xforms:setvalue ref="instance('temp')/relevant" value="false()"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-done">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+               <xforms:toggle case="doGoogleSearch.response"/>
+            </xforms:action>
+            <xforms:action events:event="xforms-submit-error">
+               <xforms:setvalue ref="instance('temp')/relevant" value="true()"/>
+            </xforms:action>
+            <xforms:message level="modal" events:event="xforms-submit-error">Please ensure that all field have valid contents.</xforms:message>
+         </xforms:submission>
+         <xforms:submission id="doGoogleSearch.savexml"
+                            action="{$contextroot}/resources/jsp/return-instance.jsp"
+                            mediatype="text/xml"
+                            ref="instance('doGoogleSearch.output')"
+                            method="post"
+                            replace="all"/>
+         <xforms:toggle case="doGoogleSearch.request" events:event="xforms-ready"
+                        if="not(boolean(instance('doGoogleSearch.output')/SOAP-ENV:Body))"/>
+         <xforms:toggle case="doGoogleSearch.response" events:event="xforms-ready"
+                        if="boolean(instance('doGoogleSearch.output')/SOAP-ENV:Body)"/>
+      </xforms:model>
+   </xhtml:head>
+   <xhtml:body>
+      <xforms:switch>
+         <xforms:case id="doGoogleSearch.request">
+            <xforms:group ref="instance('doGoogleSearch.input')/SOAP-ENV:Body/tns:doGoogleSearch">
+               <xforms:input ref="key">
+                  <xforms:label>key</xforms:label>
+               </xforms:input>
+               <xforms:input ref="q">
+                  <xforms:label>q</xforms:label>
+               </xforms:input>
+               <xforms:input ref="start">
+                  <xforms:label>start</xforms:label>
+               </xforms:input>
+               <xforms:input ref="maxResults">
+                  <xforms:label>maxResults</xforms:label>
+               </xforms:input>
+               <xforms:input ref="filter">
+                  <xforms:label>filter</xforms:label>
+               </xforms:input>
+               <xforms:input ref="restrict">
+                  <xforms:label>restrict</xforms:label>
+               </xforms:input>
+               <xforms:input ref="safeSearch">
+                  <xforms:label>safeSearch</xforms:label>
+               </xforms:input>
+               <xforms:input ref="lr">
+                  <xforms:label>lr</xforms:label>
+               </xforms:input>
+               <xforms:input ref="ie">
+                  <xforms:label>ie</xforms:label>
+               </xforms:input>
+               <xforms:input ref="oe">
+                  <xforms:label>oe</xforms:label>
+               </xforms:input>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:submit submission="doGoogleSearch.submission">
+                  <xforms:label>Submit</xforms:label>
+               </xforms:submit>
+               <xforms:submit submission="doGoogleSearch.debug">
+                  <xforms:label>Debug</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+         <xforms:case id="doGoogleSearch.response">
+            <xforms:group ref="instance('doGoogleSearch.output')/SOAP-ENV:Body/tns:doGoogleSearchResponse">
+               <xforms:group ref="return">
+                  <xforms:label>return</xforms:label>
+                  <xforms:output ref="documentFiltering">
+                     <xforms:label>documentFiltering</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="searchComments">
+                     <xforms:label>searchComments</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="estimatedTotalResultsCount">
+                     <xforms:label>estimatedTotalResultsCount</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="estimateIsExact">
+                     <xforms:label>estimateIsExact</xforms:label>
+                  </xforms:output>
+                  <xforms:group ref="resultElements">
+                     <xforms:label>resultElements</xforms:label>
+                  </xforms:group>
+                  <xforms:output ref="searchQuery">
+                     <xforms:label>searchQuery</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="startIndex">
+                     <xforms:label>startIndex</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="endIndex">
+                     <xforms:label>endIndex</xforms:label>
+                  </xforms:output>
+                  <xforms:output ref="searchTips">
+                     <xforms:label>searchTips</xforms:label>
+                  </xforms:output>
+                  <xforms:group ref="directoryCategories">
+                     <xforms:label>directoryCategories</xforms:label>
+                  </xforms:group>
+                  <xforms:output ref="searchTime">
+                     <xforms:label>searchTime</xforms:label>
+                  </xforms:output>
+               </xforms:group>
+            </xforms:group>
+            <xforms:group ref="instance('doGoogleSearch.output')/SOAP-ENV:Body/SOAP-ENV:Fault"
+                          class="fault">
+               <xforms:output ref="faultstring"/>
+            </xforms:group>
+            <xforms:group class="actions">
+               <xforms:trigger>
+                  <xforms:label>Back</xforms:label>
+                  <xforms:toggle events:event="DOMActivate" case="doGoogleSearch.request"/>
+               </xforms:trigger>
+               <xforms:submit submission="doGoogleSearch.savexml">
+                  <xforms:label>Show XML</xforms:label>
+               </xforms:submit>
+            </xforms:group>
+         </xforms:case>
+      </xforms:switch>
+   </xhtml:body>
+</xhtml:html>
