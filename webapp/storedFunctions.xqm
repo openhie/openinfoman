@@ -91,6 +91,17 @@ declare  updating
 
 };
 
+declare
+  %rest:path("/CSD/storedFunctions/download/{$uuid}")
+  function page:download($uuid) 
+  {
+    (
+      csr_proc:get_function_definition($csd_webconf:db,$uuid),
+      csr_proc:get_updating_function_definition($csd_webconf:db,$uuid)
+    )[1]
+
+};
+
 
 declare  updating 
   %rest:path("/CSD/storedFunctions/clear")
@@ -237,6 +248,7 @@ declare function page:function_list()  {
       </i>
       <br/>
       <a href="#{$function/@uuid}">View</a>
+      <a href="/CSD/storedFunctions/download/{$function/@uuid}">Download</a>
       <a href="/CSD/storedFunctions/delete/{$function/@uuid}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
       </li>
     }

@@ -13,7 +13,7 @@ import module namespace csd_hwru = "https://github.com/his-interop/openinfoman-h
 :)
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
-declare default element  namespace   "urn:ihe:iti:csd:2013";
+
 
 
 (:this should proabably be moved to the database :)
@@ -26,7 +26,7 @@ declare variable $csr_proc:stored_updating_functions_doc := 'stored_updating_fun
 
 
 declare function csr_proc:stored_functions($db) {
- db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions/careServicesFunction
+ db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions/csd:careServicesFunction
 };
 
 declare function csr_proc:stored_updating_functions($db) {
@@ -49,14 +49,11 @@ declare updating function csr_proc:init($db) {
 };
 
 declare updating function csr_proc:clear_stored_functions($db) { 
-  let $stored_functions := (
-    db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions/* ,
-    db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions/*
+  (
+    db:delete($db,$csr_proc:stored_functions_doc)
+    ,db:delete($db,$csr_proc:stored_updating_functions_doc)
+    ,csr_proc:init($db)
     )
-    
-  return 
-  for $function in $stored_functions
-    return ( delete node $function)
       
 };
 
@@ -64,13 +61,13 @@ declare updating function csr_proc:load_functions_from_files($db) {
   (
     if (file:is-dir($csr_proc:stored_query_dir)) then
       for $file in file:list($csr_proc:stored_query_dir,boolean('false'),"*.xml")
-      let $func := doc(concat($csr_proc:stored_query_dir,'/',$file))/careServicesFunction
+      let $func := doc(concat($csr_proc:stored_query_dir,'/',$file))/csd:careServicesFunction
       return if (exists($func)) then csr_proc:load_stored_function($db,$func) else ()
     else()
       ,
     if (file:is-dir($csr_proc:stored_updating_query_dir)) then
       for $file in file:list($csr_proc:stored_updating_query_dir,boolean('false'),"*.xml")
-      let $func := doc(concat($csr_proc:stored_updating_query_dir,'/',$file))/careServicesFunction
+      let $func := doc(concat($csr_proc:stored_updating_query_dir,'/',$file))/csd:careServicesFunction
       return if (exists($func)) then csr_proc:load_stored_updating_function($db,$func) else ()
     else ()
   )
@@ -89,7 +86,7 @@ declare updating function csr_proc:delete_stored_function($db,$uuid) {
 declare updating function csr_proc:load_stored_updating_function($db,$func) {
   let $stored_updating_functions := db:open($db,$csr_proc:stored_updating_functions_doc)/careServicesFunctions
   let $uuid := $func/@uuid
-  let $old := $stored_updating_functions/careServicesFunction[@uuid = $uuid]
+  let $old := $stored_updating_functions/csd:careServicesFunction[@uuid = $uuid]
   return 
     if (exists($uuid)) then	  
       if (exists($old)) 
@@ -105,7 +102,7 @@ declare updating function csr_proc:load_stored_updating_function($db,$func) {
 declare updating function csr_proc:load_stored_function($db,$func) {
   let $stored_functions := db:open($db,$csr_proc:stored_functions_doc)/careServicesFunctions
   let $uuid := $func/@uuid
-  let $old := $stored_functions/careServicesFunction[@uuid = $uuid]
+  let $old := $stored_functions/csd:careServicesFunction[@uuid = $uuid]
   return 
     if (exists($uuid) and exists($stored_functions)) then	  
       if (exists($old)) 
@@ -122,8 +119,8 @@ declare updating function csr_proc:load_stored_function($db,$func) {
 
 declare function csr_proc:process_CSR($db,$careServicesRequest, $doc) 
 {
-let $func :=$careServicesRequest/function
-let $adhoc :=$careServicesRequest/expression
+let $func :=$careServicesRequest/csd:function
+let $adhoc :=$careServicesRequest/csd:expression
 return if (exists($func)) 
 then
   csr_proc:process_CSR_stored($db,$func,$doc) 
@@ -131,12 +128,15 @@ else if (exists($adhoc))
 then
   csr_proc:process_CSR_adhoc($adhoc,$doc) 
 else 
+ (:
   <rest:response>
     <http:response status="400" message="Invalid care services request.">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
   </rest:response>
+  :)
+  $careServicesRequest
 
 
 };
@@ -168,7 +168,7 @@ declare function csr_proc:process_CSR_stored($db,$function,$doc)
 {
 let $uuid := $function/@uuid
 let $stored_functions := csr_proc:stored_functions($db)
-let $definition := $stored_functions[@uuid = $uuid][1]/definition/text()
+let $definition := $stored_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
 let $result0 := 
   if (exists($definition)) then
@@ -191,7 +191,7 @@ return if ($result0) then
   )
 else
   <rest:response>
-    <http:response status="404" message="No registered function with UUID='{$function/@uuid}.'">
+    <http:response status="404" message="No registered function with UUID='{$function/@uuid}'.">
       <http:header name="Content-Language" value="en"/>
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
@@ -200,7 +200,7 @@ else
 };
 
 declare function csr_proc:wrap_result($result,$content-type) {
- <careServicesResponse content-type="{$content-type}"><result>{$result}</result></careServicesResponse>
+ <csd:careServicesResponse content-type="{$content-type}"><csd:result>{$result}</csd:result></csd:careServicesResponse>
 };
 
 
@@ -220,7 +220,13 @@ return
 };
 
 
+declare function csr_proc:get_function_definition($db,$uuid) {
+  csr_proc:stored_functions($db)[@uuid = $uuid][1]
+};
 
+declare function csr_proc:get_updating_function_definition($db,$uuid) {
+  csr_proc:stored_updating_functions($db)[@uuid = $uuid][1]
+};
 
 
 declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc) 
@@ -229,7 +235,7 @@ declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest
 let $function :=$careServicesRequest//csd:function
 let $uuid := $function/@uuid
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
-let $definition := $stored_updating_functions[@uuid = $uuid][1]/definition/text()
+let $definition := $stored_updating_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
 return if (exists($definition)) then
   xquery:update($definition,map{'':=$doc,'careServicesRequest':=$function/requestParams})      
