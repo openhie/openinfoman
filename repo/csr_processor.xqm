@@ -241,8 +241,12 @@ let $uuid := $function/@uuid
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
 let $definition := $stored_updating_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
+let $requestParams :=
+  if ($function/requestParams) then $function/requestParams
+  else if ($function/csd:requestParams) then $function/csd:requestParams
+  else <requestParams/>
 return if (exists($definition)) then
-  xquery:update($definition,map{'':=$doc,'careServicesRequest':=$function/requestParams})      
+  xquery:update($definition,map{'':=$doc,'careServicesRequest':=$requestParams})      
 else 
     db:output(
     <rest:response>
