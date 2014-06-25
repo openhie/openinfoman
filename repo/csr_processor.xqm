@@ -6,19 +6,16 @@
 :)
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
+import module namespace file = "http://expath.org/ns/file";
 
-(:import module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq";
-import module namespace csd_hwr = "https://github.com/his-interop/openinfoman-hwr/csd_hwr";
-import module namespace csd_hwru = "https://github.com/his-interop/openinfoman-hwr/csd_hwru";
-:)
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare namespace xquery = "http://basex.org/modules/xquery";
 
 
 (:this should proabably be moved to the database :)
-declare variable $csr_proc:stored_query_dir := "../resources/stored_query_definitions";
-declare variable $csr_proc:stored_updating_query_dir := "../resources/stored_updating_query_definitions";
+declare variable $csr_proc:stored_query_dir := concat(file:current-dir() , "../resources/stored_query_definitions");
+declare variable $csr_proc:stored_updating_query_dir := concat(file:current-dir() , "../resources/stored_updating_query_definitions");
 
 
 declare variable $csr_proc:stored_functions_doc := 'stored_functions.xml';

@@ -6,7 +6,9 @@
 :)
 module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd";
 
-declare variable $csd_lsd:base_path := "../resources/service_directories/";
+import module namespace file = "http://expath.org/ns/file";
+
+declare variable $csd_lsd:base_path := concat(file:current-dir() ,"../resources/service_directories/");
 
 declare function csd_lsd:fn_base_name($file,$ext) {
   let $old_base_name := fn:function-lookup(xs:QName("file:base-name"), 2)

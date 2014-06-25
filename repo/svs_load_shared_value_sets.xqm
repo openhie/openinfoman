@@ -5,13 +5,14 @@
 :
 :)
 module namespace svs_lsvs = "https://github.com/his-interop/openinfoman/svs_lsvs";
+import module namespace file = "http://expath.org/ns/file";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 
 (:WARNING: ValueSet have @id while DesribedValueSet has @ID:)
 
 
 declare variable $svs_lsvs:vers := "1.1";
-declare variable $svs_lsvs:base_path := '../resources/shared_value_sets/';
+declare variable $svs_lsvs:base_path := concat(file:current-dir() ,'../resources/shared_value_sets/');
 declare variable $svs_lsvs:valuesets_doc := "DescribedSharedValueSets.xml";
 declare variable $svs_lsvs:sample_value_set_list := svs_lsvs:get_sample_value_set_list();
 declare variable $svs_lsvs:blank_valuesets :=  <DescribedValueSets version="{$svs_lsvs:vers}"/>;
