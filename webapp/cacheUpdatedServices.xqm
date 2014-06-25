@@ -1,11 +1,11 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 
-import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "../repo/csd_poll_service_directories.xqm";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" at "../repo/csd_local_services_cache.xqm";
-import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "../repo/csd_query_updated_services.xqm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
+import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
+import module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc" ;
+import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)

@@ -5,7 +5,7 @@
 :
 :)
 module namespace csd_blu = "https://github.com/his-interop/openinfoman/csd_blu";
-import module namespace csd = "urn:ihe:iti:csd:2013" at "csd_base_library.xqm";
+import module namespace csd_bl = "https://github.com/his-interop/openinfoman/csd_bl";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
@@ -19,7 +19,7 @@ declare updating function csd_blu:wrap_updating_providers($providers)
 	<http:header name="Content-Type" value="text/xml"/>
       </http:response>
       </rest:response>,
-      csd:wrap_providers($providers)
+      csd_bl:wrap_providers($providers)
       )
      )
 };
@@ -33,7 +33,7 @@ declare updating function csd_blu:wrap_updating_services($services)
 	<http:header name="Content-Type" value="text/xml"/>
       </http:response>
       </rest:response>,
-      csd:wrap_services($services)
+      csd_bl:wrap_services($services)
       )
      )
 };
@@ -54,7 +54,7 @@ declare updating function csd_blu:wrap_updating_organizations($organizations)
 	<http:header name="Content-Type" value="text/xml"/>
       </http:response>
       </rest:response>,
-      csd:wrap_organizations($organizations)
+      csd_bl:wrap_organizations($organizations)
       )
      )
 };
@@ -68,7 +68,7 @@ declare updating function csd_blu:wrap_updating_facilities($facilities)
 	<http:header name="Content-Type" value="text/xml"/>
       </http:response>
       </rest:response>,
-      csd:wrap_facilities($facilities)
+      csd_bl:wrap_facilities($facilities)
       )
      )
 };

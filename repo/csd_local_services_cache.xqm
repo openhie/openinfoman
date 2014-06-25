@@ -5,7 +5,7 @@
 :
 :)
 module namespace csd_lsc = "https://github.com/his-interop/openinfoman/csd_lsc";
-import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd" at "csd_poll_service_directories.xqm";
+import module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd";
 
 declare namespace csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";

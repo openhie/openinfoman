@@ -7,13 +7,13 @@
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
 
-(:import module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq" at "csd_base_stored_queries.xqm";
-import module namespace csd_hwr = "https://github.com/his-interop/openinfoman-hwr/csd_hwr" at "csd_health_worker_registry.xqm";
-import module namespace csd_hwru = "https://github.com/his-interop/openinfoman-hwr/csd_hwru" at "csd_health_worker_registry_updating.xqm";
+(:import module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq";
+import module namespace csd_hwr = "https://github.com/his-interop/openinfoman-hwr/csd_hwr";
+import module namespace csd_hwru = "https://github.com/his-interop/openinfoman-hwr/csd_hwru";
 :)
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
-
+declare namespace xquery = "http://basex.org/modules/xquery";
 
 
 (:this should proabably be moved to the database :)
@@ -119,14 +119,19 @@ declare updating function csr_proc:load_stored_function($db,$func) {
 
 declare function csr_proc:process_CSR($db,$careServicesRequest, $doc) 
 {
+csr_proc:process_CSR($db,$careServicesRequest, $doc, map:new(())) 
+};
+
+declare function csr_proc:process_CSR($db,$careServicesRequest, $doc,$bindings as map(*)) 
+{
 let $func :=$careServicesRequest/csd:function
 let $adhoc :=$careServicesRequest/csd:expression
 return if (exists($func)) 
 then
-  csr_proc:process_CSR_stored($db,$func,$doc) 
+  csr_proc:process_CSR_stored($db,$func,$doc,$bindings) 
 else if (exists($adhoc))
 then
-  csr_proc:process_CSR_adhoc($adhoc,$doc) 
+  csr_proc:process_CSR_adhoc($adhoc,$doc,$bindings) 
 else 
  (:
   <rest:response>
@@ -142,12 +147,16 @@ else
 };
 
 
-declare function csr_proc:process_CSR_adhoc($expression,$doc) 
+declare function csr_proc:process_CSR_adhoc($expression,$doc) {
+   csr_proc:process_CSR_adhoc($expression,$doc,map:new(()))
+};
+
+declare function csr_proc:process_CSR_adhoc($expression,$doc,$bindings as map(*)) 
 {
 
 let $expr :=string($expression)
 return if ($expr) then
-  let $result := xquery:eval($expr,map{"":=$doc})
+  let $result := xquery:eval($expr,map{"":=$doc},$bindings)
   return(  
    <rest:response>
    <http:response status="200" >
@@ -166,17 +175,27 @@ else
 
 declare function csr_proc:process_CSR_stored($db,$function,$doc) 
 {
+  csr_proc:process_CSR_stored($db,$function,$doc,map:new()) 
+};
+
+declare function csr_proc:process_CSR_stored($db,$function,$doc,$bindings as map(*)) 
+{
 let $uuid := $function/@uuid
 let $stored_functions := csr_proc:stored_functions($db)
 let $definition := $stored_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
+let $options := csr_proc:lookup_stored_options($db,$function/@uuid)
 let $requestParams :=
   if ($function/csd:requestParams) then $function/csd:requestParams
   else if ($function/requestParams) then <csd:requestParams>{$function/requestParams/*}</csd:requestParams> 
   else <csd:requestParams/>
+
+let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $all_bindings :=  map:new(($csr_bindings, $bindings))
+
 let $result0 := 
   if (exists($definition)) then
-    xquery:eval($definition,map{'':=$doc,'careServicesRequest':=$requestParams})      
+    xquery:eval($definition,$all_bindings,$options)      
   else
     ()
 let $result1:= 
@@ -233,7 +252,15 @@ declare function csr_proc:get_updating_function_definition($db,$uuid) {
 };
 
 
-declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc) 
+
+
+declare updating function csr_proc:process_updating_CSR($db,$function,$doc) 
+{
+  csr_proc:process_updating_CSR($db,$function,$doc,map:new(())) 
+};
+
+
+declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc, $bindings as map(*)) 
 {
 (:not allowing ad-hoc updates:) 
 let $function :=$careServicesRequest//csd:function
@@ -245,8 +272,14 @@ let $requestParams :=
   if ($function/requestParams) then $function/requestParams
   else if ($function/csd:requestParams) then $function/csd:requestParams
   else <requestParams/>
+
+let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $all_bindings :=  map:new(($csr_bindings, $bindings))
+
+let $options := csr_proc:lookup_stored_options($db,$function/@uuid)
+
 return if (exists($definition)) then
-  xquery:update($definition,map{'':=$doc,'careServicesRequest':=$requestParams})      
+  xquery:update($definition,$all_bindings,$options)
 else 
     db:output(
     <rest:response>
@@ -259,7 +292,14 @@ else
 };
 
 
-
+declare function csr_proc:lookup_stored_options($db,$uuid)
+{
+  let $stored_updating_functions := csr_proc:stored_updating_functions($db)
+  let $stored_functions := csr_proc:stored_functions($db)
+  let $func := ($stored_functions[@uuid = $uuid], $stored_updating_functions[@uuid = $uuid])[1]
+   return  ($func/csd:extension[@urn='urn:openhie.org:openinfoman:csr_processor' and  @type='xquery:options']/xquery:options)[1]
+     (: See: http://docs.basex.org/wiki/XQuery_Module :)
+};
 
 declare function csr_proc:lookup_stored_content_type($db,$uuid) 
 {

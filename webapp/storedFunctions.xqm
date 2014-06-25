@@ -1,7 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
-import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc" at "../repo/csr_processor.xqm";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 declare   namespace   xforms = "http://www.w3.org/2002/xforms";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";

@@ -5,7 +5,7 @@
 :
 :)
 module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd";
-import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" at "csd_query_updated_services.xqm";
+import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" ;
 import module namespace request = "http://exquery.org/ns/request";
 declare namespace http = "http://expath.org/ns/http-client" ;
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";

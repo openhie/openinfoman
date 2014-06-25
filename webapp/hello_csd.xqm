@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm" at "../repo/csd_document_manager.xqm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf" at "../repo/csd_webapp_config.xqm";
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
+import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
 
 
 

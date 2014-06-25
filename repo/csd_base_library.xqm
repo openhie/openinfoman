@@ -4,7 +4,7 @@
 : @see http://ihe.net
 :
 :)
-module namespace csd = "urn:ihe:iti:csd:2013" ;
+module namespace csd = "https://github.com/his-interop/openinfoman/csd_bl";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
