@@ -28,7 +28,7 @@
       </li>
       <li>&lt;primaryName/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those facilities whose &lt;primaryName/&gt; contains this value. Case insensitive.</li>
       <li>&lt;name/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those facilities which have a &lt;primaryName/&gt; or &lt;otherName/&gt; element containing this value. Case insensitive.</li>      
-      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those facilities whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingSchema attribute.  Case insensitive.
+      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those facilities whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingScheme attribute.  Case insensitive.
       </li>
       <li> &lt;address/&gt; <i>csd:address</i>: (optional) Contains of any-number of child &lt;addressLine/&gt; elements as follows:
         <ul>
@@ -51,7 +51,7 @@
     <pre>
          &lt;careServicesRequest&gt;
            &lt;function uuid='c7640530-f600-11e2-b778-0800200c9a66'&gt;
-               &lt;codedType code='OPC' codingSchema="USDVA"/&gt;
+               &lt;codedType code='OPC' codingScheme="USDVA"/&gt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Chapel Hill&lt;/addressLine&gt;
 	       &lt;/address&gt;

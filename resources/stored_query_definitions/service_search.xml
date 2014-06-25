@@ -26,7 +26,7 @@
     <ul>
       <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @oid attribute contains a non-empty value, it is a ID which uniquely identifies a service. This is an exact match.  
       </li>
-      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those services whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingSchema attribute.  Case insensitive.
+      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those services whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingScheme attribute.  Case insensitive.
       </li>
       <li>&lt;start/&gt; <i> xs:int</i>: (optional) The starting index for results returned. Defaults to 1, which indexes the first service matching the search parameters</li>
       <li>&lt;max/&gt; <i> xs:int</i>: (optional) The maximum number of results returned.  A value of less than zero implies no maximum.</li>
@@ -42,7 +42,7 @@
     <pre>
          &lt;careServicesRequest&gt;
            &lt;function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'&gt;
-             &lt;codedType code="76499" codingSchema="HCPCS" /&gt;
+             &lt;codedType code="76499" codingScheme="HCPCS" /&gt;
              &lt;start&gt;101&lt;/max&gt;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         

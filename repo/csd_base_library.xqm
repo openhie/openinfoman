@@ -135,21 +135,21 @@ declare function csd:filter_by_demographic_address($items as item()*,$components
  : this function accepts a list of items to filter by type
  :
  : @param $items - a list of items to filter by their <codedType/> child elements
- : @param $codedtype - a coded type, if specified, to filter the $items list by type.  A @code attribute, if present, results in selecting those $items with matching codedType/@code (case-insensitive) exactly.  Text content, if present,  results in selecting the $items whose codedType/text() contains that value (case-insensitive) with the given @codingSchema (case-insensitive)
+ : @param $codedtype - a coded type, if specified, to filter the $items list by type.  A @code attribute, if present, results in selecting those $items with matching codedType/@code (case-insensitive) exactly.  Text content, if present,  results in selecting the $items whose codedType/text() contains that value (case-insensitive) with the given @codingScheme (case-insensitive)
  : @return all items in $items which match as above
  : @since 1.0
  : 
 :)
 declare function csd:filter_by_coded_type($items as item()*, $codedtype as item()) as item()*
 {
-     if (exists($codedtype/@code) and exists($codedtype/@codingSchema))
+     if (exists($codedtype/@code) and exists($codedtype/@codingScheme))
      then
         let $code := fn:upper-case($codedtype/@code)
-	    let $cSchema := $codedtype/@codingSchema
+	    let $cScheme := $codedtype/@codingScheme
         return $items[codedType[
                 @code = $code
  	            and
-                @codingSchema = $cSchema
+                @codingScheme = $cScheme
                 ]
             ]
      else $items

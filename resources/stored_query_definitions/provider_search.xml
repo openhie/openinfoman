@@ -30,7 +30,7 @@
         insensitive.</li>
       <li>&lt;codedType/&gt; <i>csd:codedtype</i>: If present and contains a non-empty value the
         result set should be restricted to those providers whose &lt;codeType/@code&gt; equals this
-        value for the coding schema specified by the @codingSchema attribute. Case insensitive. </li>
+        value for the coding schema specified by the @codingScheme attribute. Case insensitive. </li>
       <li> &lt;address/&gt; <i>csd:address</i>: (optional) Contains of any-number of child
         &lt;addressLine/&gt; elements as follows: <ul>
           <li>Text content <i>xsd:string</i>: (optional) If present and contains a non-empty value,
@@ -60,7 +60,7 @@
     <pre>
          &lt;careServicesRequest&gt;
            &lt;function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66'&gt;
-               &lt;codedType code="2221" codingSchema="ISCO-08" /&lt;
+               &lt;codedType code="2221" codingScheme="ISCO-08" /&lt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Kigali&lt;/addressLine&gt;
 	       &lt;/address&gt;
