@@ -17,7 +17,7 @@ declare
   function page:csr($name,$careServicesRequest) 
 { 
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))   
+ csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
 else
   (:need appropriate error handling:)
   ()
@@ -32,7 +32,7 @@ declare updating
   function page:csr_updating($name,$careServicesRequest) 
 { 
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,csd_dm:open_document($csd_webconf:db,$name))   
+ csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
 else
   (:need appropriate error handling:)
   ()
@@ -49,7 +49,7 @@ declare
 function page:adhoc($name,$adhoc,$content) {    
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
 let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
-  return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,csd_dm:open_document($csd_webconf:db,$name))
+  return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,$csd_webconf:baseurl)
 else
   (:need appropriate error handling:)
   ()

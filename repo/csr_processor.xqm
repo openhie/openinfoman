@@ -7,7 +7,7 @@
 module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
 
 import module namespace file = "http://expath.org/ns/file";
-
+import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare namespace xquery = "http://basex.org/modules/xquery";
@@ -114,21 +114,21 @@ declare updating function csr_proc:load_stored_function($db,$func) {
 	  
 
 
-declare function csr_proc:process_CSR($db,$careServicesRequest, $doc) 
+declare function csr_proc:process_CSR($db,$careServicesRequest, $doc_name,$base_url) 
 {
-csr_proc:process_CSR($db,$careServicesRequest, $doc, map:new(())) 
+csr_proc:process_CSR($db,$careServicesRequest, $doc_name, $base_url,map:new(())) 
 };
 
-declare function csr_proc:process_CSR($db,$careServicesRequest, $doc,$bindings as map(*)) 
+declare function csr_proc:process_CSR($db,$careServicesRequest, $doc_name,$base_url,$bindings as map(*)) 
 {
 let $func :=$careServicesRequest/csd:function
 let $adhoc :=$careServicesRequest/csd:expression
 return if (exists($func)) 
 then
-  csr_proc:process_CSR_stored($db,$func,$doc,$bindings) 
+  csr_proc:process_CSR_stored($db,$func,$doc_name,$base_url,$bindings) 
 else if (exists($adhoc))
 then
-  csr_proc:process_CSR_adhoc($adhoc,$doc,$bindings) 
+  csr_proc:process_CSR_adhoc($adhoc,$doc_name,$bindings) 
 else 
  (:
   <rest:response>
@@ -144,13 +144,13 @@ else
 };
 
 
-declare function csr_proc:process_CSR_adhoc($expression,$doc) {
-   csr_proc:process_CSR_adhoc($expression,$doc,map:new(()))
+declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name) {
+   csr_proc:process_CSR_adhoc($expression,$doc_name,map:new(()))
 };
 
-declare function csr_proc:process_CSR_adhoc($expression,$doc,$bindings as map(*)) 
+declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name,$bindings as map(*)) 
 {
-
+let $doc := csd_dm:open_document($db,$doc_name)
 let $expr :=string($expression)
 return if ($expr) then
   let $result := xquery:eval($expr,map{"":=$doc},$bindings)
@@ -170,22 +170,25 @@ else
 
 
 
-declare function csr_proc:process_CSR_stored($db,$function,$doc) 
+declare function csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url) 
 {
-  csr_proc:process_CSR_stored($db,$function,$doc,map:new()) 
+  csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url,map:new()) 
 };
 
-declare function csr_proc:process_CSR_stored($db,$function,$doc,$bindings as map(*)) 
+declare function csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url,$bindings as map(*)) 
 {
+let $doc := csd_dm:open_document($db,$doc_name)
 let $uuid := $function/@uuid
 let $stored_functions := csr_proc:stored_functions($db)
 let $definition := $stored_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
 let $options := csr_proc:lookup_stored_options($db,$function/@uuid)
-let $requestParams :=
-  if ($function/csd:requestParams) then $function/csd:requestParams
-  else if ($function/requestParams) then <csd:requestParams>{$function/requestParams/*}</csd:requestParams> 
-  else <csd:requestParams/>
+let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$uuid}' base_url='{$base_url}'>
+  {
+    if ($function/csd:requestParams) then $function/csd:requestParams/*
+    else $function/requestParams/*
+  }
+</csd:requestParams>
 
 let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
@@ -251,24 +254,27 @@ declare function csr_proc:get_updating_function_definition($db,$uuid) {
 
 
 
-declare updating function csr_proc:process_updating_CSR($db,$function,$doc) 
+declare updating function csr_proc:process_updating_CSR($db,$function,$doc_name,$base_url) 
 {
-  csr_proc:process_updating_CSR($db,$function,$doc,map:new(())) 
+  csr_proc:process_updating_CSR($db,$function,$doc_name,$base_url,map:new(())) 
 };
 
 
-declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc, $bindings as map(*)) 
+declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc_name, $base_url,$bindings as map(*)) 
 {
 (:not allowing ad-hoc updates:) 
+let $doc := csd_dm:open_document($db,$doc_name)
 let $function :=$careServicesRequest//csd:function
 let $uuid := $function/@uuid
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
 let $definition := $stored_updating_functions[@uuid = $uuid][1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
-let $requestParams :=
-  if ($function/requestParams) then $function/requestParams
-  else if ($function/csd:requestParams) then $function/csd:requestParams
-  else <requestParams/>
+let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$uuid}' base_url='{$base_url}'>
+  {
+    if ($function/csd:requestParams) then $function/csd:requestParams/*
+    else $function/requestParams/*
+  }
+</csd:requestParams>
 
 let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
