@@ -128,7 +128,7 @@ then
   csr_proc:process_CSR_stored($db,$func,$doc_name,$base_url,$bindings) 
 else if (exists($adhoc))
 then
-  csr_proc:process_CSR_adhoc($adhoc,$doc_name,$bindings) 
+  csr_proc:process_CSR_adhoc($db,$adhoc,$doc_name,$bindings) 
 else 
  (:
   <rest:response>
