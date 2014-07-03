@@ -1,10 +1,10 @@
 (:~
 : This is the Care Services Discovery stored query registry
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman
+: @see https://github.com/openhie/openinfoman
 :
 :)
-module namespace svs_lsvs = "https://github.com/his-interop/openinfoman/svs_lsvs";
+module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 import module namespace file = "http://expath.org/ns/file";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 

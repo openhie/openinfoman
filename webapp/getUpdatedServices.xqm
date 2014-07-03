@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csd_qus = "https://github.com/his-interop/openinfoman/csd_qus";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csd_qus = "https://github.com/openhie/openinfoman/csd_qus";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 
 import module namespace file = "http://expath.org/ns/file";
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";

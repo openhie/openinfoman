@@ -1,12 +1,12 @@
 (:~
 : This is a module contatining the required stored queries for Care Services Discovery
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman @see http://ihe.net
+: @see https://github.com/openhie/openinfoman @see http://ihe.net
 :
 :)
-module namespace csd_bsq = "https://github.com/his-interop/openinfoman/csd_bsq";
+module namespace csd_bsq = "https://github.com/openhie/openinfoman/csd_bsq";
 
-import module namespace csd_bl = "https://github.com/his-interop/openinfoman/csd_bl";
+import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 

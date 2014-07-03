@@ -4,8 +4,8 @@
 : @see http://ihe.net
 :
 :)
-module namespace csd_blu = "https://github.com/his-interop/openinfoman/csd_blu";
-import module namespace csd_bl = "https://github.com/his-interop/openinfoman/csd_bl";
+module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 

@@ -1,11 +1,11 @@
 (:~
 : This is the Care Services Discovery stored query registry
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman
+: @see https://github.com/openhie/openinfoman
 :
 :)
-module namespace csd_psd = "https://github.com/his-interop/openinfoman/csd_psd";
-import module namespace csd_qus =  "https://github.com/his-interop/openinfoman/csd_qus" ;
+module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_psd";
+import module namespace csd_qus =  "https://github.com/openhie/openinfoman/csd_qus" ;
 import module namespace request = "http://exquery.org/ns/request";
 declare namespace http = "http://expath.org/ns/http-client" ;
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";

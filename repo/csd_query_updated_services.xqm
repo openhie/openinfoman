@@ -1,10 +1,10 @@
 (:~
 : This is the Care Services Discovery stored query registry
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman
+: @see https://github.com/openhie/openinfoman
 :
 :)
-module namespace csd_qus = "https://github.com/his-interop/openinfoman/csd_qus";
+module namespace csd_qus = "https://github.com/openhie/openinfoman/csd_qus";
 
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";

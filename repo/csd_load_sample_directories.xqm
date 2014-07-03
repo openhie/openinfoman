@@ -1,10 +1,10 @@
 (:~
 : This is the Care Services Discovery stored query registry
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman
+: @see https://github.com/openhie/openinfoman
 :
 :)
-module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd";
+module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 
 import module namespace file = "http://expath.org/ns/file";
 

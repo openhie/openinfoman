@@ -1,9 +1,9 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 
-import module namespace csd_mcs = "https://github.com/his-interop/openinfoman/csd_mcs";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csd_mcs = "https://github.com/openhie/openinfoman/csd_mcs";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)

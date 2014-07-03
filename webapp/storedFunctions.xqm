@@ -1,7 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
-import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   xforms = "http://www.w3.org/2002/xforms";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -95,10 +95,12 @@ declare
   %rest:path("/CSD/storedFunctions/download/{$uuid}")
   function page:download($uuid) 
   {
-    (
+    let $node := (
       csr_proc:get_function_definition($csd_webconf:db,$uuid),
       csr_proc:get_updating_function_definition($csd_webconf:db,$uuid)
     )[1]
+    return $node
+    
 
 };
 

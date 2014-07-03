@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace svs_lsvs = "https://github.com/his-interop/openinfoman/svs_lsvs";
+import module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 declare namespace svs = "urn:ihe:iti:svs:2008";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)

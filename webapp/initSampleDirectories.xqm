@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csd_lsd = "https://github.com/his-interop/openinfoman/csd_lsd";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 
 
 
