@@ -1,13 +1,13 @@
 (:~
 : This is the Care Services Discovery RESTful document processor
 : @version 1.0
-: @see https://github.com/his-interop/openinfoman
+: @see https://github.com/openhie/openinfoman
 :
 :)
-module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
+module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 
 import module namespace file = "http://expath.org/ns/file";
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare namespace xquery = "http://basex.org/modules/xquery";
@@ -121,11 +121,24 @@ csr_proc:process_CSR($db,$careServicesRequest, $doc_name, $base_url,map:new(()))
 
 declare function csr_proc:process_CSR($db,$careServicesRequest, $doc_name,$base_url,$bindings as map(*)) 
 {
-let $func :=$careServicesRequest/csd:function
+let $function :=$careServicesRequest/csd:function
 let $adhoc :=$careServicesRequest/csd:expression
-return if (exists($func)) 
+return if (exists($function)) 
 then
-  csr_proc:process_CSR_stored($db,$func,$doc_name,$base_url,$bindings) 
+  let $uuid := string($function/@uuid)
+  let $csr :=
+  <csd:careServicesRequest>
+    <csd:function uuid="{$uuid}" resource='{$doc_name}' base_url='{$base_url}'>
+      <csd:requestParams >
+	{
+	  if ($function/csd:requestParams) then $function/csd:requestParams/*
+	  else $function/requestParams/*
+	}
+      </csd:requestParams>
+    </csd:function>
+  </csd:careServicesRequest>
+
+  return csr_proc:process_CSR_stored($db,$csr,$bindings) 
 else if (exists($adhoc))
 then
   csr_proc:process_CSR_adhoc($db,$adhoc,$doc_name,$bindings) 
@@ -170,48 +183,38 @@ else
 
 
 
-declare function csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url) 
+declare function csr_proc:process_CSR_stored($db,$careServicesRequest) 
 {
-  csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url,map:new()) 
+  csr_proc:process_CSR_stored($db,$careServicesRequest,map:new()) 
 };
 
-declare function csr_proc:process_CSR_stored($db,$function,$doc_name,$base_url,$bindings as map(*)) 
+declare function csr_proc:process_CSR_stored($db,$careServicesRequest,$bindings as map(*)) 
 {
-let $doc := csd_dm:open_document($db,$doc_name)
-let $uuid := $function/@uuid
+let $function :=$careServicesRequest/csd:function
 let $stored_functions := csr_proc:stored_functions($db)
-let $definition := $stored_functions[@uuid = $uuid][1]/csd:definition/text()
+let $uuid := string($function/@uuid)
+let $definition := ($stored_functions[@uuid = $uuid])[1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@uuid)
-let $options := csr_proc:lookup_stored_options($db,$function/@uuid)
-let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$uuid}' base_url='{$base_url}'>
-  {
-    if ($function/csd:requestParams) then $function/csd:requestParams/*
-    else $function/requestParams/*
-  }
-</csd:requestParams>
+let $doc_name := string($function/@resource)
+let $doc := csd_dm:open_document($db,$doc_name)
 
-let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
-let $all_bindings :=  map:new(($csr_bindings, $bindings))
+let $results0 := csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,$bindings)
 
-let $result0 := 
-  if (exists($definition)) then
-    xquery:eval($definition,$all_bindings,$options)      
-  else
-    ()
-let $result1:= 
-  if ($function/@encapsulated) then
-    csr_proc:wrap_result($result0,$content_type)
-  else $result0
-return if ($result0) then
-  (
-  <rest:response>
-    <http:response status="200" >
-      <http:header name="Content-Type" value="{$content_type}"/>
-    </http:response>
-  </rest:response>
-  ,
-  $result1
-  )
+return if (exists($definition)) then
+  let $results1:= 
+    if ($function/@encapsulated) then
+      csr_proc:wrap_result($results0,$content_type)
+    else $results0
+  return
+    (
+    <rest:response>
+      <http:response status="200" >
+	<http:header name="Content-Type" value="{$content_type}"/>
+      </http:response>
+    </rest:response>
+    ,
+    $results1
+    )
 else
   <rest:response>
     <http:response status="404" message="No registered function with UUID='{$function/@uuid}'.">
@@ -219,12 +222,47 @@ else
       <http:header name="Content-Type" value="text/html; charset=utf-8"/>
     </http:response>
   </rest:response>
-    
 };
 
 declare function csr_proc:wrap_result($result,$content-type) {
  <csd:careServicesResponse content-type="{$content-type}"><csd:result>{$result}</csd:result></csd:careServicesResponse>
 };
+
+
+declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest) 
+{
+  csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,map:new()) 
+};
+
+declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,$bindings as map(*)) 
+{
+let $function :=$careServicesRequest/csd:function
+let $uuid := string($function/@uuid)
+let $doc_name := string($function/@resource)
+let $base_url := string($function/@base_url)
+
+let $stored_functions := csr_proc:stored_functions($db)
+let $definition := ($stored_functions[@uuid = $uuid])[1]/csd:definition/text()
+
+let $options := csr_proc:lookup_stored_options($db,$function/@uuid)
+
+let $requestParams := 
+ <csd:requestParams resource='{$doc_name}' function='{$uuid}' base_url='{$base_url}'>
+   {
+     if ($function/csd:requestParams) then $function/csd:requestParams/*
+   else $function/requestParams/*
+   }
+ </csd:requestParams>
+
+
+let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $all_bindings :=  map:new(($csr_bindings, $bindings))
+
+return if (exists($definition)) then
+  xquery:eval($definition,$all_bindings,$options)
+else ()
+};
+
 
 
 
@@ -286,7 +324,7 @@ return if (exists($definition)) then
 else 
     db:output(
     <rest:response>
-      <http:response status="404" message="No registered updating function with UUID='{$function/@uuid} ">
+      <http:response status="404" message="No registered updating function with UUID='{$function/@uuid}">
 	<http:header name="Content-Language" value="en"/>
 	<http:header name="Content-Type" value="text/html; charset=utf-8"/>
       </http:response>
