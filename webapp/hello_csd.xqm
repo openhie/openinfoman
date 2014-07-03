@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 
-import module namespace csd_dm = "https://github.com/his-interop/openinfoman/csd_dm";
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 
 
 
@@ -43,7 +43,7 @@ else
     </ul>
   </p>
   let $csd := 
-  <span>       
+  <span class='csd'>       
     {$what_is_dm}
     <p>
       {let $docs := csd_dm:registered_documents($csd_webconf:db)  
@@ -63,13 +63,17 @@ else
     </ul>
   </span>
   let $svs :=
-  <span>
+  <span class='svs'>
     In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
     <ul>
       <li><a href="{$csd_webconf:baseurl}CSD/SVS/initSampleSharedValueSet">load sample Shared Value Sets </a></li>
     </ul>
   </span>
-  return page:nocache(page:wrapper($csd,$svs))
+  let $adapters := 
+    <span class='adapters'>
+      List of all adapters installed: <a href="{$csd_webconf:baseurl}CSD/adapter">CSD Adapters</a>      
+    </span>
+  return page:nocache(page:wrapper($csd,$svs,$adapters))
 };
 
 
@@ -82,12 +86,12 @@ $response)
 };
 
 
-declare function page:wrapper($csd,$svs) {
+declare function page:wrapper($csd,$svs,$adapters) {
   let $generic := 
   <span>
     <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
     
-    Source code is on <a href="https://github.com/his-interop/openinfoman">github</a>
+    Source code is on <a href="https://github.com/openhie/openinfoman">github</a>
     </p>
   </span>
 
@@ -116,6 +120,10 @@ declare function page:wrapper($csd,$svs) {
 	e.preventDefault()
 	$(this).tab('show')
       }});
+      $('#tab_adapters a').click(function (e) {{
+	e.preventDefault()
+	$(this).tab('show')
+      }});
     }});
    </script>
 
@@ -138,6 +146,7 @@ declare function page:wrapper($csd,$svs) {
 	<li id='tab_home' class="active"><a  href="#home">Introduction</a></li>
 	<li id='tab_csd'><a  href="#csd">CSD Endpoints</a></li>
 	<li id='tab_svs'><a  href="#svs">SVS Endpoints</a></li>
+	<li id='tab_adapters'><a  href="#adapters">CSD Adapters</a></li>
       </ul>
       <div class="tab-content panel">
 	<div class="tab-pane active panel-body" id="home">
@@ -186,6 +195,16 @@ declare function page:wrapper($csd,$svs) {
 	    </div>
 	    <div class="col-md-6">
 	      {$svs}
+	    </div>
+	  </div>
+	</div>
+	<div class="tab-pane panel-body" id="adapters">
+	  <div class='row'>
+	    <div class="col-md-4">
+	      {$generic}
+	    </div>
+	    <div class="col-md-6">
+	      {$adapters}
 	    </div>
 	  </div>
 	</div>

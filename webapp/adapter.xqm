@@ -1,8 +1,8 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csr_proc = "https://github.com/his-interop/openinfoman/csr_proc";
-(:import module namespace csr_adpt = "https://github.com/his-interop/openinfoman/csr_adpt"; :)
-import module namespace csd_webconf =  "https://github.com/his-interop/openinfoman/csd_webconf";
+import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+(:import module namespace csr_adpt = "https://github.com/openhie/openinfoman/csr_adpt"; :)
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 
 declare
@@ -15,16 +15,31 @@ declare
   let $searches := 
     <ul>
       {
-	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:csr_adapter']] 
+	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:adapter']] 
         let $desc := $adapter_func/csd:description
-        let $type := string($adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:csr_adapter']/@type)
+        let $type := string($adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type)
 	let $uuid := string($adapter_func/@uuid)
 	return
-  	<li>
-	   Type ({$type})
-	   Adapter ID ({$uuid})
-	   <p>{$desc}</p>
-	   <a href="{$csd_webconf:baseurl}/CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
+  	<li style='dispaly:block'>
+	 <div class='container'>
+	   <p>
+	   Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
+	   </p>
+	   <p>
+	   Adapter Document Index (
+	     <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
+	     )
+	   </p>
+	   <p>
+	   Adapter Document Source (
+	     <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$uuid}</a>
+	     )
+	   </p>
+	   <div>
+
+	     <pre class='bodycontainer scrollable pull-left' style='overflow:scroll;font-family: monospace;white-space: pre;'>{string($desc)}</pre>
+	   </div>
+	</div>
 	</li>
       }
     </ul>
@@ -40,27 +55,34 @@ declare
   %output:method("xhtml")
   function page:show_type($type) 
 { 
-  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))
-  let $searches := 
+  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))[./csd:extension[@type = $type] ]
+  let $adaptations := 
     <div>
       <h2>{$type}</h2>
       <ul>
         {
-	    for $adapter_func in $funcs/csd:extension[@urn='urn:openhie.org:openinfoman:csr_adapter' and @type = $type ]
+	    for $adapter_func in $funcs
             let $desc := $adapter_func/csd:description
-            let $type := $adapter_func/csd:extension/@type
 	    let $uuid := string($adapter_func/@uuid)
 	    return
   	    <li>
-	      Type ({$type})
-	      Adapter ID ({$uuid})
+	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
+	      <p>
+	      Adapter Document Index (
+	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
+			       )
+	      </p>
 	      <p>{$desc}</p>
-	      <a href="{$csd_webconf:baseurl}/CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
 	    </li>
 	}
       </ul>
     </div>
-  return page:wrapper($searches)
+  let $contents := 
+    <div class='container'>
+      <a href="{$csd_webconf:baseurl}CSD/adapter/">Adapters</a>
+      {$adaptations}
+    </div>
+  return page:wrapper($contents)
 };
 
 
@@ -92,8 +114,11 @@ declare function page:wrapper($response) {
           <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
         </div>
       </div>
+    </div>      
+    <div class="container">
+      <h1>Adapters</h1>
+      {$response}
     </div>
-    {$response}
   </body>
  </html>
 };
