@@ -17,30 +17,33 @@ declare
       {
 	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:adapter']] 
         let $desc := $adapter_func/csd:description
-        let $type := string($adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type)
+        let $types := $adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type
 	let $uuid := string($adapter_func/@uuid)
-	return
-  	<li style='dispaly:block'>
-	 <div class='container'>
-	   <p>
-	   Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
-	   </p>
-	   <p>
-	   Adapter Document Index (
-	     <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
-	     )
-	   </p>
-	   <p>
-	   Adapter Document Source (
-	     <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$uuid}</a>
-	     )
-	   </p>
-	   <div>
+	return 
+	  for $type in $types
+	  let $s_type := string($type)
+	  return
+  	  <li style='dispaly:block'>
+	    <div class='container'>
+	      <p>
+	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}">{$s_type}</a>)
+	      </p>
+	      <p>
+	      Adapter Document Index (
+	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$uuid}">{$uuid}</a>
+			       )
+	      </p>
+	      <p>
+	      Adapter Document Source (
+	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$uuid}</a>
+			       )
+	      </p>
+	      <div>
 
-	     <pre class='bodycontainer scrollable pull-left' style='overflow:scroll;font-family: monospace;white-space: pre;'>{string($desc)}</pre>
-	   </div>
-	</div>
-	</li>
+		<pre class='bodycontainer scrollable pull-left' style='overflow:scroll;font-family: monospace;white-space: pre;'>{string($desc)}</pre>
+	      </div>
+	    </div>
+	  </li>
       }
     </ul>
   return page:wrapper($searches)
