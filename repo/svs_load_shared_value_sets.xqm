@@ -155,6 +155,13 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
 };
 
 
+declare function svs_lsvs:get_single_version_value_set($db,$id) {
+  svs_lsvs:get_single_version_value_set($db,$id,'')
+};
+
+declare function svs_lsvs:get_single_version_value_set($db,$id,$version) {
+  svs_lsvs:get_single_version_value_set($db,$id,$version,'')
+};
 
 declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
@@ -184,7 +191,33 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
 };
 
 
+declare function svs_lsvs:lookup_code($db,$code,$codeSystem) {
+  svs_lsvs:lookup_code($db,$code,$codeSystem, '') 
+};
 
+declare function svs_lsvs:lookup_code($db,$code,$codeSystem, $lang) {
+  let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
+
+  let $concept_lists := 
+    if (not($lang = '')) 
+      then 
+      $vs0/svs:ConceptList[@xml:lang = $lang]
+    else
+      $vs0/svs:ConceptList
+
+  let $concept :=  ($concept_lists/svs:Concept[@code = $code and @codeSystem = $codeSystem])[1]
+  return string($concept/@displayName)
+    
+};
+
+
+declare function svs_lsvs:get_single_version_code($db,$code,$id) {
+  svs_lsvs:get_single_version_code($db,$code,$id, '')
+};
+
+declare function svs_lsvs:get_single_version_code($db,$code,$id, $version) {
+  svs_lsvs:get_single_version_code($db,$code,$id, $version,'') 
+};
 
 declare function svs_lsvs:get_single_version_code($db,$code,$id, $version,$lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
