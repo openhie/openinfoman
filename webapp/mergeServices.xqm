@@ -43,38 +43,6 @@ declare updating
 
 
 
-declare function page:wrapper($response) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    {$response}
-  </body>
- </html>
-};
-
-
 
 declare
   %rest:path("/CSD/mergeServices")
@@ -107,7 +75,7 @@ else
     </div>
   </div>
   
-return page:wrapper($response)
+return csd_webconf:wrapper($response)
 
 };
 

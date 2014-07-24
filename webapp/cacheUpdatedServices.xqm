@@ -49,7 +49,7 @@ declare
   function page:get_service_menu($name)
 {
   let $response := <span><h3>{$name}</h3>{page:services_menu($name) }</span>
-  return page:nocache(page:wrapper($response))
+  return page:nocache(csd_webconf:wrapper($response))
 };
 
 declare
@@ -126,30 +126,6 @@ declare updating
 };
 
 
-declare function page:wrapper($response) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>    
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class='container'>    {$response}</div>
-  </body>
- </html>
-};
 
 declare
   %rest:path("/CSD/cacheService")
@@ -193,7 +169,7 @@ else
     else ()
     }
   </div>
-  return page:nocache(  page:wrapper($response))
+  return page:nocache(  csd_webconf:wrapper($response))
 
 
 };

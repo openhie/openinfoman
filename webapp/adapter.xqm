@@ -46,7 +46,7 @@ declare
 	  </li>
       }
     </ul>
-  return csd_webconf:wrapper($searches)
+  return page:wrapper($searches)
 };
 
 
@@ -81,10 +81,10 @@ declare
       </ul>
     </div>
   let $contents := 
-    <div class='container'>
+    (
       <a href="{$csd_webconf:baseurl}CSD/adapter/">Adapters</a>
-      {$adaptations}
-    </div>
+      ,$adaptations
+      )
   return page:wrapper($contents)
 };
 
@@ -93,36 +93,11 @@ declare
 
 
 declare function page:wrapper($response) {
- <html>
-  <head>
+  let $headers :=   
+  (<link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+  , <script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+  )
 
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>      
-    <div class="container">
-      <h1>Adapters</h1>
-      {$response}
-    </div>
-  </body>
- </html>
+  return csd_webconf:wrapper($response,$headers)
 };
-
+ 

@@ -106,28 +106,17 @@ declare function page:service_menu($name)
     </form> 
     </li>
     Submit {$name} SOAP request to:
-    <pre>{$csd_webconf:baseurl}/CSD/getUpdatedServices/{$name}/get</pre> 
+    <pre>{$csd_webconf:baseurl}CSD/getUpdatedServices/{$name}/get</pre> 
 
     </ul>
   </span>
 };
 
 declare function page:wrapper($response) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
+ let $headers := (
     <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-
-    <script src="{$csd_webconf:baseurl}/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
-    <script type="text/javascript">
+    ,<script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+    ,<script type="text/javascript">
     $( document ).ready(function() {{
       {
 	for $name in $page:csd_docs
@@ -137,24 +126,8 @@ declare function page:wrapper($response) {
       }
     }});
     </script>
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}/CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class='container'>  {$response}</div>
-  </body>
- </html>
+    
+   )
+ return csd_webconf:wrapper($response,$headers)
 };
-
-
-
+   

@@ -65,44 +65,9 @@ declare
   function page:csr_list() 
 { 
 let $response := page:endpoints()
-return page:wrapper($response)
+return csd_webconf:wrapper($response)
 };
 
-
-declare function page:wrapper($requests) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class='container'>
-      {$requests}
-    </div>
-  </body>
- </html>
-};
 
 
 declare function page:endpoints() {
