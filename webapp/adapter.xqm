@@ -46,7 +46,7 @@ declare
 	  </li>
       }
     </ul>
-  return page:wrapper($searches)
+  return csd_webconf:wrapper($searches)
 };
 
 

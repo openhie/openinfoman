@@ -273,19 +273,9 @@ declare function page:function_list()  {
 
  
 declare function page:wrapper($list,$new) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-   <script type="text/javascript">
+  let $headers := (
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>  
+   ,<script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_list a').click(function (e) {{
 	e.preventDefault()
@@ -297,69 +287,22 @@ declare function page:wrapper($list,$new) {
       }});
     }});
    </script>
-
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class='container'>
+  )
+  let $content := 
+    (
       <ul class="nav nav-tabs">
 	<li id='tab_list' class="active"><a  href="#list">Available Functions</a></li>
 	<li id='tab_new'><a  href="#new">Upload Function</a></li>
       </ul>
-      <div class="tab-content panel">
+      ,<div class="tab-content panel">
 	<div class="tab-pane active panel-body" id="list">{$list}</div>
 	<div class="tab-pane panel-body" id="new">{$new}</div>
       </div>
-    </div>
-  </body>
- </html>
+    )
+  return csd_webconf:wrapper($content,$headers)
 };
 
 
 
 
  
-declare function page:wrapper_simple($content) {
- <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class='container'>{$content}</div>
-  </body>
- </html>
-};
-

@@ -95,18 +95,9 @@ declare function page:wrapper($csd,$svs,$adapters) {
     </p>
   </span>
 
-  return <html>
-  <head>
-
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    
-
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>
-
-    <script src="https://code.jquery.com/jquery.js"/>
-    <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
-   <script type="text/javascript">
+  let $headers :=  (
+    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>  
+    ,<script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_csd a').click(function (e) {{
 	e.preventDefault()
@@ -125,30 +116,17 @@ declare function page:wrapper($csd,$svs,$adapters) {
 	$(this).tab('show')
       }});
     }});
-   </script>
+    </script>
 
-  </head>
-  <body>  
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan</a>
-        </div>
-      </div>
-    </div>
-    <div class="container">
+    )
+    let $content := (
       <ul class="nav nav-tabs">
 	<li id='tab_home' class="active"><a  href="#home">Introduction</a></li>
 	<li id='tab_csd'><a  href="#csd">CSD Endpoints</a></li>
 	<li id='tab_svs'><a  href="#svs">SVS Endpoints</a></li>
 	<li id='tab_adapters'><a  href="#adapters">CSD Adapters</a></li>
       </ul>
-      <div class="tab-content panel">
+      ,<div class="tab-content panel">
 	<div class="tab-pane active panel-body" id="home">
 	  <div class="jumbotron">
 
@@ -209,19 +187,9 @@ declare function page:wrapper($csd,$svs,$adapters) {
 	  </div>
 	</div>
       </div>
-    </div>
+      )
 
-    <div class="footer">
-      <div class="container">
-	<div class='row'>
-	  <div class="col-md-12">
-	    <a class='pull-right' href="http://www.youtube.com/watch?v=pBjvkHHuPHc"  style='color:rgb(0,0,0);text-decoration:none'>(tra-la-la)</a>
-	  </div>
-	</div>
-      </div>
-    </div>
-  </body> 
-</html>
+  return csd_webconf:wrapper($content,$headers)
 };
 
 
