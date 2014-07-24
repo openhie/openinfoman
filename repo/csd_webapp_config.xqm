@@ -62,8 +62,7 @@ declare function csd_webconf:wrapper($content,$headers) {
     <div class="footer">
       <center>
       
-	<img src="{$csd_webconf:baseurl}static/pepfar-logo-seal.png" width='5%'/>
-	<img src="{$csd_webconf:baseurl}static/USAID_CP_IH_logos.png" width='30%'/>
+	<img src="{$csd_webconf:baseurl}static/USAID_CP_IH_PEPFAR_logos.png" width='30%'/>
 
       </center>
 
