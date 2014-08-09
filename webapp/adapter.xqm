@@ -35,7 +35,7 @@ declare
 	      </p>
 	      <p>
 	      Adapter Document Source (
-	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$urn}</a>
+	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$urn}">{$urn}</a>
 			       )
 	      </p>
 	      <div>
