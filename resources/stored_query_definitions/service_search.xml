@@ -6,7 +6,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
   xmlns="urn:ihe:iti:csd:2013" 
-  urn="urn:uuid:e3d8ecd0-f605-11e2-b778-0800200c9a66">
+  urn="urn:ihe:iti:csd:2014:stored-function:service-search">
   <description> 
     <p>
     Performs a search for all search by coded type or ID.   
@@ -41,7 +41,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function urn='urn:uuid:e3d8ecd0-f605-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:service-search'&gt;
              &lt;codedType code="76499" codingScheme="HCPCS" /&gt;
              &lt;start&gt;101&lt;/max&gt;
            &lt;/function&gt;

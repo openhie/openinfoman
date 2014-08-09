@@ -5,7 +5,7 @@
   xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
-  urn="urn:uuid:4e8bbeb9-f5f5-11e2-b778-0800200c9a66" content-type="text/xml">
+  urn="urn:ihe:iti:csd:2014:stored-function:provider-search">
   <description>
     <p> Performs a search for all providers by name, coded type, address or ID. </p>
     <p> The result set consists of all providers matching the <i>search parameters</i> ( <b>id</b>,
@@ -59,7 +59,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function urn='urn:uuid:4e8bbeb9-f5f5-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:service-search'&gt;
                &lt;codedType code="2221" codingScheme="ISCO-08" /&lt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Kigali&lt;/addressLine&gt;

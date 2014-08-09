@@ -6,7 +6,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
-  urn="urn:uuid:c6aedf0-f609-11e2-b778-0800200c9a66">
+  urn="urn:ihe:iti:csd:2014:stored-function:organization-search">
   <description> 
     <p>
     Performs a search for all organizations by name, coded type, address or ID.   
@@ -50,7 +50,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function urn='urn:uuid:dc6aedf0-f609-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:service-search'&gt;
                &lt;codedType codingScheme="moh.gov.rw" code="FBO" /&gt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Kigali&lt;/addressLine&gt;

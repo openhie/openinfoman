@@ -6,7 +6,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
-  urn="urn:uuid:c7640530-f600-11e2-b778-0800200c9a66">
+  urn="urn:ihe:iti:csd:2014:stored-function:facility-search">
   <description> 
     <p>
     Performs a search for all facilities by name, type, address or ID.   
@@ -50,7 +50,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function urn='urn:uuid:c7640530-f600-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:facility-search'&gt;
                &lt;codedType code='OPC' codingScheme="USDVA"/&gt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Chapel Hill&lt;/addressLine&gt;
