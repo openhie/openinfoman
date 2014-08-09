@@ -11,7 +11,7 @@ declare variable $providers := /c:CSD/c:providerDirectory/c:provider;
 {
 	let $org := (for $i in $organizations where $i/c:address[@type="Billing"]/c:addressLine[@component="postalCode"][.="97466"] return $i)[1]
 
-	let $orgprovs := (for $i in $providers where $i/c:organizations/c:organization[@oid=$org/@oid] return $i)
+	let $orgprovs := (for $i in $providers where $i/c:organizations/c:organization[@urn=$org/@urn] return $i)
 
 	let $nurses := (for $i in $orgprovs where $i/c:codedType[@code="105-003"] and $i/c:demographic/c:gender[.="F"] return $i)
 

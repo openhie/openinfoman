@@ -2,55 +2,55 @@
 <CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
 	<organizationDirectory/>
 	<serviceDirectory>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.101">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.101">
 			<codedType code="101-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.102">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.102">
 			<codedType code="101-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.103">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.103">
 			<codedType code="101-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.104">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.104">
 			<codedType code="101-004" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.105">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.105">
 			<codedType code="101-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.106">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.106">
 			<codedType code="101-006" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.107">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.107">
 			<codedType code="101-007" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.108">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.108">
 			<codedType code="101-008" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.109">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.109">
 			<codedType code="101-009" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.110">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.110">
 			<codedType code="101-110" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.111">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.111">
 			<codedType code="101-111" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.112">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.112">
 			<codedType code="101-112" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.113">
+		<service urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
 			<codedType code="101-113" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>

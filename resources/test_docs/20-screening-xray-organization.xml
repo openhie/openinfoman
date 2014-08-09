@@ -11,9 +11,9 @@ declare variable $organizations := /c:CSD/c:organizationDirectory/c:organization
 {
 	let $fac := (for $i in $facilities where $i/c:primaryName[.="Connectathon Radiology Facility"] return $i)[1]
 
-	let $facorg := (for $i in $fac/c:organizations/c:organization where $i/c:service[@oid="1.3.6.1.4.1.21367.200.99.111.101.102"] return $i)[1]
+	let $facorg := (for $i in $fac/c:organizations/c:organization where $i/c:service[@urn="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.102"] return $i)[1]
 
-	let $org := (for $i in $organizations[@oid=$facorg/@oid] return $i)[1]
+	let $org := (for $i in $organizations[@urn=$facorg/@urn] return $i)[1]
 
 	return 
 	<dataValue name="{$org/c:primaryName}"><address>{$org/c:address[@type="Mailing"]}</address>

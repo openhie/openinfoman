@@ -18,7 +18,7 @@ declare
 	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:adapter']] 
         let $desc := $adapter_func/csd:description
         let $types := $adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type
-	let $uuid := string($adapter_func/@uuid)
+	let $urn := string($adapter_func/@urn)
 	return 
 	  for $type in $types
 	  let $s_type := string($type)
@@ -30,12 +30,12 @@ declare
 	      </p>
 	      <p>
 	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$uuid}">{$uuid}</a>
+	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$urn}">{$urn}</a>
 			       )
 	      </p>
 	      <p>
 	      Adapter Document Source (
-	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$uuid}</a>
+	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$urn}</a>
 			       )
 	      </p>
 	      <div>
@@ -66,13 +66,13 @@ declare
         {
 	    for $adapter_func in $funcs
             let $desc := $adapter_func/csd:description
-	    let $uuid := string($adapter_func/@uuid)
+	    let $urn := string($adapter_func/@urn)
 	    return
   	    <li>
 	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
 	      <p>
 	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
+	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$urn}">{$urn}</a>
 			       )
 	      </p>
 	      <p>{$desc}</p>

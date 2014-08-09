@@ -54,7 +54,7 @@
           font-family: "Courier New",Courier,monospace;
           font-size: 0.8em;
           }
-	  li i.uuid {
+	  li i.urn {
 	  display:inline-block;
 	  min-width:18em;
 	  max-width:18em;
@@ -68,9 +68,9 @@
           <ul>
             <xsl:for-each select="//csd:careServicesFunction">
               <li>
-                <i class='uuid'>  <xsl:value-of select="@uuid"/> </i>
+                <i class='urn'>  <xsl:value-of select="@urn"/> </i>
                 <a style='position:relative;left:2em'>
-                  <xsl:attribute name="href"><xsl:text>#</xsl:text><xsl:value-of select='@uuid'/></xsl:attribute>
+                  <xsl:attribute name="href"><xsl:text>#</xsl:text><xsl:value-of select='@urn'/></xsl:attribute>
                   <xsl:value-of select="substring(csd:description,1,100)"/>
 		  <xsl:if test="string-length(csd:description) > 100">...</xsl:if>
                 </a>
@@ -89,7 +89,7 @@
 
   <xsl:template name="CareServicesConsumerFunction">
     <xsl:param name="func" />
-    <a><xsl:attribute name="id"><xsl:value-of select='@uuid'/></xsl:attribute></a>          
+    <a><xsl:attribute name="id"><xsl:value-of select='@urnd'/></xsl:attribute></a>          
     
     <div class="function">
       <div class="callout">
@@ -99,7 +99,7 @@
           <xsl:otherwise>text/xml</xsl:otherwise>
         </xsl:choose>
         <br/>
-	UUID: <xsl:value-of select="@uuid"/>
+	URN: <xsl:value-of select="@urn"/>
         </span>
 
 	<h2>Description</h2>

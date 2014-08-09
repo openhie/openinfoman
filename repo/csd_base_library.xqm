@@ -206,15 +206,15 @@ declare function csd:filter_by_name($items as item()*,$name as item()) as item()
  : this function accepts a list of items to filter by their primary id
  :
  : @param $items - a list of items to filter by their primary id
- : @param $id - a uniqueID, if present with an non-empty @oid attribute then it is used to filter the $items list by their @oid attributes by performing an exact match of the @oid $id.
+ : @param $id - a uniqueID, if present with an non-empty @urn attribute then it is used to filter the $items list by their @urn attributes by performing an exact match of the @urn $id.
  : @return all items in $items which match as above
  : @since 1.0
  : 
 :)
 declare function csd:filter_by_primary_id($items as item()*,$id as item()) as item()* 
 {
-       if ($id/@oid) 
-       then $items[@oid =$id/@oid]
+       if ($id/@urn) 
+       then $items[@urn =$id/@urn]
        else $items
 };
 
@@ -428,7 +428,7 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
     if (count($orgs) = 0 )
     then  ()
     else  
-    	$items[organizations/organization/@oid = $orgs[1]/@oid ]
+    	$items[organizations/organization/@urn = $orgs[1]/@urn ]
         union
         csd:filter_by_organizations($items, fn:subsequence($orgs,2))
 };
@@ -447,7 +447,7 @@ declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as
     if (count($facs) = 0 )
     then  ()
     else  
-    	$items[facilities/facility/@oid  = $facs[1]/@oid]
+    	$items[facilities/facility/@urn  = $facs[1]/@urn]
         union
         csd:filter_by_facilities($items, fn:subsequence($facs,2))
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
-  <function uuid='dc6aedf0-f609-11e2-b778-0800200c9a66'>
+  <function urn='urn:uuid:dc6aedf0-f609-11e2-b778-0800200c9a66'>
     <requestParams/>
   </function>
 </csd:careServicesRequest>   

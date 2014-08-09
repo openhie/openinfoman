@@ -11,12 +11,12 @@ declare variable $orgs := /c:CSD/c:organizationDirectory/c:organization;
 for $provider in $providers 
 let $gender := $provider/c:demographic/c:gender
 let $providerType := $provider/c:codedType/@code
-let $orgOids := $provider/c:organizations/c:organization/@oid
+let $orgUrns := $provider/c:organizations/c:organization/@urn
 
 where $gender='F'
   and $providerType='105-003'
-  and (some $orgOid in $orgOids 
-  satisfies $orgs[@oid=$orgOid]//c:addressLine[@component="postalCode"]='97466')
+  and (some $orgUrn in $orgUrns
+  satisfies $orgs[@urn=$orgUrn]//c:addressLine[@component="postalCode"]='97466')
   
 return <name>{$provider/c:demographic/c:name/c:commonName/text()}</name>}
 </names>
