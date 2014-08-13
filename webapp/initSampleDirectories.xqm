@@ -36,7 +36,7 @@ declare
   %rest:GET
   function page:get_directory($name)
 {
-  csd_lsd:get($csd_webconf:db,$name) 
+  csd_dm:open_document($csd_webconf:db,$name) 
 };
 
 
@@ -50,32 +50,10 @@ declare updating
 { 
 (
   csd_lsd:load($csd_webconf:db,$name)   ,
-  csd_dm:register_document($csd_webconf:db,$name,csd_lsd:get_document_name($name)),
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
 )
 };
 
-declare updating   
-  %rest:path("/CSD/initSampleDirectory/directory/{$name}/register")
-  %rest:GET
-  function page:register($name)
-{ 
-(
-  csd_dm:register_document($csd_webconf:db,$name,csd_lsd:get_document_name($name)),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
-)
-};
-
-declare updating   
-  %rest:path("/CSD/initSampleDirectory/directory/{$name}/deregister")
-  %rest:GET
-  function page:deregister($name)
-{ 
-(
-  csd_dm:deregister_document($csd_webconf:db,$name),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
-)
-};
 
 
 declare updating   
@@ -84,7 +62,7 @@ declare updating
   function page:reload($name)
 { 
 (
-  csd_lsd:delete($csd_webconf:db,$name)   ,
+  csd_dm:empty($csd_webconf:db,$name)   ,
   db:output(page:redirect(concat($csd_webconf:baseurl,concat("CSD/initSampleDirectory/directory/",$name,"/load"))))
 )
 
@@ -93,11 +71,12 @@ declare updating
 
 
 
+
 declare
   %rest:path("/CSD/initSampleDirectory")
   %rest:GET
   %output:method("xhtml")
-  function page:poll_service_list()
+  function page:directory_list()
 { 
 let $response :=
       <div class='row'>
@@ -126,16 +105,12 @@ return page:nocache(  csd_webconf:wrapper($response))
 
 declare function page:services_menu($name) {
   <ul> 
-    {if (not(csd_lsd:exists($csd_webconf:db,$name))) then
+    {if (not(csd_dm:document_source_exists($csd_webconf:db,$name))) then
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/load">Initialize </a> {$name} </li>
   else 
     (
     <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get </a> {$name}</li>,
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload </a>{$name}</li>,
-    if (csd_dm:is_registered($csd_webconf:db,$name)) then
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/deregister">De-Register </a>{$name} from Document Manager</li>
-    else 
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/register">Register </a>{$name} with Document Manager</li>
+    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload </a>{$name}</li>
   )
     }
   </ul>

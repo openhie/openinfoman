@@ -26,23 +26,9 @@ declare updating
   function page:init() 
 {
   (
-    csd_psd:init($csd_webconf:db)
-  ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
-  )
-};
-
-declare updating
-  %rest:path("/CSD/registerService/deregister/{$name}")
-  %output:method("xhtml")
-  %rest:GET
-  function page:deregister_named($name) 
-{
-
-  (
-    csd_psd:deregister_service($csd_webconf:db,$name)
-  ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+    csd_lsc:init_cache_meta($csd_webconf:db)
+    ,csd_psd:init($csd_webconf:db)
+    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
 };
 
@@ -84,6 +70,101 @@ declare updating
   )
 
 };
+
+
+
+declare
+  %rest:path("/CSD/pollService/cache_meta")
+  %rest:GET
+  function page:get_cache_meta()
+{
+  csd_lsc:get_cache_data($csd_webconf:db,())
+};
+
+
+declare
+  %rest:path("/CSD/pollService/directory/{$name}")
+  %rest:GET
+  %output:method("xhtml")
+  function page:get_service_menu($name)
+{
+  let $response := <span><h3>{$name}</h3>{page:service_menu($name) }</span>
+  return page:nocache(csd_webconf:wrapper($response))
+};
+
+declare
+  %rest:path("/CSD/pollService/directory/{$name}/cache_meta")
+  %rest:GET
+  function page:get_service_cache_meta($name)
+{
+  csd_lsc:get_cache_data($csd_webconf:db,$name) 
+};
+
+
+declare updating
+  %rest:path("/CSD/pollService/directory/{$name}/create_cache")
+  %rest:GET
+  function page:create_cache($name)
+{
+  (
+  csd_lsc:empty_cache($csd_webconf:db,$name)
+  ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  )
+
+
+};
+
+declare updating
+  %rest:path("/CSD/pollService/directory/{$name}/drop_cache_meta")
+  %rest:GET
+  function page:drop_service_cache_meta($name)
+{
+  (
+  csd_lsc:drop_cache_data($csd_webconf:db,$name)
+  ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  )
+
+
+};
+
+declare
+  %rest:path("/CSD/pollService/directory/{$name}/get_cache")
+  %rest:GET
+  function page:get_cache($name)
+{ 
+ csd_lsc:get_cache($csd_webconf:db,$name) 
+};
+
+declare updating
+  %rest:path("/CSD/pollService/directory/{$name}/empty_cache")
+  %rest:GET
+  function page:empty_cache($name)
+{ 
+  (
+  csd_lsc:empty_cache($csd_webconf:db,$name) 
+  ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  )
+
+};
+
+
+
+declare updating   
+  %rest:path("/CSD/pollService/directory/{$name}/update_cache")
+  %rest:GET
+  function page:update_cache($name)
+{ 
+(
+  csd_lsc:update_cache($csd_webconf:db,$name)   ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+)
+
+
+};
+
 
 
 declare
@@ -200,7 +281,8 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	   </ul>
 	   <input type='submit' />
 	 </form> 
-	 
+
+
        </div>
        <div class="col-md-4">
 	 {
@@ -219,6 +301,14 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	   </span>
 	 else ()
 }
+
+	   <div >
+	     <h2>Global Operations</h2>
+	     <ul>
+	       <li> <a href="{$csd_webconf:baseurl}CSD/pollService/cache_meta">Get all cache Meta-Data</a></li>
+	     </ul>
+	   </div>
+       
        </div>
      </div>
      <div class='row'>
@@ -233,9 +323,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	 order by $name
 	 return 
 	 <li>
-	   <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/cacheService/directory/{$name}">cached</a> on {$mtime}
-	   <br/>
-	   <b>Services:</b>  {page:service_menu($name)}
+	   <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/pollService/directory/{$name}">cached</a> on {$mtime}
 	 </li>
 	 }
        </ul>
@@ -254,10 +342,31 @@ declare function page:service_menu($name) {
   return 
 <span>
   <ul>
+  <li>Caching
+  <ul>
+    {if (not(csd_lsc:directory_exists($csd_webconf:db,$name))) then
+    <li><a href="/CSD/pollService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
+  else 
+    (
+    <li><a href="/CSD/pollService/directory/{$name}/empty_cache">Empty local cache of {$name}</a> </li>,
+    <li><a href="/CSD/pollService/directory/{$name}/get_cache">Get local cache  of {$name}</a> </li>,
+    <li>
+      <a href="/CSD/pollService/directory/{$name}/update_cache" >Update local cache  of {$name}</a> 
+      <p>
+	<b >WARNING:</b>An InfoMan trying to cache its own service directory will result in a deadlock.  see <a href="https://github.com/BaseXdb/basex/issues/173">this issue</a>
+      </p>
+      </li>,
+      <li><a href="/CSD/pollService/directory/{$name}/cache_meta">Get cache Meta Data  for {$name}</a></li>,
+      <li><a href="/CSD/pollService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>
+  )
+    }
+  </ul>
+  </li>
+  <li>Testing
+  <ul>
     <li><a href="/CSD/pollService/{$name}/get"> Query  {$name} for Updated Services using stored last modified time (SOAP result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_csd"> Query  {$name} for Updated Services using stored last modified time (CSD result)</a> </li>
     <li><a href="/CSD/pollService/{$name}/get_soap"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
-    <li><a href="/CSD/registerService/deregister/{$name}"> Deregister This Service</a>    </li>
     <li>
     Query {$name} for Updated Services by time
     <form method='get' action="/CSD/pollService/{$name}/get">
@@ -272,7 +381,8 @@ declare function page:service_menu($name) {
       <input type='submit' />
     </form> 
     </li>
-
+  </ul>
+  </li>
   </ul>
   To test submission on your machine you can do:
   <pre>curl --header "content-type: application/soap+xml" --data "@soap_query_updated_services_{$name}.xml" {$url}</pre>

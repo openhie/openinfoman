@@ -6,7 +6,7 @@
 :)
 module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
 import module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_psd";
-
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
@@ -19,32 +19,14 @@ declare function csd_lsc:directory_exists($db,$name) {
   db:is-xml($db,csd_lsc:get_document_name($name))
 };
 
-declare updating function csd_lsc:create_cache($db,$name) {  
-db:add( $db,  csd_lsc:blank_directory()  , csd_lsc:get_document_name($name)  )
-};
 
-
-declare function csd_lsc:blank_directory()
-{
-<CSD xmlns:csd="urn:ihe:iti:csd:2013" xmlns="urn:ihe:iti:csd:2013">
-  <organizationDirectory/>
-  <serviceDirectory/>
-  <facilityDirectory/>
-  <providerDirectory/>
-</CSD>
-};
 
 declare updating function csd_lsc:empty_cache($db,$name) 
 {
-  (if (csd_lsc:directory_exists($db,$name)) 
-    then   
-    (db:delete($db,csd_lsc:get_document_name($name)) ,
-    csd_lsc:create_cache($db,$name))
-  else     
-    csd_lsc:create_cache($db,$name)
-    ,
-    csd_lsc:set_service_directory_mtime($db,$name,$csd_lsc:beginning_of_time) 
-    )
+  (
+    csd_dm:empty($db,$name)
+    ,csd_lsc:set_service_directory_mtime($db,$name,$csd_lsc:beginning_of_time)
+   )
     
 };
 
@@ -52,7 +34,7 @@ declare function csd_lsc:get_cache($db,$name)
 {
  if (csd_lsc:directory_exists($db,$name)) then
     db:open($db,csd_lsc:get_document_name($name)) 
-  else csd_lsc:blank_directory()
+  else csd_dm:blank_directory()
 };
 
 
