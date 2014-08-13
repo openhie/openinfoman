@@ -20,27 +20,6 @@ $response)
 };
 
 
-declare updating   
-  %rest:path("/CSD/mergeServices/register")
-  %rest:GET
-  function page:register() { 
-(
-  csd_dm:register_document($csd_webconf:db,csd_mcs:get_merge_doc_name(),$csd_mcs:merged_services_doc),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
-)
-};
-
-declare updating   
-  %rest:path("/CSD/mergeServices/deregister")
-  %rest:GET
-  function page:deregister() 
-{ 
-(
-  csd_dm:deregister_document($csd_webconf:db,csd_mcs:get_merge_doc_name()),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
-)
-};
-
 
 
 
@@ -50,81 +29,57 @@ declare
   %output:method("xhtml")
   function page:merge_menu()
 { 
-if (not(csd_mcs:store_exists($csd_webconf:db))) then
-  page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices/init"))
-else 
   let $response:=
   <div>
     <div class='container'>
       <div class='row'>
  	<div class="col-md-8">
-	  <h2>Merge Cached Service Directories</h2>
-	  <ul>
-	    <li><a href="/CSD/mergeServices/merge">merge services</a></li>
-	    <li><a href="/CSD/mergeServices/get">get merged services</a></li>
-	    <li><a href="/CSD/mergeServices/empty">empty services</a></li>
+	  <h2>Merge Cached Service Directories - Simple Join</h2>
+	  <form action="/CSD/mergeServices/merge">
 	    {
-	      if (csd_dm:is_registered($csd_webconf:db,csd_mcs:get_merge_doc_name())) then
-	      <li><a href="/CSD/mergeServices/deregister">deregister merge of remote from document store </a></li>
-            else
-	    <li><a href="/CSD/mergeServices/register">register merge of remote services from document manager</a></li>
+	      let $docs := csd_dm:registered_documents($csd_webconf:db)
+              return 
+		<span>
+		  <label for='dest'>Destination Document</label>
+		  <select name='dest'>
+		    <option value=''>Select A Value</option>
+		    {
+		      for $doc in $docs
+		      return <option value="{$doc}">{$doc}</option>
+		    }
+		  </select>
+		  <br/>
+		  {
+		    for $doc in $docs
+		    return (<input type='checkbox'  name="merge" value="{$doc}">{$doc}</input>,<br/>)
+		  }
+		 		  
+		  <br/>
+		  <input type='submit' value='Merge'/>
+		</span>
 	    }
-	  </ul>
+	  </form>
 	</div>
       </div>
     </div>
   </div>
   
-return csd_webconf:wrapper($response)
+  return csd_webconf:wrapper($response)
 
 };
 
 
-declare updating 
-  %rest:path("/CSD/mergeServices/init")
-  %rest:GET
-  function page:init()
-{ 
-  (
-  csd_mcs:init_store($csd_webconf:db)
-  ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
-  )
 
-};
-
-declare updating 
+declare updating
   %rest:path("/CSD/mergeServices/merge")
   %rest:GET
-  function page:merge()
+  %rest:query-param("merge", "{$merge}")
+  %rest:query-param("dest", "{$dest}")
+  function page:merge($dest,$merge)
 { 
-  (
-  csd_mcs:merge($csd_webconf:db)
+  
+  csd_mcs:merge($csd_webconf:db,$dest,$merge)
   ,
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
-  )
-
-};
-
-declare updating 
-  %rest:path("/CSD/mergeServices/empty")
-  %rest:GET
-  function page:empty()
-{ 
-  (
-  csd_mcs:empty($csd_webconf:db)
-  ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/mergeServices")))
-  )
-
-};
-
-declare 
-  %rest:path("/CSD/mergeServices/get")
-  %rest:GET
-  function page:get()
-{ 
-  csd_mcs:get($csd_webconf:db)
-
 };
 

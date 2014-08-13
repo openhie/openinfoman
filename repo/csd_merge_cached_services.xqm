@@ -20,23 +20,27 @@ declare function csd_mcs:store_exists($db) {
 };
 
 declare updating function csd_mcs:init_store($db) {
-  db:add($db, csd_lsc:blank_directory(), $csd_mcs:merged_services_doc)
+  db:add($db, csd_dm:blank_directory(), $csd_mcs:merged_services_doc)
 };
 
 (:
 : Merges together all documents registered with the document manager
 :)
-declare updating function csd_mcs:merge($db) {
+declare updating function csd_mcs:merge($db,$dest,$sources) {
 
   (: Merges together all cached documents only
   for $name in csd_psd:registered_directories($db)
   return csd_lsc:refresh_doc(db:open($db,$csd_mcs:merged_services_doc),csd_lsc:get_cache($db,$name))
   :)
-
-  for $name in csd_dm:registered_documents($db)
-  return if ($name != csd_mcs:get_merge_doc_name()) then
-    csd_lsc:refresh_doc(db:open($db, $csd_mcs:merged_services_doc), csd_dm:open_document($db, $name))
-  else ()
+  let $dest_doc := csd_dm:open_document($db,$dest)
+  return 
+    if (exists($dest_doc)) 
+    then 
+      for $name in $sources
+      return if ($name != $dest) then
+	csd_lsc:refresh_doc($dest_doc, csd_dm:open_document($db, $name))
+      else ()
+    else ()
     
 };
 
@@ -46,7 +50,7 @@ declare function csd_mcs:get($db) {
 
 
 declare updating function csd_mcs:empty($db) {
-  db:replace($db, $csd_mcs:merged_services_doc, csd_lsc:blank_directory())
+  db:replace($db, $csd_mcs:merged_services_doc, csd_dm:blank_directory())
 };
 
 

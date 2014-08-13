@@ -8,6 +8,7 @@ module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 
 import module namespace file = "http://expath.org/ns/file";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace csd_mcs = "https://github.com/openhie/openinfoman/csd_mcs";
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare namespace xquery = "http://basex.org/modules/xquery";
@@ -163,7 +164,9 @@ declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name) {
 
 declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name,$bindings as map(*)) 
 {
-let $doc := csd_dm:open_document($db,$doc_name)
+
+let $doc :=  csd_dm:open_document($db,$doc_name)
+
 let $expr :=string($expression)
 return if ($expr) then
   let $result := xquery:eval($expr,map{"":=$doc},$bindings)
@@ -196,7 +199,9 @@ let $urn := string($function/@urn)
 let $definition := ($stored_functions[@urn = $urn])[1]/csd:definition/text()
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@urn)
 let $doc_name := string($function/@resource)
-let $doc := csd_dm:open_document($db,$doc_name)
+let $doc :=  csd_dm:open_document($db,$doc_name)
+
+
 
 let $results0 := csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,$bindings)
 

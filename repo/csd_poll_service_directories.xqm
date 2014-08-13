@@ -50,17 +50,6 @@ declare updating function csd_psd:register_service($db,$name,$url,$credentials) 
 
 };
 
-declare updating function csd_psd:deregister_service($db,$name) {
-  if (csd_psd:dm_exists($db)) then
-    let $dm :=  db:open($db,$csd_psd:directory_manager)/serviceDirectoryLibrary
-    let $existing := $dm/serviceDirectory[@name = $name]
-    return if (exists($existing))  then
-      delete node $existing
-    else 
-      ()
-   else ()
-
-};
 
 declare function csd_psd:registered_directories($db) {
   if (csd_psd:dm_exists($db)) then

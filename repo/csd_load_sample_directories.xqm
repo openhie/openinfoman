@@ -6,11 +6,12 @@
 :)
 module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm" ;
 import module namespace file = "http://expath.org/ns/file";
 
 declare variable $csd_lsd:base_path := concat(file:current-dir() ,"../resources/service_directories/");
 
-declare function csd_lsd:fn_base_name($file,$ext) {
+declare function csd_dmd:fn_base_name($file,$ext) {
   let $old_base_name := fn:function-lookup(xs:QName("file:base-name"), 2)
   return
     if (not(exists($old_base_name))) then
@@ -26,22 +27,14 @@ declare function csd_lsd:sample_directories() {
 };
 
 declare function csd_lsd:get_document_names() {
-  csd_lsd:get_document_name(csd_lsd:sample_directories())
-};
-
-
-
-declare function csd_lsd:get_document_name($name) {
-  concat("service_directories/",$name,".xml")
+  csd_dm:document_source(csd_lsd:sample_directories())
 };
 
 declare function csd_lsd:get_document_source($name) {
   concat($csd_lsd:base_path, "/" , $name,".xml")
 };
 
-declare function csd_lsd:exists($db,$name) {
-  db:is-xml($db,csd_lsd:get_document_name($name)) and csd_lsd:valid_doc($name)
-};
+
 
 declare function csd_lsd:valid_doc($name) {
   $name = csd_lsd:sample_directories()
@@ -49,24 +42,8 @@ declare function csd_lsd:valid_doc($name) {
 
 
 declare updating function csd_lsd:load($db,$name) {
-  if (not(csd_lsd:exists($db,$name)) and csd_lsd:valid_doc($name)) then
-    db:add($db, csd_lsd:get_document_source($name),csd_lsd:get_document_name($name))
-  else 
-    ()
+  csd_dm:add($db,$name,csd_lsd:get_document_source($name))
 };
 
 
-declare function csd_lsd:get($db,$name) {
-  if (csd_lsd:exists($db,$name)) then
-    db:open($db,csd_lsd:get_document_name($name))
-  else
-    ()
-};
-
-declare updating function csd_lsd:delete($db,$name) {
-  if (csd_lsd:exists($db,$name) and csd_lsd:valid_doc($name)) then
-    db:delete($db,csd_lsd:get_document_name($name))
-  else
-    ()
-};
 

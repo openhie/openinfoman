@@ -7,22 +7,28 @@ import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/c
 
 
 
-declare updating
-  %rest:path("/CSD/initDocumentManager")
-  %rest:GET
-  function page:init_dm()
-{ 
-(
-csd_dm:init($csd_webconf:db),
-db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
-)
-};
-
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
 {
   <restxq:redirect>{ $redirect }</restxq:redirect>
 };
 
+
+
+declare updating
+  %rest:path("/CSD/createDirectory")
+  %rest:POST
+  %rest:form-param("directory","{$directory}")
+  %output:method("xhtml")
+  function page:create_directory($directory)
+{ 
+   (
+     if (not (csd_dm:document_source_exists($csd_webconf:db,$directory))) then
+       csd_dm:empty($csd_webconf:db,$directory) 
+     else ()
+     ,
+   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+  )
+};
 
 declare
   %rest:path("/CSD")
@@ -30,9 +36,6 @@ declare
   %output:method("xhtml")
   function page:list_functionality()
 { 
-if (not(csd_dm:dm_exists($csd_webconf:db))) then 
-  page:redirect(concat($csd_webconf:baseurl,"CSD/initDocumentManager"))
-else
   let $what_is_dm :=   
   <p>
     The document manger registers documents to perform  careServicesRequests and getUpdatedServices requests  against.  Registered documents can be any of:
@@ -47,19 +50,31 @@ else
     {$what_is_dm}
     <p>
       {let $docs := csd_dm:registered_documents($csd_webconf:db)  
-      return ( "You have ", count($docs) , " registered document(s) available: ", <b> {string-join($docs,", ")}</b> )
+      return ( 
+	  "You have ", count($docs) , " registered document(s) available: ", 
+	  <ul>
+	    {
+	      for $doc in $docs 
+	      return  
+	      <li>
+		<a href="{$csd_webconf:baseurl}CSD/getDirectory/{$doc}"> {$doc} </a>
+		 [ 
+		  <a class='text-warning' href="{$csd_webconf:baseurl}CSD/emptyDirectory/{$doc}" onclick="Empty confirm('Delete all the data in {$doc}?');"> Empty </a> 
+		  / <a class='text-warning' href="{$csd_webconf:baseurl}CSD/deleteDirectory/{$doc}" onclick="return confirm('Delete all the data in {$doc}?');"> Delete </a> 
+		  ]
+	      </li>
+	    }
+	  </ul>
+	  )
       }
     </p>
-    <p>These the top-level endpoints are exposed</p>
-    <ul>
-      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Functions</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Load and Register Sample Service Directories</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/pollService">Register and Poll Remote Service Service directories </a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/cacheService">Administer local cache of registered service directories</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">Merge registered documents</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/csr">Execute Ad-Hoc Care Services Requests and View Care Service Request Endpoints for Registered Documents</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices Soap Request for Registered Documents</a></li>
-    </ul>
+    <div>
+      <h2>Create Blank Directory</h2>
+      <form method='post' action="/CSD/createDirectory">
+	<input name='directory' type='text'/>
+	<input type='submit' value='Create'/>
+      </form>
+    </div>
   </span>
   let $svs :=
   <span class='svs'>
@@ -72,7 +87,19 @@ else
     <span class='adapters'>
       List of all adapters installed: <a href="{$csd_webconf:baseurl}CSD/adapter">CSD Adapters</a>      
     </span>
-  return page:nocache(page:wrapper($csd,$svs,$adapters))
+  let $generic := 
+    <span>
+    <p>These the top-level endpoints are exposed</p>
+    <ul>
+      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Functions</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Load and Register Sample Service Directories</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/pollService">Register and Poll Remote Service Service directories </a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/mergeServices">Merge registered documents</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/csr">Execute Ad-Hoc Care Services Requests and View Care Service Request Endpoints for Registered Documents</a></li>
+      <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices Soap Request for Registered Documents</a></li>
+    </ul>
+    </span>
+  return page:nocache(page:wrapper($csd,$svs,$adapters,$generic))
 };
 
 
@@ -85,7 +112,42 @@ $response)
 };
 
 
+declare
+  %rest:path("/CSD/getDirectory/{$name}")
+  %rest:GET
+  function page:get_directory($name)
+{
+  csd_dm:open_document($csd_webconf:db,$name) 
+};
+
+declare updating
+  %rest:path("/CSD/emptyDirectory/{$name}")
+  %rest:GET
+  function page:empty_directory($name)
+{
+  (
+    csd_dm:empty($csd_webconf:db,$name) 
+    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+  )
+};
+
+declare updating
+  %rest:path("/CSD/deleteDirectory/{$name}")
+  %rest:GET
+  function page:delete_directory($name)
+{
+  (
+    csd_dm:delete($csd_webconf:db,$name) 
+    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+  )
+};
+
+
 declare function page:wrapper($csd,$svs,$adapters) {
+  page:wrapper($csd,$svs,$adapters,()) 
+};
+
+declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
   let $generic := 
   <span>
     <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
@@ -159,6 +221,7 @@ declare function page:wrapper($csd,$svs,$adapters) {
 	  <div class='row'>
 	    <div class="col-md-4">
 	      {$generic}
+	      {$generic_csd}
 	    </div>
 	    <div class="col-md-6">
 	      {$csd}
