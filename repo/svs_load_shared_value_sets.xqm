@@ -6,6 +6,7 @@
 :)
 module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 import module namespace file = "http://expath.org/ns/file";
+import module namespace functx = "http://www.functx.com";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 
 (:WARNING: ValueSet have @id while DesribedValueSet has @ID:)
@@ -60,7 +61,7 @@ declare function svs_lsvs:get_sample_value_set_list() {
 
 declare function svs_lsvs:get_all_value_set_list($db) {
   let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
-  let $existing_ids := $vsets//svs:DescribedValueSet/@ID
+  let $existing_ids := distinct-values($vsets//svs:DescribedValueSet/@ID)
   let $available_ids := $svs_lsvs:sample_value_set_list//svs:DescribedValueSet/@ID
   return <DescribedValueSets version="{$svs_lsvs:vers}">
   {
@@ -106,28 +107,36 @@ declare updating function svs_lsvs:load($db,$id) {
     else
       let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
       let $svs := parse-xml(file:read-text($doc_source))	 
-      for $val_set in $svs//svs:ValueSet
-      let $described_val_set := 
-      <svs:DescribedValueSet ID="{$val_set/@id}" displayName="{$val_set/@displayName}" version="{$val_set/@version}">
-	{$val_set/*}
-      </svs:DescribedValueSet>
-      return insert node $described_val_set into $svs_sets
+      for $value_set in $svs//svs:ValueSet
+      return svs_lsvs:insert($db,$value_set)
   else 
     ()
 };
 
+declare updating function svs_lsvs:insert($db,$value_set) {
+  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
+  let $id := $value_set/@id
+  let $version := $value_set/@version
+  let $existing :=  $vsets//svs:DescribedValueSet[@ID = $id and @version = $version]
+  let $described_val_set := 
+    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" version="{$version}">
+      {$value_set/*}
+    </svs:DescribedValueSet>
+  return 
+        if (exists($existing)) then
+	  (
+	    for $node in $existing return  delete node $node,
+	    insert node $described_val_set into $vsets
+	  )
+      else
+	insert node $described_val_set into $vsets
+};
+
 
 declare updating function svs_lsvs:reload($db,$id) {
-  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
-  let $existing := $vsets//svs:DescribedValueSet[@ID = $id]
-  return 
-    if (exists($existing)) 
-      then
-        (delete node $existing,
-	svs_lsvs:load($db,$id))
-      else
-	svs_lsvs:load($db,$id)    
+  svs_lsvs:load($db,$id) 
 };
+
 
 
 
@@ -156,20 +165,22 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
 
 
 declare function svs_lsvs:get_single_version_value_set($db,$id) {
-  svs_lsvs:get_single_version_value_set($db,$id,'')
+  svs_lsvs:get_single_version_value_set($db,$id,false())
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id,$version) {
-  svs_lsvs:get_single_version_value_set($db,$id,$version,'')
+  svs_lsvs:get_single_version_value_set($db,$id,$version,false)
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
-  let $vers := if (not($version = '')) then $version else max(xs:int($vs0/@version))
+  let $vers := if ($version) 
+     then $version  
+     else   functx:max-string ($vs0/@version)  (:NEEDS TO CHANGE:)
   let $vs1:= $vs0[@version = $vers]
 
   let $concept_lists := 
-    if (not($lang = '')) 
+    if ($lang ) 
       then 
       $vs1/svs:ConceptList[@xml:lang = $lang]
     else
@@ -192,14 +203,14 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
 
 
 declare function svs_lsvs:lookup_code($db,$code,$codeSystem) {
-  svs_lsvs:lookup_code($db,$code,$codeSystem, '') 
+  svs_lsvs:lookup_code($db,$code,$codeSystem, false) 
 };
 
 declare function svs_lsvs:lookup_code($db,$code,$codeSystem, $lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
 
   let $concept_lists := 
-    if (not($lang = '')) 
+    if ($lang)
       then 
       $vs0/svs:ConceptList[@xml:lang = $lang]
     else
@@ -212,11 +223,11 @@ declare function svs_lsvs:lookup_code($db,$code,$codeSystem, $lang) {
 
 
 declare function svs_lsvs:get_single_version_code($db,$code,$id) {
-  svs_lsvs:get_single_version_code($db,$code,$id, '')
+  svs_lsvs:get_single_version_code($db,$code,$id, false())
 };
 
 declare function svs_lsvs:get_single_version_code($db,$code,$id, $version) {
-  svs_lsvs:get_single_version_code($db,$code,$id, $version,'') 
+  svs_lsvs:get_single_version_code($db,$code,$id, $version,false()) 
 };
 
 declare function svs_lsvs:get_single_version_code($db,$code,$id, $version,$lang) {
@@ -225,7 +236,7 @@ declare function svs_lsvs:get_single_version_code($db,$code,$id, $version,$lang)
   let $vs1:= $vs0[@version = $vers]
 
   let $concept_lists := 
-    if (not($lang = '')) 
+    if ($lang)
       then 
       $vs1/svs:ConceptList[@xml:lang = $lang]
     else
