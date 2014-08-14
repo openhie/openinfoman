@@ -23,20 +23,15 @@ declare
 	  for $type in $types
 	  let $s_type := string($type)
 	  return
-  	  <li style='dispaly:block'>
+  	  <li style='dispaly:block'>Stored Function <a href="{$csd_webconf:baseurl}/CSD/storedFunctions#{$urn}">{$urn}</a>
 	    <div class='container'>
 	      <p>
 	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}">{$s_type}</a>)
 	      </p>
 	      <p>
-	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$urn}">{$urn}</a>
-			       )
+		Act on a <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$urn}">Document</a>
 	      </p>
 	      <p>
-	      Adapter Document Source (
-	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$urn}">{$urn}</a>
-			       )
 	      </p>
 	      <div>
 
