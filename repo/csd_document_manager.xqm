@@ -40,7 +40,7 @@ declare  function csd_dm:open_document($db,$name) {
 };
 
 declare updating function csd_dm:add($db,$doc,$name) {
-  db:add($db, $doc, csd_dm:document_source($name))
+  csd_dm:empty($db,$name,$doc)
 };
 
 
