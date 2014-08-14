@@ -303,6 +303,41 @@ declare updating function csr_proc:process_updating_CSR($db,$function,$doc_name,
 };
 
 
+declare updating function csr_proc:process_updating_CSR_results($db,$function) 
+{
+  csr_proc:process_updating_CSR_results($db,$function,map:new(())) 
+};
+
+
+declare updating function csr_proc:process_updating_CSR_results($db,$careServicesRequest, $bindings as map(*)) {
+let $function :=$careServicesRequest//csd:function
+let $doc_name := string($function/@resource)
+let $base_url := string($function/@base_url)
+let $doc := csd_dm:open_document($db,$doc_name)
+let $urn := $function/@urn
+let $stored_updating_functions := csr_proc:stored_updating_functions($db)
+let $definition := $stored_updating_functions[@urn = $urn][1]/csd:definition/text()
+let $content_type := csr_proc:lookup_stored_content_type($db,$function/@urn)
+let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$urn}' base_url='{$base_url}'>
+  {
+    if ($function/csd:requestParams) then $function/csd:requestParams/*
+    else $function/requestParams/*
+  }
+</csd:requestParams>
+
+let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $all_bindings :=  map:new(($csr_bindings, $bindings))
+
+let $options := csr_proc:lookup_stored_options($db,$function/@urn)
+
+return if (exists($definition)) then
+  (
+  xquery:update($definition,$all_bindings,$options)
+  )
+else  ()
+
+};
+
 declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest, $doc_name, $base_url,$bindings as map(*)) 
 {
 (:not allowing ad-hoc updates:) 
@@ -336,6 +371,7 @@ else
     </rest:response>
        )
 };
+
 
 
 declare function csr_proc:lookup_stored_options($db,$urn)
