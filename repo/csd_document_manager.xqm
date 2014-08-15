@@ -58,9 +58,9 @@ declare updating function csd_dm:empty($db,$name,$doc) {
   return 
     if (csd_dm:document_source_exists($db,$name)) then
       db:replace($db,$source,$doc)
-    else 
-      db:add($db,$doc,$source)
-  
+    else
+      db:add($db,$doc,$source) 
+    
 };
 
 declare function csd_dm:registered_documents($db) {
@@ -71,7 +71,7 @@ declare function csd_dm:registered_documents($db) {
 };
 
 declare function csd_dm:document_source($name) {
-  concat("service_directories/",$name,".xml")
+  concat("service_directories/",string($name),".xml")
 };
 
 
