@@ -11,7 +11,7 @@ import module namespace file = "http://expath.org/ns/file";
 
 declare variable $csd_lsd:base_path := concat(file:current-dir() ,"../resources/service_directories/");
 
-declare function csd_dmd:fn_base_name($file,$ext) {
+declare function csd_lsd:fn_base_name($file,$ext) {
   let $old_base_name := fn:function-lookup(xs:QName("file:base-name"), 2)
   return
     if (not(exists($old_base_name))) then
@@ -42,7 +42,10 @@ declare function csd_lsd:valid_doc($name) {
 
 
 declare updating function csd_lsd:load($db,$name) {
-  csd_dm:add($db,$name,csd_lsd:get_document_source($name))
+  let $source := csd_lsd:get_document_source($name)
+  let $doc := parse-xml(file:read-text($source))
+  return csd_dm:empty($db,$name,$doc)
+
 };
 
 
