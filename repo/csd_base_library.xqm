@@ -365,6 +365,7 @@ declare function csd:filter_by_forename_starts_with($items as item()*, $name as 
 };
 
 
+
 (:~
  : this function accepts a list of items to filter by their record details
  :
@@ -412,8 +413,6 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
  };
 
 
-
-
 (:~
  : this function accepts a list of items to filter against a list of organizations
  :
@@ -423,14 +422,19 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()* 
+
+declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()*
 {
-    if (count($orgs) = 0 )
-    then  ()
+    if (count($orgs) = 0 
+       or not ($orgs[1]/text())
+    ) 
+    then  $items
     else  
-    	$items[organizations/organization/@urn = $orgs[1]/@urn ]
-        union
-        csd:filter_by_organizations($items, fn:subsequence($orgs,2))
+           let $org := $orgs[1]/text()
+           return csd:filter_by_organizations(
+	     $items[organizations/organization[@urn = $org]],
+	     fn:subsequence($orgs,2))
+  
 };
 
 (:~
@@ -442,15 +446,20 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()* 
+declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()*
 {
-    if (count($facs) = 0 )
-    then  ()
+    if (count($facs) = 0 
+       or not ($facs[1]/text())
+    ) 
+    then  $items
     else  
-    	$items[facilities/facility/@urn  = $facs[1]/@urn]
-        union
-        csd:filter_by_facilities($items, fn:subsequence($facs,2))
+           let $fac := $facs[1]/text()
+           return csd:filter_by_facilities(
+	     $items[facilities/facility[@urn = $fac]],
+	     fn:subsequence($facs,2))
 };
+
+
 
 
 
