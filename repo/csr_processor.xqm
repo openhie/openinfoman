@@ -290,8 +290,14 @@ declare function csr_proc:get_function_definition($db,$urn) {
   csr_proc:stored_functions($db)[@urn = $urn][1]
 };
 
+
 declare function csr_proc:get_updating_function_definition($db,$urn) {
   csr_proc:stored_updating_functions($db)[@urn = $urn][1]
+};
+
+
+declare function csr_proc:get_any_function_definition($db,$urn) {
+  (csr_proc:stored_updating_functions($db)[@urn = $urn] , csr_proc:stored_functions($db)[@urn = $urn])[1]
 };
 
 

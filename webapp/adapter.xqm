@@ -1,7 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
-(:import module namespace csr_adpt = "https://github.com/openhie/openinfoman/csr_adpt"; :)
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 
@@ -44,6 +44,37 @@ declare
   return page:wrapper($searches)
 };
 
+
+
+declare
+  %rest:path("/CSD/adapter/{$type}/{$search_name}")
+  %output:method("xhtml")
+  function page:show_endpoints($search_name,$type) 
+{  
+  let $function := csr_proc:get_any_function_definition($csd_webconf:db,$search_name)
+  let $extensions :=  $function/csd:extension[@urn='urn:openhie.org:openinfoman:adapter' and  @type=$type]
+       
+  let $contents := 
+    if (count($extensions) = 0)
+      (:not a read fhir entity query. should 404 or whatever is required by FHIR :)
+    then ("Not a " , $type , " compatible stored functions" )
+    else 
+      <div>
+	<h2>{$type} Documents</h2>
+        <ul>
+          {
+  	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
+	    return
+  	    <li>
+	      <a href="{$csd_webconf:baseurl}CSD/csr/{$doc_name}/careServicesRequest/{$search_name}/adapter/{$type}">{string($doc_name)}</a>
+	    </li>
+	  }
+	</ul>
+      </div>
+  return csd_webconf:wrapper($contents)
+
+ 
+};
 
 
 
