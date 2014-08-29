@@ -100,26 +100,24 @@ declare function svs_lsvs:exists($db,$id) {
 
 
 declare updating function svs_lsvs:load($db,$id) {
-  if (not(svs_lsvs:exists($db,$id)))  then
-    let $doc_source := svs_lsvs:get_document_source($id)
-    return if (not($doc_source)) 
-      then  ()
-    else
-      let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
-      let $svs := parse-xml(file:read-text($doc_source))	 
-      for $value_set in $svs//svs:ValueSet
-      return svs_lsvs:insert($db,$value_set)
-  else 
-    ()
+  let $doc_source := svs_lsvs:get_document_source($id)
+  return if (not($doc_source)) 
+    then  ()
+  else
+    let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
+    let $svs := parse-xml(file:read-text($doc_source))	 
+    for $value_set in $svs//svs:ValueSet
+    return svs_lsvs:insert($db,$value_set)
 };
 
 declare updating function svs_lsvs:insert($db,$value_set) {
-  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
+  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
   let $id := $value_set/@id
   let $version := $value_set/@version
   let $existing :=  $vsets//svs:DescribedValueSet[@ID = $id and @version = $version]
   let $described_val_set := 
-    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" version="{$version}">
+    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" >
+      {if ($version) then $version else ()}
       {$value_set/*}
     </svs:DescribedValueSet>
   return 
@@ -176,7 +174,7 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
   let $vers := if ($version) 
      then $version  
-     else   functx:max-string ($vs0/@version)  (:NEEDS TO CHANGE:)
+     else   functx:max-string ($vs0[@version != '']/@version)  (:NEEDS TO CHANGE:)
   let $vs1:= $vs0[@version = $vers]
 
   let $concept_lists := 
