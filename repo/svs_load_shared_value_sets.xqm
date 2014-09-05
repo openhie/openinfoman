@@ -163,26 +163,24 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
 
 
 declare function svs_lsvs:get_single_version_value_set($db,$id) {
-  svs_lsvs:get_single_version_value_set($db,$id,false())
+  svs_lsvs:get_single_version_value_set($db,$id,'')
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id,$version) {
-  svs_lsvs:get_single_version_value_set($db,$id,$version,false)
+  svs_lsvs:get_single_version_value_set($db,$id,$version,'')
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
-  let $vers := if ($version) 
-     then $version  
-     else   functx:max-string ($vs0[@version != '']/@version)  (:NEEDS TO CHANGE:)
+  let $vers := if (functx:all-whitespace($version) )
+     then  functx:max-string ($vs0[@version != '']/@version)  (:NEEDS TO CHANGE:)
+     else  $version  
   let $vs1:= $vs0[@version = $vers]
 
   let $concept_lists := 
-    if ($lang ) 
-      then 
-      $vs1/svs:ConceptList[@xml:lang = $lang]
-    else
-      $vs1/svs:ConceptList
+    if (functx:all-whitespace($lang) ) 
+    then $vs1/svs:ConceptList
+    else $vs1/svs:ConceptList[@xml:lang = $lang]
       
   return
   <svs:RetrieveValueSetResponse version="{$vers}" id="{$id}">
