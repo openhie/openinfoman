@@ -130,12 +130,7 @@ then
   let $csr :=
   <csd:careServicesRequest>
     <csd:function urn="{$urn}" resource='{$doc_name}' base_url='{$base_url}'>
-      <csd:requestParams >
-	{
-	  if ($function/csd:requestParams) then $function/csd:requestParams/*
-	  else $function/requestParams/*
-	}
-      </csd:requestParams>
+      {($function/*)[1]}
     </csd:function>
   </csd:careServicesRequest>
 
