@@ -41,13 +41,17 @@ declare variable $careServicesRequest as item() external;
 	then csd_bl:filter_by_other_id($orgs5,$careServicesRequest/otherID)
       else $orgs5
 
+      let $orgs7 := if (exists($careServicesRequest/parent))
+	then csd_bl:filter_by_parent($orgs5,$careServicesRequest/parent)
+      else $orgs6
+
       return if (exists($careServicesRequest/start)) then
 	if (exists($careServicesRequest/max))
-	  then csd_bl:limit_items($orgs6,$careServicesRequest/start,$careServicesRequest/max)
-	else csd_bl:limit_items($orgs6,$careServicesRequest/start,<max/>)
+	  then csd_bl:limit_items($orgs7,$careServicesRequest/start,$careServicesRequest/max)
+	else csd_bl:limit_items($orgs7,$careServicesRequest/start,<max/>)
       else
 	if (exists($careServicesRequest/max))
-	  then csd_bl:limit_items($orgs6,<start/>,$careServicesRequest/max)
+	  then csd_bl:limit_items($orgs7,<start/>,$careServicesRequest/max)
 	else $orgs6
 
     }     

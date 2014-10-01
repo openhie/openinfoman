@@ -414,6 +414,26 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
 
 
 (:~
+ : filters by the parent entities (applicable only to oragnization)
+ :
+ : @param $items - a list of items to filter by their record details
+ : @param $orgs - a list of organizations that to filter $items against.  A member of $items is kept if there is at least one member of $orgs to which it is associated to
+ : @return all items in $items which match as above
+ : @since 1.0
+ : 
+:)
+
+declare function csd:filter_by_parent($items as item()*,$parent as item()*) as item()*
+{
+  let $urn:= $parent/@urn
+  return 
+    if (not(exists($urn)))
+    then $items
+    else $items[./parent[@urn = $urn]]
+};
+
+
+(:~
  : this function accepts a list of items to filter against a list of organizations
  :
  : @param $items - a list of items to filter by their record details
@@ -436,6 +456,7 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
 	     fn:subsequence($orgs,2))
   
 };
+
 
 (:~
  : this function accepts a list of items to filter against a list of facilities
