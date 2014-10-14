@@ -121,15 +121,16 @@ declare function page:endpoints() {
 
 
 declare variable $page:sample := 
-"<html xmlns:csd='urn:ihe:iti:csd:2013'>
-<body>
-<ul>
-  <li>You have {count(/csd:CSD/csd:providerDirectory/*)} providers.</li>
-  <li>You have {count(/csd:CSD/csd:facilityDirectory/*)} facilities.</li>
-<li>You have {count(/csd:CSD/csd:organizationDirectory/*)} organizations.</li>
-<li>You have {count(/csd:CSD/csd:serviceDirectory/*)} services.</li>
-</ul>
-</body>
+"declare namespace csd = 'urn:ihe:iti:csd:2013';
+<html>
+ <body>
+  <ul>
+   <li>You have {count(/csd:CSD/csd:providerDirectory/*)} providers.</li>
+   <li>You have {count(/csd:CSD/csd:facilityDirectory/*)} facilities.</li>
+   <li>You have {count(/csd:CSD/csd:organizationDirectory/*)} organizations.</li>
+   <li>You have {count(/csd:CSD/csd:serviceDirectory/*)} services.</li>
+  </ul>
+ </body>
 </html>";
 
 
