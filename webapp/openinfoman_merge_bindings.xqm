@@ -39,12 +39,14 @@ declare
       then concat('Not a stored function for a merge: ' , $search_name    )
     else 
       let $action := concat("/CSD/csr/",$doc_name,"/careServicesRequest/",$search_name, "/adapter/merge")
+      let $ufunction := csr_proc:get_updating_function_definition($csd_webconf:db,$search_name)
       let $contents := 
         <div class='container'>
 	  <div class='row'>
             <h2>Merge into {$doc_name}</h2>
  	    <div class="col-md-8">
-	      <h2>Merge Cached Service Directories - Simple Join</h2>
+	      <h2>Merge Cached Service Directoriesn</h2>
+	      <h3>{$ufunction/csd:description}</h3>
 	      <form method='POST' action="{$action}">
 		{
 		  let $docs := csd_dm:registered_documents($csd_webconf:db)
