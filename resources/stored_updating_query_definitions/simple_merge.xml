@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:csd="urn:ihe:iti:csd:2013" 
+  urn="urn:openhie.org:openinfoman:simple_merge" 
+  content-type="text/xml">
+  <csd:description> 
+    Performs a simple merge.  Should be "document" elements under the <documents/> element that have a @resource attribute.
+  </csd:description>
+  <csd:definition ><xi:include parse='text' href='simple_merge.xq'/></csd:definition>
+  <xforms:instance>
+    <documents/>
+  </xforms:instance>
+  <csd:extension type='merge' urn='urn:openhie.org:openinfoman:adapter'/>
+
+</csd:careServicesFunction>
