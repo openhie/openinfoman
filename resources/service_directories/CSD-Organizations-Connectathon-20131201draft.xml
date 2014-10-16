@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
 	<organizationDirectory>
-		<organization urn="urn:oid:1.3.6.1.4.1.21367.200.99.1">
+		<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1">
 			<codedType code="101-002" codingScheme="1.3.6.1.4.1.21367.100.1">Integrated Delivery Network</codedType>
 			<primaryName>Connectathon CSD IDN</primaryName>
 			<address type="Billing">
