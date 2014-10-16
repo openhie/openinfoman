@@ -212,7 +212,7 @@ declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
 	      </div>
 	      <div class="col-md-4">
 		{$generic}
-	      </div>
+s	      </div>
 	    </div>
 	  </div>
 	</div>
