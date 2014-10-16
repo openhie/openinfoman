@@ -5,7 +5,7 @@
   xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
-  uuid="4e8bbeb9-f5f5-11e2-b778-0800200c9a66" content-type="text/xml">
+  urn="urn:ihe:iti:csd:2014:stored-function:provider-search">
   <description>
     <p> Performs a search for all providers by name, coded type, address or ID. </p>
     <p> The result set consists of all providers matching the <i>search parameters</i> ( <b>id</b>,
@@ -19,7 +19,7 @@
       element and consists of the full content of the &lt;provider/&gt; elements of matching
       providers as maintained by the Care Services InfoManager. </p>
     <h2>Parameters</h2> Query Parameters are defined as the content of following elements: <ul>
-      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @oid attribute contains a
+      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @urn attribute contains a
         non-empty value, it is a ID which uniquely identifies a provider. This is an exact match. </li>
       <li> &lt;otherID/&gt; <i>csd:otherID</i>: (optional) If present and the
         @assigningAuthorityName attribute contains a non-empty value, then the result set is
@@ -59,7 +59,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:service-search'&gt;
                &lt;codedType code="2221" codingScheme="ISCO-08" /&lt;
                &lt;address&gt;
                  &lt;addressLine component='city'&gt;Kigali&lt;/addressLine&gt;

@@ -66,7 +66,7 @@ declare function page:new_stored_function()
    </form>
    <h2>Create New Stored Function</h2>
    <form method='post' action="/CSD/storedFunctions/create"  enctype="multipart/form-data">
-     <label for="uuid">UUID</label><input    size="42" name="uuid" value="{random:uuid()}"  readonly="readonly"/>
+     <label for="urn">URN</label><input    size="42" name="urn" value="urn:uuid:{random:uuid()}"  readonly="readonly"/>
      <br/>
      <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
      <br/>
@@ -81,23 +81,23 @@ declare function page:new_stored_function()
 
 
 declare  updating 
-  %rest:path("/CSD/storedFunctions/delete/{$uuid}")
-  function page:delete($uuid) 
+  %rest:path("/CSD/storedFunctions/delete/{$urn}")
+  function page:delete($urn) 
   {
     (
-      csr_proc:delete_stored_function($csd_webconf:db,$uuid),
+      csr_proc:delete_stored_function($csd_webconf:db,$urn),
       db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
     )
 
 };
 
 declare
-  %rest:path("/CSD/storedFunctions/download/{$uuid}")
-  function page:download($uuid) 
+  %rest:path("/CSD/storedFunctions/download/{$urn}")
+  function page:download($urn) 
   {
     let $node := (
-      csr_proc:get_function_definition($csd_webconf:db,$uuid),
-      csr_proc:get_updating_function_definition($csd_webconf:db,$uuid)
+      csr_proc:get_function_definition($csd_webconf:db,$urn),
+      csr_proc:get_updating_function_definition($csd_webconf:db,$urn)
     )[1]
     return $node
     
@@ -123,12 +123,12 @@ declare  updating
   %rest:form-param("query","{$query}")
   %rest:form-param("description","{$description}")
   %rest:form-param("content", "{$content}","application/xml")
-  %rest:form-param("uuid", "{$uuid}")
-  function page:create($uuid,$query,$description,$content)
+  %rest:form-param("urn", "{$urn}")
+  function page:create($urn,$query,$description,$content)
 { 
-(  if ($uuid) then 
+(  if ($urn) then 
    let $func := 
-   <careServicesFunction uuid="{$uuid}" content-type="{$content}">
+   <careServicesFunction urn="{$urn}" content-type="{$content}">
      <description>{$description}</description>
      <definition>{$query}</definition>
    </careServicesFunction>
@@ -169,12 +169,12 @@ declare function page:redirect($redirect as xs:string) as element(restxq:redirec
 
 
 declare function page:display_function($function,$updating) {
-  let  $uuid := string($function/@uuid)
-  return  <span id="{$function/@uuid}">
+  let  $urn := string($function/@urn)
+  return  <span id="{$function/@urn}">
     {if ($updating) then  "(Updating) " else ()}
-    UUID: {string($uuid)}  <br/>
+    URN: {string($urn)}  <br/>
     Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
-    Content: {string(csr_proc:lookup_stored_content_type($csd_webconf:db,$uuid)) } <br/>
+    Content: {string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn)) } <br/>
     Description: <blockquote>{$function/description}</blockquote>
     Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':='yes'})} </pre></blockquote>
     {if (exists($function/@method)) then  ("Method: ",string($function/@method),<br/>) else () }
@@ -243,15 +243,15 @@ declare function page:function_list()  {
     {
       for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
       return  
-      <li>UUID: {string($function/@uuid)} {"  "}
+      <li>URN: {string($function/@urn)} {"  "}
       <i>
 	{substring(string($function/description),1,100)}
 	{if (string-length(string($function/description)) > 100) then "..." else ()}
       </i>
       <br/>
-      <a href="#{$function/@uuid}">View</a>
-      <a href="/CSD/storedFunctions/download/{$function/@uuid}">Download</a>
-      <a href="/CSD/storedFunctions/delete/{$function/@uuid}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
+      <a href="#{$function/@urn}">View</a>
+      <a href="/CSD/storedFunctions/download/{$function/@urn}">Download</a>
+      <a href="/CSD/storedFunctions/delete/{$function/@urn}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
       </li>
     }
     </ul>

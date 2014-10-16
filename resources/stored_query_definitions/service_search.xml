@@ -6,7 +6,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:csd="urn:ihe:iti:csd:2013" 
   xmlns="urn:ihe:iti:csd:2013" 
-  uuid="e3d8ecd0-f605-11e2-b778-0800200c9a66">
+  urn="urn:ihe:iti:csd:2014:stored-function:service-search">
   <description> 
     <p>
     Performs a search for all search by coded type or ID.   
@@ -24,7 +24,7 @@
     <h2>Parameters</h2> Query
     Parameters are defined as the content of following elements:
     <ul>
-      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @oid attribute contains a non-empty value, it is a ID which uniquely identifies a service. This is an exact match.  
+      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @urn attribute contains a non-empty value, it is a ID which uniquely identifies a service. This is an exact match.  
       </li>
       <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those services whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingScheme attribute.  Case insensitive.
       </li>
@@ -41,7 +41,7 @@
     <h2>Example Request</h2>
     <pre>
          &lt;careServicesRequest&gt;
-           &lt;function uuid='e3d8ecd0-f605-11e2-b778-0800200c9a66'&gt;
+           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:service-search'&gt;
              &lt;codedType code="76499" codingScheme="HCPCS" /&gt;
              &lt;start&gt;101&lt;/max&gt;
            &lt;/function&gt;

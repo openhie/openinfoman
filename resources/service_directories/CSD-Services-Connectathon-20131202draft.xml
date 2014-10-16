@@ -2,14 +2,14 @@
 <CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
 	<organizationDirectory/>
 	<serviceDirectory>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.102">
+		<service entryID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.102">
 			<codedType code="101-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
-			<extension oid="1.2.3" type="SomeMysteryType1"/>
+			<extension urn="urn:oid:1.2.3" type="SomeMysteryType1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
-		<service oid="1.3.6.1.4.1.21367.200.99.111.101.113">
+		<service entryID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
 			<codedType code="101-113" codingScheme="1.3.6.1.4.1.21367.100.1"/>
-			<extension oid="2.3.4" type="SomeMysteryType2"/>
+			<extension urn="urn:oid:2.3.4" type="SomeMysteryType2"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
 		</service>
 	</serviceDirectory>

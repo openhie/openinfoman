@@ -1,7 +1,7 @@
 <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013' xmlns='urn:ihe:iti:csd:2013'>
-  <function uuid='4e8bbeb9-f5f5-11e2-b778-0800200c9a66' encapsulated='true'>
+  <function urn='urn:uuid:4e8bbeb9-f5f5-11e2-b778-0800200c9a66' encapsulated='true'>
     <requestParams>
-      <id oid='2.25.309768652999692686176651983274504471835.646.1.615351552068889518564164611046405512878087'/>
+      <id urn='urn:oid:2.25.309768652999692686176651983274504471835.646.1.615351552068889518564164611046405512878087'/>
     </requestParams>
   </function>
 </csd:careServicesRequest>     

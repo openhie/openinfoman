@@ -1,7 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
-(:import module namespace csr_adpt = "https://github.com/openhie/openinfoman/csr_adpt"; :)
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 
@@ -18,25 +18,20 @@ declare
 	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:adapter']] 
         let $desc := $adapter_func/csd:description
         let $types := $adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type
-	let $uuid := string($adapter_func/@uuid)
+	let $urn := string($adapter_func/@urn)
 	return 
 	  for $type in $types
 	  let $s_type := string($type)
 	  return
-  	  <li style='dispaly:block'>
+  	  <li style='dispaly:block'>Stored Function <a href="{$csd_webconf:baseurl}/CSD/storedFunctions#{$urn}">{$urn}</a>
 	    <div class='container'>
 	      <p>
 	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}">{$s_type}</a>)
 	      </p>
 	      <p>
-	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$uuid}">{$uuid}</a>
-			       )
+		Act on a <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$urn}">Document</a>
 	      </p>
 	      <p>
-	      Adapter Document Source (
-	      <a href="{$csd_webconf:baseurl}CSD/storedFunctions/download/{$uuid}">{$uuid}</a>
-			       )
 	      </p>
 	      <div>
 
@@ -49,6 +44,37 @@ declare
   return page:wrapper($searches)
 };
 
+
+
+declare
+  %rest:path("/CSD/adapter/{$type}/{$search_name}")
+  %output:method("xhtml")
+  function page:show_endpoints($search_name,$type) 
+{  
+  let $function := csr_proc:get_any_function_definition($csd_webconf:db,$search_name)
+  let $extensions :=  $function/csd:extension[@urn='urn:openhie.org:openinfoman:adapter' and  @type=$type]
+       
+  let $contents := 
+    if (count($extensions) = 0)
+      (:not a read fhir entity query. should 404 or whatever is required by FHIR :)
+    then ("Not a " , $type , " compatible stored functions" )
+    else 
+      <div>
+	<h2>{$type} Documents</h2>
+        <ul>
+          {
+  	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
+	    return
+  	    <li>
+	      <a href="{$csd_webconf:baseurl}CSD/csr/{$doc_name}/careServicesRequest/{$search_name}/adapter/{$type}">{string($doc_name)}</a>
+	    </li>
+	  }
+	</ul>
+      </div>
+  return csd_webconf:wrapper($contents)
+
+ 
+};
 
 
 
@@ -66,13 +92,13 @@ declare
         {
 	    for $adapter_func in $funcs
             let $desc := $adapter_func/csd:description
-	    let $uuid := string($adapter_func/@uuid)
+	    let $urn := string($adapter_func/@urn)
 	    return
   	    <li>
 	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
 	      <p>
 	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$uuid}">{$uuid}</a>
+	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$urn}">{$urn}</a>
 			       )
 	      </p>
 	      <p>{$desc}</p>

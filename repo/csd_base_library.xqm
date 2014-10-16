@@ -206,15 +206,15 @@ declare function csd:filter_by_name($items as item()*,$name as item()) as item()
  : this function accepts a list of items to filter by their primary id
  :
  : @param $items - a list of items to filter by their primary id
- : @param $id - a uniqueID, if present with an non-empty @oid attribute then it is used to filter the $items list by their @oid attributes by performing an exact match of the @oid $id.
+ : @param $id - a uniqueID, if present with an non-empty @urn attribute then it is used to filter the $items list by their @entryID attributes by performing an exact match of the @entryID $id.
  : @return all items in $items which match as above
  : @since 1.0
  : 
 :)
 declare function csd:filter_by_primary_id($items as item()*,$id as item()) as item()* 
 {
-       if ($id/@oid) 
-       then $items[@oid =$id/@oid]
+       if ($id/@entryID) 
+       then $items[@entryID =$id/@entryID]
        else $items
 };
 
@@ -365,6 +365,7 @@ declare function csd:filter_by_forename_starts_with($items as item()*, $name as 
 };
 
 
+
 (:~
  : this function accepts a list of items to filter by their record details
  :
@@ -412,6 +413,24 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
  };
 
 
+(:~
+ : filters by the parent entities (applicable only to oragnization)
+ :
+ : @param $items - a list of items to filter by their record details
+ : @param $orgs - a list of organizations that to filter $items against.  A member of $items is kept if there is at least one member of $orgs to which it is associated to
+ : @return all items in $items which match as above
+ : @since 1.0
+ : 
+:)
+
+declare function csd:filter_by_parent($items as item()*,$parent as item()*) as item()*
+{
+  let $entryID:= $parent/@entryID
+  return 
+    if (not(exists($entryID)))
+    then $items
+    else $items[./parent[@entryID = $entryID]]
+};
 
 
 (:~
@@ -423,15 +442,21 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()* 
+
+declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()*
 {
-    if (count($orgs) = 0 )
-    then  ()
+    if (count($orgs) = 0 
+       or not ($orgs[1]/text())
+    ) 
+    then  $items
     else  
-    	$items[organizations/organization/@oid = $orgs[1]/@oid ]
-        union
-        csd:filter_by_organizations($items, fn:subsequence($orgs,2))
+           let $org := $orgs[1]/text()
+           return csd:filter_by_organizations(
+	     $items[organizations/organization[@entryID = $org]],
+	     fn:subsequence($orgs,2))
+  
 };
+
 
 (:~
  : this function accepts a list of items to filter against a list of facilities
@@ -442,15 +467,20 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()* 
+declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()*
 {
-    if (count($facs) = 0 )
-    then  ()
+    if (count($facs) = 0 
+       or not ($facs[1]/text())
+    ) 
+    then  $items
     else  
-    	$items[facilities/facility/@oid  = $facs[1]/@oid]
-        union
-        csd:filter_by_facilities($items, fn:subsequence($facs,2))
+           let $fac := $facs[1]/text()
+           return csd:filter_by_facilities(
+	     $items[facilities/facility[@entryID = $fac]],
+	     fn:subsequence($facs,2))
 };
+
+
 
 
 

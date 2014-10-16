@@ -100,26 +100,24 @@ declare function svs_lsvs:exists($db,$id) {
 
 
 declare updating function svs_lsvs:load($db,$id) {
-  if (not(svs_lsvs:exists($db,$id)))  then
-    let $doc_source := svs_lsvs:get_document_source($id)
-    return if (not($doc_source)) 
-      then  ()
-    else
-      let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
-      let $svs := parse-xml(file:read-text($doc_source))	 
-      for $value_set in $svs//svs:ValueSet
-      return svs_lsvs:insert($db,$value_set)
-  else 
-    ()
+  let $doc_source := svs_lsvs:get_document_source($id)
+  return if (not($doc_source)) 
+    then  ()
+  else
+    let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
+    let $svs := parse-xml(file:read-text($doc_source))	 
+    for $value_set in $svs//svs:ValueSet
+    return svs_lsvs:insert($db,$value_set)
 };
 
 declare updating function svs_lsvs:insert($db,$value_set) {
-  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
+  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
   let $id := $value_set/@id
   let $version := $value_set/@version
   let $existing :=  $vsets//svs:DescribedValueSet[@ID = $id and @version = $version]
   let $described_val_set := 
-    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" version="{$version}">
+    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" >
+      {if ($version) then $version else ()}
       {$value_set/*}
     </svs:DescribedValueSet>
   return 
@@ -165,26 +163,24 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
 
 
 declare function svs_lsvs:get_single_version_value_set($db,$id) {
-  svs_lsvs:get_single_version_value_set($db,$id,false())
+  svs_lsvs:get_single_version_value_set($db,$id,'')
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id,$version) {
-  svs_lsvs:get_single_version_value_set($db,$id,$version,false)
+  svs_lsvs:get_single_version_value_set($db,$id,$version,'')
 };
 
 declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) {
   let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
-  let $vers := if ($version) 
-     then $version  
-     else   functx:max-string ($vs0/@version)  (:NEEDS TO CHANGE:)
+  let $vers := if (functx:all-whitespace($version) )
+     then  functx:max-string ($vs0[@version != '']/@version)  (:NEEDS TO CHANGE:)
+     else  $version  
   let $vs1:= $vs0[@version = $vers]
 
   let $concept_lists := 
-    if ($lang ) 
-      then 
-      $vs1/svs:ConceptList[@xml:lang = $lang]
-    else
-      $vs1/svs:ConceptList
+    if (functx:all-whitespace($lang) ) 
+    then $vs1/svs:ConceptList
+    else $vs1/svs:ConceptList[@xml:lang = $lang]
       
   return
   <svs:RetrieveValueSetResponse version="{$vers}" id="{$id}">

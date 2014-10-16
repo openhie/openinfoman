@@ -40,13 +40,21 @@ declare variable $careServicesRequest as item() external;
 	then csd_bl:filter_by_record($provs4,$careServicesRequest/record)      
       else  $provs4
 
+      let $provs6 :=  if (exists($careServicesRequest/facilities/facility)) 
+	then csd_bl:filter_by_facilities($provs5,$careServicesRequest/facilities/facility)
+      else  $provs5
+
+      let $provs7 :=  if (exists($careServicesRequest/organizations/organization)) 
+	then csd_bl:filter_by_organizations($provs6,$careServicesRequest/organizations/organization)      
+      else  $provs6
+
       return if (exists($careServicesRequest/start)) then
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs5,$careServicesRequest/start,$careServicesRequest/max)         
-	else csd_bl:limit_items($provs5,$careServicesRequest/start,<max/>)         
+	  then csd_bl:limit_items($provs7,$careServicesRequest/start,$careServicesRequest/max)         
+	else csd_bl:limit_items($provs7,$careServicesRequest/start,<max/>)         
       else
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs5,<start/>,$careServicesRequest/max)         
+	  then csd_bl:limit_items($provs7,<start/>,$careServicesRequest/max)         
 	else $provs5
 
     }     
