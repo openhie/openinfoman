@@ -24,7 +24,7 @@
     <h2>Parameters</h2> Query
     Parameters are defined as the content of following elements:
     <ul>
-      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @urn attribute contains a non-empty value, it is a ID which uniquely identifies an organization. This is an exact match.  
+      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @entryID attribute contains a non-empty value, it is a ID which uniquely identifies an organization. This is an exact match.  
       </li>
       <li>&lt;primaryName/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those organizations whose &lt;primaryName/&gt; contains this value. Case insensitive.</li>
       <li>&lt;name/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those organizations which have a &lt;primaryName/&gt; or &lt;otherName/&gt; element containing this value. Case insensitive.</li>      
