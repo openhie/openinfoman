@@ -214,7 +214,9 @@ declare function csd:filter_by_name($items as item()*,$name as item()) as item()
 declare function csd:filter_by_primary_id($items as item()*,$id as item()) as item()* 
 {
        if ($id/@entityID) 
-       then $items[@entityID =$id/@entityID]
+       then 
+         let $entityID := upper-case($id/@entityID)
+         return $items[upper-case(@entityID) =$entityID]
        else $items
 };
 
@@ -425,11 +427,11 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
 
 declare function csd:filter_by_parent($items as item()*,$parent as item()*) as item()*
 {
-  let $entityID:= $parent/@entityID
+  let $entityID:= upper-case($parent/@entityID)
   return 
     if (not(exists($entityID)))
     then $items
-    else $items[./parent[@entityID = $entityID]]
+    else $items[./parent[upper-case(@entityID) = $entityID]]
 };
 
 
@@ -450,9 +452,9 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
     ) 
     then  $items
     else  
-           let $org := $orgs[1]/text()
+           let $org := upper-case($orgs[1]/text())
            return csd:filter_by_organizations(
-	     $items[organizations/organization[@entityID = $org]],
+	     $items[organizations/organization[upper-case(@entityID) = $org]],
 	     fn:subsequence($orgs,2))
   
 };
@@ -474,9 +476,9 @@ declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as
     ) 
     then  $items
     else  
-           let $fac := $facs[1]/text()
+           let $fac := upper-case($facs[1]/text())
            return csd:filter_by_facilities(
-	     $items[facilities/facility[@entityID = $fac]],
+	     $items[facilities/facility[upper-case(@entityID) = $fac]],
 	     fn:subsequence($facs,2))
 };
 
