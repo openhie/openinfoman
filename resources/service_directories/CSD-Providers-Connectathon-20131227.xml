@@ -4,7 +4,7 @@
 	<serviceDirectory/>
 	<facilityDirectory/>
 	<providerDirectory>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1111">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1111">
 			<codedType code="105-007" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Medical Oncology</codedType>
 			<demographic>
 				<name>
@@ -31,8 +31,8 @@
 			<language code="en" codingScheme="BCP 47">English</language>
 			<language code="bn" codingScheme="BCP 47">Bengali</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -43,7 +43,7 @@
 			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1112">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1112">
 			<codedType code="105-113" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Mammographer</codedType>
 			<demographic>
 				<name>
@@ -69,7 +69,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -80,7 +80,7 @@
 			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1113">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1113">
 			<codedType code="105-114" codingScheme="1.3.6.1.4.1.21367.100.1">Radiology Technician</codedType>
 			<demographic>
 				<name>
@@ -105,7 +105,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
 			</organizations>
 			<credential>
 				<codedType code="108-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -116,7 +116,7 @@
 			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1114">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1114">
 			<codedType code="105-114" codingScheme="1.3.6.1.4.1.21367.100.1">Radiology Technician</codedType>
 			<demographic>
 				<name>
@@ -141,7 +141,7 @@
 			</demographic>
 			<language code="es" codingScheme="BCP 47">Spanish</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -152,7 +152,7 @@
 			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1115">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1115">
 			<codedType code="105-007" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Medical Oncology</codedType>
 			<demographic>
 				<name>
@@ -177,7 +177,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -189,7 +189,7 @@
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>		
 		
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1116">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1116">
 			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
 			<demographic>
 				<name>
@@ -214,7 +214,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -225,7 +225,7 @@
 			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>		
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1117">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1117">
 			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
 			<demographic>
 				<name>
@@ -250,7 +250,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -261,7 +261,7 @@
 			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1118">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1118">
 			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
 			<demographic>
 				<name>
@@ -286,7 +286,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
@@ -297,7 +297,7 @@
 			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
 			<record created="2013-12-01T14:00:00+00:00" updated="2013-12-01T14:00:00+00:00" status="106-001" sourceDirectory="http://www.ihe.net"/>
 		</provider>
-		<provider entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1119">
+		<provider entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1119">
 			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
 			<demographic>
 				<name>
@@ -322,7 +322,7 @@
 			</demographic>
 			<language code="en" codingScheme="BCP 47">English</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.3"/>
 			</organizations>
 			<credential>
 				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>

@@ -153,7 +153,7 @@ declare updating function csd_lsc:refresh_doc($cache_doc,$updates)
 declare updating function csd_lsc:update_directory($oldDir,$newDir) 
 {
   for $new in  $newDir/*
-  let $old := $oldDir/*[@entryID = $new/@entryID]
+  let $old := $oldDir/*[@entityID = $new/@entityID]
   return if ($old) then
     replace node $old with $new
   else

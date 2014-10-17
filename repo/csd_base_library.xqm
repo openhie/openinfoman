@@ -206,15 +206,15 @@ declare function csd:filter_by_name($items as item()*,$name as item()) as item()
  : this function accepts a list of items to filter by their primary id
  :
  : @param $items - a list of items to filter by their primary id
- : @param $id - a uniqueID, if present with an non-empty @urn attribute then it is used to filter the $items list by their @entryID attributes by performing an exact match of the @entryID $id.
+ : @param $id - a uniqueID, if present with an non-empty @urn attribute then it is used to filter the $items list by their @entityID attributes by performing an exact match of the @entityID $id.
  : @return all items in $items which match as above
  : @since 1.0
  : 
 :)
 declare function csd:filter_by_primary_id($items as item()*,$id as item()) as item()* 
 {
-       if ($id/@entryID) 
-       then $items[@entryID =$id/@entryID]
+       if ($id/@entityID) 
+       then $items[@entityID =$id/@entityID]
        else $items
 };
 
@@ -425,11 +425,11 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
 
 declare function csd:filter_by_parent($items as item()*,$parent as item()*) as item()*
 {
-  let $entryID:= $parent/@entryID
+  let $entityID:= $parent/@entityID
   return 
-    if (not(exists($entryID)))
+    if (not(exists($entityID)))
     then $items
-    else $items[./parent[@entryID = $entryID]]
+    else $items[./parent[@entityID = $entityID]]
 };
 
 
@@ -452,7 +452,7 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
     else  
            let $org := $orgs[1]/text()
            return csd:filter_by_organizations(
-	     $items[organizations/organization[@entryID = $org]],
+	     $items[organizations/organization[@entityID = $org]],
 	     fn:subsequence($orgs,2))
   
 };
@@ -476,7 +476,7 @@ declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as
     else  
            let $fac := $facs[1]/text()
            return csd:filter_by_facilities(
-	     $items[facilities/facility[@entryID = $fac]],
+	     $items[facilities/facility[@entityID = $fac]],
 	     fn:subsequence($facs,2))
 };
 

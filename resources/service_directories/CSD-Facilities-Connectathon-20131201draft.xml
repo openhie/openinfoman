@@ -3,7 +3,7 @@
 	<organizationDirectory/>
 	<serviceDirectory/>
 	<facilityDirectory>
-		<facility entryID="urn:oid:1.3.6.1.4.1.21367.200.99.11">
+		<facility entityID="urn:oid:1.3.6.1.4.1.21367.200.99.11">
 			<codedType code="103-110" codingScheme="1.3.6.1.4.1.21367.100.1">Radiology - Imaging Services</codedType>
 			<primaryName>Connectathon Radiology Facility</primaryName>
 			<address type="Billing">
@@ -56,8 +56,8 @@
 			<language code="en" codingScheme="BCP 47">English</language>
 			<language code="es" codingScheme="BCP 47">Spanish</language>
 			<organizations>
-				<organization entryID="urn:oid:1.3.6.1.4.1.21367.200.99.1">
-					<service entryID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.102">
+				<organization entityID="urn:oid:1.3.6.1.4.1.21367.200.99.1">
+					<service entityID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.102">
 						<name>
 							<commonName language="en">Connectathon Radiation Therapy</commonName>
 						</name>
@@ -84,7 +84,7 @@
 							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
 						</operatingHours>
 					</service>
-					<service entryID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
+					<service entityID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
 						<name>
 							<commonName language="en">Connectathon Women's Imaging Service</commonName>
 						</name>
@@ -111,7 +111,7 @@
 							<beginEffectiveDate>2013-12-01</beginEffectiveDate>
 						</operatingHours>
 					</service>
-					<service entryID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
+					<service entityID="urn:oid:1.3.6.1.4.1.21367.200.99.111.101.113">
 						<name>
 							<commonName language="es">Connectathon Servicio de Radiologica de la Mujer</commonName>
 						</name>
