@@ -10,7 +10,7 @@
 
 
   <xs:complexType name="uniqueID">
-    <xs:attribute name="entryID" type="xs:string" use="required">
+    <xs:attribute name="entityID" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>Should be a valid UUID represented as an URN.  
 Example: "urn:uuid:53347B2E-185E-4BC3-BCDA-7FAB5D521FE7"</xs:documentation>
