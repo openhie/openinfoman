@@ -14,4 +14,5 @@
     <adhoc/>
   </xforms:instance>
   <xforms:bind nodeset="adhoc" type="xs:string"/>
+  <csd:extension type='merge' urn='urn:openhie.org:openinfoman:adapter'/>
 </csd:careServicesFunction>
