@@ -61,6 +61,7 @@ declare
     else 
       <div>
 	<h2>{$type} Documents</h2>
+	<h3>{string($function/@urn)}</h3>
         <ul>
           {
   	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
