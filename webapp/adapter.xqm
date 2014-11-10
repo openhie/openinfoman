@@ -98,9 +98,7 @@ declare
   	    <li>
 	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
 	      <p>
-	      Adapter Document Index (
-	      <a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$urn}">{$urn}</a>
-			       )
+		<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$urn}">Document Index</a> for {$urn}
 	      </p>
 	      <p>{$desc}</p>
 	    </li>
