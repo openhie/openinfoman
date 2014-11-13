@@ -40,14 +40,22 @@ declare function csd_bsq:provider_search($requestParams, $doc) as element()
 	then csd_bl:filter_by_record($provs4,$requestParams/record)      
       else  $provs4
 
+      let $provs6 :=  if (exists($requestParams/facilities/facility)) 
+	then csd_bl:filter_by_facilities($provs5,$requestParams/facilities/facility)      
+      else  $provs5
+
+      let $provs7 :=  if (exists($requestParams/organizations/organization)) 
+	then csd_bl:filter_by_organizations($provs6,$requestParams/organizations/organization)      
+      else  $provs6
+
       return if (exists($requestParams/start)) then
 	if (exists($requestParams/max)) 
-	  then csd_bl:limit_items($provs5,$requestParams/start,$requestParams/max)         
-	else csd_bl:limit_items($provs5,$requestParams/start,<max/>)         
+	  then csd_bl:limit_items($provs7,$requestParams/start,$requestParams/max)         
+	else csd_bl:limit_items($provs7,$requestParams/start,<max/>)         
       else
 	if (exists($requestParams/max)) 
-	  then csd_bl:limit_items($provs5,<start/>,$requestParams/max)         
-	else $provs5
+	  then csd_bl:limit_items($provs7,<start/>,$requestParams/max)         
+	else $provs7
 )
 
 };
