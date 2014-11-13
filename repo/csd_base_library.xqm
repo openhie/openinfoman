@@ -448,11 +448,11 @@ declare function csd:filter_by_parent($items as item()*,$parent as item()*) as i
 declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()*
 {
     if (count($orgs) = 0 
-       or not ($orgs[1]/text())
+       or not ($orgs[1]/@entityID)
     ) 
     then  $items
     else  
-           let $org := upper-case($orgs[1]/text())
+           let $org := upper-case($orgs[1]/@entityID)
            return csd:filter_by_organizations(
 	     $items[organizations/organization[upper-case(@entityID) = $org]],
 	     fn:subsequence($orgs,2))
@@ -472,11 +472,11 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
 declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()*
 {
     if (count($facs) = 0 
-       or not ($facs[1]/text())
+       or not ($facs[1]/@entityID)
     ) 
     then  $items
     else  
-           let $fac := upper-case($facs[1]/text())
+           let $fac := upper-case($facs[1]/@entityID)
            return csd:filter_by_facilities(
 	     $items[facilities/facility[upper-case(@entityID) = $fac]],
 	     fn:subsequence($facs,2))
