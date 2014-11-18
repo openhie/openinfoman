@@ -149,7 +149,7 @@ declare function page:wrapper($csd,$svs,$adapters) {
 declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
   let $generic := 
   <span>
-    <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
+    <p><b>OpenInfoMan</b> has been developed as part of <a href="http://ohie.net">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Health+Worker+Registry+Community">Health Worker Registry</a> and to be incorporated in <a href="http://openhim">OpenHIM</a>.  
     
     Source code is on <a href="https://github.com/openhie/openinfoman">github</a>
     </p>
