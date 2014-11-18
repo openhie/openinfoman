@@ -7,7 +7,7 @@ OpenInfoMan is XQuery and RESTXQ based implementation of the Care Services Direc
                    Query for Updated Services Transaction [ITI-74]
     Services Directory : Query for Updated Services Transaction [ITI-74]
 
-OpenInfoMan has been developed as part of <a href="http://ohie.org">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Provider Registry</a> and to be incorporated in <a href="http://openhim.org/">OpenHIM</a>.
+OpenInfoMan has been developed as part of <a href="http://ohie.org">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Provider+Registry+Community">Health Worker Registry</a> and to be incorporated in <a href="http://openhim.org/">OpenHIM</a>.
 
 
 Installation
