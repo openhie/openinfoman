@@ -90,7 +90,7 @@ declare updating
 	    {
               for $name in $merge
 	      where not ($name = $doc_name)
-	      return  <document resource='{$name}'/>
+	      return  <document resource="{$name}"/>
 	    }
 	  </documents>
         </csd:requestParams >
@@ -99,7 +99,8 @@ declare updating
 
     return
       (
-	csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$careServicesRequest),
+	csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$careServicesRequest)
+	,
 	db:output(page:redirect(concat($csd_webconf:baseurl,$action))) 
       )
 };
