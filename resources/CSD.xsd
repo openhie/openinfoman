@@ -325,7 +325,7 @@ Example: "urn:uuid:53347B2E-185E-4BC3-BCDA-7FAB5D521FE7"</xs:documentation>
       <xs:element name="issuingAuthority" type="xs:string" minOccurs="0"/>
       <xs:element name="credentialIssueDate" type="xs:date" minOccurs="0"/>
       <xs:element name="credentialRenewalDate" type="xs:date" minOccurs="0"/>
-      <xs:element name="extension" type="extension"/>
+      <xs:element name="extension" type="extension" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
