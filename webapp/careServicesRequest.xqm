@@ -12,7 +12,6 @@ declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
 
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
   %rest:POST("{$careServicesRequest}")
   function page:csr($name,$careServicesRequest) 
 { 
@@ -44,13 +43,31 @@ return
 
 };
 
-
 declare updating
   %rest:path("/CSD/csr/{$name}/careServicesRequest/update")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
   %rest:POST("{$careServicesRequest}")
   function page:csr_updating($name,$careServicesRequest) 
 { 
+  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
+  else
+    (:need appropriate error handling:)
+    ()
+};
+
+
+declare updating
+  %rest:path("/CSD/csr/{$name}/careServicesRequest/update/{$search}")
+  %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
+  %rest:POST("{$requestParams}")
+  function page:csr_updating($name,$requestParams,$search) 
+{ 
+let $careServicesRequest :=
+  <csd:careServicesRequest>
+    <csd:function urn="{$search}"><requestParams>{$requestParams}</requestParams></csd:function>
+  </csd:careServicesRequest>
+return
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
  csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
 else

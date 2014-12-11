@@ -350,31 +350,18 @@ declare updating function csr_proc:process_updating_CSR_stored_results($db,$doc,
 {
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
 
-let $function :=$careServicesRequest//csd:function
-let $urn := $function/@urn
-let $doc_name := string($function/@resource)
-let $base_url := string($function/@base_url)
-
-let $requestParams := 
- <csd:requestParams resource='{$doc_name}' function='{$urn}' base_url='{$base_url}'>
-   {
-     if ($function/csd:requestParams) then $function/csd:requestParams/*
-   else $function/requestParams/*
-   }
- </csd:requestParams>
-
-
-let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$careServicesRequest}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
-let $options := csr_proc:lookup_stored_options($db,$function/@urn)
-let $definition := $stored_updating_functions[@urn = $urn][1]/csd:definition/text()
+let $function := $careServicesRequest/@function
+let $options := csr_proc:lookup_stored_options($db,$function)
+let $definition := $stored_updating_functions[@urn = $function][1]/csd:definition/text()
 
 return if (exists($definition)) then
-  xquery:update($definition,$all_bindings,$options)
+  xquery:update($definition,$all_bindings,$options) 
 else 
     db:output(
     <rest:response>
-      <http:response status="404" message="No registered updating function with URN='{$function/@urn}">
+      <http:response status="404" message="No registered updating function with URN='{$function}">
 	<http:header name="Content-Language" value="en"/>
 	<http:header name="Content-Type" value="text/html; charset=utf-8"/>
       </http:response>
@@ -392,7 +379,7 @@ let $doc := csd_dm:open_document($db,$doc_name)
 let $function :=$careServicesRequest//csd:function
 let $urn := $function/@urn
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@urn)
-let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$urn}' base_url='{$base_url}'>
+let $requestParams := <csd:requestParams resource="{$doc_name}" function="{$urn}" base_url="{$base_url}">
   {
     if ($function/csd:requestParams) then $function/csd:requestParams/*
     else $function/requestParams/*
