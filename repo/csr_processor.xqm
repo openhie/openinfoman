@@ -164,7 +164,7 @@ let $doc :=  csd_dm:open_document($db,$doc_name)
 
 let $expr :=string($expression)
 return if ($expr) then
-  let $result := xquery:eval($expr,map{"":=$doc},$bindings)
+  let $result := xquery:eval($expr,map{"":$doc},$bindings)
   return(  
    <rest:response>
    <http:response status="200" >
@@ -255,7 +255,7 @@ let $requestParams :=
  </csd:requestParams>
 
 
-let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $csr_bindings :=  map{'':$doc,'careServicesRequest':$requestParams}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
 
 return if (exists($definition)) then
@@ -326,7 +326,7 @@ let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$urn}
   }
 </csd:requestParams>
 
-let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$requestParams}
+let $csr_bindings :=  map{'':$doc,'careServicesRequest':$requestParams}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
 
 let $options := csr_proc:lookup_stored_options($db,$function/@urn)
@@ -350,7 +350,7 @@ declare updating function csr_proc:process_updating_CSR_stored_results($db,$doc,
 {
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
 
-let $csr_bindings :=  map{'':=$doc,'careServicesRequest':=$careServicesRequest}
+let $csr_bindings :=  map{'':$doc,'careServicesRequest':$careServicesRequest}
 let $all_bindings :=  map:new(($csr_bindings, $bindings))
 let $function := $careServicesRequest/@function
 let $options := csr_proc:lookup_stored_options($db,$function)
