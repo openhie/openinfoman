@@ -176,7 +176,7 @@ declare function page:display_function($function,$updating) {
     Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
     Content: {string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn)) } <br/>
     Description: <blockquote>{$function/description}</blockquote>
-    Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':='yes'})} </pre></blockquote>
+    Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':'yes'})} </pre></blockquote>
     {if (exists($function/@method)) then  ("Method: ",string($function/@method),<br/>) else () }
     {if (exists($function/xs:schema)) then  ("Schema: ",string($function/xs:schema),<br/>) else () }
     {if (count( $function/xforms:bind) > 0) then
