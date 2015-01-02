@@ -117,7 +117,7 @@ declare updating function csr_proc:load_stored_function($db,$func) {
 
 declare function csr_proc:process_CSR($db,$careServicesRequest, $doc_name,$base_url) 
 {
-csr_proc:process_CSR($db,$careServicesRequest, $doc_name, $base_url,map:new(())) 
+csr_proc:process_CSR($db,$careServicesRequest, $doc_name, $base_url,map:merge(())) 
 };
 
 declare function csr_proc:process_CSR($db,$careServicesRequest, $doc_name,$base_url,$bindings as map(*)) 
@@ -154,7 +154,7 @@ else
 
 
 declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name) {
-   csr_proc:process_CSR_adhoc($expression,$doc_name,map:new(()))
+   csr_proc:process_CSR_adhoc($expression,$doc_name,map:merge(()))
 };
 
 declare function csr_proc:process_CSR_adhoc($db,$expression,$doc_name,$bindings as map(*)) 
@@ -183,7 +183,7 @@ else
 
 declare function csr_proc:process_CSR_stored($db,$careServicesRequest) 
 {
-  csr_proc:process_CSR_stored($db,$careServicesRequest,map:new()) 
+  csr_proc:process_CSR_stored($db,$careServicesRequest,map:merge(())) 
 };
 
 declare function csr_proc:process_CSR_stored($db,$careServicesRequest,$bindings as map(*)) 
@@ -231,7 +231,7 @@ declare function csr_proc:wrap_result($result,$content-type) {
 
 declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest) 
 {
-  csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,map:new()) 
+  csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,map:merge(())) 
 };
 
 declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,$bindings as map(*)) 
@@ -256,7 +256,7 @@ let $requestParams :=
 
 
 let $csr_bindings :=  map{'':$doc,'careServicesRequest':$requestParams}
-let $all_bindings :=  map:new(($csr_bindings, $bindings))
+let $all_bindings :=  map:merge(($csr_bindings, $bindings))
 
 return if (exists($definition)) then
   xquery:eval($definition,$all_bindings,$options)
@@ -300,13 +300,13 @@ declare function csr_proc:get_any_function_definition($db,$urn) {
 
 declare updating function csr_proc:process_updating_CSR($db,$function,$doc_name,$base_url) 
 {
-  csr_proc:process_updating_CSR($db,$function,$doc_name,$base_url,map:new(())) 
+  csr_proc:process_updating_CSR($db,$function,$doc_name,$base_url,map:merge(())) 
 };
 
 
 declare updating function csr_proc:process_updating_CSR_results($db,$function) 
 {
-  csr_proc:process_updating_CSR_results($db,$function,map:new(())) 
+  csr_proc:process_updating_CSR_results($db,$function,map:merge(())) 
 };
 
 
@@ -327,7 +327,7 @@ let $requestParams := <csd:requestParams resource='{$doc_name}' function='{$urn}
 </csd:requestParams>
 
 let $csr_bindings :=  map{'':$doc,'careServicesRequest':$requestParams}
-let $all_bindings :=  map:new(($csr_bindings, $bindings))
+let $all_bindings :=  map:merge(($csr_bindings, $bindings))
 
 let $options := csr_proc:lookup_stored_options($db,$function/@urn)
 
@@ -343,7 +343,7 @@ else  ()
 
 declare updating function csr_proc:process_updating_CSR_stored_results($db,$doc,$careServicesRequest) 
 {
-  csr_proc:process_updating_CSR_stored_results($db,$doc,$careServicesRequest,map:new()) 
+  csr_proc:process_updating_CSR_stored_results($db,$doc,$careServicesRequest,map:merge(())) 
 };
 
 declare updating function csr_proc:process_updating_CSR_stored_results($db,$doc,$careServicesRequest,$bindings as map(*)) 
@@ -351,7 +351,7 @@ declare updating function csr_proc:process_updating_CSR_stored_results($db,$doc,
 let $stored_updating_functions := csr_proc:stored_updating_functions($db)
 
 let $csr_bindings :=  map{'':$doc,'careServicesRequest':$careServicesRequest}
-let $all_bindings :=  map:new(($csr_bindings, $bindings))
+let $all_bindings :=  map:merge(($csr_bindings, $bindings))
 let $function := $careServicesRequest/@function
 let $options := csr_proc:lookup_stored_options($db,$function)
 let $definition := $stored_updating_functions[@urn = $function][1]/csd:definition/text()
