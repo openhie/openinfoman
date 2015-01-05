@@ -74,7 +74,7 @@ declare
 
 declare updating
   %rest:path("/CSD/csr/{$doc_name}/careServicesRequest/{$search_name}/adapter/merge")
-  %output:method("xhtml")
+(:  %output:method("xhtml") :)
   %rest:query-param("merge", "{$merge}")
   %rest:POST
   function page:perform_merge($search_name,$doc_name,$merge) 
@@ -82,26 +82,22 @@ declare updating
   let $doc :=  csd_dm:open_document($csd_webconf:db,$doc_name)
   let $function := csr_proc:get_function_definition($csd_webconf:db,$search_name)
   let $action := concat("/CSD/csr/",$doc_name,"/careServicesRequest/",$search_name, "/adapter/merge")
-  let $careServicesRequest := 
-    <csd:careServicesRequest>
-      <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
-        <csd:requestParams >
-	  <documents > 
-	    {
-              for $name in $merge
-	      where not ($name = $doc_name)
-	      return  <document resource="{$name}"/>
-	    }
-	  </documents>
-        </csd:requestParams >
-      </csd:function>
-    </csd:careServicesRequest>
+  let $requestParams :=
+    <csd:requestParams function="{$search_name}" resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <documents > 
+	{
+          for $name in $merge
+	  where not ($name = $doc_name)
+	  return  <document resource="{$name}"/>
+	}
+      </documents>
+    </csd:requestParams >
 
     return
       (
-	csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$careServicesRequest)
+	csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
 	,
-	db:output(page:redirect(concat($csd_webconf:baseurl,$action))) 
+	() (: db:output(page:redirect(concat($csd_webconf:baseurl,$action)))  :)
       )
 };
 
