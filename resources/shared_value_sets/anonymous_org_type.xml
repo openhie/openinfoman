@@ -1,0 +1,10 @@
+<svs:RetrieveValueSetResponse xmlns:svs="urn:ihe:iti:svs:2008" version="2015.1.5" id="2.25.268234768686152474523705575269868869248.1">
+  <svs:ValueSet id="2.25.268234768686152474523705575269868869248.1" displayName="DHIS2 Organization Unit Levels" version="2015.1.5">
+    <svs:ConceptList xml:lang="en-US">
+      <svs:Concept code="1" displayName="Country" codeSystem="2.25.268234768686152474523705575269868869248.1"/>
+      <svs:Concept code="2" displayName="County" codeSystem="2.25.268234768686152474523705575269868869248.1"/>
+      <svs:Concept code="3" displayName="District" codeSystem="2.25.268234768686152474523705575269868869248.1"/>
+      <svs:Concept code="4" displayName="Facility" codeSystem="2.25.268234768686152474523705575269868869248.1"/>
+    </svs:ConceptList>
+  </svs:ValueSet>
+</svs:RetrieveValueSetResponse>

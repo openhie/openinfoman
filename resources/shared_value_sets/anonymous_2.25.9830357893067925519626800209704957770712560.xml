@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svs:ValueSet xmlns:svs="urn:ihe:iti:svs:2008" id="2.25.9830357893067925519626800209704957770712560" displayName="Classification" version="1"><svs:ConceptList xml:lang="en-US"><svs:Concept displayName="OIC" code="" codeSystem="2.25.9830357893067925519626800209704957770712560"/></svs:ConceptList></svs:ValueSet>

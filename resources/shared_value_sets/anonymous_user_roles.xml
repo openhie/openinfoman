@@ -1,0 +1,14 @@
+<svs:RetrieveValueSetResponse xmlns:svs="urn:ihe:iti:svs:2008" version="2015.1.5" id="2.25.268234768686152474523705575269868869248.2">
+  <svs:ValueSet id="2.25.268234768686152474523705575269868869248.2" displayName="DHIS2 User Role List" version="2015.1.5">
+    <svs:ConceptList xml:lang="en-US">
+      <svs:Concept code="cD4xjCDY2IR" displayName="National administrator" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="m4L8bOLoY2j" displayName="User" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="FYgG4B4s6DA" displayName="County Offline User" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="xvvgOYzgRpM" displayName="County Online Administrator" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="G31ZOP2VSWo" displayName="PRIVATE SECTOR ACT &amp; RDT Role" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="UHc4m1jjOGr" displayName="Superuser" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="klAj78967SP" displayName="Report administrator" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+      <svs:Concept code="vqUJfadMJ4e" displayName="County Online User" codeSystem="2.25.268234768686152474523705575269868869248.2"/>
+    </svs:ConceptList>
+  </svs:ValueSet>
+</svs:RetrieveValueSetResponse>
