@@ -7,7 +7,7 @@
 module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm" ;
-import module namespace file = "http://expath.org/ns/file";
+
 
 declare variable $csd_lsd:base_path := concat(file:current-dir() ,"../resources/service_directories/");
 

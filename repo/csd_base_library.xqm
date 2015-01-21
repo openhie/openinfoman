@@ -9,7 +9,7 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
 
-import module namespace random = "http://basex.org/modules/random";
+
 
 
 (:Utility methods:)

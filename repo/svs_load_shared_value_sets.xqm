@@ -5,7 +5,7 @@
 :
 :)
 module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
-import module namespace file = "http://expath.org/ns/file";
+
 import module namespace functx = "http://www.functx.com";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 

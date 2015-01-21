@@ -6,7 +6,7 @@
 :)
 module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 
-import module namespace file = "http://expath.org/ns/file";
+
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_mcs = "https://github.com/openhie/openinfoman/csd_mcs";
 
