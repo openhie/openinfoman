@@ -6,8 +6,7 @@ declare   namespace   xforms = "http://www.w3.org/2002/xforms";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
-import module namespace random = "http://basex.org/modules/random";
-import module namespace bin = "http://expath.org/ns/binary";
+
 declare variable $page:xsl := "../resources/doc_careServiceFunctions.xsl";
 
 declare
