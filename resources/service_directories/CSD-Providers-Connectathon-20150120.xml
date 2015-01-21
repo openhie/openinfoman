@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+	<organizationDirectory/>
+	<serviceDirectory/>
+	<facilityDirectory/>
+	<providerDirectory>
+		<provider entityID="urn:uuid:a97b9397-ce4e-4a57-b12a-0d46ce6f36b7">
+			<codedType code="105-007" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Medical Oncology</codedType>
+			<demographic>
+				<name>
+					<commonName>Banargee, Dev</commonName>
+					<honorific>Dr.</honorific>
+					<forename>Dev</forename>
+					<surname>Banerjee</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-1111</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-1111</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">8909 Sunset Way</addressLine>
+					<addressLine component="city">Santa Fe</addressLine>
+					<addressLine component="stateProvince">NM</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">87505</addressLine>
+				</address>
+				<gender>M</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<language code="bn" codingScheme="BCP 47">Bengali</language>
+			<organizations>
+				<organization entityID="urn:uuid:08c3286e-2163-462c-b77f-1f431d7351ab"/>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:9a879858-8e96-486b-a2be-05a580f0e6ee">
+			<codedType code="105-113" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Mammographer</codedType>
+			<demographic>
+				<name>
+					<commonName>McDonald, Mary</commonName>
+					<honorific>Dr.</honorific>
+					<forename>Mary</forename>
+					<surname>McDonald</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-1111</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-1111</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">8909 Sunset Way</addressLine>
+					<addressLine component="city">Santa Fe</addressLine>
+					<addressLine component="stateProvince">NM</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">87505</addressLine>
+				</address>
+				<gender>F</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:08c3286e-2163-462c-b77f-1f431d7351ab"/>
+			</organizations>
+			<facilities>
+				<facility entityID="urn:uuid:e9964293-e169-4298-b4d0-ab07bf0cd78f">
+					<service entityID="urn:uuid:def4c912-46ae-4e23-a78c-80ea597a82ee">
+						<operatingHours> 
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>1</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2015-01-01</beginEffectiveDate>
+						</operatingHours>
+						<operatingHours>
+							<openFlag>1</openFlag>
+							<dayOfTheWeek>5</dayOfTheWeek>
+							<beginningHour>13:00:00</beginningHour>
+							<endingHour>17:00:00</endingHour>
+							<beginEffectiveDate>2015-01-01</beginEffectiveDate>
+						</operatingHours>
+						<freeBusyURI>http://tbd/free/busy/providers</freeBusyURI>
+					</service>
+				</facility>
+			</facilities>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:4384c07a-86e2-40da-939b-5f7a04a73715">
+			<codedType code="105-114" codingScheme="1.3.6.1.4.1.21367.100.1">Radiology Technician</codedType>
+			<demographic>
+				<name>
+					<commonName>Johnson, Jack</commonName>
+					<forename>Jack</forename>
+					<surname>Johnson</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-2223</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-2223</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">8909 Sunset Way</addressLine>
+					<addressLine component="city">Santa Fe</addressLine>
+					<addressLine component="stateProvince">NM</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">87505</addressLine>
+				</address>
+				<gender>M</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:08c3286e-2163-462c-b77f-1f431d7351ab"/>
+			</organizations>
+			<credential>
+				<codedType code="108-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Certificate@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:d973d698-5b43-4340-acc9-de48d0acb376">
+			<codedType code="105-114" codingScheme="1.3.6.1.4.1.21367.100.1">Radiology Technician</codedType>
+			<demographic>
+				<name>
+					<commonName>Carrara, Carla</commonName>
+					<forename>Carla</forename>
+					<surname>Carrara</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-1114</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-1114</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">8909 Sunset Way</addressLine>
+					<addressLine component="city">Santa Fe</addressLine>
+					<addressLine component="stateProvince">NM</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">87505</addressLine>
+				</address>
+				<gender>F</gender>
+			</demographic>
+			<language code="es" codingScheme="BCP 47">Spanish</language>
+			<organizations>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Certificate@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:b6553152-7a90-4940-8d6a-b1017310a159">
+			<codedType code="105-007" codingScheme="1.3.6.1.4.1.21367.100.1">Physician/Medical Oncology</codedType>
+			<demographic>
+				<name>
+					<commonName>Robertson, Robert</commonName>
+					<forename>Robert</forename>
+					<surname>Robertson</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-4445</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-4445</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">2887 Commerce Blvd</addressLine>
+					<addressLine component="city">Orlando</addressLine>
+					<addressLine component="stateProvince">FL</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">32789</addressLine>
+				</address>
+				<gender>M</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>		
+		
+		<provider entityID="urn:uuid:51f3fdbe-ed30-4d55-b7f8-50955c86b2cf">
+			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
+			<demographic>
+				<name>
+					<commonName>Williamson, William</commonName>
+					<forename>William</forename>
+					<surname>Williamson</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-4445</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-4445</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">2887 Commerce Blvd</addressLine>
+					<addressLine component="city">Orlando</addressLine>
+					<addressLine component="stateProvince">FL</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">32789</addressLine>
+				</address>
+				<gender>M</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>		
+		<provider entityID="urn:uuid:c54d631b-d1be-4754-89e4-732ed73c4b50">
+			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
+			<demographic>
+				<name>
+					<commonName>Fredricks, Theodora</commonName>
+					<forename>Theodora</forename>
+					<surname>Fredricks</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-4945</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-4945</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">2887 Commerce Blvd</addressLine>
+					<addressLine component="city">Orlando</addressLine>
+					<addressLine component="stateProvince">FL</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">32789</addressLine>
+				</address>
+				<gender>F</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:c0999c57-80fb-47d9-8324-54ff7fe4e692">
+			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
+			<demographic>
+				<name>
+					<commonName>Grant, Glena</commonName>
+					<forename>Glenda</forename>
+					<surname>Grant</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-4945</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-4945</codedType>
+				</contactPoint>
+<address type="Mailing">
+					<addressLine component="streetAddress">8909 Sunset Way</addressLine>
+					<addressLine component="city">Santa Fe</addressLine>
+					<addressLine component="stateProvince">NM</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">87505</addressLine>
+				</address>
+				<gender>F</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:08c3286e-2163-462c-b77f-1f431d7351ab"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+		<provider entityID="urn:uuid:0e3ba7dd-bfe3-4eb9-a510-4676f245ef46">
+			<codedType code="105-003" codingScheme="1.3.6.1.4.1.21367.100.1">Nurse Practitioner</codedType>
+			<demographic>
+				<name>
+					<commonName>Rogers, Rhonda</commonName>
+					<forename>Rhonda</forename>
+					<surname>Rogers</surname>
+				</name>
+				<contactPoint>
+					<codedType code="BP" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-777-4945</codedType>
+				</contactPoint>
+				<contactPoint>
+					<codedType code="FAX" codingScheme="urn:ihe:iti:csd:2013:contactPoint">555-888-4945</codedType>
+				</contactPoint>
+				<address type="Mailing">
+					<addressLine component="streetAddress">2887 Commerce Blvd</addressLine>
+					<addressLine component="city">Orlando</addressLine>
+					<addressLine component="stateProvince">FL</addressLine>
+					<addressLine component="country">USA</addressLine>
+					<addressLine component="postalCode">32789</addressLine>
+				</address>
+				<gender>F</gender>
+			</demographic>
+			<language code="en" codingScheme="BCP 47">English</language>
+			<organizations>
+				<organization entityID="urn:uuid:8cd347e8-8a2c-4900-98d2-a79dcd953995"/>
+			</organizations>
+			<credential>
+				<codedType code="108-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+				<number>A_Degree@Connectathon_domain_name</number>
+				<issuingAuthority>Connectathon_Manager</issuingAuthority>
+				<credentialIssueDate>2014-12-01</credentialIssueDate>
+			</credential>
+			<specialty code="109-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</provider>
+	</providerDirectory>
+</CSD>

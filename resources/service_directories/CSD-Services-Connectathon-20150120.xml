@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+	<organizationDirectory/>
+	<serviceDirectory>
+		<service entityID="urn:uuid:8f246dd6-b301-4fbb-b43b-f2f40b3e61d0">
+			<codedType code="101-001" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:3c43ed80-b323-4f31-b450-57ce5923fc85">
+			<codedType code="101-002" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:f412889b-0364-4ebe-91b8-f26481a9a8f1">
+			<codedType code="101-003" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:9f45a9bd-f360-4f5a-9f39-a04f19720424">
+			<codedType code="101-004" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:e1c7931b-e733-440b-9ae0-7fe5fc7342a5">
+			<codedType code="101-005" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:8b1de1ad-131b-4e63-916a-a05adcd0de52">
+			<codedType code="101-006" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:72ae70cb-118c-4873-b196-ca871caf3b44">
+			<codedType code="101-007" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:4e03f79b-8bf5-46cf-bc16-9ab57f357872">
+			<codedType code="101-008" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Inactive" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:e8050261-bf0d-4d0d-8b4e-83f5c05561b2">
+			<codedType code="101-009" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:97f25cbb-d1dd-4849-b369-f8d7c35f7775">
+			<codedType code="101-110" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:0d8bd79c-2465-43f3-b34c-233c26fc2d8e">
+			<codedType code="101-111" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:73896e32-08a8-48c5-9ede-fc991eebb122">
+			<codedType code="101-112" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+		<service entityID="urn:uuid:def4c912-46ae-4e23-a78c-80ea597a82ee">
+			<codedType code="101-113" codingScheme="1.3.6.1.4.1.21367.100.1"/>
+			<record created="2014-12-01T14:00:00+00:00" updated="2014-12-01T14:00:00+00:00" status="Active" sourceDirectory="http://www.ihe.net"/>
+		</service>
+	</serviceDirectory>
+	<facilityDirectory/>
+	<providerDirectory/>
+</CSD>
