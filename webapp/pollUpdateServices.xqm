@@ -14,12 +14,18 @@ declare function page:redirect($redirect as xs:string) as element(restxq:redirec
 };
 
 declare function page:nocache($response) {
-(<http:response status="200" message="OK">  
-  <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-</http:response>,
-$response)
-};
+(
+  <rest:response>
+    <http:response >
+      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
+    </http:response>
+  </rest:response>
+,
+  $response
+)
 
+
+};
 
 declare updating
   %rest:path("/CSD/registerService/init")

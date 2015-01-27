@@ -103,12 +103,16 @@ declare
 
 
 
-declare function page:nocache($response) {
-(<http:response status="200" message="OK">  
-  <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-</http:response>,
-$response)
-};
+declare function page:nocache($response) 
+{(
+  <rest:response>
+    <http:response >
+      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
+    </http:response>
+  </rest:response>
+  ,
+  $response
+)};
 
 
 declare
