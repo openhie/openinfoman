@@ -39,14 +39,16 @@ declare function csd_webconf:wrapper($content,$headers) {
   <head>
     <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="{$csd_webconf:baseurl}static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery.js"/>
+    <link rel="shortcut icon" href="{$csd_webconf:baseurl}static/favicon.ico"/>
+    <script src="{$csd_webconf:baseurl}static/jquery/jquery.js"/>
+    <title>OpenInfoMan @ {request:hostname()}</title>
     <script src="{$csd_webconf:baseurl}static/bootstrap/js/bootstrap.min.js"/>
     {$headers}
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
-	<img class='pull-left' height='38px' src='http://upload.wikimedia.org/wikipedia/commons/7/74/GeoGebra_icon_geogebra.png'/>
+	<img class='pull-left' height='38px' src="{$csd_webconf:baseurl}static/GeoGebra_icon_geogebra.png"/>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
