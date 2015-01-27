@@ -3,6 +3,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_psd";
 import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csd_qus =  "https://github.com/openhie/openinfoman/csd_qus";
 
@@ -112,8 +113,11 @@ declare updating
   %rest:GET
   function page:create_cache($name)
 {
+
   (
-  csd_lsc:empty_cache($csd_webconf:db,$name)
+    if (csd_lsc:directory_exists($csd_webconf:db,$name)) 
+    then csd_lsc:empty_cache($csd_webconf:db,$name)
+    else csd_dm:empty($csd_webconf:db,$name)
   ,
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
   )
@@ -349,9 +353,12 @@ declare function page:service_menu($name) {
 <span>
   <ul>
   <li>Caching
+{csd_lsc:get_document_name($name)}
   <ul>
     {if (not(csd_lsc:directory_exists($csd_webconf:db,$name))) then
-    <li><a href="/CSD/pollService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
+      (
+      <li><a href="/CSD/pollService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
+      )
   else 
     (
     <li><a href="/CSD/pollService/directory/{$name}/empty_cache">Empty local cache of {$name}</a> </li>,

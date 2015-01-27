@@ -12,7 +12,8 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
 declare function csd_lsc:get_document_name($name) {
-  concat("local_services_cache/",$name,".xml")
+  csd_dm:document_source($name) 
+(:  concat("local_services_cache/",$name,".xml") :)
 };
 
 declare function csd_lsc:directory_exists($db,$name) {
