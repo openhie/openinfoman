@@ -236,10 +236,19 @@ declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesReque
 
 declare function csr_proc:process_CSR_stored_results($db,$doc,$careServicesRequest,$bindings as map(*)) 
 {
-let $function :=$careServicesRequest/csd:function
-let $urn := string($function/@urn)
-let $doc_name := string($function/@resource)
-let $base_url := string($function/@base_url)
+let $function :=
+  if (exists($careServicesRequest/csd:function ))
+  then $careServicesRequest/csd:function
+  else $careServicesRequest
+
+let $urn := 
+  if (exists($careServicesRequest/csd:function ))
+  then string($function/@urn)
+  else string($function/@function)
+
+let $doc_name :=  string($function/@resource)
+let $base_url :=  string($function/@base_url)
+
 
 let $stored_functions := csr_proc:stored_functions($db)
 let $definition := ($stored_functions[@urn = $urn])[1]/csd:definition/text()
