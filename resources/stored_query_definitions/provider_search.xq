@@ -48,14 +48,20 @@ declare variable $careServicesRequest as item() external;
 	then csd_bl:filter_by_organizations($provs6,$careServicesRequest/organizations/organization)      
       else  $provs6
 
+      let $provs7a := if(exists($careServicesRequest/language))
+	then csd_bl:filter_by_languages($provs7,$careServicesRequest/language)
+      else $provs7
+    
+
+
       return if (exists($careServicesRequest/start)) then
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs7,$careServicesRequest/start,$careServicesRequest/max)         
-	else csd_bl:limit_items($provs7,$careServicesRequest/start,<max/>)         
+	  then csd_bl:limit_items($provs7a,$careServicesRequest/start,$careServicesRequest/max)         
+	else csd_bl:limit_items($provs7a,$careServicesRequest/start,<max/>)         
       else
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs7,<start/>,$careServicesRequest/max)         
-	else $provs7
+	  then csd_bl:limit_items($provs7a,<start/>,$careServicesRequest/max)         
+	else $provs7a
 
     }     
   </providerDirectory>

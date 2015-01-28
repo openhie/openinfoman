@@ -460,6 +460,23 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
 };
 
 
+declare function csd:filter_by_languages($items as item()*,$langs as item()*) as item()*
+{
+    if (count($langs) = 0 
+       or (not ($langs[1]/@code) )
+       or (not ($langs[1]/@codingScheme))
+       ) 
+    then $items
+    else  
+           let $code := upper-case($langs[1]/@code)
+           let $codingScheme := upper-case($langs[1]/@codingScheme)
+           return csd:filter_by_languages(
+	     $items[./language[upper-case(@code) = $code and upper-case(@codingScheme) = $codingScheme]],
+	     fn:subsequence($langs,2))
+  
+};
+
+
 (:~
  : this function accepts a list of items to filter against a list of facilities
  :
