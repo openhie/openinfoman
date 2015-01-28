@@ -59,7 +59,7 @@
 			<language code="en" codingScheme="BCP 47">English</language>
 			<language code="es" codingScheme="BCP 47">Spanish</language>
 			<organizations>
-				<organization entityID="urn:uuid08c3286e-2163-462c-b77f-1f431d7351ab">
+				<organization entityID="urn:uuid:08c3286e-2163-462c-b77f-1f431d7351ab">
 					<service entityID="urn:uuid:3c43ed80-b323-4f31-b450-57ce5923fc85">
 						<name>
 							<commonName>Connectathon Radiation Therapy</commonName>
