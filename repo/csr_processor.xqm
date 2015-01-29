@@ -127,14 +127,18 @@ let $adhoc :=$careServicesRequest/csd:expression
 return if (exists($function)) 
 then
   let $urn := string($function/@urn)
-  let $csr :=
-  <csd:careServicesRequest>
-    <csd:function urn="{$urn}" resource='{$doc_name}' base_url='{$base_url}'>
-      {($function/*)[1]}
-    </csd:function>
-  </csd:careServicesRequest>
-
-  return csr_proc:process_CSR_stored($db,$csr,$bindings) 
+  return
+    if ($urn = 'urn:ihe:iti:csd:2014:adhoc')
+    then
+      <m>{csr_proc:process_CSR_adhoc($db,$careServicesRequest/csd:function,$doc_name,$bindings) }</m>
+    else
+      let $csr :=
+      <csd:careServicesRequest>
+	<csd:function urn="{$urn}" resource='{$doc_name}' base_url='{$base_url}'>
+	  {($function/*)[1]}
+	</csd:function>
+      </csd:careServicesRequest>
+      return csr_proc:process_CSR_stored($db,$csr,$bindings) 
 else if (exists($adhoc))
 then
   csr_proc:process_CSR_adhoc($db,$adhoc,$doc_name,$bindings) 
