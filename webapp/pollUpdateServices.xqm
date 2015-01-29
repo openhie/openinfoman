@@ -351,6 +351,10 @@ declare function page:service_menu($name) {
   let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
   return 
 <span>
+  <pre>{$url}</pre>
+  <p>
+    modified: {$mtime}
+  </p>
   <ul>
   <li>Caching
 {csd_lsc:get_document_name($name)}
