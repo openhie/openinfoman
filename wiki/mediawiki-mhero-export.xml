@@ -1,0 +1,691 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.6/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.6/ http://www.mediawiki.org/xml/export-0.6.xsd" version="0.6" xml:lang="en">
+  <siteinfo>
+    <sitename>mHero</sitename>
+    <base>http://masala/mediawiki/index.php/Main_Page</base>
+    <generator>MediaWiki 1.19.14+dfsg-1</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Special</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Talk</namespace>
+      <namespace key="2" case="first-letter">User</namespace>
+      <namespace key="3" case="first-letter">User talk</namespace>
+      <namespace key="4" case="first-letter">mHero</namespace>
+      <namespace key="5" case="first-letter">mHero talk</namespace>
+      <namespace key="6" case="first-letter">File</namespace>
+      <namespace key="7" case="first-letter">File talk</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki talk</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template talk</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help talk</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Main Page</title>
+    <ns>0</ns>
+    <id>1</id>
+      <sha1>7is2q7ptnrtrmf9q886ny91ctf3kxto</sha1>
+    <revision>
+      <id>7</id>
+      <timestamp>2015-02-13T17:17:17Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <text xml:space="preserve" bytes="57">Welcome to the mHero Wiki.
+
+*[[mHero Technical Overview]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>MHero Technical Overview</title>
+    <ns>0</ns>
+    <id>2</id>
+      <sha1>2ka4l46ex604ulfd3diu6j97f65qiz2</sha1>
+    <revision>
+      <id>36</id>
+      <timestamp>2015-02-13T18:23:49Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>/* What is mHero? */</comment>
+      <text xml:space="preserve" bytes="2680">
+==What is mHero?==
+mHero is a health worker communications platform based on the international open &quot;Care Services Discovery&quot; standard.  mHero links many systems together such as iHRIS, DHIS2, ResourceMap and RapidPro to provide SMS and Interactive-Voice-Response (IVR).
+
+There are various features that are optional with the mHero platform.
+
+==Case Services Discovery (CSD)==
+The Care Services Discovery standard is the interoperability standard the let's mHero work.   Sources of data for the CSD standard are called '''CSD Service Directories.'''
+
+
+*[http://wiki.ihe.net/index.php?title=Care_Services_Discovery On-Line Wiki]
+*The [ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_CSD.pdf  CSD Standard]
+**Change Proposals in effect (Feb 13, 2015)
+***[ftp://ftp.ihe.net/IT_Infrastructure/TF_Maintenance-2015/CPs/Ballots/ballot_25/CP-ITI-800-03.doc CP 800]
+*[https://groups.google.com/forum/#!forum/ihe-csd-implementors Google Group]
+
+==CSD Service Directories==
+Several systems are compliant with CSD for exporting their data.  These are call ''CSD Service Directories''.
+
+
+===iHRIS===
+Provides provider, facility and organization information.
+*[http://www.ihris.org/ihris-suite/health-workforce-software/ihris-manage/ iHRIS Manage]
+*[http://www.ihris.org/ihris-suite/health-workforce-software/ihris-qualify/ iHRIS Qualify]
+
+===DHIS2===
+Provides provider, facility and organization information.  
+*[http://dhis2.org DHIS2]  
+===Resource Map===
+Provides facility information.
+*[https://github.com/instedd/resourcemap ResourceMap]
+
+==OpenInfoMan==
+
+*Install Instructions:
+**[https://github.com/openhie/openinfoman/wiki/Install-Instructions OpenInfoMan ]
+**[[OpenInfoMan HWR Library]]
+**[[OpenInfoMan DHIS2 Library]]
+**[[OpenInfoMan RapidPro Library]]
+
+==mHero Sync Coordinator==
+The mHero Synch Coordinator is the piece of software that extracts providers (health workers) from OpenInfoman (a CSD InfoManager) and creates the contacts in RapidPro.  
+*[https://github.com/openhie/mhero-synch mHero Synch Install Instructions]
+
+==RapidPro==
+*[[RapidPro Install Instructions | Install Instructions]]
+
+==iHRIS mHero Module==
+This module provides new capabilities for iHRIS Manage and iHRIS Qualify to interact with RapidPro based on user input. 
+*[[iHRIS mHero Module Install Instructions | Install Instructions]]
+
+==iHRIS HWR Management Interface==
+The iHRIS HWR Management interface is another iHRIS application to interface with a CSD InfoManager directly.   
+*Translations:
+**[https://translations.launchpad.net/openhie-pr/trunk/+lang/fr French]
+**[https://translations.launchpad.net/openhie-pr/trunk/ All]
+*[[iHRIS HWR Install Instructions]]</text>
+    </revision>
+  </page>
+  <page>
+    <title>IHRIS HWR Install Instructions</title>
+    <ns>0</ns>
+    <id>3</id>
+      <sha1>5p9h93fou3zpf4irt22ellp82ltvund</sha1>
+    <revision>
+      <id>13</id>
+      <timestamp>2015-02-13T17:31:35Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>/* Dependencies */</comment>
+      <text xml:space="preserve" bytes="2706">The OpenHIE HWR Management Application provides a web-interface to manage the data in an Interlinked Health Worker Registry.
+
+
+==Dependencies==
+* [[OpenInfoMan HWR  Library]]
+* iHRIS (Install Instructions Below)
+
+==iHRIS==
+This is application based on the I2CE/iHRIS Framework version 4.2 which is the current development verision. 
+
+You should first install the [[iHRIS Supporting Software]].
+
+
+
+===mHero Supporting Software===
+
+
+You should also install the following supporting software:
+&lt;pre&gt;
+  sudo apt-get install uuid-dev uuid php5-xsl xsltproc php5-curl
+  sudo pecl install uuid
+&lt;/pre&gt;
+
+
+===iHRIS Library===
+
+Download the the I2CE/iHRIS Framework as follows:
+
+&lt;pre&gt;
+mkdir -p ~/iHRIS
+cd ~/iHRIS
+bzr branch lp:~intrahealth+informatics/i2ce/4.2-dev I2CE
+bzr branch lp:~intrahealth+informatics/ihris-common/4.2-dev ihris-common
+bzr branch lp:openhie-pr 
+&lt;/pre&gt;
+
+===iHRIS Configuraiton===
+Create MySQL Database
+
+In mysql:
+
+&lt;pre&gt;
+mysql -u root -p
+mysql&gt; CREATE DATABASE csd_hwr;
+mysql&gt; GRANT ALL PRIVILEGES ON csd_hwr.* TO ihris@localhost identified by 'PASSWORD';
+mysql&gt; SET GLOBAL log_bin_trust_function_creators = 1;
+&lt;pre&gt;
+
+Set username, password and database per your choice, but you will need to modify the DSN below.
+
+Copy the existing config.values.php file to one that is not in version control:
+
+&lt;pre&gt;
+mkdir -p ~/iHRIS/openhie-pr/sites/basex/pages/local
+cp ~/iHRIS/openhie-pr/sites/basex/pages/config.values.php ~/iHRIS/openhie-pr/sites/basex/pages/local
+&lt;/pre&gt;
+
+
+Now edit the file ~/iHRIS/openhie-pr/sites/basex/pages/local/config.values.php and set the following values:
+
+&lt;pre&gt;
+$i2ce_site_i2ce_path = &quot;/home/ubuntu/iHRIS/I2CE&quot;;
+$i2ce_site_dsn = 'mysql://ihris:PASSWORD@127.0.0.1/csd_hwr' ;
+$i2ce_site_module_config = &quot;/home/ubuntu/iHRIS/openhie-pr/sites/basex/CSD-ProviderRegistry.xml&quot;;
+&lt;/pre&gt;
+
+adjusting the path prefix /home/ubuntu and the mysql database DSN as needed.
+
+
+===Making Web Interface Available Under Apache===
+
+&lt;pre&gt;
+cd /var/www/html 
+sudo ln -sf ~/iHRIS/openhie-pr/sites/basex/pages openhie-hwr
+&lt;/pre&gt;
+
+
+Now your site should be available at
+&lt;pre&gt;
+ http://localhost/openhie-hwr
+&lt;/pre&gt;
+
+The administrator username is 'i2ce_admin' and the password is same as in the MysSQL DSN.
+
+===Configuring InfoManager===
+
+Once you are on the iHRIS Health Worker Registry user interface you should:
+
+*Click &quot;Actions&quot;
+*Click &quot;Configure Remote Directories&quot; 
+*Set the OpenHIE HWR Management Application to InfoManagers that implement the HWR CRUD Library. By default it will look at localhost (relative to the server running the OpenHIE HWR UI) and use the connect-a-thon sample service directories.  For more information see the [https://www.youtube.com/watch?v=F_VdlOu8vlo YouTube Demonstration].</text>
+    </revision>
+  </page>
+  <page>
+    <title>OpenInfoMan HWR Library</title>
+    <ns>0</ns>
+    <id>4</id>
+      <sha1>c331k0ggmq7sduyzki5gzs6jfivv1ty</sha1>
+    <revision>
+      <id>5</id>
+      <timestamp>2015-02-13T17:15:46Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>Created page with &quot;The OpenInfoMan HWR Library  provides [http://en.wikipedia.org/wiki/Create,_read,_update_and_delete CRUD] operations on the OpenInfoMan for things that live under /CSD/provide...&quot;</comment>
+      <text xml:space="preserve" bytes="248">The OpenInfoMan HWR Library  provides [http://en.wikipedia.org/wiki/Create,_read,_update_and_delete CRUD] operations on the OpenInfoMan for things that live under /CSD/provider Directory.
+
+==Source Code==
+*https://github.com/openhie/openinfoman-hwr</text>
+    </revision>
+  </page>
+  <page>
+    <title>IHRIS Supporting Software</title>
+    <ns>0</ns>
+    <id>5</id>
+      <sha1>0c84nsgv0z0etdbiwvx5qph03vb69tc</sha1>
+    <revision>
+      <id>14</id>
+      <timestamp>2015-02-13T17:34:46Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <text xml:space="preserve" bytes="7048">
+See [[here]] for the online more up-to-date version of these instructions.
+ 
+
+This document describes the needed installation and configuration of supporting software for iHRIS on Ubuntu 14.04 LTS, Trusty Tahr.
+{{otherversions|Linux (Ubuntu) Installation - Supporting Software}}
+== Getting Ready ==
+
+Here are instructions for installing the supporting software for iHRIS on a Linux (Ubuntu) system.  If you need help installing Ubuntu you may want to take a look at
+these directions for installing a [http://www.howtoforge.com/perfect-server-ubuntu-14.04-apache2-php-mysql-pureftpd-bind-dovecot-ispconfig-3 Server] or a [http://www.howtoforge.com/the-perfect-desktop-ubuntu-14.04-lts-trusty-tahr Desktop] system.  For a server setup, we recommend using a LTS (long term support) version of Ubuntu.
+
+'''Note:'''  Unless specifically mentioned, all the commands below are run using a terminal.  You can start this in Ubuntu by going to Applications -&gt; Accessories -&gt; Terminal.  Any time a command begins with '''sudo''' it will prompt for your password because this will be run with administrative privileges.  When you run sudo multiple times, only the first time will ask for your password.
+
+'''Note:'''  Some installation commands will prompt for inputs in the terminal window, usually with a blue background.  The mouse doesn't work to click on options here.  You can use Tab to move between options and the space bar to check or uncheck selections.
+
+'''Note:'''  Some commands will launch the '''gedit''' file editor.  Look at the [https://help.ubuntu.com/community/gedit documentation] if you need additional help.
+
+We begin by install a [http://en.wikipedia.org/wiki/LAMP_%28software_bundle%29 Lamp] server
+(You can find more help [https://help.ubuntu.com/community/ApacheMySQLPHP here]):
+&lt;pre&gt;
+sudo tasksel install lamp-server
+&lt;/pre&gt;
+If you have never used mysql on your system, you will be asked to set the 'root' password for mysql.  We will refer to this password as XXXXX below.
+
+'''Important''': Make sure your email system is correctly configured.  Under a default Ubuntu installation, you can do this with one of two commands:
+&lt;pre&gt;
+sudo apt-get install postfix
+sudo dpkg-reconfigure postfix
+&lt;/pre&gt;
+
+Follow the on-screen instructions to set up email on your system.  For additional help with installing Postfix, look at these [https://help.ubuntu.com/community/PostfixBasicSetupHowto instructions].  On Debian systems, the same commands can be used, but &lt;tt&gt;exim4&lt;/tt&gt; is the default MTA instead of &lt;tt&gt;postfix&lt;/tt&gt;
+
+If you are using another Linux distribution, make sure your system can send email properly before continuing.
+
+==Configuring MYSQL==
+Make sure you have in /etc/mysql/my.cnf the following values set:
+&lt;pre&gt;
+sudo gedit /etc/mysql/my.cnf
+&lt;/pre&gt;
+
+&lt;pre&gt;
+query_cache_limit       = 4M
+query_cache_size        = 64M
+&lt;/pre&gt;
+It appears that they were reduced with Karmic.
+
+To configure MySQL so iHRIS can create needed functions:
+&lt;pre&gt;
+mysql -u root -p
+&lt;/pre&gt;
+Enter the password you set above (XXXXX) for MySQL.  You will now be able to send commands to MySQL and the prompt should always begin with 'mysql&gt; '.  Type these commands:
+&lt;pre&gt;
+SET GLOBAL log_bin_trust_function_creators = 1;
+exit
+&lt;/pre&gt;
+
+== Installing Pear and PECL Packages ==
+
+We need to install a few Pear and PECL packages for PHP.  For the Pear packages you can do:
+&lt;pre&gt;
+sudo apt-get install php-pear  php-mdb2 php-mdb2-driver-mysql  php5-gd php5-tidy php5-intl
+sudo pear install text_password
+&lt;/pre&gt;
+
+==APCu==
+We need to install the APCu module for PHP.  There are unfortunately some issues with php5-apcu, so we need to install from PECL.  This can be done by first installing the php5-dev pageckage:
+&lt;pre&gt;
+sudo apt-get install php5-dev libpcre3-dev
+&lt;/pre&gt;
+Now install APCu from PECL:
+&lt;pre&gt;
+sudo pecl install apcu-4.0.4
+&lt;/pre&gt;
+It will ask a few questions and you can just press enter to take the default answers.
+
+During certain activities like installation and upgrades you may need more memory than APC uses by default.  We also want to turn of the ''slam defense.''  We need to edit the configuration file file for apcu:
+&lt;pre&gt;
+sudo gedit /etc/php5/mods-available/apcu.ini
+&lt;/pre&gt;
+It should look like this:
+&lt;pre&gt;
+extension=apcu.so
+apc.enabled=1
+apc.write_lock=1
+apc.shm_size=100M
+apc.slam_defense=0
+apc.enable_cli=1
+&lt;/pre&gt;
+See [http://pecl.php.net/bugs/bug.php?id=16843 slam defense] and [http://t3.dotgnu.info/blog/php/user-cache-timebomb this].
+
+We'll also need to enable this for Apache and CLI by creating 2 symlinks for the apcu file:
+
+&lt;pre&gt;
+sudo ln -s /etc/php5/mods-available/apcu.ini /etc/php5/apache2/conf.d/20-apcu.ini
+sudo ln -s /etc/php5/mods-available/apcu.ini /etc/php5/cli/conf.d/20-apcu.ini
+&lt;/pre&gt;
+
+You'll need to restart Apache after making this change.
+&lt;pre&gt;
+sudo /etc/init.d/apache2 restart
+&lt;/pre&gt;
+
+===Debian Squeeze===
+If you are using Debian Squeeze, then the value of ''apc.shm_size'' should be:
+&lt;pre&gt;
+apc.shm_size=100
+&lt;/pre&gt;
+===Set ZendOpcache options===
+Edit the opcache config file with this command:
+&lt;pre&gt;
+sudo gedit /etc/php5/mods-available/opcache.ini
+&lt;/pre&gt;
+It should look like this for a production system:
+&lt;pre&gt;
+; configuration for php ZendOpcache module
+; priority=05
+zend_extension=opcache.so
+opcache.memory_consumption=128M
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=4000
+opcache.revalidate_freq=60
+opcache.fast_shutdown=1
+opcache.enable_cli=1
+&lt;/pre&gt;
+For a development system you should modify revalidate_freq from 60 to 2:
+&lt;pre&gt;
+opcache.revalidate_freq=2
+&lt;/pre&gt;
+
+==Configuring Apache Web Server==
+===Changed Document Root===
+In Ubuntu 14.04, the default document root has changed from '''/var/www''' to '''/var/www/html''' so when installing any iHRIS applications you will need to use the new directory to place the symlinks.  If you are upgrading you may or may not need to update these depending on if you replaced the Apache configuration files during the upgrade.
+
+===Enable Rewrite Module===
+
+You will see later we are using the apache rewrite module.  To enable the module:
+&lt;pre&gt;
+sudo a2enmod rewrite
+&lt;/pre&gt;
+===Enable .htaccess Configuration===
+Now we need to make sure we can use the ''.htaccess'' file.
+&lt;pre&gt;
+sudo gedit /etc/apache2/apache2.conf
+&lt;/pre&gt;
+Change:
+&lt;pre&gt;
+&lt;Directory /var/www/&gt;
+        Options Indexes FollowSymLinks
+	AllowOverride None
+	Require all granted
+&lt;/Directory&gt;
+&lt;/pre&gt;
+to:
+&lt;pre&gt;
+&lt;Directory /var/www/&gt;
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride All
+	Require all granted
+&lt;/Directory&gt;
+&lt;/pre&gt;
+Save and quit.
+
+===Restart Apache===
+Let us restart the Apache webserver using:
+&lt;pre&gt;
+sudo service apache2 restart 
+&lt;/pre&gt;
+
+==Install Memcached==
+
+With version 4.0.4 and greater of iHRIS you can use memcached to improve performance 
+
+Note:  Memcached is used to cache data from the database.  Thus if you are an a sitaution
+where you would need to restart the webserver by
+ sudo service apache2 restart
+you should now do
+ sudo service apache2 restart &amp;&amp; sudo service memcached restart
+
+To install,  simply do
+&lt;pre&gt;
+ sudo apt-get install php5-memcached memcached
+&lt;/pre&gt;</text>
+    </revision>
+  </page>
+  <page>
+    <title>RapidPro Install Instructions</title>
+    <ns>0</ns>
+    <id>6</id>
+      <sha1>m3xi8cxzabl3de7rjc9l432y7e3purb</sha1>
+    <revision>
+      <id>21</id>
+      <timestamp>2015-02-13T17:47:44Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>/* Clone RapidPro */</comment>
+      <text xml:space="preserve" bytes="3474">See the [http://litlfred.github.io/rapidpro/ updatad online] documentation.
+
+
+==RapidPro Development Server==
+
+RapidPro comes with everything you need to quickly get started with
+development. Note that development and deployment has only been tested on OSX
+and Ubuntu, you'll likely need to modify the directions below if using Windows.
+
+==Prerequisites==
+
+You'll need the following to get started:
+
+*PostgreSQL 9.3 or later along with the PostGIS extensions. You probably want to refer to Django's [https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/postgis/ installation instructions] to help trouble shoot
+*[https://redis.io  Redis ] 2.8 or later installed and listening on localhost.  By default the development server uses database 15.
+*[http://lesscss.org lessc] the Less compiler.
+*[http://coffeescript.org coffee], the Coffee script compiler.
+
+==Create temba user for PostgreSQL==
+
+&lt;pre&gt;
+sudo apt-get install postgresql-client postgresql-server-dev-9.3 postgis*
+sudo -u postgres createuser temba --pwprompt -d
+Enter password for new role:
+Enter it again:
+sudo adduser temba
+&lt;/pre&gt;
+
+==Create temba database, add PostGIS==
+
+Create the database as temba user:
+&lt;pre&gt;
+sudo -u temba psql --user=temba postgres
+postgres=&gt; create database temba;
+CREATE DATABASE
+\q
+&lt;/pre&gt;
+
+Now connect as a superuser that can install extensions:
+&lt;pre&gt;
+sudo -u postgres psql
+postgres=# \c temba
+You are now connected to database &quot;temba&quot; as user &quot;psql&quot;.
+temba=# create extension postgis;
+CREATE EXTENSION
+temba=# create extension postgis_topology;
+CREATE EXTENSION
+temba=# create extension hstore;
+CREATE EXTENSION
+&lt;/pre&gt;
+
+==Clone RapidPro==
+
+Now clone the RapidPro repository and link up the development settings:
+
+&lt;pre&gt;
+sudo apt-get install git
+cd ~/
+git clone git@github.com:rapidpro/rapidpro.git
+cd rapidpro/temba
+ln -s settings.py.dev settings.py
+&lt;/pre&gt;
+
+At this point, you should edit the rapidpro/settings.py to adjust the password for the postgresql connection.
+
+==Install Node==
+&lt;pre&gt;
+sudo apt-get install node node-less coffee-script
+&lt;/pre&gt;
+
+==Build virtual environment==
+
+You should always use a virtual environment to run your RapidPro installation. The
+pinned dependencies for RapidPro can be found in ```pip-freeze.txt```. You can
+build the needed environment as follows (from the root rapidpro directory):
+
+&lt;pre&gt;
+sudo apt-get install python-virtualenv postgresql-server-dev-9.3 python-dev ncurses-dev
+virtualenv env
+source env/bin/activate
+(env) $ pip install -r pip-freeze.txt
+&lt;/pre&gt;
+
+==Sync your database==
+
+You should now be able to run all the migrations and initialize your development
+server. This takes a little while on RapidPro as syncdb also creates and
+initializes all the user groups and permissions.
+
+&lt;pre&gt;
+python manage.py syncdb
+&lt;/pre&gt;
+
+==Create Super User Account==
+Following the [https://docs.djangoproject.com/en/1.7/ref/django-admin/#django-admin-createsuperuser Django instructions] you create a super user account with:
+&lt;pre&gt;
+python manage.py createsuperuser --username=joe --email=joe@example.com
+&lt;/pre&gt;
+Where you change '''joe'''  to your preferred username and '''joe@example.com''' to your email address.
+
+==Run development server==
+
+At this point you'll be able to run the development server and run RapidPro. It
+will be available at http://localhost:8000
+
+&lt;pre&gt;
+python manage.py runserver
+&lt;/pre&gt;
+
+See these [https://docs.djangoproject.com/en/1.7/ref/django-admin/#runserver-port-or-address-port instructions] if you wish to change the port.</text>
+    </revision>
+  </page>
+  <page>
+    <title>OpenInfoMan RapidPro Library</title>
+    <ns>0</ns>
+    <id>7</id>
+      <sha1>g9hfybxtub0c872t1u39ga2i6qc4zfd</sha1>
+    <revision>
+      <id>23</id>
+      <timestamp>2015-02-13T17:54:26Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>Created page with &quot;The OpenInfoMan RapidPro Library provides some CSD functions designed to work with RapidPro: *Selecting a facility within an organizational hierarchy *Selecting an organizatio...&quot;</comment>
+      <text xml:space="preserve" bytes="281">The OpenInfoMan RapidPro Library provides some CSD functions designed to work with RapidPro:
+*Selecting a facility within an organizational hierarchy
+*Selecting an organization with an organizational hierarchy (TBD)
+
+==Source Code==
+*https://github.com/openhie/openinfoman-rapidpro</text>
+    </revision>
+  </page>
+  <page>
+    <title>OpenInfoMan DHIS2 Library</title>
+    <ns>0</ns>
+    <id>8</id>
+      <sha1>2lci2fko2w5oj1h1cux7jlojujuxq58</sha1>
+    <revision>
+      <id>24</id>
+      <timestamp>2015-02-13T17:55:10Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>Created page with &quot;The OpenInfoMan DHIS2 Library  provides CSD stored functions for interfacing with DHIS2 version 2.19 or later.   ==Source Code== *https://github.com/openhie/openinfoman-dhis&quot;</comment>
+      <text xml:space="preserve" bytes="173">The OpenInfoMan DHIS2 Library  provides CSD stored functions for interfacing with DHIS2 version 2.19 or later.
+
+
+==Source Code==
+*https://github.com/openhie/openinfoman-dhis</text>
+    </revision>
+  </page>
+  <page>
+    <title>IHRIS mHero Module Install Instructions</title>
+    <ns>0</ns>
+    <id>9</id>
+      <sha1>gl8gkoy7auf7463cfocdy167rkljbf7</sha1>
+    <revision>
+      <id>33</id>
+      <timestamp>2015-02-13T18:20:09Z</timestamp>
+      <contributor>
+        <username>Litlfred</username>
+        <id>1</id>
+      </contributor>
+      <comment>/* Install Instructions */</comment>
+      <text xml:space="preserve" bytes="2694">This module provides new capabilities for iHRIS Manage and iHRIS Qualify to interact with RapidPro based on user input.   This functionality includes:
+*Starting a RapidPro workflow an iHRIS person record
+*View the results of a RapidPro workflow on an iHRIS person record 
+*Starting a RapidPro workflow a multiple iHRIS person records through a Custom Reports 
+*View the results of a RapidPro workflow on multiple iHRIS person record through a Custom Report
+
+
+===index.html===
+
+You will want to edit your site's index.html to add the following.
+&lt;pre&gt;
+  &lt;span role='admin' type='module' name='mHero'  ifenabled='true' &gt;      
+    &lt;h2&gt;
+      &lt;a href='mHero'&gt;mHero&lt;/a&gt;
+    &lt;/h2&gt;
+    &lt;p&gt;
+      &lt;span  style='display:inline-block'&gt;
+        &lt;span type='form' href=&quot;mHero_person_workflow?id=&quot; name=&quot;person:id&quot; target='_mHero'&gt;
+          &lt;img text='mHero' style='width:10em;' src='file/mHero.png'  /&gt;
+          
+        &lt;/span&gt;
+      &lt;/span&gt;
+      mHero intgerated health system communications platform
+
+    &lt;/p&gt;
+&lt;/pre&gt;
+
+
+===view.html===
+You will want to edit your site's view.html to add the following just after the '''View Person''' block:
+&lt;pre&gt;
+  &lt;div id='external_hwr_apps' class='extenral_hwr_apps' style='float:right;display:block;width:100%' &gt;
+    &lt;span type='module' name='IL-HWR'  ifenabled='true' &gt;
+      &lt;span role='admin' style='display:inline-block;float:right;'&gt;
+        &lt;span type='form' href=&quot;IL-HWR-redirect?id=&quot; name=&quot;person:id&quot; target='_ILHWR'&gt;
+          &lt;center style='max-width:8em'&gt;
+            &lt;img text='Interlinked Health Worker Registry' style='margin-top:-3em;max-width:12em;max-height:5em;display-inline' src='file/OpenInfoMan.png'  /&gt;
+          &lt;/center&gt;
+          &lt;center style='max-width:8em'&gt;
+            Interlinked Health Worker Registry
+          &lt;/center&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+    &lt;span type='module' name='mHero'  ifenabled='true' &gt;
+      &lt;span role='admin' style='display:inline-block;float:right;'&gt;
+        &lt;span type='form' href=&quot;mHero_person_workflow?id=&quot; name=&quot;person:id&quot; target='_mHero'&gt;
+          &lt;center&gt;
+          &lt;img text='mHero' style='width:12em;max-height:2em;' src='file/mHero.png'  /&gt;
+          &lt;/center&gt;
+          &lt;center&gt;
+            mHero
+          &lt;/center&gt;
+        &lt;/span&gt;
+      &lt;/span&gt;
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/pre&gt;
+
+===Enable the Module Manually===
+*Click &quot;Configure System&quot;
+*Click &quot;Configure Modules&quot;
+*Click &quot;Sub-Modules&quot; to the right of &quot;iHRIS Common&quot;
+*Click &quot;Sub-Modules&quot; to the right of &quot;Care Services Discovery (CSD)&quot;
+*Click the checkbox next to &quot;mHero&quot;
+*Click the &quot;Enable&quot; button
+
+===Enable the Module in Site Configuration File===
+Add the following to your site configuration file
+&lt;pre&gt;
+&lt;enable name=&quot;mHero&quot;/&gt;
+&lt;/pre&gt;</text>
+    </revision>
+  </page>
+</mediawiki>
