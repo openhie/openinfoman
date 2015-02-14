@@ -4,20 +4,21 @@ set -e
 #debug
 set -x
 
-PPA=mHero
-TARGET=trusty
-PKG=openinfoman
-RLS=1.0
-
-
 
 #Don't edit below
 
-
-
+PPA=mhero
+TARGET=trusty
 HOME=`pwd`
 DEBS=$HOME/debs-${TARGET}
-echo $DEBS
+AWK=/usr/bin/awk
+HEAD=/usr/bin/head
+RLS=`$HEAD -1 $HOME/packaging/debian/changelog | $AWK '{print $2}' | $AWK -F~ '{print $1}' | $AWK -F\( '{print $2}'`
+PKG=`$HEAD -1 $HOME/packaging/debian/changelog | $AWK '{print $1}'`
+
+echo  "echo Building Package $PKG  on Release $RLS"
+
+
 
 if [ -n "$LAUNCHPADPPALOGIN" ]; then
   echo Using $LAUNCHPADPPALOGIN for Launchpad PPA login
@@ -28,19 +29,18 @@ else
   echo "You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN to avoid this step in the future"
 fi
 
-gpg --list-public-keys | grep ^pub | awk '{print $2}' | awk -F / '{print $2}'
+KEY=
 
-if [ -n "$GPGKEY" ]; then
-  echo Using $GPGKEY for Launchpad PPA login
-  echo "To Change You can do: export GPGKEY=$GPGKEY"
+if [ -n "${DEB_SIGN_KEYID}" ]; then
+  echo Using ${DEB_SIGN_KEYID} for Launchpad PPA login
+  echo "To Change You can do: export DEB_SIGN_KEYID=${DEB_SIGN_KEYID}"
+  echo "For unsigned you can do: export DEB_SIGN_KEYID="
+  KEY="-k${DEB_SIGN_KEYID}"
 else 
-  echo -n "Enter your GPG key for the ppa and press [ENTER]: "
-  echo "Do: 
-     gpg --list-public-keys | grep ^pub | awk '{print \$2}' | awk -F / '{print \$2}'
-to see the available keys"
-  echo "You can do: export GPGKEY=XXXXX to avoid this step in the future"
-  exit 1
-
+  echo "No DEB_SIGN_KEYID key has been set.  Will create an unsigned"
+  echo "To set a key for signing do: export DEB_SIGN_KEYID=<KEYID>"
+  echo "Use gpg --list-keys to see the available keys"
+  KEY="-uc -us"
 fi
 
 
@@ -50,13 +50,30 @@ CHANGES=$DEBS/${PKG}_${RLS}~${TARGET}_source.changes
 rm -fr $PKGDIR
 mkdir -p $PKGDIR/var/lib
 cd $PKGDIR/var/lib && git clone https://github.com/openhie/$PKG openinfoman
+rm -fr $PKGDIR/var/lib/openinfoman/.git
 mkdir -p $PKGDIR/var/lib/openinfoman/repo
 mv $PKGDIR/var/lib/openinfoman/repo $PKGDIR/var/lib/openinfoman/repo-src 
 cp  -R $HOME/packaging/* $PKGDIR
 
+echo "cd $PKGDIR && dpkg-buildpackage $KEY -S -sa"
+cd $PKGDIR  
+#CMD="dpkg-buildpackage $KEY  -S -sa "
+DPKGCMD="dpkg-buildpackage $KEY  -S -sa "
+$DPKGCMD
 
-cd $PKGDIR && echo `pwd` && dpkg-buildpackage -uc -us
-#cd $PKGDIR && echo `pwd` && dpkg-buildpackage -k$GPGKEY -S -sa 
-#dput --force ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES
 
+cd ~/
+echo `pwd`
+if [ -n "${DEB_SIGN_KEYID}" ]; then
+    #DPUTCMD="dput -u --force ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES"
+    DPUTCMD="dput --force ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES"
+    $DPUTCMD
+fi
+
+#cd $PKGDIR && dpkg-buildpackage -uc -us
+#cd $PKGDIR && dpkg-buildpackage -k${DEB_SIGN_KEYID} -S -sa 
+#
+
+
+cd $HOME
 
