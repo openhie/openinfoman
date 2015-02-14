@@ -30,4 +30,6 @@ do
    $BASEX -Vc "${INST}"
 done
 
+chown -R $USERNAME:$USERNAME $OI
+
 

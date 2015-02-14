@@ -1,7 +1,0 @@
-#!/bin/bash
-
-
-OI=/var/lib/openinfoman
-USERNAME=oi
- $OI/bin/basexhttp stop
-

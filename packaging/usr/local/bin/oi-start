@@ -1,7 +1,0 @@
-#!/bin/bash
-
-
-OI=/var/lib/openinfoman
-cd ${OI}/bin
-nohup ./basexhttp >> /tmp/openinfoman.log &
-
