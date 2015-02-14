@@ -172,6 +172,19 @@ declare updating
   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
 )
 
+};
+
+declare 
+  %rest:path("/CSD/pollService/directory/{$name}/show_update_cache")
+  %rest:GET
+  function page:show_update_cache($name)
+{ 
+
+  let $db := $csd_webconf:db
+  let $mtime :=  csd_lsc:get_service_directory_mtime($db,$name)
+  let $soap := csd_psd:generate_soap_request($db,$name,$mtime)
+  let $result := http:send-request($soap)
+  return <a><r>{$result}</r><s>{$soap}</s></a>
 
 };
 
