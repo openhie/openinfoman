@@ -43,9 +43,6 @@ to see the available keys"
 
 fi
 
-mkdir -p $HOME/wiki && php /var/lib/mediawiki/maintenance/dumpBackup.php --current --include-files > $HOME/wiki/mediawiki-mhero-export.xml
-
-
 
 
 PKGDIR=${DEBS}/${PKG}-${RLS}~${TARGET}
