@@ -1,9 +1,28 @@
 #!/bin/bash
 set -x
 
+
+
+WGET=/usr/bin/wget
+UNZIP=/usr/bin/unzip
 OI=/var/lib/openinfoman
 USERNAME=oi
 BASEX=$OI/bin/basex
+
+TMP=/tmp/openinfoman-basex
+mkdir -p "${TMP}"
+cd ${TMP}
+$WGET http://files.basex.org/releases/8.0/BaseX80.zip -O BaseX80.zip
+unzip -f BaseX80.zip
+
+
+cp $TMP/basex/BaseX.jar $OI
+DIRS=("bin" "etc" "lib" "webapp/dba")
+for DIR in ${DIRS[@]}
+do
+    mkdir -p $OI/$DIR
+    cp -R $TMP/basex/$DIR/* $OI/$DIR
+done
 
 $BASEX -Vc 'create database provider_directory'
 
@@ -24,6 +43,8 @@ REPOS=("csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored
 
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
 
+
+mkdir p $OI/repo-src
 for REPO in ${REPOS[@]}
 do
    INST="REPO INSTALL ${OI}/repo-src/${REPO}"
