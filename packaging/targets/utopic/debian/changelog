@@ -1,4 +1,4 @@
-openinfoman (1.0.9~trusty) trusty; urgency=low
+openinfoman (1.0.9~utopic) utopic; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
   * Attempted fixup of BaseX download in postinst again(3).
@@ -6,7 +6,7 @@ openinfoman (1.0.9~trusty) trusty; urgency=low
 
  -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 February 2015 10:42:10 -0500
 
-openinfoman (1.0.8~trusty) trusty; urgency=low
+openinfoman (1.0.8~utopic) utopic; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
   * Attempted fixup of BaseX download in postinst again(2).
@@ -14,7 +14,7 @@ openinfoman (1.0.8~trusty) trusty; urgency=low
 
  -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 February 2015 10:42:10 -0500
 
-openinfoman (1.0.7~trusty) trusty; urgency=low
+openinfoman (1.0.7~utopic) utopic; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
   * Attempted fixup of BaseX download again.
@@ -22,7 +22,7 @@ openinfoman (1.0.7~trusty) trusty; urgency=low
 
  -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 February 2015 10:42:10 -0500
 
-openinfoman (1.0.6~trusty) trusty; urgency=low
+openinfoman (1.0.6~utopic) utopic; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
   * Attempted ixup of BaseX download
@@ -30,7 +30,7 @@ openinfoman (1.0.6~trusty) trusty; urgency=low
 
  -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 February 2015 10:42:10 -0500
 
-openinfoman (1.0.5~trusty) trusty; urgency=low
+openinfoman (1.0.5~utopic) utopic; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
   * Initial Build
