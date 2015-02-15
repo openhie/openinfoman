@@ -12,5 +12,8 @@ org-clock-save.el
 emacs-config.el
 debs-trusty
 .gnupg
+packaging/.gnupg
+packaging/*/.gnupg
+packaging/builds
 pubring.gpg
 secring.gpg
