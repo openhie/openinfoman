@@ -12,6 +12,7 @@ AWK=/usr/bin/awk
 HEAD=/usr/bin/head
 GIT=/usr/bin/git
 SORT=/usr/bin/sort
+DCH=/usr/bin/dch
 
 cd targets
 TARGETS=(*)
@@ -19,17 +20,25 @@ echo $TARGETS
 cd $HOME
 
 
+
+
 LASTVERS=`$GIT tag -l '1.*.*' | $SORT -rV | $HEAD -1`
 VERS="${LASTVERS%.*}.$((${LASTVERS##*.}+1))"
 echo Current tagged verison is $LASTVERS.  
-$GIT add .
 $GIT status
-echo Should we commit under packacing everything and increment to $VERS? [y/n]
+echo Should we update changelogs, commit under packacing everything and increment to $VERS? [y/n]
 read INCVERS 
 
 if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
-    echo "Incrementing version"
     COMMITMSG="Releasing Version $VERS"
+    for TARGET in "${TARGETS[@]}"
+    do
+	cd targets/$TARGET
+	$DCH -v "${VERS}" "${COMMITMSG}"
+    done
+    $GIT diff
+    exit 1
+    echo "Incrementing version"
     $GIT commit ./ -m "\"${COMMITMSG}\""
     $GIT tag $VERS
 elif  [[ "$INCVERS" == "n" || "$INCVERS" == "N" ]];  then
