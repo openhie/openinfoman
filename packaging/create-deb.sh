@@ -1,8 +1,6 @@
 #!/bin/bash
 #Exit on error
 set -e
-#debug
-set -x
 
 
 PPA=mhero
@@ -10,11 +8,36 @@ PPA=mhero
 #Don't edit below
 
 HOME=`pwd`
+AWK=/usr/bin/awk
+HEAD=/usr/bin/head
+GIT=/usr/bin/git
+SORT=/usr/bin/sort
 
 cd targets
 TARGETS=(*)
 echo $TARGETS
 cd $HOME
+
+
+LASTVERS=`$GIT tag -l '1.*.*' | $SORT -rV | $HEAD -1`
+VERS="${LASTVERS%.*}.$((${LASTVERS##*.}+1))"
+echo Current tagged verison is $LASTVERS.  
+$GIT add .
+$GIT status
+echo Should we commit under packacing everything and increment to $VERS? [y/n]
+read INCVERS 
+
+if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
+    echo "Incrementing version"
+    COMMITMSG="Releasing Version $VERS"
+    $GIT commit ./ -m "\"${COMMITMSG}\""
+    $GIT tag $VERS
+elif  [[ "$INCVERS" == "n" || "$INCVERS" == "N" ]];  then
+    echo "Not incremementing version"
+else
+    echo "Don't know what' to do"
+    exit 1
+fi
 
 
 
@@ -43,8 +66,6 @@ fi
 
 
 BUILD=$HOME/builds
-AWK=/usr/bin/awk
-HEAD=/usr/bin/head
 
 for TARGET in "${TARGETS[@]}"
 do
