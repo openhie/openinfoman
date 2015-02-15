@@ -74,9 +74,8 @@ do
     cd ~/
     echo `pwd`
     if [[ -n "${DEB_SIGN_KEYID}" && -n "{$LAUNCHPADLOGIN}" ]]; then
-	DPUTCMD="dput --force ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES"
+	DPUTCMD="dput ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES"
 	$DPUTCMD
-        #DPUTCMD="dput -u --force ppa:$LAUNCHPADPPALOGIN/$PPA  $CHANGES"
         #cd $PKGDIR && dpkg-buildpackage -uc -us
         #cd $PKGDIR && dpkg-buildpackage -k${DEB_SIGN_KEYID} -S -sa 
         #

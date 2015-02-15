@@ -1,3 +1,11 @@
+openinfoman (1.0.6~trusty) trusty; urgency=low
+
+  [Carl Leitner <litlfred@ibiblio.org>]
+  * Attempted ixup of BaseX download
+    Fri 2015-02-13 13:55:10 -0500
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 February 2015 10:42:10 -0500
+
 openinfoman (1.0.5~trusty) trusty; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
@@ -5,3 +13,4 @@ openinfoman (1.0.5~trusty) trusty; urgency=low
     Fri 2015-02-13 13:55:10 -0500
 
  -- Carl Leitner <litlfred@ibiblio.org>  Fri, 13 March 2014 13:55:10 -0500
+
