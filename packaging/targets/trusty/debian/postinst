@@ -11,8 +11,8 @@ BASEX=$OI/bin/basex
 
 TMP=/tmp/openinfoman-basex
 mkdir -p "${TMP}"
-cd ${TMP} && $WGET http://files.basex.org/releases/8.0/BaseX80.zip -O BaseX80.zip
-cd ${TMP} && unzip -fo BaseX80.zip
+$WGET http://files.basex.org/releases/8.0/BaseX80.zip -O ${TMP}/BaseX80.zip
+$UNZIP -fo -d ${TMP} BaseX80.zip
 
 
 cp $TMP/basex/BaseX.jar $OI
@@ -40,7 +40,7 @@ REPOS=("csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
 
 
-mkdir p $OI/repo-src
+mkdir -p $OI/repo-src
 for REPO in ${REPOS[@]}
 do
    INST="REPO INSTALL ${OI}/repo-src/${REPO}"
