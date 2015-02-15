@@ -11,9 +11,8 @@ BASEX=$OI/bin/basex
 
 TMP=/tmp/openinfoman-basex
 mkdir -p "${TMP}"
-cd ${TMP}
-$WGET http://files.basex.org/releases/8.0/BaseX80.zip -O BaseX80.zip
-unzip -f BaseX80.zip
+cd ${TMP} && $WGET http://files.basex.org/releases/8.0/BaseX80.zip -O BaseX80.zip
+cd ${TMP} && unzip -fo BaseX80.zip
 
 
 cp $TMP/basex/BaseX.jar $OI
@@ -29,10 +28,7 @@ $BASEX -Vc 'create database provider_directory'
 adduser --system $USERNAME
 addgroup $USERNAME
 chown -R $USERNAME:$USERNAME $OI
-chmod +s /usr/local/bin/oi-install-repos
-chmod +s /usr/local/bin/oi-start
-chmod +s /usr/local/bin/oi-log
-chmod +s /usr/local/bin/oi-stop
+chmod +s /usr/bin/oi-log
 
 
 
