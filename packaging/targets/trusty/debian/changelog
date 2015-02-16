@@ -1,3 +1,11 @@
+openinfoman (1.0.13~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.13
+    -ed0aafc impoved packaging script (maybe)
+    --https://github.com/openhie/openinfoman/commit/ed0aafc
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Feb 2015 16:11:59 +0000
+
 openinfoman (1.0.11~trusty) trusty; urgency=medium
 
   * Release Version 1.0.11
