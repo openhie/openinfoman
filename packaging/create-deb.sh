@@ -2,7 +2,10 @@
 #Exit on error
 set -e
 
+
 PPA=mhero
+CPDIRS=("webapp" "resources" )
+CPFILES=("README.md" "LICENSE")
 
 #Don't edit below
 
@@ -36,7 +39,8 @@ read INCVERS
 if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
     COMMITMSG="Release Version $VERS"
     WIDTH=68
-    URL="https://github.com/openhie/openinfoman/commit/"
+    URL=$($GIT config --get remote.origin.url | $SED 's/\.git//' | $SED 's/$/\/commmit\//')
+
 
 
 
@@ -53,7 +57,7 @@ $LOGLINES" |  $XARGS -0 | $AWK '{printf "%-'"$WIDTH.$WIDTH"'s\n" , $0}')
     done
     cd $HOME
 
-    $GIT --no-pager diff
+    $GIT  --no-pager diff
     $GIT add .
 
     echo "Incrementing version"
@@ -94,6 +98,7 @@ fi
 
 BUILD=$HOME/builds
 
+
 for TARGET in "${TARGETS[@]}"
 do
     TARGETDIR=$HOME/targets/$TARGET
@@ -101,18 +106,32 @@ do
     RLS=`$HEAD -1 $TARGETDIR/debian/changelog | $AWK '{print $2}' | $AWK -F~ '{print $1}' | $AWK -F\( '{print $2}'`
     PKG=`$HEAD -1 $TARGETDIR/debian/changelog | $AWK '{print $1}'`
     PKGDIR=${BUILD}/${PKG}-${RLS}~${TARGET}
+    SRCDIR=${PKGDIR}/tmp-src
     CHANGES=${BUILD}/${PKG}_${RLS}~${TARGET}_source.changes
+    OIDIR=$PKGDIR/var/lib/openinfoman
 
     echo  "echo Building Package $PKG  on Release $RLS for Target $TARGET"
 
     rm -fr $PKGDIR
-    mkdir -p $PKGDIR/var/lib
-    cd $PKGDIR/var/lib && git clone https://github.com/openhie/$PKG openinfoman
-    rm -fr $PKGDIR/var/lib/openinfoman/.git
-    rm -f $PKGDIR/var/lib/openinfoman/.gitignore
-    rm -fr $PKGDIR/var/lib/openinfoman/packaging
-    mkdir -p $PKGDIR/var/lib/openinfoman/repo
-    mv $PKGDIR/var/lib/openinfoman/repo $PKGDIR/var/lib/openinfoman/repo-src 
+    mkdir -p $OIDIR
+    mkdir -p $SRCDIR
+    git clone https://github.com/openhie/$PKG.git  $SRCDIR
+    for CPDIR in "${CPDIRS[@]}"
+    do
+	if [ -d "$SRCDIR/$CPDIR" ]; then
+	    cp -R $SRCDIR/$CPDIR $OIDIR
+	fi
+    done
+    for CPFILE in "${CPFILES[@]}"
+    do
+	if [ -e "$SRCDIR/$CPFILE" ]; then
+	    cp  $SRCFILE/$CPFILE $OIDIR
+	fi
+    done
+    if [ -d "$SRCDIR/repo" ]; then
+	mv $SRCDIR/repo $OIDIR/repo-src 
+    fi
+
     cp  -R $TARGETDIR/* $PKGDIR
 
     cd $PKGDIR  
@@ -138,4 +157,4 @@ done
 cd $HOME
 
 git push
-git push --logs
+git push --tags
