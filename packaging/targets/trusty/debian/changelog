@@ -1,3 +1,84 @@
+openinfoman (1.0.12~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.12
+    -d089b7a "Release Version 1.0.11"
+    --https://github.com/openhie/openinfoman/commit/d089b7a -52a5078
+    changelog is generated from commit log since last tagged release
+    --https://github.com/openhie/openinfoman/commit/52a5078
+    -3eeebd5 adding auto increment version in packacing
+    --https://github.com/openhie/openinfoman/commit/3eeebd5
+    -46b9df5 updated ignore
+    --https://github.com/openhie/openinfoman/commit/46b9df5
+    -45f4f73 "Releasing Version 1.0.10"
+    --https://github.com/openhie/openinfoman/commit/45f4f73 -961900b
+    added utopic packaging target.  hopefully fixed unzip in postistn
+    --https://github.com/openhie/openinfoman/commit/961900b
+    -9528f6a debian packaging postinst fixup
+    --https://github.com/openhie/openinfoman/commit/9528f6a
+    -4d89fba packaging 1.0.7 fixups
+    --https://github.com/openhie/openinfoman/commit/4d89fba
+    -e432c1c updated packaging to 1.0.6
+    --https://github.com/openhie/openinfoman/commit/e432c1c
+    -a9ae314 debain packaging: add in download
+    of BaseX80.zip that was missing for some reason
+    --https://github.com/openhie/openinfoman/commit/a9ae314
+    -1652c00 moving towards supporting multiple Ubuntu releases
+    --https://github.com/openhie/openinfoman/commit/1652c00 -b9df75f
+    have signed debian packaging working.  can use ppa:litlfed/mhero
+    for test --https://github.com/openhie/openinfoman/commit/b9df75f
+    -e62d515 removed creation of wiki
+    --https://github.com/openhie/openinfoman/commit/e62d515 -9c27664
+    added in upstart job for starting basex 'sudo start openinfoman'
+    --https://github.com/openhie/openinfoman/commit/9c27664 -df3fb26
+    added in upstart job for starting basex 'sudo start openinfoman'
+    --https://github.com/openhie/openinfoman/commit/df3fb26
+    -0d5b198 removed wiki content as that
+    should be in another repo (openinfoman-mhero)
+    --https://github.com/openhie/openinfoman/commit/0d5b198 -f515c66
+    first draft at a debain packaging to download basex, setup db,
+    add in resources, webapp.  installed under /var/lib/openinfoman
+    with the structure of a basex install directory.  adds
+    /usr/local/bin/oi-start  and /usr/local/bin/oi-stop.  script
+    create-deb.sh can be used to package and create the deb from
+    source --https://github.com/openhie/openinfoman/commit/f515c66
+    -f66e81e added /CSD/pollService/directory/{}/show_update_cache
+    RestXQ endpoint to view soap result of polling
+    a services directory (needed for CAT testing)
+    --https://github.com/openhie/openinfoman/commit/f66e81e -1f11ccb
+    added shell of docuemntation content as mediawiki export
+    --https://github.com/openhie/openinfoman/commit/1f11ccb
+    -de61e32 fixed adhoc as cs function
+    --https://github.com/openhie/openinfoman/commit/de61e32
+    -db0745e show url of polling directory
+    --https://github.com/openhie/openinfoman/commit/db0745e
+    -64034ad fixed typo in CSD facility connectathon 2015 data
+    --https://github.com/openhie/openinfoman/commit/64034ad
+    -57d8efe provider search improvements for connectathon
+    --https://github.com/openhie/openinfoman/commit/57d8efe
+    -8097649 csr process smarter about
+    accepting requestParams or careServicesFunction
+    --https://github.com/openhie/openinfoman/commit/8097649
+    -1c144de local services cache now uses the same
+    file name pattern as does the document manager
+    --https://github.com/openhie/openinfoman/commit/1c144de
+    -c5cc3d1 improved cache control for ui
+    --https://github.com/openhie/openinfoman/commit/c5cc3d1 -9171649
+    added jquery and favicon as static files on server. need
+    to do a basex -Vc 'repo install csd_webapp_config.xqm'
+    --https://github.com/openhie/openinfoman/commit/9171649
+    -b950d00 updated reference to openhie logo
+    --https://github.com/openhie/openinfoman/commit/b950d00
+    -135e0ab Added connect-a-thon 2015 test directories
+    --https://github.com/openhie/openinfoman/commit/135e0ab -807d081
+    removed import module statments for the statically bound 'file'
+    and 'random' modules in RestXQ.  needed for Jan 20, 2015 snapshot
+    og basex.  --https://github.com/openhie/openinfoman/commit/807d081
+    -085274d removed import module statments for the statically bound
+    'file' and 'random' modules.  needed for Jan 20, 2015 snapshot
+    og basex.  --https://github.com/openhie/openinfoman/commit/085274d
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Feb 2015 05:02:08 +0000
+
 openinfoman (1.0.11~trusty) trusty; urgency=medium
 
   * Release Version 1.0.11

@@ -1,7 +1,7 @@
 #!/bin/bash
 #Exit on error
 set -e
-
+set -x
 PPA=mhero
 
 #Don't edit below
@@ -35,12 +35,10 @@ read INCVERS
 
 if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
     COMMITMSG="Release Version $VERS"
-    WIDTH=68
+    WIDTH=67
     URL="https://github.com/openhie/openinfoman/commit/"
 
-
-
-    LOGLINES=$($GIT log --oneline $LASTVERS.. | $AWK '{printf " -%s\n --'$URL'%s\n" , $0, $1}')
+    LOGLINES=$($GIT log --oneline 1.0.. | $AWK '{printf " -%s\n --'$URL'%s\n" , $0, $1}' | $FMT -w $WIDTH -g $WIDTH)
 
     FULLCOMMITMSG=$(echo "$COMMITMSG 
 $LOGLINES" |  $XARGS -0 | $AWK '{printf "%-'"$WIDTH.$WIDTH"'s\n" , $0}')
