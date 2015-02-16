@@ -2,7 +2,6 @@
 #Exit on error
 set -e
 
-
 PPA=mhero
 
 #Don't edit below
@@ -13,8 +12,13 @@ HEAD=/usr/bin/head
 GIT=/usr/bin/git
 SORT=/usr/bin/sort
 DCH=/usr/bin/dch
+PR=/usr/bin/pr 
+SED=/bin/sed
+FMT=/usr/bin/fmt
+PR=/usr/bin/pr
+XARGS=/usr/bin/xargs
 
-cd targets
+cd $HOME/targets
 TARGETS=(*)
 echo $TARGETS
 cd $HOME
@@ -30,14 +34,28 @@ echo Should we update changelogs, commit under packacing everything and incremen
 read INCVERS 
 
 if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
-    COMMITMSG="Releasing Version $VERS"
+    COMMITMSG="Release Version $VERS"
+    WIDTH=68
+    URL="https://github.com/openhie/openinfoman/commit/"
+
+
+
+    LOGLINES=$($GIT log --oneline $LASTVERS.. | $AWK '{printf " -%s\n --'$URL'%s\n" , $0, $1}')
+
+    FULLCOMMITMSG=$(echo "$COMMITMSG 
+$LOGLINES" |  $XARGS -0 | $AWK '{printf "%-'"$WIDTH.$WIDTH"'s\n" , $0}')
+
+
     for TARGET in "${TARGETS[@]}"
     do
-	cd targets/$TARGET
-	$DCH -v "${VERS}" "${COMMITMSG}"
+	cd $HOME/targets/$TARGET
+	$DCH -Mv "${VERS}~$TARGET" --distribution "${TARGET}" "${FULLCOMMITMSG}"
     done
+    cd $HOME
+
     $GIT diff
-    exit 1
+    $GIT add .
+
     echo "Incrementing version"
     $GIT commit ./ -m "\"${COMMITMSG}\""
     $GIT tag $VERS
