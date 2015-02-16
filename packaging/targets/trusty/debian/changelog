@@ -1,3 +1,15 @@
+openinfoman (1.0.11~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.11
+    -52a5078 changelog is generated from commit log since last tagged r
+    --https://github.com/openhie/openinfoman/commit/52a5078
+    -3eeebd5 adding auto increment version in packacing
+    --https://github.com/openhie/openinfoman/commit/3eeebd5
+    -46b9df5 updated ignore
+    --https://github.com/openhie/openinfoman/commit/46b9df5
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Feb 2015 04:28:24 +0000
+
 openinfoman (1.0.10~trusty) trusty; urgency=low
 
   [Carl Leitner <litlfred@ibiblio.org>]
