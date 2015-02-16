@@ -1,3 +1,9 @@
+openinfoman (1.0.16~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.16
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Feb 2015 18:49:06 +0000
+
 openinfoman (1.0.15~utopic) utopic; urgency=medium
 
   * Release Version 1.0.15

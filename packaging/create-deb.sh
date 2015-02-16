@@ -125,7 +125,7 @@ do
     for CPFILE in "${CPFILES[@]}"
     do
 	if [ -e "$SRCDIR/$CPFILE" ]; then
-	    cp  $SRCFILE/$CPFILE $OIDIR
+	    cp  $SRCDIR/$CPFILE $OIDIR
 	fi
     done
     if [ -d "$SRCDIR/repo" ]; then
