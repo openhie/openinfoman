@@ -25,8 +25,6 @@ done
 
 $BASEX -Vc 'create database provider_directory'
 
-adduser --system $USERNAME
-addgroup $USERNAME
 chown -R $USERNAME:$USERNAME $OI
 chmod +s /usr/bin/oi-log
 
