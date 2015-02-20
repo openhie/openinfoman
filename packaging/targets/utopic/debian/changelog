@@ -1,3 +1,11 @@
+openinfoman (1.0.19~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.19
+    -c910773 cleanup packaging script
+    --https://github.com/openhie/openinfoman/commmit/c910773
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 19 Feb 2015 20:02:31 -0500
+
 openinfoman (1.0.18~utopic) utopic; urgency=medium
 
   * Release Version 1.0.18
