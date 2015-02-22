@@ -1,3 +1,11 @@
+openinfoman (1.0.21~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.21
+    -e098645 switched java to pre-depends for debian packaging as path
+    --https://github.com/openhie/openinfoman/commmit/e098645
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 22 Feb 2015 05:24:53 -0500
+
 openinfoman (1.0.20~utopic) utopic; urgency=medium
 
   * Release Version 1.0.20
