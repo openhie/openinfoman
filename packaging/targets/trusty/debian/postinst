@@ -48,3 +48,4 @@ done
 chown -R $USERNAME:$USERNAME $OI
 
 
+service openinfoman start || true
