@@ -12,7 +12,7 @@ OpenInfoMan has been developed as part of <a href="http://ohie.org">OpenHIE</a> 
 
 Ubuntu Installation
 ===================
-
+You can easily install on Ubuntu 14.04 and Ubuntu 14.10 using the following commands
 <pre>
 sudo add-apt-repository ppa:openhie/release
 sudo apt-get update
