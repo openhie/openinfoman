@@ -3,7 +3,7 @@
 set -e
 
 
-PPA=releases
+PPA=release
 CPDIRS=("webapp" "resources" )
 CPFILES=("README.md" "LICENSE")
 
