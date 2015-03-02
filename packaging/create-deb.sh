@@ -3,7 +3,7 @@
 set -e
 
 
-PPA=mhero
+PPA=releases
 CPDIRS=("webapp" "resources" )
 CPFILES=("README.md" "LICENSE")
 
