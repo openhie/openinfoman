@@ -19,6 +19,8 @@ sudo apt-get update
 sudo apt-get install openinfoman
 </pre>
 
+Once you have installed, you should be able to access OpenInfoMan at:
+> http://localhost:8984/CSD
 
 Manual Installation
 ===================
