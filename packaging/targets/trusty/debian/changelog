@@ -1,3 +1,17 @@
+openinfoman (1.0.25~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.25
+    -f5d4b44 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/f5d4b44
+    -71b37e6 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/71b37e6
+    -32334d6 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/32334d6
+    -3941e07 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/3941e07
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 04 Mar 2015 16:42:12 +0000
+
 openinfoman (1.0.24~trusty) trusty; urgency=medium
 
   * Release Version 1.0.24
