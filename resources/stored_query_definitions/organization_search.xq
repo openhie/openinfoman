@@ -52,7 +52,7 @@ declare variable $careServicesRequest as item() external;
       else
 	if (exists($careServicesRequest/max))
 	  then csd_bl:limit_items($orgs7,<start/>,$careServicesRequest/max)
-	else $orgs6
+	else $orgs7
 
     }     
   </organizationDirectory>
