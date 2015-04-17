@@ -1,3 +1,13 @@
+openinfoman (1.0.26~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.26
+    -e444edf org search max is fixed
+    --https://github.com/openhie/openinfoman/commmit/e444edf
+    -2099bf1 updated anon
+    --https://github.com/openhie/openinfoman/commmit/2099bf1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 17 Apr 2015 16:08:59 -0400
+
 openinfoman (1.0.25~trusty) trusty; urgency=medium
 
   * Release Version 1.0.25
