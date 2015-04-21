@@ -1,3 +1,11 @@
+openinfoman (1.0.27~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.27
+    -05d49cc added ability to update url/user/pass of named polled serv
+    --https://github.com/openhie/openinfoman/commmit/05d49cc
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 20 Apr 2015 22:57:07 -0400
+
 openinfoman (1.0.26~utopic) utopic; urgency=medium
 
   * Release Version 1.0.26
