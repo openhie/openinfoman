@@ -127,10 +127,11 @@ declare  updating  function csd_lsc:update_cache($db,$name)
 (:  see or :)
 (:  http://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.htmlhttp://www.mail-archive.com/basex-talk@mailman.uni-konstanz.de/msg02999.html  :)
 (:  possible work-around: http://docs.basex.org/wiki/Server_Protocol ? :)
+  let $currtime := current-dateTime()
   let $result := csd_psd:poll_service_directory($db,$name,$mtime)    
   let $cache_doc := csd_lsc:get_cache($db,$name) 
 
-  let $currtime := current-dateTime()
+
   return (
     csd_lsc:refresh_doc($cache_doc,$result)   
     ,csd_lsc:set_service_directory_mtime($db,$name,$currtime) 
