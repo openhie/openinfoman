@@ -1,3 +1,11 @@
+openinfoman (1.0.28~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.28
+    -b56396a polling sets last time polled to be the before the iti-74
+    --https://github.com/openhie/openinfoman/commmit/b56396a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 20 Apr 2015 23:13:10 -0400
+
 openinfoman (1.0.27~trusty) trusty; urgency=medium
 
   * Release Version 1.0.27
