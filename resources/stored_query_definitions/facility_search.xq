@@ -55,7 +55,7 @@ declare  variable $careServicesRequest as item() external;
       else
 	if (exists($careServicesRequest/max)) 
 	  then csd_bl:limit_items($facs7,<start/>,$careServicesRequest/max)         
-	else $facs6
+	else $facs7
 
 
     }     
