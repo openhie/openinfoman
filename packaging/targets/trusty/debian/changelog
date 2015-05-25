@@ -1,3 +1,11 @@
+openinfoman (1.0.29~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.29
+    -34c96e0 fixed issue with max parameter in facility search
+    --https://github.com/openhie/openinfoman/commmit/34c96e0
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 25 May 2015 20:13:30 +0000
+
 openinfoman (1.0.28~trusty) trusty; urgency=medium
 
   * Release Version 1.0.28
