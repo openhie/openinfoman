@@ -25,13 +25,13 @@ declare function page:nocache($response)
 
 
 declare updating   
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/init")
+  %rest:path("/CSD/SVS/initSharedValueSet/init")
   %rest:GET
   function page:init()
 { 
 (
   svs_lsvs:init_store($csd_webconf:db),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSampleSharedValueSet")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
 )
 };
 
@@ -39,7 +39,7 @@ declare updating
 
 
 declare
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/svs/{$id}")
+  %rest:path("/CSD/SVS/initSharedValueSet/svs/{$id}")
   %rest:GET
   %output:method("xhtml")
   function page:get_svs_menu($id)
@@ -111,30 +111,30 @@ declare
 
 
 declare updating   
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/svs/{$id}/load")
+  %rest:path("/CSD/SVS/initSharedValueSet/svs/{$id}/load")
   %rest:GET
   function page:load($id)
 { 
 (
   svs_lsvs:load($csd_webconf:db,$id)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSampleSharedValueSet")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
 )
 };
 
 
 declare updating   
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/svs/{$id}/reload")
+  %rest:path("/CSD/SVS/initSharedValueSet/svs/{$id}/reload")
   %rest:GET
   function page:reload($id)
 { 
 (
   svs_lsvs:reload($csd_webconf:db,$id)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSampleSharedValueSet")))
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
 )
 };
 
 declare
-  %rest:path("/CSD/SVS/initSampleSharedValueSet/svs/{$id}/lookup")
+  %rest:path("/CSD/SVS/initSharedValueSet/svs/{$id}/lookup")
   %rest:GET
   %rest:query-param("code","{$code}")
   %rest:query-param("lang", "{$lang}",'')
@@ -154,7 +154,7 @@ declare
       <li>displayName: {text{$concept/@displayName}}</li>
       <li>codeSystem: {text{$concept/@codeSystem}}</li>
     </ul>
-    <a href="{$csd_webconf:baseurl}CSD/SVS/initSampleSharedValueSet/">Return</a>
+    <a href="{$csd_webconf:baseurl}CSD/SVS/initSharedValueSet/">Return</a>
   </span>
   )
   return csd_webconf:wrapper($response)
@@ -174,14 +174,14 @@ declare function page:wrapper_double($responseA,$responseB) {
  return csd_webconf:wrapper($content)
 };
 
-declare
-  %rest:path("/CSD/SVS/initSampleSharedValueSet")
+declare 
+  %rest:path("/CSD/SVS/initSharedValueSet")
   %rest:GET
-  %output:method("xhtml")
+  %output:method("xhtml") 
   function page:svs_list()
 {
 if (not(svs_lsvs:store_exists($csd_webconf:db))) then
-    page:redirect(concat($csd_webconf:baseurl,"/CSD/SVS/initSampleSharedValueSet/init"))
+    page:redirect(concat($csd_webconf:baseurl,"/CSD/SVS/initSharedValueSet/init"))
 else 
  page:nocache( page:wrapper_double(
     <span >
@@ -201,7 +201,7 @@ else
 	order by $set/@ID
 	return 
 	<li>
-	  <a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}">{$displayName} ({$id})</a>
+	  <a href="/CSD/SVS/initSharedValueSet/svs/{$id}">{$displayName} ({$id})</a>
 	  <br/>
 	  {page:svs_menu($id)}
 	</li>
@@ -236,22 +236,59 @@ declare function page:svs_menu($id) {
       return <ul>
 	{if ($set/@file) then
 	  if (not(svs_lsvs:exists($csd_webconf:db,$id))) then
-          <li><a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/load">Initialize {$id} ({$disp})</a> </li>
+          <li><a href="/CSD/SVS/initSharedValueSet/svs/{$id}/load">Initialize {$id} ({$disp})</a> </li>
           else 
 	  (
 	  <li><a href="/CSD/SVS/RetrieveValueSet?ID={$id}">Get {$id}</a></li>,
-	  <li><a href="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/reload">Reload {$id}</a></li>,
-	  <li><form action="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
+	  <li><a href="/CSD/SVS/initSharedValueSet/svs/{$id}/reload">Reload {$id}</a></li>,
+	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
         else
 	  (:not @file so its not something we can load/reload :)
 	  (
 	  <li><a href="/CSD/SVS/RetrieveValueSet?ID={$id}">Get {$id}</a></li>,
-	  <li><form action="/CSD/SVS/initSampleSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
+	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
 	  }
        </ul>
 
+};
+
+
+
+
+
+declare 
+  %rest:path("/CSD/SVS/availSharedValueSet")
+  %rest:GET
+  %output:method("xhtml") 
+  function page:svs_menu_avail() {
+  
+
+  let $sets :=   svs_lsvs:get_all_value_set_list($csd_webconf:db)
+  let $ids :=  $sets/svs:DescribedValueSet/@ID
+  let $list := 
+      <ul>
+        {
+	for $id in distinct-values($ids)
+	where svs_lsvs:exists($csd_webconf:db,$id)
+	order by $id
+	return <li>
+	         {$id}
+	         <br/>
+		 <ul>
+		   {
+		     for $set in  $sets//svs:DescribedValueSet[@ID = $id]
+		     let $href := concat("/CSD/SVS/RetrieveValueSet?ID=", $id)
+		     let $version := string($set/@version)
+		     order by $version
+		     return <li><a href="{$href}"> {string($set/@displayName)}</a> version {$version}   </li>
+		   }
+		 </ul>
+	       </li>
+	}
+     </ul>	
+  return  csd_webconf:wrapper($list)
 };
 
 
