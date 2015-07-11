@@ -1,3 +1,15 @@
+openinfoman (1.0.30~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.30
+    -d5e4398 cleaned up UI for adapters
+    --https://github.com/openhie/openinfoman/commmit/d5e4398
+    -e4c3da8 updated openhie logo
+    --https://github.com/openhie/openinfoman/commmit/e4c3da8
+    -e149e07 added menu to see avialable SVSs
+    --https://github.com/openhie/openinfoman/commmit/e149e07
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 11 Jul 2015 15:22:54 -0400
+
 openinfoman (1.0.29~utopic) utopic; urgency=medium
 
   * Release Version 1.0.29
