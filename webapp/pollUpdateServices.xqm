@@ -79,6 +79,27 @@ declare updating
 };
 
 
+declare updating
+  %rest:path("/CSD/registerService/basic_auth/{$name}")
+  %output:method("xhtml")
+  %rest:query-param("url", "{$url}")
+  %rest:query-param("password", "{$password}")
+  %rest:query-param("username", "{$username}")
+  %rest:GET
+  function page:update_basic_auth($name,$url,$username,$password) 
+{
+
+  (
+    let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
+    return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
+      ,
+  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  )
+
+};
+
+
+
 
 declare
   %rest:path("/CSD/pollService/cache_meta")
@@ -333,9 +354,11 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	   </div>
        
        </div>
+
+
      </div>
      <div class='row'>
-       <div class="col-md-8">
+       <div class="col-md-4">
 	 <h2>Registered Service Directories</h2>
 	 {if (count($services) = 0) 
 	 then <h4>No Services Registered</h4>
@@ -352,6 +375,27 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
        </ul>
 	 }
        </div>
+       <div class="col-md-4">
+	 <h3>Update Service (Basic Auth)</h3>
+	 {
+	   for $name in $services
+	   let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name) 
+	   return
+	     <div id='svc-{$name}'>
+	       <h2>{$name}</h2>
+	       <form method='get' action="/CSD/registerService/basic_auth/{$name}">
+		 <ul>
+		   <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value="{$url}"/></li>
+		   <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
+		   <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="text" value=""/>   </li>
+		 </ul>
+		 <input type='submit' />
+	       </form> 
+	     </div>
+	 }
+
+       </div>
+
      </div>
    </div>
   

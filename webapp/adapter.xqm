@@ -12,36 +12,17 @@ declare
   function page:show_types() 
 { 
   let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))
-  let $searches := 
+  let $types := distinct-values($funcs/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type)
+  let $type_list := 
     <ul>
       {
-	for $adapter_func in $funcs[./csd:extension[@urn='urn:openhie.org:openinfoman:adapter']] 
-        let $desc := $adapter_func/csd:description
-        let $types := $adapter_func/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type
-	let $urn := string($adapter_func/@urn)
-	return 
-	  for $type in $types
-	  let $s_type := string($type)
-	  return
-  	  <li style='dispaly:block'>Stored Function <a href="{$csd_webconf:baseurl}/CSD/storedFunctions#{$urn}">{$urn}</a>
-	    <div class='container'>
-	      <p>
-	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}">{$s_type}</a>)
-	      </p>
-	      <p>
-		Act on a <a href="{$csd_webconf:baseurl}CSD/adapter/{$s_type}/{$urn}">Document</a>
-	      </p>
-	      <p>
-	      </p>
-	      <div>
-
-		<pre class='bodycontainer scrollable pull-left' style='overflow:scroll;font-family: monospace;white-space: pre;'>{string($desc)}</pre>
-	      </div>
-	    </div>
-	  </li>
-      }
-    </ul>
-  return page:wrapper($searches)
+      for $type in $types
+      let $s_type := string($type)
+      let $href := concat($csd_webconf:baseurl ,"CSD/adapter/" , $s_type)
+      return <li><a href="{$href}">{$s_type}</a></li>
+      } 
+    </ul> 
+  return page:wrapper((<h3>Available Adapaters</h3>, $type_list))
 };
 
 
