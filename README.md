@@ -1,7 +1,7 @@
 OpenInfoMan
 ===========
 
-OpenInfoMan is XQuery and RESTXQ based implementation of the <a href="http://wiki.ihe.net/index.php?title=Care_Services_Discovery">Care Services Directory (CSD)</a> profile from IHE which implements the following actors and transactions:
+OpenInfoMan is XQuery and RESTXQ based implementation of the <a href="http://wiki.ihe.net/index.php?title=Care_Services_Discovery">Care Services Discovery (CSD)</a> profile from IHE which implements the following actors and transactions:
 
     Info Manager : Find Matching Services (Ad-Hoc and Stored) [ITI-73]
                    Query for Updated Services Transaction [ITI-74]
