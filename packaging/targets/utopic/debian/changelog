@@ -1,3 +1,23 @@
+openinfoman (1.0.33~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.33
+    -c8a20d8 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/c8a20d8
+    -56368e0 Merge branch 'master' of https://github.com/his-interop/op
+    --https://github.com/openhie/openinfoman/commmit/56368e0
+    -7b3f43a fix to facility search
+    --https://github.com/openhie/openinfoman/commmit/7b3f43a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 31 Jul 2015 10:15:43 -0400
+
+openinfoman (1.0.32~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.32
+    -d6f4b8e logo fix
+    --https://github.com/openhie/openinfoman/commmit/d6f4b8e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 15 Jul 2015 15:49:20 -0400
+
 openinfoman (1.0.31~utopic) utopic; urgency=medium
 
   * Release Version 1.0.31
