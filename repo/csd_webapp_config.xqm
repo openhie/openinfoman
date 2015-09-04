@@ -57,7 +57,10 @@ declare function csd_webconf:wrapper($content,$headers) {
           </button>
           <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan - Interlinked Health Services Discovery</a>
         </div>
-	<img  class='pull-right' src='https://ohie.org/wp-content/uploads/2014/11/logoHD.fw-whitefont-300x64.png' style='height:3.5em'/>
+	<span class='pull-right'>
+	  <img src="{$csd_webconf:baseurl}static/openhie.png" style='height:60px; padding-right:5em; padding-top:1.5em'/>
+	</span>
+
       </div>
     </div>
     <div class='container'> {$content}</div>
@@ -65,7 +68,6 @@ declare function csd_webconf:wrapper($content,$headers) {
       <center>
       
 	<img src="{$csd_webconf:baseurl}static/USAID_CP_IH_PEPFAR_logos.png" width='30%'/>
-
       </center>
 
       <div class="container">
