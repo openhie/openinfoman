@@ -11,12 +11,6 @@ declare  variable $careServicesRequest as item() external;
    and limit paramaters as sent by the Service Finder
 :) 
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
-{$careServicesRequest}
-
-{
-  if (exists($careServicesRequest/organizations/organization)) 
-    then <good/>      else  <bad/>
-}
   <organizationDirectory/>
   <serviceDirectory/>
   <facilityDirectory>
@@ -51,8 +45,8 @@ declare  variable $careServicesRequest as item() external;
 
 
       let $facs7 :=  if (exists($careServicesRequest/organizations/organization)) 
-	then (<NN/>,csd_bl:filter_by_organizations($facs6,$careServicesRequest/organizations/organization)      )
-      else  (<MM/>,$facs6)
+	then (csd_bl:filter_by_organizations($facs6,$careServicesRequest/organizations/organization)      )
+      else  ($facs6)
 	
 
       return if (exists($careServicesRequest/start)) then
