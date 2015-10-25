@@ -1,0 +1,81 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          openinfoman
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Should-Start:      S
+# Should-Stop:       1
+# Default-Start:     2 3 4 5
+# Default-Stop:      
+# Short-Description: Start the OpenInfoMan server
+# Description:       System mode startup script for
+#                    the OpenInfoMan server.
+### END INIT INFO
+
+DAEMON=/var/lib/openinfoman/bin/basex
+PIDDIR=/var/run/openinfoman
+PIDFILE=$PIDDIR/pid
+DAEMONUSER=oi
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+test -x $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+
+#description "OpenInfoMan Upstart Service"
+#author "Carl Leitner"
+#console log
+
+
+openinfoman_start () {
+  log_daemon_msg "Starting system PulseAudio Daemon"
+  if [ ! -d $PIDDIR ]; then
+    mkdir -p $PIDDIR
+    chown $DAEMONUSER:$DAEMONUSER $PIDDIR
+  fi
+
+  chdir /var/lib/openinfoman/bin
+
+  setuid oi
+  setgid oi
+
+  /usr/bin/java -cp /var/lib/openinfoman/BaseX.jar:/var/lib/openinfoman/lib/basex-api.jar:/var/lib/openinfoman/lib/basex-xqj-1.4.0.jar:/var/lib/openinfoman/lib/commons-codec-1.4.jar:/var/lib/openinfoman/lib/commons-fileupload-1.3.1.jar:/var/lib/openinfoman/lib/commons-io-1.4.jar:/var/lib/openinfoman/lib/igo-0.4.3.jar:/var/lib/openinfoman/lib/javax.servlet-3.0.0.v201112011016.jar:/var/lib/openinfoman/lib/jdom-1.1.jar:/var/lib/openinfoman/lib/jetty-continuation-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-http-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-io-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-security-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-server-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-servlet-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-util-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-webapp-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jetty-xml-8.1.16.v20140903.jar:/var/lib/openinfoman/lib/jline-2.12.jar:/var/lib/openinfoman/lib/jts-1.13.jar:/var/lib/openinfoman/lib/lucene-stemmers-3.4.0.jar:/var/lib/openinfoman/lib/milton-api-1.8.1.4.jar:/var/lib/openinfoman/lib/mime-util-2.1.3.jar:/var/lib/openinfoman/lib/slf4j-api-1.7.10.jar:/var/lib/openinfoman/lib/slf4j-simple-1.7.10.jar:/var/lib/openinfoman/lib/tagsoup-1.2.1.jar:/var/lib/openinfoman/lib/xml-resolver-1.2.jar:/var/lib/openinfoman/lib/xmldb-api-1.0.jar:/var/lib/openinfoman/lib/xqj-api-1.0.jar:/var/lib/openinfoman/lib/xqj2-0.2.0.jar:/lib/*.jar -Xmx512m  org.basex.BaseXHTTP
+end script
+}
+
+openinfoman_stop () {
+	log_daemon_msg "Stopping OpenInfoMan"
+	#	/var/lib/openinfoman/bin/basexhttp stop
+	start-stop-daemon -p $PIDFILE --stop --retry 5 || echo -n "...which is not running"
+	log_end_msg $?
+}
+
+
+
+case "$1" in
+	start|stop)
+		openinfoman_${1}
+		;;
+	restart|force-reload)
+		if [ -s $PIDFILE ] && kill -0 $(cat $PIDFILE) >/dev/null 2>&1; then
+			openinfoman_stop
+			openinfoman_start
+		fi
+		;;
+	force-stop)
+		openinfoman_stop
+		killall `cat $PIDFILE` || true
+		sleep 2
+		killall -9 `cat $PIDFILE` || true
+		;;
+	status)
+		status_of_proc -p $PIDFILE "$DAEMON" "system-wide OpenInfoMan" && exit 0 || exit $?
+		;;
+	*)
+		echo "Usage: /etc/init.d/openinfoman {start|stop|force-stop|restart|force-reload|status}"
+		exit 1
+		;;
+esac
+
+exit 0
