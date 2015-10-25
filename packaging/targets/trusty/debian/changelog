@@ -1,3 +1,11 @@
+openinfoman (1.0.34~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.34
+    -8d86f80 added vivid target for ubuntu
+    --https://github.com/openhie/openinfoman/commmit/8d86f80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:44:44 -0400
+
 openinfoman (1.0.33~trusty) trusty; urgency=medium
 
   * Release Version 1.0.33
