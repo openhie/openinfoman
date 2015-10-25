@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 openinfoman (1.0.34~utopic) utopic; urgency=medium
 
   * Release Version 1.0.34
@@ -5,6 +6,35 @@ openinfoman (1.0.34~utopic) utopic; urgency=medium
     --https://github.com/openhie/openinfoman/commmit/8d86f80
 
  -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:44:44 -0400
+=======
+openinfoman (1.0.35~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.35
+    -f871f82 removed debuggin messages
+    --https://github.com/openhie/openinfoman/commmit/f871f82
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Sep 2015 05:06:15 +0000
+
+openinfoman (1.0.35~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.35
+    -f871f82 removed debuggin messages
+    --https://github.com/openhie/openinfoman/commmit/f871f82
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Sep 2015 05:05:52 +0000
+
+openinfoman (1.0.34~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.34
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 04 Sep 2015 14:28:45 +0000
+
+openinfoman (1.0.34~utopic) utopic; urgency=medium
+
+  * Release Version 1.0.34
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 04 Sep 2015 14:28:27 +0000
+>>>>>>> c518c1a4a5ce472f319318c036e4aa2a3fda08f0
 
 openinfoman (1.0.33~utopic) utopic; urgency=medium
 
