@@ -1,6 +1,20 @@
-  [Carl Leitner <litlfred@ibiblio.org>]
-  * Initial Build
-    Fri 2015-02-13 13:55:10 -0500
+openinfoman (1.0.36~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.36
+    -9f081e6 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/9f081e6
+    -1777b21 updates to changelog
+    --https://github.com/openhie/openinfoman/commmit/1777b21
+    -8d86f80 added vivid target for ubuntu
+    --https://github.com/openhie/openinfoman/commmit/8d86f80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:53:30 -0400
+
+openinfoman (1.0.33~trusty) trusty; urgency=medium
+
+   [Carl Leitner <litlfred@ibiblio.org>]
+   * Initial Build
+     Fri 2015-02-13 13:55:10 -0500
 
  -- Carl Leitner <litlfred@ibiblio.org>  Fri, 13 March 2014 13:55:10 -0500
 

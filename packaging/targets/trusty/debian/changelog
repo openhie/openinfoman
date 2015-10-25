@@ -1,19 +1,38 @@
-<<<<<<< HEAD
-openinfoman (1.0.34~trusty) trusty; urgency=medium
+openinfoman (1.0.36~trusty) trusty; urgency=medium
 
-  * Release Version 1.0.34
+  * Release Version 1.0.36
+    -9f081e6 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/9f081e6
+    -1777b21 updates to changelog
+    --https://github.com/openhie/openinfoman/commmit/1777b21
     -8d86f80 added vivid target for ubuntu
     --https://github.com/openhie/openinfoman/commmit/8d86f80
 
- -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:44:44 -0400
-=======
-openinfoman (1.0.35~trusty) trusty; urgency=medium
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:53:29 -0400
 
-  * Release Version 1.0.35
-    -f871f82 removed debuggin messages
-    --https://github.com/openhie/openinfoman/commmit/f871f82
+openinfoman (1.0.36~trusty) trusty; urgency=medium
 
- -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Sep 2015 05:06:15 +0000
+  * Release Version 1.0.36
+    -9f081e6 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/9f081e6
+    -1777b21 updates to changelog
+    --https://github.com/openhie/openinfoman/commmit/1777b21
+    -8d86f80 added vivid target for ubuntu
+    --https://github.com/openhie/openinfoman/commmit/8d86f80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:50:18 -0400
+
+openinfoman (1.0.36~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.36
+    -9f081e6 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/9f081e6
+    -1777b21 updates to changelog
+    --https://github.com/openhie/openinfoman/commmit/1777b21
+    -8d86f80 added vivid target for ubuntu
+    --https://github.com/openhie/openinfoman/commmit/8d86f80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:49:07 -0400
 
 openinfoman (1.0.35~trusty) trusty; urgency=medium
 
@@ -28,13 +47,6 @@ openinfoman (1.0.34~trusty) trusty; urgency=medium
   * Release Version 1.0.34
 
  -- Carl Leitner <litlfred@ibiblio.org>  Fri, 04 Sep 2015 14:28:45 +0000
-
-openinfoman (1.0.34~trusty) trusty; urgency=medium
-
-  * Release Version 1.0.34
-
- -- Carl Leitner <litlfred@ibiblio.org>  Fri, 04 Sep 2015 14:28:26 +0000
->>>>>>> c518c1a4a5ce472f319318c036e4aa2a3fda08f0
 
 openinfoman (1.0.33~trusty) trusty; urgency=medium
 
