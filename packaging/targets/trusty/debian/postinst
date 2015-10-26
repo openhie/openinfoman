@@ -47,5 +47,6 @@ done
 
 chown -R $USERNAME:$USERNAME $OI
 
-
 service openinfoman start || true
+
+$WGET http://localhost:8984/CSD/storedFunctions/reload -O  /dev/null
