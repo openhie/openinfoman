@@ -55,7 +55,7 @@ declare function csd_webconf:wrapper($content,$headers) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan - Interlinked Health Services Discovery</a>
+          <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan - InterLinked Health Services Registry</a>
         </div>
 	<span class='pull-right'>
 	  <img src="{$csd_webconf:baseurl}static/openhie.png" style='height:60px; padding-right:5em; padding-top:1.5em'/>
@@ -73,7 +73,9 @@ declare function csd_webconf:wrapper($content,$headers) {
       <div class="container">
 	<div class='row'>
 	  <div class="col-md-12">
+	  <!--
 	    <a class='pull-right' href="http://www.youtube.com/watch?v=pBjvkHHuPHc"  style='color:rgb(0,0,0);text-decoration:none'>(tra-la-la)</a>
+           -->
 	  </div>
 	</div>
       </div>
