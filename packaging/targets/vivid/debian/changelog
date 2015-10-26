@@ -1,3 +1,11 @@
+openinfoman (1.0.38~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.38
+    -e69bdea removed easter egg.  slight branding update
+    --https://github.com/openhie/openinfoman/commmit/e69bdea
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 26 Oct 2015 14:25:09 +0000
+
 openinfoman (1.0.37~vivid) vivid; urgency=medium
 
   * Release Version 1.0.37
