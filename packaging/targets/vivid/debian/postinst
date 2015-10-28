@@ -50,4 +50,6 @@ chown -R $USERNAME:$USERNAME $OI
 
 /etc/init.d/openinfoman start || true
 
+sleep 10
+
 $WGET http://localhost:8984/CSD/storedFunctions/reload -O  /dev/null
