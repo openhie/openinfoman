@@ -52,4 +52,28 @@ chown -R $USERNAME:$USERNAME $OI
 
 sleep 10
 
-$WGET http://localhost:8984/CSD/storedFunctions/reload -O  /dev/null
+$WGET http://localhost:8984/CSD/storedFunctions/init -O /dev/null
+$WGET http://localhost:8984/CSD/storedFunctions/reload -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/init -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.101/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.102/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.103/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.104/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.105/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.106/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.108/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.109/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.110/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.1098910207106778371035457739371181056504702027035/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.17331675369518445540420660603637128875763657/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.18630021159349753613449707959296853730613166189051/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.259359036081944859901459759453974543442705863430576/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.265608663818616228188834890512310231251363785626032/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.400/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.401/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.402/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.403/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.404/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.405/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.406/load -O /dev/null
+$WGET http://localhost:8984/CSD/SVS/initSharedValueSet/svs/2.25.9830357893067925519626800209704957770712560/load -O /dev/null
