@@ -1,3 +1,13 @@
+openinfoman (1.0.40~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.40
+    -d4ef605 Merge pull request #25 from yatesr/initsvs
+    --https://github.com/openhie/openinfoman/commmit/d4ef605
+    -8d888a6 initialize SVS in post install script fixes #23
+    --https://github.com/openhie/openinfoman/commmit/8d888a6
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 06 Nov 2015 15:29:17 +0000
+
 openinfoman (1.0.39~trusty) trusty; urgency=medium
 
   * Release Version 1.0.39
