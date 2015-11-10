@@ -1,7 +1,6 @@
 #!/bin/bash
 set -x
 
-
 USERNAME=oi
 HOME=/home/$USERNAME
 USERADD=/usr/sbin/useradd
@@ -22,6 +21,8 @@ else
     echo "user $USERNAME does not exist. adding."
     $USERADD  $USERNAME -g $USERNAME -m -s /bin/bash 
 fi
+
+
 
 exit 0
 

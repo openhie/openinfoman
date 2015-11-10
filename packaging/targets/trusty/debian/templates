@@ -1,0 +1,6 @@
+Template: openinfoman/memsize
+Type: string
+Default: 1g
+Description: Memory Size
+ The memory size (maximum heap size) to allocate to the BaseX instance running OpenInfoMan.  
+ Valid values are integer values folowed by a M for megabyte or G for gigabyte.
