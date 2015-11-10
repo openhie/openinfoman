@@ -1,3 +1,13 @@
+openinfoman (1.0.50~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.50
+    -184d8e9 simplied SVS loading
+    --https://github.com/openhie/openinfoman/commmit/184d8e9
+    -348e9b8 expiremental vivid support with /etc/init.d and memory siz
+    --https://github.com/openhie/openinfoman/commmit/348e9b8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 19:14:31 +0000
+
 openinfoman (1.0.49~vivid) vivid; urgency=medium
 
   * Release Version 1.0.49
