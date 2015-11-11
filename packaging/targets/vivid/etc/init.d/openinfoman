@@ -30,7 +30,7 @@ OI_EVENTPORT=1985
 
 DAEMON_ARGS="-S -p$OI_PORT -e$OI_EVENTPORT"
 
-if [ "$OI_DEBUG" -eq "true" ] ; then
+if [ "$OI_DEBUG" = "true" ] ; then
 	DAEMON_ARGS="$DAEMON_ARGS -d"
 fi
 
@@ -57,9 +57,9 @@ do_start()
 	#   0 if daemon has been started
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
-	start-stop-daemon --start --quiet --pidfile $PIDFILE --user $OI_USER --chdir $OI_DIR --exec $DAEMON --test > /dev/null \
+	start-stop-daemon --start --quiet --pidfile $PIDFILE --user $OI_USER --chdir $OI_DIR/bin --exec $DAEMON --test > /dev/null \
 		|| return 1
-	start-stop-daemon --start --quiet --pidfile $PIDFILE --user $OI_USER --chdir $OI_DIR --exec $DAEMON -- \
+	start-stop-daemon --start --quiet --pidfile $PIDFILE --user $OI_USER --chdir $OI_DIR/bin --exec $DAEMON -- \
 		$DAEMON_ARGS \
 		|| return 2
 	# Add code here, if necessary, that waits for the process to be ready
