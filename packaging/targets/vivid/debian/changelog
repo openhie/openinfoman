@@ -1,3 +1,11 @@
+openinfoman (1.0.53~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.53
+    -929f8e3 updated to use basex 8.3.1
+    --https://github.com/openhie/openinfoman/commmit/929f8e3
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Nov 2015 13:20:33 +0000
+
 openinfoman (1.0.52~vivid) vivid; urgency=medium
 
   * Release Version 1.0.52
