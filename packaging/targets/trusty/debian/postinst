@@ -11,8 +11,9 @@ BASEX=$OI/bin/basex
 
 TMP=/tmp/openinfoman-basex
 mkdir -p "${TMP}"
-$WGET http://files.basex.org/releases/8.0/BaseX80.zip -O ${TMP}/BaseX80.zip
-$UNZIP -o -d ${TMP} ${TMP}/BaseX80.zip
+
+$WGET http://files.basex.org/releases/8.3.1/BaseX831.zip -O ${TMP}/BaseX.zip
+$UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
 
 
 cp $TMP/basex/BaseX.jar $OI
