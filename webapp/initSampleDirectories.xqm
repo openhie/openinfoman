@@ -3,7 +3,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
-
+import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
@@ -102,6 +102,44 @@ let $response :=
 return page:nocache(  csd_webconf:wrapper($response))
 
 
+};
+
+
+
+
+declare 
+  %rest:path("/CSD/documents.json")
+  %rest:GET
+  function page:export_function_details_json(){    
+  
+  xml-to-json( page:get_export_document_details())
+};
+
+declare
+  %rest:path("/CSD/documents.xml")
+  %rest:GET
+  function page:export_document_details_xml(){
+    
+    page:get_export_document_details()
+};
+
+declare function page:get_export_document_details() {
+  <map xmlns="http://www.w3.org/2005/xpath-functions">
+    {
+      for $name in csd_lsd:sample_directories()
+      return 
+      <map key="{string($name)}">
+	<string key="careServicesRequest">{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest</string>
+	<map key="careServicesRequests">
+	  {
+	    for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
+	    let $urn:= string($function/@urn)
+	    return <string key="{$urn}">{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest/{$urn}</string>
+	  }
+	</map>
+      </map>
+    }
+  </map>
 };
 
 

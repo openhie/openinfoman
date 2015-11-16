@@ -270,6 +270,51 @@ declare function page:function_list()  {
 };
 
 
+declare 
+  %rest:path("/CSD/storedFunctions.json")
+  %rest:GET
+  function page:export_function_details_json()
+  {    
+  xml-to-json(page:get_export_function_details())
+  };
+
+declare 
+  %rest:path("/CSD/storedFunctions.xml")
+  %rest:GET
+  function page:export_function_details_xml(){
+    page:get_export_function_details()
+};
+
+declare function page:get_export_function_details() {
+    <map xmlns="http://www.w3.org/2005/xpath-functions">
+      {
+	for $function in (csr_proc:stored_functions($csd_webconf:db))
+	let $urn:= string($function/@urn)
+	return  
+	<map key="{$urn}">
+	  <boolean key="updating">false</boolean>
+	  <string key="description">{string($function/description)}</string>
+	  <string key="definition">{string($function/definition)}</string>
+	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn))}</string>
+	</map>
+      }
+      {
+	for $function in (csr_proc:stored_updating_functions($csd_webconf:db))
+	let $urn:= string($function/@urn)
+	return  
+	<map key="{string($function/@urn)}">
+	  <boolean key="updating">true</boolean>
+	  <string key="description">{string($function/description)}</string>
+	  <string key="definition">{string($function/definition)}</string>
+	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn))}</string>
+	</map>
+      
+      }
+    </map>
+};
+
+
+
  
 declare function page:wrapper($list,$new) {
   let $headers := (
