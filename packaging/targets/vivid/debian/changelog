@@ -1,3 +1,15 @@
+openinfoman (1.0.54~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.54
+    -01a9ff3 added in some postinst init that got deleted
+    --https://github.com/openhie/openinfoman/commmit/01a9ff3
+    -85f9c0b Merge branch 'master' of https://github.com/his-interop/op
+    --https://github.com/openhie/openinfoman/commmit/85f9c0b
+    -3aa5e79 Added storedFunctions.json, storedFunctions.xml, documents
+    --https://github.com/openhie/openinfoman/commmit/3aa5e79
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 Nov 2015 13:27:23 +0000
+
 openinfoman (1.0.53~vivid) vivid; urgency=medium
 
   * Release Version 1.0.53
