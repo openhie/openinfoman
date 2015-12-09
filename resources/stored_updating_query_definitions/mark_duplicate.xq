@@ -14,14 +14,23 @@ let $masterEntity := if (exists($masterID)) then  (/csd:CSD/*/*[@entityID = @mas
 let $dupID := $careServicesRequest/duplicateEntity/@entityID
 let $dupEntity :=  if (exists($dupID)) then (/csd:CSD/*/*[@entityID = @dupID])[1] else ()
 
+
+let $masterRef := <csd:otherID assigningAuthorityName='urn:openhie.org:openinfoman:duplicate' code="{$masterID}"/>
+
 return 
   if (not(exists($masterEntity)) or not( exists($dupEntity)))
   then ()
   else 
-    let $ref := ($dupEntity/csd:otherID[@assigningAuthorityName = 'urn:openhie.org:openinfoman:duplicate'])[1]
-    let $new_ref := <csd:otherID assigningAuthorityName='urn:openhie.org:openinfoman:duplicate' code="{$masterID}"/>
+    let $existingRef := ($dupEntity/csd:otherID[@assigningAuthorityName = 'urn:openhie.org:openinfoman:duplicate'])[1]
     return 
-      if (exists($ref))
-      then (replace node $ref with $new_ref)
-      else (insert node $new_ref before ($dupEntity/*)[1])
+      (
+	if (exists($existingRef))
+	then (replace node $existingRef with $masterRef)
+	else (insert node $masterRef before ($dupEntity/*)[1])
+      ,
+        for $entity in /csd:CSD/*/*[./csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman:duplicate' and @code=$dupID]]
+	let $e_existingRef := ($entity/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman:duplicate' and  @code=$dupID])[1]
+	return (replace node $e_existingRef with $masterRef)
+     )
+
 
