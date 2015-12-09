@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<careServicesFunction 
+    xmlns:ev="http://www.w3.org/2001/xml-events" 
+    xmlns="urn:ihe:iti:csd:2013" 
+    xmlns:xforms="http://www.w3.org/2002/xforms" 
+    xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xi="http://www.w3.org/2001/XInclude" 
+    xmlns:csd="urn:ihe:iti:csd:2013" 
+    urn="urn:openhie.org:openinfoman:facility_create" 
+    >
+    <description>Create or update a facility entity.   Request parameters should be one or more CSD facility entities</description>
+    <definition ><xi:include parse="text" href="facility_create.xq"/></definition>
+    <xforms:instance>
+      <careServicesRequest>
+	<facility/>
+      </careServicesRequest>
+  </xforms:instance>
+</careServicesFunction>
