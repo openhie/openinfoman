@@ -130,7 +130,7 @@ then
   return
     if ($urn = 'urn:ihe:iti:csd:2014:adhoc')
     then
-      <m>{csr_proc:process_CSR_adhoc($db,$careServicesRequest/csd:function,$doc_name,$bindings) }</m>
+      csr_proc:process_CSR_adhoc($db,$careServicesRequest/csd:function,$doc_name,$bindings) 
     else
       let $csr :=
       <csd:careServicesRequest>
