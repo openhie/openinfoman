@@ -1,3 +1,25 @@
+openinfoman (1.0.55~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.55
+    -7d28e9c vivid /etc/init.d script updated for basex 8.3.1 command l
+    --https://github.com/openhie/openinfoman/commmit/7d28e9c
+    -25c41e3 in the filter by parent, if a <csd:parent/> element is sen
+    --https://github.com/openhie/openinfoman/commmit/25c41e3
+    -7d5deed removed debugging info
+    --https://github.com/openhie/openinfoman/commmit/7d5deed
+    -51b020f fixed namespace in create entity stored queries
+    --https://github.com/openhie/openinfoman/commmit/51b020f
+    -aaec970 when marking an entity as duplicative as another one, then
+    --https://github.com/openhie/openinfoman/commmit/aaec970
+    -7c3d148 added expiremental create/update for 4 CSD entities
+    --https://github.com/openhie/openinfoman/commmit/7c3d148
+    -907b972 fixed typos in mark duplicate stored method
+    --https://github.com/openhie/openinfoman/commmit/907b972
+    -5dfdbdb added (expiremental) stored query to mark a record as dupl
+    --https://github.com/openhie/openinfoman/commmit/5dfdbdb
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 06 Jan 2016 08:07:11 -0500
+
 openinfoman (1.0.54~trusty) trusty; urgency=medium
 
   * Release Version 1.0.54
