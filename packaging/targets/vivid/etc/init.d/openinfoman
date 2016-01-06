@@ -24,11 +24,9 @@ PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
 OI_USER=oi
-OI_PORT=1984
 OI_DEBUG=false
-OI_EVENTPORT=1985
 
-DAEMON_ARGS="-S -p$OI_PORT -e$OI_EVENTPORT"
+DAEMON_ARGS="-S"
 
 if [ "$OI_DEBUG" = "true" ] ; then
 	DAEMON_ARGS="$DAEMON_ARGS -d"
