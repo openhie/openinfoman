@@ -4,9 +4,11 @@
 : @see http://ihe.net
 :
 :)
-module namespace csd = "https://github.com/openhie/openinfoman/csd_bl";
-declare default element  namespace   "urn:ihe:iti:csd:2013";
 
+module namespace csd = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace functx = "http://www.functx.com";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
 
@@ -429,8 +431,10 @@ declare function csd:filter_by_parent($items as item()*,$parent as item()*) as i
 {
   let $entityID:= upper-case($parent/@entityID)
   return 
-    if (not(exists($entityID)))
+    if (not(exists($entityID)))    
     then $items
+    else if (functx:all-whitespace($parent/@entityID))
+    then $items[not(./parent)]
     else $items[./parent[upper-case(@entityID) = $entityID]]
 };
 
