@@ -368,13 +368,13 @@ let $all_bindings :=  map:merge(($csr_bindings, $bindings))
 let $function := $careServicesRequest/@function
 let $options := csr_proc:lookup_stored_options($db,$function)
 let $definition := $stored_updating_functions[@urn = $function][1]/csd:definition/text()
-
+let $out := serialize($careServicesRequest)
 return if (exists($definition)) then
-  xquery:update($definition,$all_bindings,$options) 
+  xquery:update($definition,$all_bindings,$options)
 else 
     db:output(
     <rest:response>
-      <http:response status="404" message="No registered updating function with URN='{$function}">
+      <http:response status="404" message="No registered updating function with URN='{$function}'">
 	<http:header name="Content-Language" value="en"/>
 	<http:header name="Content-Type" value="text/html; charset=utf-8"/>
       </http:response>
@@ -389,12 +389,12 @@ declare updating function csr_proc:process_updating_CSR($db,$careServicesRequest
 {
 
 let $doc := csd_dm:open_document($db,$doc_name)
-let $function :=$careServicesRequest//csd:function
-let $urn := $function/@urn
+let $function := ($careServicesRequest//csd:function)[1]
+let $urn := string($function/@urn)
 let $content_type := csr_proc:lookup_stored_content_type($db,$function/@urn)
-let $requestParams := <csd:requestParams resource="{$doc_name}" function="{$urn}" base_url="{$base_url}">
+let $requestParams := <csd:requestParams resource="{$doc_name}" function="{$urn}" base_url="{$base_url}"> 
   {
-    if ($function/csd:requestParams) then $function/csd:requestParams/*
+    if (exists($function/csd:requestParams)) then $function/csd:requestParams/*
     else $function/requestParams/*
   }
 </csd:requestParams>
