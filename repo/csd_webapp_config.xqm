@@ -48,7 +48,7 @@ declare function csd_webconf:wrapper($content,$headers) {
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
-	<img class='pull-left' height='38px' src="{$csd_webconf:baseurl}static/GeoGebra_icon_geogebra.png"/>
+	<img class='pull-left' height='38px' style='margin-top:8px; margin-right:5px' src="{$csd_webconf:baseurl}static/oim_logo_48p.png"/>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
@@ -58,7 +58,7 @@ declare function csd_webconf:wrapper($content,$headers) {
           <a class="navbar-brand" href="{$csd_webconf:baseurl}CSD">OpenInfoMan - InterLinked Health Services Registry</a>
         </div>
 	<span class='pull-right'>
-	  <img src="{$csd_webconf:baseurl}static/openhie.png" style='height:60px; padding-right:5em; padding-top:1.5em'/>
+	  <img src="{$csd_webconf:baseurl}static/openhie.png" style='height:60px; padding-right:10px; padding-top:8px;'/>
 	</span>
 
       </div>
