@@ -24,7 +24,15 @@ do
     cp -R $TMP/basex/$DIR/* $OI/$DIR
 done
 
-$BASEX -Vc 'create database provider_directory'
+
+$BASEX -Vc "list provider_directory" > /dev/null
+if [ $? -eq 0 ]; then
+    echo "BaseX Database provider_directory exists\n"
+else
+    echo "BaseX Database provider_directory does not exist\n"
+    $BASEX -Vc 'create database provider_directory'
+fi
+
 
 chown -R $USERNAME:$USERNAME $OI
 chmod +s /usr/bin/oi-log
