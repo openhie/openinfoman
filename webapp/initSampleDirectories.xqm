@@ -126,7 +126,7 @@ declare
 declare function page:get_export_document_details() {
   <map xmlns="http://www.w3.org/2005/xpath-functions">
     {
-      for $name in csd_lsd:sample_directories()
+      for $name in csd_dm:registered_documents($csd_webconf:db)
       return 
       <map key="{string($name)}">
 	<string key="careServicesRequest">{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest</string>
