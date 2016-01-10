@@ -1,3 +1,17 @@
+openinfoman (1.0.56~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.56
+    -a9bfe34 allow oracle JVM to satisfy packagin requirements
+    --https://github.com/openhie/openinfoman/commmit/a9bfe34
+    -b03990c in CSR processor be a bit more strict when processing upda
+    --https://github.com/openhie/openinfoman/commmit/b03990c
+    -874d0aa fixed up submission of updating CSRs
+    --https://github.com/openhie/openinfoman/commmit/874d0aa
+    -19daaf1 when listing available documents via documents.json show t
+    --https://github.com/openhie/openinfoman/commmit/19daaf1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 12:10:57 -0500
+
 openinfoman (1.0.55~trusty) trusty; urgency=medium
 
   * Release Version 1.0.55
