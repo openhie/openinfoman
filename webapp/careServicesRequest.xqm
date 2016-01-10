@@ -50,7 +50,7 @@ declare updating
   function page:csr_updating($name,$careServicesRequest) 
 { 
   if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
+    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,$csd_webconf:baseurl)   
   else
     (:need appropriate error handling:)
     ()
@@ -69,7 +69,7 @@ let $careServicesRequest :=
   </csd:careServicesRequest>
 return
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
+ csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest,$name,$csd_webconf:baseurl)   
 else
   (:need appropriate error handling:)
   ()
