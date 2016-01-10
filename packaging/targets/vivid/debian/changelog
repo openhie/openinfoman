@@ -1,3 +1,11 @@
+openinfoman (1.0.57~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.57
+    -f9d191c logo/branding fixup
+    --https://github.com/openhie/openinfoman/commmit/f9d191c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 12:20:18 -0500
+
 openinfoman (1.0.56~vivid) vivid; urgency=medium
 
   * Release Version 1.0.56
