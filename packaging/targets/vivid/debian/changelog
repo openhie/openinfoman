@@ -1,3 +1,11 @@
+openinfoman (1.0.58~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.58
+    -e223bf9 in packaging do not create/overwrite existing database
+    --https://github.com/openhie/openinfoman/commmit/e223bf9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 13:26:25 -0500
+
 openinfoman (1.0.57~vivid) vivid; urgency=medium
 
   * Release Version 1.0.57
