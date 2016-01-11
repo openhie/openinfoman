@@ -1,3 +1,15 @@
+openinfoman (1.0.60~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.60
+    -066d659 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/066d659
+    -d0e3f28 "Release Version 1.0.59"
+    --https://github.com/openhie/openinfoman/commmit/d0e3f28
+    -7954a83 fixup for documents.json headers (maybe)
+    --https://github.com/openhie/openinfoman/commmit/7954a83
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 17:18:28 -0500
+
 openinfoman (1.0.59~trusty) trusty; urgency=medium
 
   * Release Version 1.0.59
