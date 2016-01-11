@@ -1,3 +1,11 @@
+openinfoman (1.0.59~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.59
+    -b6ad10e fixup for mark duplicate
+    --https://github.com/openhie/openinfoman/commmit/b6ad10e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 14:27:14 +0000
+
 openinfoman (1.0.58~trusty) trusty; urgency=medium
 
   * Release Version 1.0.58
