@@ -111,8 +111,13 @@ declare
   %rest:path("/CSD/documents.json")
   %rest:GET
   function page:export_function_details_json(){    
-  
+  (<rest:response>
+    <output:serialization-parameters>
+      <output:media-type value='application/json'/>
+    </output:serialization-parameters>
+  </rest:response>,
   xml-to-json( page:get_export_document_details())
+    )
 };
 
 declare
