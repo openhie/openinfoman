@@ -1,3 +1,11 @@
+openinfoman (1.0.59~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.59
+    -7954a83 fixup for documents.json headers (maybe)
+    --https://github.com/openhie/openinfoman/commmit/7954a83
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 16:46:37 -0500
+
 openinfoman (1.0.58~vivid) vivid; urgency=medium
 
   * Release Version 1.0.58
