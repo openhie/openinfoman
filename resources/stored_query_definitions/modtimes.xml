@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:csd="urn:ihe:iti:csd:2013" 
+  urn="urn:openhie.org:openinfoman:modtimes" 
+  content-type="text/xml">
+  <csd:description> 
+    Gets the maximum modification times for each of the four directories
+  </csd:description>
+  <csd:definition ><xi:include parse='text' href='modtimes.xq'/></csd:definition>
+
+
+</csd:careServicesFunction>
