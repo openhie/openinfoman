@@ -240,41 +240,41 @@ declare function csd:filter_by_other_id($items as item()*,$id as item()) as item
            let $code := fn:upper-case($id/@code)
 	   let $val := fn:upper-case($id/text())		
            return
-	     if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($code)) and not(functx:all-whitespace($id)))
+	     if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($code)) and not(functx:all-whitespace($id))) then
 	       $items[ 
                  otherID[ 
                  fn:upper-case(@assigningAuthorityName)=$aaName
                  and fn:upper-case(@code)=$code
 		 and fn:upper-case(./text()) = $val
                  ]]
-	     else if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($val)))
+	     else if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($val))) then
 	       (:if we are here, we know that $code is blank :)
 	       $items[ 
                  otherID[ 
                  fn:upper-case(@assigningAuthorityName)=$aaName
 		 and fn:upper-case(./text()) = $val
                  ]]
-	     else if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($code)))
+	     else if (not(functx:all-whitespace($aaName)) and not(functx:all-whitespace($code))) then
 	       (:if we are here, we know that $val is blank :)
 	       $items[ 
                  otherID[ 
                  fn:upper-case(@assigningAuthorityName)=$aaName
 		 and fn:upper-case(@code)=$code
                  ]]
-	     else if (not(functx:all-whitespace($val)) and not(functx:all-whitespace($code)))
+	     else if (not(functx:all-whitespace($val)) and not(functx:all-whitespace($code))) then
 	       (:if we are here, we know that $aaName is blank :)
 	       $items[ 
                  otherID[
-	       	 and fn:upper-case(./text()) = $val
+	       	 fn:upper-case(./text()) = $val
 		 and fn:upper-case(@code)=$code
                  ]]
-	     else if (not(functx:all-whitespace($val)))
+	     else if (not(functx:all-whitespace($val))) then
 	       (:if we are here, we know that $val is only non-blank :)
 	       $items[  otherID[ fn:upper-case(./text()) = $val]]
-	     else if (not(functx:all-whitespace($code)))
+	     else if (not(functx:all-whitespace($code))) then
 	       (:if we are here, we know that $code is only non-blank :)
 	       $items[  otherID[ fn:upper-case(@code)=$code]]
-	     else if (not(functx:all-whitespace($aaName)))
+	     else if (not(functx:all-whitespace($aaName))) then
 	       (:if we are here, we know that $aaName is only non-blank :)
 	       $items[  otherID[ fn:upper-case(@assigningAuthorityName)=$aaName]]
 	     else $items (:it's all blank so don't filter:)
