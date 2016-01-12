@@ -1,3 +1,17 @@
+openinfoman (1.0.61~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.61
+    -a9d30a4 Added simple UI to manage duplicate and potential duplicat
+    --https://github.com/openhie/openinfoman/commmit/a9d30a4
+    -790529a addded function to get the last modification times of the
+    --https://github.com/openhie/openinfoman/commmit/790529a
+    -e1e5ee0 added handling of potential duplicate records
+    --https://github.com/openhie/openinfoman/commmit/e1e5ee0
+    -9095f1c relax the evaluation conditions for filtering by otherID
+    --https://github.com/openhie/openinfoman/commmit/9095f1c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 22:57:35 -0500
+
 openinfoman (1.0.60~vivid) vivid; urgency=medium
 
   * Release Version 1.0.60
