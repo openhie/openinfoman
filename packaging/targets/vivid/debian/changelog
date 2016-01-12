@@ -1,3 +1,11 @@
+openinfoman (1.0.62~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.62
+    -c0cdadd avoid edge case in self-duplicates
+    --https://github.com/openhie/openinfoman/commmit/c0cdadd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 23:11:56 -0500
+
 openinfoman (1.0.61~vivid) vivid; urgency=medium
 
   * Release Version 1.0.61
