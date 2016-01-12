@@ -30,7 +30,10 @@ return
       ,
         for $entity in /csd:CSD/*/*[./csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='duplicate' and ./text()=$dupID]]
 	let $e_existingRef := ($entity/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='duplicate' and  ./text()=$dupID])[1]
-	return (replace node $e_existingRef with $masterRef)
+	return 
+	  if (not($e_existingRef = $existingRef)  )
+	  then replace node $e_existingRef with $masterRef
+	  else () (:avoid double replacelement in edge case in which a record is marked as duplicate to itself:)
      )
 
 
