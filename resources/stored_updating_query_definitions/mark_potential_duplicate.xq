@@ -9,19 +9,19 @@ let $doc_name := string($careServicesRequest/@resource)
 let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
 
 let $masterID := $careServicesRequest/masterEntity/@entityID
-let $masterEntity := if (exists($masterID)) then  (/csd:CSD/*/*[@entityID = @masterID])[1] else ()
+let $masterEntity := if (exists($masterID)) then  (/csd:CSD/*/*[@entityID = $masterID])[1] else ()
 
 let $dupID := $careServicesRequest/duplicateEntity/@entityID
-let $dupEntity :=  if (exists($dupID)) then (/csd:CSD/*/*[@entityID = @dupID])[1] else ()
+let $dupEntity :=  if (exists($dupID)) then (/csd:CSD/*/*[@entityID = $dupID])[1] else ()
 
 
-let $masterRef := <csd:otherID assigningAuthorityName='urn:openhie.org:openinfoman' code='potential-duplicate'>{$masterID}</csd:otherID>
+let $masterRef := <csd:otherID assigningAuthorityName='urn:openhie.org:openinfoman' code='potential-duplicate'>{string($masterID)}</csd:otherID>
 
 return 
   if (not(exists($masterEntity)) or not( exists($dupEntity)))
   then ()
   else 
-    let $existingRef := ($dupEntity/csd:otherID[@assigningAuthorityName = 'urn:openhie.org:openinfoman' and @code='potential-duplicate'])[1]
+    let $existingRef := ($dupEntity/csd:otherID[@assigningAuthorityName = 'urn:openhie.org:openinfoman' and @code='potential-duplicate' and text() = $masterID])[1]
     return 
       (
 	if (exists($existingRef))

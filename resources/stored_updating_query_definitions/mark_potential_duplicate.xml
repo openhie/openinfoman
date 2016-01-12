@@ -29,6 +29,5 @@
     <masterEntity/>
     <duplicateEntity/>
   </xforms:instance>
-  <csd:extension type='merge' urn='urn:openhie.org:openinfoman:adapter'/>
 
 </csd:careServicesFunction>

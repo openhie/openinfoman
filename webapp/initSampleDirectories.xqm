@@ -4,7 +4,7 @@ import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_ls
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
-
+declare   namespace   csd = "urn:ihe:iti:csd:2013";
 
 declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
 {
@@ -40,6 +40,33 @@ declare
   function page:get_directory($name)
 {
   csd_dm:open_document($csd_webconf:db,$name) 
+};
+
+declare
+  %rest:path("/CSD/directory/{$name}/get")
+  %rest:GET
+  function page:get_directory2($name)
+{
+  csd_dm:open_document($csd_webconf:db,$name) 
+};
+
+
+declare
+  %rest:path("/CSD/directory/{$name}/get/{$entity}/{$entityID}")
+  %rest:GET
+  function page:get_entity($name,$entity,$entityID)
+{
+  let $doc := csd_dm:open_document($csd_webconf:db,$name)
+  let $entities:=
+    switch($entity)
+    case "provider" return $doc/csd:CSD/csd:providerDirectory/csd:provider
+    case "facility" return $doc/csd:CSD/csd:facilityDirectory/csd:facility
+    case "organization" return $doc/csd:CSD/csd:organizationDirectory/csd:organization
+    case "service" return $doc/csd:CSD/csd:serviceDirectory/csd:service
+    default return ()
+
+  return  $entities[@entityID = $entityID] 
+
 };
 
 
