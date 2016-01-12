@@ -1,3 +1,11 @@
+openinfoman (1.0.63~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.63
+    -d21bc8a fixed typo in other id search chagnges
+    --https://github.com/openhie/openinfoman/commmit/d21bc8a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 12 Jan 2016 11:19:03 -0500
+
 openinfoman (1.0.62~trusty) trusty; urgency=medium
 
   * Release Version 1.0.62
