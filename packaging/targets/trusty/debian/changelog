@@ -1,3 +1,11 @@
+openinfoman (1.0.100~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.100
+    -9d1c3c8 fixed up webapp wrapper
+    --https://github.com/openhie/openinfoman/commmit/9d1c3c8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:47:20 -0500
+
 openinfoman (1.0.99~trusty) trusty; urgency=medium
 
   * Release Version 1.0.99
