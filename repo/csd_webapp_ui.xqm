@@ -53,7 +53,7 @@ declare function csd_webui:redirect() as element(restxq:redirect) {
 
 declare function csd_webui:redirect($end ) as element(restxq:redirect)
 {
-  <restxq:redirect>{ csd_webui:generateURL($end }</restxq:redirect>
+  <restxq:redirect>{ csd_webui:generateURL($end) }</restxq:redirect>
 };
 
 
@@ -63,7 +63,7 @@ declare function csd_webui:redirect_out() as element(restxq:redirect) {
 
 declare function csd_webui:redirect_out($end ) as element(restxq:redirect)
 {
-  db:output(<restxq:redirect>{ csd_webui:generateURL($end }</restxq:redirect>)
+  db:output(<restxq:redirect>{ csd_webui:generateURL($end)}</restxq:redirect>)
 };
 
 
