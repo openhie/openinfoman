@@ -16,7 +16,7 @@ declare function csd_webui:generateURL() {
 
 declare function csd_webui:generateURL($end) {
   let $cend :=
-    functx:string-join(
+    string-join(
       for $e in $end
       return replace(replace(string($e),'^/+',''),'/+$','')
       ,'/')
