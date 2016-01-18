@@ -42,13 +42,16 @@ chown root:root /etc/init.d/openinfoman
 
 
 
-REPOS=("csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm"  "csd_webapp_config.xqm")
 
 
-$BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
 
+REPOS=("csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm" "csd_webapp_ui.xqm" )
+#excluding "csd_webapp_config.xqm"
 
 mkdir -p $OI/repo-src
+$BASEX -Vc "REPO INSTALL $OI/repo-src/generated_openinfoman_webconfig.xqm"
+$BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+
 for REPO in ${REPOS[@]}
 do
    INST="REPO INSTALL ${OI}/repo-src/${REPO}"

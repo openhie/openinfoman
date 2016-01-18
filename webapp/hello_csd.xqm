@@ -3,14 +3,10 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 
 
 
-
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
 
 
 
@@ -26,7 +22,7 @@ declare updating
        csd_dm:empty($csd_webconf:db,$directory) 
      else ()
      ,
-   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+   csd_webui:redirect_out("CSD")
   )
 };
 
@@ -57,10 +53,10 @@ declare
 	      for $doc in $docs 
 	      return  
 	      <li>
-		<a href="{$csd_webconf:baseurl}CSD/getDirectory/{$doc}"> {$doc} </a>
+		<a href="{csd_webui:generateURL('CSD/getDirectory/',$doc)"> {$doc} </a>
 		 [ 
-		  <a class='text-warning' href="{$csd_webconf:baseurl}CSD/emptyDirectory/{$doc}" onclick="Empty confirm('Delete all the data in {$doc}?');"> Empty </a> 
-		  / <a class='text-warning' href="{$csd_webconf:baseurl}CSD/deleteDirectory/{$doc}" onclick="return confirm('Delete all the data in {$doc}?');"> Delete </a> 
+		  <a class='text-warning' href="{csd_webui:generateURL('CSD/emptyDirectory/',$doc)}" onclick="Empty confirm('Delete all the data in {$doc}?');"> Empty </a> 
+		  / <a class='text-warning' href="{csd_webui:generateURL('CSD/deleteDirectory/',$doc)}" onclick="return confirm('Delete all the data in {$doc}?');"> Delete </a> 
 		  ]
 	      </li>
 	    }
@@ -80,41 +76,29 @@ declare
   <span class='svs'>
     In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
     <ul>
-      <li><a href="{$csd_webconf:baseurl}CSD/SVS/initSharedValueSet">load Shared Value Sets </a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/SVS/availSharedValueSet">available Shared Value Sets </a></li>
+      <li><a href="{csd_webui:generateURL('CSD/SVS/initSharedValueSet')}">load Shared Value Sets </a></li>
+      <li><a href="{csd_webui:generateURL('CSD/SVS/availSharedValueSet')}">available Shared Value Sets </a></li>
     </ul>
   </span>
   let $adapters := 
     <span class='adapters'>
-      List of all adapters installed: <a href="{$csd_webconf:baseurl}CSD/adapter">CSD Adapters</a>      
+      List of all adapters installed: <a href="{csd_webui:generateURL('CSD/adapter')}">CSD Adapters</a>      
     </span>
   let $generic := 
     <span>
     <p>These the top-level endpoints are exposed</p>
     <ul>
-      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions">Manage Stored Functions</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/initSampleDirectory">Load and Register Sample Service Directories</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/pollService">Register and Poll Remote Service Service directories </a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/csr">Execute Ad-Hoc Care Services Requests and View Care Service Request Endpoints for Registered Documents</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/getUpdatedServices">Endpoints for submitting getUpdatedServices Soap Request for Registered Documents</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/duplicates">Manage duplicate record identifiers</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/storedFunctions')}">Manage Stored Functions</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/initSampleDirectory')}">Load and Register Sample Service Directories</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/pollService')}">Register and Poll Remote Service Service directories </a></li>
+      <li><a href="{csd_webui:generateURL('CSD/csr')}">Execute Ad-Hoc Care Services Requests and View Care Service Request Endpoints for Registered Documents</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/getUpdatedServices')}">Endpoints for submitting getUpdatedServices Soap Request for Registered Documents</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/duplicates')}">Manage duplicate record identifiers</a></li>
     </ul>
     </span>
-  return page:nocache(page:wrapper($csd,$svs,$adapters,$generic))
+  return csd_webui:nocache(page:wrapper($csd,$svs,$adapters,$generic))
 };
 
-
-
-declare function page:nocache($response) 
-{(
-  <rest:response>
-    <http:response >
-      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-    </http:response>
-  </rest:response>
-  ,
-  $response
-)};
 
 
 declare
@@ -132,7 +116,7 @@ declare updating
 {
   (
     csd_dm:empty($csd_webconf:db,$name) 
-    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+    ,csd_webui:redirect_out("CSD")
   )
 };
 
@@ -143,7 +127,7 @@ declare updating
 {
   (
     csd_dm:delete($csd_webconf:db,$name) 
-    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD")))
+    ,csd_webui:redirect_out(,"CSD")
   )
 };
 
@@ -162,7 +146,7 @@ declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
   </span>
 
   let $headers :=  (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>  
+    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap/js/tab.js')}"/>  
     ,<script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_csd a').click(function (e) {{

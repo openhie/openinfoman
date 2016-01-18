@@ -3,6 +3,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -16,7 +17,7 @@ declare
   function page:csr($name,$careServicesRequest) 
 { 
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,$csd_webconf:baseurl)   
+ csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,csd_webui:generateURL())
 else
   (:need appropriate error handling:)
   ()
@@ -36,7 +37,7 @@ let $careServicesRequest :=
   </csd:careServicesRequest>
 return 
   if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-    csr_proc:process_CSR($csd_webconf:db,$careServicesRequest,$name,$csd_webconf:baseurl)
+    csr_proc:process_CSR($csd_webconf:db,$careServicesRequest,$name,csd_webui:generateURL())
   else
     (:need appropriate error handling:)
   ()
@@ -50,7 +51,7 @@ declare updating
   function page:csr_updating($name,$careServicesRequest) 
 { 
   if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,$csd_webconf:baseurl)   
+    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,csd_webui:generateURL())
   else
     (:need appropriate error handling:)
     ()
@@ -69,7 +70,7 @@ let $careServicesRequest :=
   </csd:careServicesRequest>
 return
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest,$name,$csd_webconf:baseurl)   
+ csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest,$name,csd_webui:generateURL())
 else
   (:need appropriate error handling:)
   ()
@@ -86,7 +87,7 @@ declare
 function page:adhoc($name,$adhoc,$content) {    
 if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
 let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
-  return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,$csd_webconf:baseurl)
+  return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,csd_webui:generateURL())
 else
   (:need appropriate error handling:)
   ()
@@ -116,7 +117,7 @@ declare function page:endpoints() {
 	return 
 	<li>
 	  Submit Care Services Request for {$name} at:
-	  <pre>{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest</pre> 
+	  <pre>{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest')}</pre> 
 	  <br/>
 	  Submit ad-hoc query:
 	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">

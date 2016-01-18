@@ -5,28 +5,12 @@ import module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_ps
 import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csd_qus =  "https://github.com/openhie/openinfoman/csd_qus";
 
 
 
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
 
-declare function page:nocache($response) {
-(
-  <rest:response>
-    <http:response >
-      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-    </http:response>
-  </rest:response>
-,
-  $response
-)
-
-
-};
 
 declare updating
   %rest:path("/CSD/registerService/init")
@@ -35,7 +19,7 @@ declare updating
   (
     csd_lsc:init_cache_meta($csd_webconf:db)
     ,csd_psd:init($csd_webconf:db)
-    ,db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+    ,csd_webui:redirect_out("CSD/pollService")
   )
 };
 
@@ -54,7 +38,7 @@ declare updating
       csd_psd:register_service($csd_webconf:db,$name,text{$sample/@url},$sample/credentials)
     else ()
   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 };
 
@@ -73,7 +57,7 @@ declare updating
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
     return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
       ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 
 };
@@ -93,7 +77,7 @@ declare updating
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
     return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
       ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 
 };
@@ -117,7 +101,7 @@ declare
   function page:get_service_menu($name)
 {
   let $response := <span><h3>{$name}</h3>{page:service_menu($name) }</span>
-  return page:nocache(csd_webconf:wrapper($response))
+  return csd_webui:nocache(csd_webconf:wrapper($response))
 };
 
 declare
@@ -140,7 +124,7 @@ declare updating
     then csd_lsc:empty_cache($csd_webconf:db,$name)
     else csd_dm:empty($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 
 
@@ -154,7 +138,7 @@ declare updating
   (
   csd_lsc:drop_cache_data($csd_webconf:db,$name)
   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 
 
@@ -176,7 +160,7 @@ declare updating
   (
   csd_lsc:empty_cache($csd_webconf:db,$name) 
   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
   )
 
 };
@@ -190,7 +174,7 @@ declare updating
 { 
 (
   csd_lsc:update_cache($csd_webconf:db,$name)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/pollService")))
+  csd_webui:redirect_out("CSD/pollService")
 )
 
 };
@@ -224,7 +208,7 @@ declare
 	</div>
       </div>
     </div>
-  return page:nocache(page:wrapper($response))
+  return  csd_webui:nocache(page:wrapper($response))
 };
 
 
@@ -278,8 +262,8 @@ declare
 
 declare function page:wrapper($response) {
   let $headers :=   
-  (<link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-  , <script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+  (<link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}"/>
+  , <script src="{csd_webui:generateURL('static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}"/>
   , <script type="text/javascript">
     $( document ).ready(function() {{
       {
@@ -304,7 +288,7 @@ declare
 { 
 
 if (not(csd_psd:dm_exists($csd_webconf:db))) then
-   page:redirect(concat($csd_webconf:baseurl,"CSD/registerService/init"))
+   csd_webui:redirect("CSD/registerService/init")
  else 
    let $services := csd_psd:registered_directories($csd_webconf:db)
    let $unreg_services := 
@@ -349,7 +333,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	   <div >
 	     <h2>Global Operations</h2>
 	     <ul>
-	       <li> <a href="{$csd_webconf:baseurl}CSD/pollService/cache_meta">Get all cache Meta-Data</a></li>
+	       <li> <a href="{csd_webui:generateURL('CSD/pollService/cache_meta')}">Get all cache Meta-Data</a></li>
 	     </ul>
 	   </div>
        
@@ -399,7 +383,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
      </div>
    </div>
   
-  return page:nocache(page:wrapper($response))
+  return csd_webui:nocache(page:wrapper($response))
  
 };
 

@@ -3,24 +3,8 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 
-
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
-
-
-declare function page:nocache($response) 
-{(
-  <rest:response>
-    <http:response >
-      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-    </http:response>
-  </rest:response>
-  ,
-  $response
-)};
 
 
 
@@ -31,7 +15,7 @@ declare updating
 { 
 (
   svs_lsvs:init_store($csd_webconf:db),
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
+  csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
 )
 };
 
@@ -45,7 +29,7 @@ declare
   function page:get_svs_menu($id)
 {
   let $response := page:svs_menu($id) 
-  return page:nocache(csd_webconf:wrapper($response))
+  return csd_webui:nocache(csd_webconf:wrapper($response))
 };
 
 
@@ -117,7 +101,7 @@ declare updating
 { 
 (
   svs_lsvs:load($csd_webconf:db,$id)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
+  csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
 )
 };
 
@@ -129,7 +113,7 @@ declare updating
 { 
 (
   svs_lsvs:reload($csd_webconf:db,$id)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/SVS/initSharedValueSet")))
+  csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
 )
 };
 
@@ -154,7 +138,7 @@ declare
       <li>displayName: {text{$concept/@displayName}}</li>
       <li>codeSystem: {text{$concept/@codeSystem}}</li>
     </ul>
-    <a href="{$csd_webconf:baseurl}CSD/SVS/initSharedValueSet/">Return</a>
+    <a href="{csd_webui:generateURL('CSD/SVS/initSharedValueSet')}">Return</a>
   </span>
   )
   return csd_webconf:wrapper($response)
@@ -181,9 +165,9 @@ declare
   function page:svs_list()
 {
 if (not(svs_lsvs:store_exists($csd_webconf:db))) then
-    page:redirect(concat($csd_webconf:baseurl,"/CSD/SVS/initSharedValueSet/init"))
+    csd_webui:redirect("/CSD/SVS/initSharedValueSet/init")
 else 
- page:nocache( page:wrapper_double(
+ csd_webui:nocache( page:wrapper_double(
     <span >
       <h2>Shared Value Sets</h2>
       <p>

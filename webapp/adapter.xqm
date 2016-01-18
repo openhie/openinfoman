@@ -3,6 +3,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 declare namespace csd = "urn:ihe:iti:csd:2013";
 
 declare
@@ -18,7 +19,7 @@ declare
       {
       for $type in $types
       let $s_type := string($type)
-      let $href := concat($csd_webconf:baseurl ,"CSD/adapter/" , $s_type)
+      let $href := csd_webui:generateURL("CSD/adapter/" , $s_type)
       return <li><a href="{$href}">{$s_type}</a></li>
       } 
     </ul> 
@@ -48,7 +49,7 @@ declare
   	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
 	    return
   	    <li>
-	      <a href="{$csd_webconf:baseurl}CSD/csr/{$doc_name}/careServicesRequest/{$search_name}/adapter/{$type}">{string($doc_name)}</a>
+	      <a href="{csd_webui:generateURL('CSD/csr',$doc_name,'careServicesRequest',$search_name,'adapter',$type)}">{string($doc_name)}</a>
 	    </li>
 	  }
 	</ul>
@@ -77,9 +78,9 @@ declare
 	    let $urn := string($adapter_func/@urn)
 	    return
   	    <li>
-	      Type (<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}">{$type}</a>)
+	      Type (<a href="{csd_webui:generateURL('CSD/adapter/',$type)}">{$type}</a>)
 	      <p>
-		<a href="{$csd_webconf:baseurl}CSD/adapter/{$type}/{$urn}">Document Index</a> for {$urn}
+		<a href="{csd_webui:generateURL('CSD/adapter/',$type,$urn)}">Document Index</a> for {$urn}
 	      </p>
 	      <p>{$desc}</p>
 	    </li>
@@ -88,7 +89,7 @@ declare
     </div>
   let $contents := 
     (
-      <a href="{$csd_webconf:baseurl}CSD/adapter/">Adapters</a>
+      <a href="{csd_webui:generateURL('CSD/adapter')}">Adapters</a>
       ,$adaptations
       )
   return page:wrapper($contents)
@@ -100,8 +101,8 @@ declare
 
 declare function page:wrapper($response) {
   let $headers :=   
-  (<link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-  , <script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+  (<link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}"/>
+  , <script src="{csd_webui:generateURL('static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}"/>
   )
 
   return csd_webconf:wrapper($response,$headers)

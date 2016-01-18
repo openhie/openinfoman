@@ -7,23 +7,6 @@ import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/c
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
-
-
-declare function page:nocache($response) 
-{(
-  <rest:response>
-    <http:response >
-      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-    </http:response>
-  </rest:response>
-  ,
-  $response
-)};
-
 
 
 declare function page:is_merge($search_name) {
@@ -87,7 +70,7 @@ declare updating
   let $function := csr_proc:get_function_definition($csd_webconf:db,$search_name)
   let $action := concat("/CSD/csr/",$doc_name,"/careServicesRequest/",$search_name, "/adapter/merge")
   let $requestParams :=
-    <csd:requestParams function="{$search_name}" resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+    <csd:requestParams function="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL('')}">
       <documents > 
 	{
           for $name in $merge
@@ -101,7 +84,7 @@ declare updating
       (
 	csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
 	,
-	() (: db:output(page:redirect(concat($csd_webconf:baseurl,$action)))  :)
+	() (: csd_webui:redirect_out($action)  :)
       )
 };
 

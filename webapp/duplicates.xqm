@@ -2,6 +2,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 
@@ -17,14 +18,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:mark_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:mark_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
   )
 
 };
@@ -39,14 +40,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:mark_potential_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:mark_potential_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
   )
 
 };
@@ -61,14 +62,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:mark_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:mark_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
   )
 
 };
@@ -83,14 +84,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:mark_potential_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:mark_potential_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name , "/manage/" ,$entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,$entityID )
   )
 
 };
@@ -106,14 +107,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:delete_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:delete_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name, "/manage/" , $entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name, "/manage/" , $entityID )
   )
 
 };
@@ -128,14 +129,14 @@ declare updating
   (
     let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
     let $requestParams :=
-      <csd:requestParams function="urn:openhie.org:openinfoman:delete_potential_duplicate"  resource="{$doc_name}" base_url="{$csd_webconf:baseurl}">
+      <csd:requestParams function="urn:openhie.org:openinfoman:delete_potential_duplicate"  resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
 	<masterEntity entityID="{$masterID}"/>
 	<duplicateEntity entityID="{$entityID}"/>
       </csd:requestParams>
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    db:output(page:redirect(concat($csd_webconf:baseurl,"/CSD/duplicates/", $doc_name, "/manage/"  , $entityID )))
+    csd_webui:redirect_out("/CSD/duplicates/", $doc_name, "/manage/"  , $entityID )
   )
 
 };
@@ -479,7 +480,3 @@ declare
 
 
 
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};

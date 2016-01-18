@@ -3,24 +3,9 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
-
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
-
-declare function page:nocache($response) 
-{(
-  <rest:response>
-    <http:response >
-      <http:header name="Cache-Control" value="must-revalidate,no-cache,no-store"/>
-    </http:response>
-  </rest:response>
-  ,
-  $response
-)};
 
 
 
@@ -31,7 +16,7 @@ declare
   function page:get_service_menu($name)
 {
   let $response := page:services_menu($name) 
-  return page:nocache(csd_webconf:wrapper($response))
+  return csd_webui:nocache(csd_webconf:wrapper($response))
 };
 
 declare
@@ -80,7 +65,7 @@ declare updating
 { 
 (
   csd_lsd:load($csd_webconf:db,$name)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/initSampleDirectory")))
+  csd_webui:redirect_out("CSD/initSampleDirectory")
 )
 };
 
@@ -93,7 +78,7 @@ declare updating
 { 
 (
   csd_dm:empty($csd_webconf:db,$name)   ,
-  db:output(page:redirect(concat($csd_webconf:baseurl,concat("CSD/initSampleDirectory/directory/",$name,"/load"))))
+  csd_webui:redirect_out("CSD/initSampleDirectory/directory/",$name,"/load")
 )
 
 
@@ -126,7 +111,7 @@ let $response :=
 	</div>
       </div>
 
-return page:nocache(  csd_webconf:wrapper($response))
+return csd_webui:nocache(  csd_webconf:wrapper($response))
 
 
 };
@@ -161,12 +146,12 @@ declare function page:get_export_document_details() {
       for $name in csd_dm:registered_documents($csd_webconf:db)
       return 
       <map key="{string($name)}">
-	<string key="careServicesRequest">{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest</string>
+	<string key="careServicesRequest">{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest')}</string>
 	<map key="careServicesRequests">
 	  {
 	    for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
 	    let $urn:= string($function/@urn)
-	    return <string key="{$urn}">{$csd_webconf:baseurl}CSD/csr/{$name}/careServicesRequest/{$urn}</string>
+	    return <string key="{$urn}">{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest/',$urn)}</string>
 	  }
 	</map>
       </map>

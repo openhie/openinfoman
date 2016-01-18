@@ -3,6 +3,7 @@ module namespace page = 'http://basex.org/modules/web-page';
 import module namespace csd_qus = "https://github.com/openhie/openinfoman/csd_qus";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 
@@ -17,7 +18,7 @@ declare
   %rest:GET
   function page:updated_service_soap($name,$mtime)
 { 
- let $url := concat($csd_webconf:baseurl,"CSD/getUpdatedServices/" , $name , "/get")
+ let $url := csd_webui:generateURL("CSD/getUpdatedServices/" , $name , "/get")
  return (
  <rest:response>
    <http:response status="200" >
@@ -105,7 +106,7 @@ declare function page:service_menu($name)
     </form> 
     </li>
     Submit {$name} SOAP request to:
-    <pre>{$csd_webconf:baseurl}CSD/getUpdatedServices/{$name}/get</pre> 
+    <pre>{csd_webui:generateURL('CSD/getUpdatedServices/',$name,'/get')}</pre> 
 
     </ul>
   </span>
@@ -113,8 +114,8 @@ declare function page:service_menu($name)
 
 declare function page:wrapper($response) {
  let $headers := (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-    ,<script src="{$csd_webconf:baseurl}static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}"/>
+    ,<script src="{csd_webui:generateURL('static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}"/>
     ,<script type="text/javascript">
     $( document ).ready(function() {{ 
       {

@@ -1,6 +1,7 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   xforms = "http://www.w3.org/2002/xforms";
 declare namespace xs = "http://www.w3.org/2001/XMLSchema";
@@ -16,7 +17,7 @@ declare
   function page:csr_list() 
 { 
 if (not (db:is-xml($csd_webconf:db,$csr_proc:stored_functions_doc))) then
-  page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions/init"))
+  csd_webui:redirect("CSD/storedFunctions/init")
 else 
   let $new := page:new_stored_function()
   let $reload:= <span>
@@ -26,9 +27,9 @@ else
       <li>{count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/></li>
       <li><a href="/CSD/storedFunctions/reload">Reload stored functions from disk</a> </li>
 
-      <li>    <a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_doc">Export Documentation</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions/export_funcs">Export Functions</a></li>
-      <li><a href="{$csd_webconf:baseurl}CSD/storedFunctions/clear">Clear All Stored Functions</a></li>
+      <li>    <a href="{csd_webui:generateURL('CSD/storedFunctions/export_doc')}">Export Documentation</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/storedFunctions/export_funcs')}">Export Functions</a></li>
+      <li><a href="{csd_webui:generateURL('CSD/storedFunctions/clear')}">Clear All Stored Functions</a></li>
     </ul>
   </span>
   let $list := page:function_list()
@@ -49,7 +50,7 @@ declare updating
    (
      csr_proc:load_stored_function($csd_webconf:db,$func/careServicesFunction)
      ,
-   db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+     csd_webui:redirect_out("CSD/storedFunctions")
   )
 
 
@@ -85,7 +86,7 @@ declare  updating
   {
     (
       csr_proc:delete_stored_function($csd_webconf:db,$urn),
-      db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+      csd_webui:redirect_out("CSD/storedFunctions")
     )
 
 };
@@ -110,7 +111,7 @@ declare  updating
   {
     (
       csr_proc:clear_stored_functions($csd_webconf:db),
-      db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+      csd_webui:redirect_out("CSD/storedFunctions")
     )
 
 };
@@ -133,7 +134,7 @@ declare  updating
    </careServicesFunction>
    return csr_proc:load_stored_function($csd_webconf:db,$func)
   else (),
-    db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
+    csd_webui:redirect_out("CSD/storedFunctions")
 )
 };
 
@@ -143,9 +144,9 @@ declare updating
   %rest:GET
   function page:init()
 { 
-(csr_proc:init($csd_webconf:db),
-db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
-)
+  (csr_proc:init($csd_webconf:db),
+  csd_webui:redirect_out("CSD/storedFunctions")
+  )
 };
 
 declare updating
@@ -153,18 +154,14 @@ declare updating
   %rest:GET
   function page:reload()
 { 
-(csr_proc:load_functions_from_files($csd_webconf:db),
-db:output(page:redirect(concat($csd_webconf:baseurl,"CSD/storedFunctions")))
-)
+  (csr_proc:load_functions_from_files($csd_webconf:db),
+  csd_webui:redirect_out("CSD/storedFunctions")
+  )
 };
 
 
 
 
-declare function page:redirect($redirect as xs:string) as element(restxq:redirect)
-{
-  <restxq:redirect>{ $redirect }</restxq:redirect>
-};
 
 
 declare function page:display_function($function,$updating) {
@@ -318,7 +315,7 @@ declare function page:get_export_function_details() {
  
 declare function page:wrapper($list,$new) {
   let $headers := (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{$csd_webconf:baseurl}static/bootstrap/js/tab.js"/>  
+    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap/js/tab.js')"/>  
    ,<script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_list a').click(function (e) {{
