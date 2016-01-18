@@ -1,3 +1,11 @@
+openinfoman (1.0.93~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.93
+    -7b010e1 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/7b010e1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:27:03 -0500
+
 openinfoman (1.0.92~vivid) vivid; urgency=medium
 
   * Release Version 1.0.92
