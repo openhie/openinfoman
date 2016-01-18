@@ -40,12 +40,6 @@ chown -R $USERNAME:$USERNAME $OI
 chmod +s /usr/bin/oi-log
 chown root:root /etc/init.d/openinfoman
 
-
-
-
-
-
-
 REPOS=("csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm"  )
 #excluding "csd_webapp_config.xqm"
 

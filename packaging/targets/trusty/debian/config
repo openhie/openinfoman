@@ -1,6 +1,9 @@
 #!/bin/bash
 set -x
 
+
+OI=/var/lib/openinfoman
+USERNAME=oi
 action="$1"
 cur_version="$2"
 
@@ -11,6 +14,31 @@ db_go || true
 
 db_get openinfoman/memsize || true
 HEAP="$RET"
+
+
+db_input high openinfoman/baseurl || true
+db_go || true
+
+db_get openinfoman/baseurl || true
+BASEURL="$RET"
+
+db_input high openinfoman/dbname || true
+db_go || true
+
+db_get openinfoman/dbname || true
+DBNAME="$RET"
+
+
+mkdir -p $OI/repo-src
+chown -R $USERNAME:$USERNAME $OI/repo-src
+
+echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
+declare variable $csd_webconf:db :=  '$DBNAME';
+declare variable $csd_webconf:baseurl :=  '$BASEURL';
+declare variable $csd_webconf:remote_services := ();
+" > $OI/repo-src/generated_openinfoman_webconfig.xqm
+
+
 
 echo "#!/usr/bin/env bash                                                                                                                                                                       
 HEAP=$HEAP                                                                                                                                                                                     
