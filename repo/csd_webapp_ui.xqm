@@ -14,7 +14,7 @@ declare function csd_webui:generateURL() {
   csd_webui:generateURL(())
 };
 
-declare function csd_webui:generateURL($end as item*) {
+declare function csd_webui:generateURL($end) {
   let $cend :=
     functx:string-join(
       for $e in $end
@@ -50,7 +50,7 @@ declare function csd_webui:redirect() as element(restxq:redirect) {
   csd_webui:redirect(())
 };
 
-declare function csd_webui:redirect($end*) as element(restxq:redirect)
+declare function csd_webui:redirect($end ) as element(restxq:redirect)
 {
   <restxq:redirect>{ csd_webui:generateURL($end }</restxq:redirect>
 };
@@ -60,7 +60,7 @@ declare function csd_webui:redirect_out() as element(restxq:redirect) {
   csd_webui:redirect_out(())
 };
 
-declare function csd_webui:redirect_out($end*) as element(restxq:redirect)
+declare function csd_webui:redirect_out($end ) as element(restxq:redirect)
 {
   db:output(<restxq:redirect>{ csd_webui:generateURL($end }</restxq:redirect>)
 };
