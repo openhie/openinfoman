@@ -1,3 +1,11 @@
+openinfoman (1.0.86~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.86
+    -9a5af26 fixup
+    --https://github.com/openhie/openinfoman/commmit/9a5af26
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:12:54 -0500
+
 openinfoman (1.0.85~vivid) vivid; urgency=medium
 
   * Release Version 1.0.85
