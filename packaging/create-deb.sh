@@ -33,8 +33,10 @@ LASTVERS=`$GIT tag -l '1.*.*' | $SORT -rV | $HEAD -1`
 VERS="${LASTVERS%.*}.$((${LASTVERS##*.}+1))"
 echo Current tagged verison is $LASTVERS.  
 $GIT status
-echo Should we update changelogs, commit under packacing everything and increment to $VERS? [y/n]
-read INCVERS 
+#echo Should we update changelogs, commit under packacing everything and increment to $VERS? [y/n]
+#read INCVERS 
+INCVERS='y'
+
 
 if [[ "$INCVERS" == "y" || "$INCVERS" == "Y" ]];  then
     COMMITMSG="Release Version $VERS"
@@ -150,5 +152,7 @@ done
 
 cd $HOME
 
-git push
-git push --tags
+if [ "$1" -ne "--local" ]; then
+  git push
+  git push --tags
+fi
