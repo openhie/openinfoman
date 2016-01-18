@@ -18,13 +18,11 @@ HEAP="$RET"
 
 db_input high openinfoman/baseurl || true
 db_go || true
-
 db_get openinfoman/baseurl || true
 BASEURL="$RET"
 
 db_input high openinfoman/dbname || true
 db_go || true
-
 db_get openinfoman/dbname || true
 DBNAME="$RET"
 

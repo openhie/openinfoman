@@ -45,6 +45,16 @@ REPOS=("csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm
 
 mkdir -p $OI/repo-src
 GENERATED="$OI/repo-src/generated_openinfoman_webconfig.xqm"
+db_input high openinfoman/baseurl || true
+db_go || true
+db_get openinfoman/baseurl || true
+BASEURL="$RET"
+
+db_input high openinfoman/dbname || true
+db_go || true
+db_get openinfoman/dbname || true
+DBNAME="$RET"
+
 echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
 declare variable $csd_webconf:db :=  '$DBNAME';
 declare variable $csd_webconf:baseurl :=  '$BASEURL';
@@ -54,7 +64,7 @@ declare variable $csd_webconf:remote_services := ();
 
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
 $BASEX -Vc "REPO DELETE https://github.com/openhie/openinfoman/csd_webconf"  2> /dev/null || true
-$Basex -Vc "REPO INSTALL $GENERATED"
+$BASEX -Vc "REPO INSTALL $GENERATED"
 
 
 for REPO in ${REPOS[@]}
