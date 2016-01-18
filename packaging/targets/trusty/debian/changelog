@@ -1,3 +1,11 @@
+openinfoman (1.0.97~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.97
+    -596004e copy vivid packaging updates to trusty
+    --https://github.com/openhie/openinfoman/commmit/596004e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:44:15 -0500
+
 openinfoman (1.0.96~trusty) trusty; urgency=medium
 
   * Release Version 1.0.96
