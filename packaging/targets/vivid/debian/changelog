@@ -1,3 +1,11 @@
+openinfoman (1.0.69~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.69
+    -4832e66 fixed typo in webapp_ui
+    --https://github.com/openhie/openinfoman/commmit/4832e66
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:29:09 -0500
+
 openinfoman (1.0.68~vivid) vivid; urgency=medium
 
   * Release Version 1.0.68
