@@ -52,6 +52,7 @@ mkdir -p $OI/repo-src
 GENERATED="$OI/repo-src/generated_openinfoman_webconfig.xqm"
 if [ -e $GENERATED]; then
     #do nothing
+    echo "Using custom web config"
 else
     cp $OI/repo-src/csd_webapp_config.xqm $GENERATED
 fi
