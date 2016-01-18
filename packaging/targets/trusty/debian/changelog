@@ -1,3 +1,11 @@
+openinfoman (1.0.94~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.94
+    -f835bdc fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/f835bdc
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:28:13 -0500
+
 openinfoman (1.0.93~trusty) trusty; urgency=medium
 
   * Release Version 1.0.93
