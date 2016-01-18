@@ -78,18 +78,18 @@ declare function csd_webui:wrapper($content) {
 declare function csd_webui:wrapper($content,$headers) {
  <html >
   <head>
-    <link href="{$csd_webui:generateURL('static/bootstrap/css/bootstrap.css')}" rel="stylesheet"/>
-    <link href="{$csd_webui:generateURL('static/bootstrap/css/bootstrap-theme.css')}" rel="stylesheet"/>
-    <link rel="shortcut icon" href="{$csd_webui:generateURL(,'static/favicon.ico')}"/>
-    <script src="{$csd_webui:generateURL('static/jquery/jquery.js')}"/>
+    <link href="{csd_webui:generateURL('static/bootstrap/css/bootstrap.css')}" rel="stylesheet"/>
+    <link href="{csd_webui:generateURL('static/bootstrap/css/bootstrap-theme.css')}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="{csd_webui:generateURL('static/favicon.ico')}"/>
+    <script src="{csd_webui:generateURL('static/jquery/jquery.js')}"/>
     <title>OpenInfoMan @ {request:hostname()}</title>
-    <script src="{$csd_webui:generateURL('static/bootstrap/js/bootstrap.min.js')}"/>
+    <script src="{csd_webui:generateURL('static/bootstrap/js/bootstrap.min.js')}"/>
     {$headers}
   </head>
   <body>  
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="container">
-	<img class='pull-left' height='38px' style='margin-top:8px; margin-right:5px' src="{$csd_webui:generateURL('static/oim_logo_48p.png')}"/>
+	<img class='pull-left' height='38px' style='margin-top:8px; margin-right:5px' src="{csd_webui:generateURL('static/oim_logo_48p.png')}"/>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
@@ -99,7 +99,7 @@ declare function csd_webui:wrapper($content,$headers) {
 	  <table>
 	    <tr>
 	      <td>
-		<a class="navbar-brand" href="{$csd_webui:generateURL('CSD')}">OpenInfoMan - InterLinked Health Services Registry</a>
+		<a class="navbar-brand" href="{csd_webui:generateURL('CSD')}">OpenInfoMan - InterLinked Health Services Registry</a>
 	      </td>
 	    </tr>
 	    <tr>
@@ -112,7 +112,7 @@ declare function csd_webui:wrapper($content,$headers) {
 	  </table>
         </div>
 	<span class='pull-right'>
-	  <img src="{$csd_webui:generateURL('static/openhie.png')}" style='height:60px; padding-right:10px; padding-top:8px;'/>
+	  <img src="{csd_webui:generateURL('static/openhie.png')}" style='height:60px; padding-right:10px; padding-top:8px;'/>
 	</span>
 
       </div>
@@ -121,7 +121,7 @@ declare function csd_webui:wrapper($content,$headers) {
     <div class="footer">
       <center>
       
-	<img src="{$csd_webui:generateURL('static/USAID_CP_IH_PEPFAR_logos.png')}" width='30%'/>
+	<img src="{csd_webui:generateURL('static/USAID_CP_IH_PEPFAR_logos.png')}" width='30%'/>
       </center>
 
       <div class="container">
