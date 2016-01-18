@@ -1,3 +1,11 @@
+openinfoman (1.0.75~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.75
+    -6b76095 update webap ui
+    --https://github.com/openhie/openinfoman/commmit/6b76095
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:55:17 -0500
+
 openinfoman (1.0.74~trusty) trusty; urgency=medium
 
   * Release Version 1.0.74
