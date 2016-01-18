@@ -77,10 +77,14 @@ fi
 if [ -n "$LAUNCHPADPPALOGIN" ]; then
   echo Using $LAUNCHPADPPALOGIN for Launchpad PPA login
   echo "To Change You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN"
-else 
-  echo -n "Enter your launchpad login for the ppa and press [ENTER]: "
-  read LAUNCHPADPPALOGIN
-  echo "You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN to avoid this step in the future"
+else
+  if [ "$1" -ne "--local"]; then
+      echo -n "Enter your launchpad login for the ppa and press [ENTER]: "
+      read LAUNCHPADPPALOGIN
+      echo "You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN to avoid this step in the future"
+  else
+      LAUNCHPADLOGIN=""
+  fi
 fi
 
 
