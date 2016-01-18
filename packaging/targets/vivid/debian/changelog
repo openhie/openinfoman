@@ -1,3 +1,11 @@
+openinfoman (1.0.64~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.64
+    -3fbb8f9 expiremental cleanup and packaging for web UI and config
+    --https://github.com/openhie/openinfoman/commmit/3fbb8f9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 14:05:38 -0500
+
 openinfoman (1.0.63~vivid) vivid; urgency=medium
 
   * Release Version 1.0.63
