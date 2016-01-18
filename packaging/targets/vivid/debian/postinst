@@ -59,7 +59,7 @@ declare variable $csd_webconf:remote_services := ();
 
 
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
-$BASEX -Vc "REPO DELETE " || true
+$BASEX -Vc "REPO DELETE https://github.com/openhie/openinfoman/csd_webconf" || true
 $Basex -Vc "REPO INSTALL $GENERATED"
 
 
