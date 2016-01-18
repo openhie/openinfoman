@@ -14,7 +14,7 @@ declare function csd_webui:generateURL() {
   csd_webui:generateURL(())
 };
 
-declare function csd_webui:generateURL($end*) {
+declare function csd_webui:generateURL($end as item*) {
   let $cend :=
     functx:string-join(
       for $e in $end
