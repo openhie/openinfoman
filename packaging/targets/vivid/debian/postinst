@@ -2,6 +2,7 @@
 set -x
 
 
+. /usr/share/debconf/confmodule
 
 WGET=/usr/bin/wget
 UNZIP=/usr/bin/unzip
@@ -50,15 +51,16 @@ REPOS=("csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm
 
 mkdir -p $OI/repo-src
 GENERATED="$OI/repo-src/generated_openinfoman_webconfig.xqm"
-if [ -e $GENERATED]; then
-    #do nothing
-    echo "Using custom web config"
-else
-    cp $OI/repo-src/csd_webapp_config.xqm $GENERATED
-fi
+echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
+declare variable $csd_webconf:db :=  '$DBNAME';
+declare variable $csd_webconf:baseurl :=  '$BASEURL';
+declare variable $csd_webconf:remote_services := ();
+" > $OI/repo-src/generated_openinfoman_webconfig.xqm
+
 
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
-$BASEX -Vc "REPO INSTALL $GENERATED"
+$BASEX -Vc "REPO DELETE " || true
+$Basex -Vc "REPO INSTALL $GENERATED"
 
 
 for REPO in ${REPOS[@]}
