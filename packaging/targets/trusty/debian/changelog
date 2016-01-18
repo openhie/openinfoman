@@ -1,3 +1,11 @@
+openinfoman (1.0.87~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.87
+    -fdd40be fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/fdd40be
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:14:08 -0500
+
 openinfoman (1.0.86~trusty) trusty; urgency=medium
 
   * Release Version 1.0.86
