@@ -315,7 +315,7 @@ declare function page:get_export_function_details() {
  
 declare function page:wrapper($list,$new) {
   let $headers := (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap/js/tab.js')"/>  
+    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap/js/tab.js')}"/>  
    ,<script type="text/javascript">
     $( document ).ready(function() {{
       $('#tab_list a').click(function (e) {{
