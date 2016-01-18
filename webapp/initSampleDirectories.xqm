@@ -78,7 +78,7 @@ declare updating
 { 
 (
   csd_dm:empty($csd_webconf:db,$name)   ,
-  csd_webui:redirect_out("CSD/initSampleDirectory/directory/",$name,"/load")
+  csd_webui:redirect_out(("CSD/initSampleDirectory/directory/",$name,"/load"))
 )
 
 
@@ -146,12 +146,12 @@ declare function page:get_export_document_details() {
       for $name in csd_dm:registered_documents($csd_webconf:db)
       return 
       <map key="{string($name)}">
-	<string key="careServicesRequest">{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest')}</string>
+	<string key="careServicesRequest">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</string>
 	<map key="careServicesRequests">
 	  {
 	    for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
 	    let $urn:= string($function/@urn)
-	    return <string key="{$urn}">{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest/',$urn)}</string>
+	    return <string key="{$urn}">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest/',$urn))}</string>
 	  }
 	</map>
       </map>

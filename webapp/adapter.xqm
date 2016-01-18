@@ -19,7 +19,7 @@ declare
       {
       for $type in $types
       let $s_type := string($type)
-      let $href := csd_webui:generateURL("CSD/adapter/" , $s_type)
+      let $href := csd_webui:generateURL(("CSD/adapter/" , $s_type))
       return <li><a href="{$href}">{$s_type}</a></li>
       } 
     </ul> 
@@ -49,7 +49,7 @@ declare
   	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
 	    return
   	    <li>
-	      <a href="{csd_webui:generateURL('CSD/csr',$doc_name,'careServicesRequest',$search_name,'adapter',$type)}">{string($doc_name)}</a>
+	      <a href="{csd_webui:generateURL(('CSD/csr',$doc_name,'careServicesRequest',$search_name,'adapter',$type))}">{string($doc_name)}</a>
 	    </li>
 	  }
 	</ul>
@@ -78,9 +78,9 @@ declare
 	    let $urn := string($adapter_func/@urn)
 	    return
   	    <li>
-	      Type (<a href="{csd_webui:generateURL('CSD/adapter/',$type)}">{$type}</a>)
+	      Type (<a href="{csd_webui:generateURL(('CSD/adapter/',$type))}">{$type}</a>)
 	      <p>
-		<a href="{csd_webui:generateURL('CSD/adapter/',$type,$urn)}">Document Index</a> for {$urn}
+		<a href="{csd_webui:generateURL(('CSD/adapter/',$type,$urn))}">Document Index</a> for {$urn}
 	      </p>
 	      <p>{$desc}</p>
 	    </li>

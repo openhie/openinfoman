@@ -117,7 +117,7 @@ declare function page:endpoints() {
 	return 
 	<li>
 	  Submit Care Services Request for {$name} at:
-	  <pre>{csd_webui:generateURL('CSD/csr/',$name,'/careServicesRequest')}</pre> 
+	  <pre>{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</pre> 
 	  <br/>
 	  Submit ad-hoc query:
 	  <form method='post' action="/CSD/csr/{$name}/adhoc"  enctype="multipart/form-data">

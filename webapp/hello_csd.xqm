@@ -53,10 +53,10 @@ declare
 	      for $doc in $docs 
 	      return  
 	      <li>
-		<a href="{csd_webui:generateURL('CSD/getDirectory/',$doc)"> {$doc} </a>
+		<a href="{csd_webui:generateURL(('CSD/getDirectory/',$doc))"> {$doc} </a>
 		 [ 
-		  <a class='text-warning' href="{csd_webui:generateURL('CSD/emptyDirectory/',$doc)}" onclick="Empty confirm('Delete all the data in {$doc}?');"> Empty </a> 
-		  / <a class='text-warning' href="{csd_webui:generateURL('CSD/deleteDirectory/',$doc)}" onclick="return confirm('Delete all the data in {$doc}?');"> Delete </a> 
+		  <a class='text-warning' href="{csd_webui:generateURL(('CSD/emptyDirectory/',$doc))}" onclick="Empty confirm('Delete all the data in {$doc}?');"> Empty </a> 
+		  / <a class='text-warning' href="{csd_webui:generateURL(('CSD/deleteDirectory/',$doc))}" onclick="return confirm('Delete all the data in {$doc}?');"> Delete </a> 
 		  ]
 	      </li>
 	    }
@@ -127,7 +127,7 @@ declare updating
 {
   (
     csd_dm:delete($csd_webconf:db,$name) 
-    ,csd_webui:redirect_out(,"CSD")
+    ,csd_webui:redirect_out("CSD")
   )
 };
 

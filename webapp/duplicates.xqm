@@ -25,7 +25,7 @@ declare updating
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID ))
   )
 
 };
@@ -47,7 +47,7 @@ declare updating
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID ))
   )
 
 };
@@ -69,7 +69,7 @@ declare updating
     
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name , "/manage/" ,  $entityID ))
   )
 
 };
@@ -91,7 +91,7 @@ declare updating
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name , "/manage/" ,$entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name , "/manage/" ,$entityID ))
   )
 
 };
@@ -114,7 +114,7 @@ declare updating
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name, "/manage/" , $entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name, "/manage/" , $entityID ))
   )
 
 };
@@ -136,7 +136,7 @@ declare updating
 
     return csr_proc:process_updating_CSR_stored_results($csd_webconf:db, $doc,$requestParams)
     ,
-    csd_webui:redirect_out("/CSD/duplicates/", $doc_name, "/manage/"  , $entityID )
+    csd_webui:redirect_out(("/CSD/duplicates/", $doc_name, "/manage/"  , $entityID ))
   )
 
 };
