@@ -1,3 +1,11 @@
+openinfoman (1.0.99~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.99
+    -6292294 packaging fixup
+    --https://github.com/openhie/openinfoman/commmit/6292294
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:30:33 -0500
+
 openinfoman (1.0.98~vivid) vivid; urgency=medium
 
   * Release Version 1.0.98
