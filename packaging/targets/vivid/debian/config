@@ -31,9 +31,9 @@ mkdir -p $OI/repo-src
 chown -R $USERNAME:$USERNAME $OI/repo-src
 
 echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
-declare variable $csd_webconf:db :=  '$DBNAME';
-declare variable $csd_webconf:baseurl :=  '$BASEURL';
-declare variable $csd_webconf:remote_services := ();
+declare variable \$csd_webconf:db :=  '$DBNAME';
+declare variable \$csd_webconf:baseurl :=  '$BASEURL';
+declare variable \$csd_webconf:remote_services := ();
 " > $OI/repo-src/generated_openinfoman_webconfig.xqm
 
 
