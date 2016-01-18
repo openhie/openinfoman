@@ -62,7 +62,6 @@ declare updating function csd_webui:redirect_out() {
 };
 
 declare updating function csd_webui:redirect_out($end ) {
-{
   db:output(<restxq:redirect>{ csd_webui:generateURL($end)}</restxq:redirect>)
 };
 
