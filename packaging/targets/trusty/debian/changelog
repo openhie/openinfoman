@@ -1,3 +1,11 @@
+openinfoman (1.0.92~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.92
+    -d33fa65 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/d33fa65
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:25:44 -0500
+
 openinfoman (1.0.91~trusty) trusty; urgency=medium
 
   * Release Version 1.0.91
