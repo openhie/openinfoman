@@ -1,3 +1,11 @@
+openinfoman (1.0.83~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.83
+    -03d97f4 fixup csd_webap_ui
+    --https://github.com/openhie/openinfoman/commmit/03d97f4
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:08:19 -0500
+
 openinfoman (1.0.82~vivid) vivid; urgency=medium
 
   * Release Version 1.0.82
