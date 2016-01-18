@@ -1,3 +1,11 @@
+openinfoman (1.0.98~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.98
+    -da924ad packaging fixup
+    --https://github.com/openhie/openinfoman/commmit/da924ad
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:26:37 -0500
+
 openinfoman (1.0.97~trusty) trusty; urgency=medium
 
   * Release Version 1.0.97
