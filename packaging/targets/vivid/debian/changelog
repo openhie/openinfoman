@@ -1,3 +1,11 @@
+openinfoman (1.0.78~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.78
+    -3496d23 update create deb for local
+    --https://github.com/openhie/openinfoman/commmit/3496d23
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:02:42 -0500
+
 openinfoman (1.0.77~vivid) vivid; urgency=medium
 
   * Release Version 1.0.77
