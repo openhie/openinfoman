@@ -78,7 +78,7 @@ if [ -n "$LAUNCHPADPPALOGIN" ]; then
   echo Using $LAUNCHPADPPALOGIN for Launchpad PPA login
   echo "To Change You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN"
 else
-  if [ "$1" -ne "--local" ]; then
+  if [ "$1" != "--local" ]; then
       echo -n "Enter your launchpad login for the ppa and press [ENTER]: "
       read LAUNCHPADPPALOGIN
       echo "You can do: export LAUNCHPADPPALOGIN=$LAUNCHPADPPALOGIN to avoid this step in the future"
@@ -156,7 +156,7 @@ done
 
 cd $HOME
 
-if [ "$1" -ne "--local" ]; then
+if [ "$1" != "--local" ]; then
   git push
   git push --tags
 fi
