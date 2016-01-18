@@ -18,7 +18,7 @@ declare
   %rest:GET
   function page:updated_service_soap($name,$mtime)
 { 
- let $url := csd_webui:generateURL("CSD/getUpdatedServices/" , $name , "/get")
+ let $url := csd_webui:generateURL(("CSD/getUpdatedServices/" , $name , "/get"))
  return (
  <rest:response>
    <http:response status="200" >
@@ -106,7 +106,7 @@ declare function page:service_menu($name)
     </form> 
     </li>
     Submit {$name} SOAP request to:
-    <pre>{csd_webui:generateURL('CSD/getUpdatedServices/',$name,'/get')}</pre> 
+    <pre>{csd_webui:generateURL(('CSD/getUpdatedServices/',$name,'/get'))}</pre> 
 
     </ul>
   </span>
