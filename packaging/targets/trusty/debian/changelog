@@ -1,3 +1,11 @@
+openinfoman (1.0.95~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.95
+    -e6ebf2d webap fixup
+    --https://github.com/openhie/openinfoman/commmit/e6ebf2d
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:33:39 -0500
+
 openinfoman (1.0.94~trusty) trusty; urgency=medium
 
   * Release Version 1.0.94
