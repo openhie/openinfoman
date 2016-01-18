@@ -101,7 +101,7 @@ declare
   function page:get_service_menu($name)
 {
   let $response := <span><h3>{$name}</h3>{page:service_menu($name) }</span>
-  return csd_webui:nocache(csd_webconf:wrapper($response))
+  return csd_webui:nocache(csd_webui:wrapper($response))
 };
 
 declare
@@ -275,7 +275,7 @@ declare function page:wrapper($response) {
     }});
     </script>
   )
-  return csd_webconf:wrapper($response,$headers)
+  return csd_webui:wrapper($response,$headers)
 };
 
 

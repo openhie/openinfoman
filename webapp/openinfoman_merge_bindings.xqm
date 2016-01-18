@@ -54,7 +54,7 @@ declare
 	    </div>
 	  </div>
 	</div>
-      return csd_webconf:wrapper($contents)
+      return csd_webui:wrapper($contents)
 };
 
 

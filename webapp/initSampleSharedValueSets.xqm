@@ -29,7 +29,7 @@ declare
   function page:get_svs_menu($id)
 {
   let $response := page:svs_menu($id) 
-  return csd_webui:nocache(csd_webconf:wrapper($response))
+  return csd_webui:nocache(csd_webui:wrapper($response))
 };
 
 
@@ -141,7 +141,7 @@ declare
     <a href="{csd_webui:generateURL('CSD/SVS/initSharedValueSet')}">Return</a>
   </span>
   )
-  return csd_webconf:wrapper($response)
+  return csd_webui:wrapper($response)
 };
 
 
@@ -155,7 +155,7 @@ declare function page:wrapper_double($responseA,$responseB) {
      {$responseB}
    </div>
  </div>
- return csd_webconf:wrapper($content)
+ return csd_webui:wrapper($content)
 };
 
 declare 
@@ -272,7 +272,7 @@ declare
 	       </li>
 	}
      </ul>	
-  return  csd_webconf:wrapper($list)
+  return  csd_webui:wrapper($list)
 };
 
 

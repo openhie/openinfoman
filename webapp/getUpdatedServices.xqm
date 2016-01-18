@@ -129,6 +129,6 @@ declare function page:wrapper($response) {
     </script>
     
    )
- return csd_webconf:wrapper($response,$headers)
+ return csd_webui:wrapper($response,$headers)
 };
    

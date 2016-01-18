@@ -240,7 +240,7 @@ declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
       </div>
       )
 
-  return csd_webconf:wrapper($content,$headers)
+  return csd_webui:wrapper($content,$headers)
 };
 
 

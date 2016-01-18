@@ -54,7 +54,7 @@ declare
 	  }
 	</ul>
       </div>
-  return csd_webconf:wrapper($contents)
+  return csd_webui:wrapper($contents)
 
  
 };
@@ -105,6 +105,6 @@ declare function page:wrapper($response) {
   , <script src="{csd_webui:generateURL('static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}"/>
   )
 
-  return csd_webconf:wrapper($response,$headers)
+  return csd_webui:wrapper($response,$headers)
 };
  

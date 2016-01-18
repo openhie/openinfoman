@@ -103,7 +103,7 @@ declare
   function page:csr_list() 
 { 
 let $response := page:endpoints()
-return csd_webconf:wrapper($response)
+return csd_webui:wrapper($response)
 };
 
 

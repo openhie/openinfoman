@@ -340,7 +340,7 @@ declare function page:wrapper($list,$new) {
 	<div class="tab-pane panel-body" id="new">{$new}</div>
       </div>
     )
-  return csd_webconf:wrapper($content,$headers)
+  return csd_webui:wrapper($content,$headers)
 };
 
 

@@ -256,7 +256,7 @@ declare
 	<a href="/CSD/duplicates/{$doc_name}/list-pot-dup/{$entity}">List {$entity}  potential duplicate information for {$doc_name}</a>
       </p>
     </div>
-  return csd_webconf:wrapper($content)      
+  return csd_webui:wrapper($content)      
 };
 
 
@@ -303,7 +303,7 @@ declare
       <a href="{$next}">Next Page</a>	    
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
@@ -353,7 +353,7 @@ declare
 
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
@@ -401,7 +401,7 @@ declare
       <a href="{$next}">Next Page</a>
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
@@ -430,7 +430,7 @@ declare
       </p>
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
@@ -452,7 +452,7 @@ declare
       }
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
@@ -474,7 +474,7 @@ declare
       }
     </div>
 
-  return csd_webconf:wrapper($content)
+  return csd_webui:wrapper($content)
 };
 
 
