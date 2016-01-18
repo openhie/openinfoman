@@ -49,7 +49,14 @@ REPOS=("csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored
 #excluding "csd_webapp_config.xqm"
 
 mkdir -p $OI/repo-src
-$BASEX -Vc "REPO INSTALL $OI/repo-src/generated_openinfoman_webconfig.xqm"
+GENERATED="$OI/repo-src/generated_openinfoman_webconfig.xqm"
+if [ -e $GENERATED]; then
+    #do nothing
+else
+    cp $OI/repo-src/csd_webapp_config.xqm $GENERATED
+fi
+
+$BASEX -Vc "REPO INSTALL $GENERATED"
 $BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
 
 for REPO in ${REPOS[@]}
