@@ -80,9 +80,33 @@ declare
       <li><a href="{csd_webui:generateURL('CSD/SVS/availSharedValueSet')}">available Shared Value Sets </a></li>
     </ul>
   </span>
-  let $adapters := 
-    <span class='adapters'>
-      List of all adapters installed: <a href="{csd_webui:generateURL('CSD/adapter')}">CSD Adapters</a>      
+  let $adapters :=
+    <span>
+      <span>
+        {
+	  let $docs := csd_dm:registered_documents($csd_webconf:db)  
+	  return ( 
+	    "You have ", count($docs) , " registered document(s) available: ", 
+	    <ul>
+	      {
+		for $doc in $docs 
+		return  
+		<li>
+		  <a href="{csd_webui:generateURL(('CSD/getDirectory/',$doc))}"> {$doc} </a>
+		  [ 
+		  <a class='text-warning' href="{csd_webui:generateURL(('CSD/csr/',$doc,'careServicesRequest'))}" > View Stored Functions </a> 
+		  ]
+		</li>
+	      }
+	    </ul>
+	  )
+	}
+	
+      </span>
+      <span class='adapters'>
+	<p>List of all API  adapters for stored functions: <a href="{csd_webui:generateURL('CSD/adapter')}">CSD Adapters</a>      </p>
+      </span>
+
     </span>
   let $generic := 
     <span>
@@ -172,9 +196,9 @@ declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
     let $content := (
       <ul class="nav nav-tabs">
 	<li id='tab_home' class="active"><a  href="#home">Introduction</a></li>
-	<li id='tab_csd'><a  href="#csd">CSD Endpoints</a></li>
-	<li id='tab_svs'><a  href="#svs">SVS Endpoints</a></li>
-	<li id='tab_adapters'><a  href="#adapters">CSD Adapters</a></li>
+	<li id='tab_csd'><a  href="#csd">Server Managment</a></li>
+	<li id='tab_svs'><a  href="#svs">Terminolgies</a></li>
+	<li id='tab_adapters'><a  href="#adapters">Documents</a></li>
       </ul>
       ,<div class="tab-content panel">
 	<div class="tab-pane active panel-body" id="home">

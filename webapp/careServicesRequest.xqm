@@ -25,6 +25,7 @@ else
 };
 
 
+
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest/{$search}")
   %rest:consumes("application/xml", "text/xml", "multipart/form-data")  
@@ -104,6 +105,38 @@ declare
 { 
 let $response := page:endpoints()
 return csd_webui:wrapper($response)
+};
+
+
+declare
+  %rest:path("/CSD/csr/{$name}/careServicesRequest")
+  %output:method("xhtml")
+  function page:csr($name)
+{
+  let $contents :=
+    <ul>{
+    (
+      for $function in csr_proc:stored_functions($csd_webconf:db)
+      let $url := csd_webui:generateURL(("CSD/csr", $name , "careServicesRequest", string($function/@urn)))
+      return
+      <li>
+          <p>Name: {string($function/@urn)}</p>
+	  <p>URL: {$url}</p>
+      	  <p><a href="{csd_webui:generateURL(concat('CSD/storedFunctions#',$name))}">Full Description</a></p>
+      </li>
+      ,
+      for $function in csr_proc:stored_updating_functions($csd_webconf:db)
+      let $url := csd_webui:generateURL(("CSD/csr", $name , "careServicesRequest/update", string($function/@urn)))
+      return
+      <li>
+          <p>Name: {string($function/@urn)} (updating)</p>
+	  <p>URL: {$url}</p>
+	  <p><a href="{csd_webui:generateURL(concat('CSD/storedFunctions#',$name))}">Full Description</a></p>
+      </li>
+    )
+    }</ul>
+
+  return csd_webui:wrapper($contents)
 };
 
 
