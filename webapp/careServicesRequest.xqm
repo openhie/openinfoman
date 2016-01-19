@@ -114,6 +114,13 @@ declare
   function page:csr($name)
 {
   let $contents :=
+    (
+    <p>
+      Example Usage:
+      <pre>curl -X POST -H 'content-type: text/xml'  --data-binary @request.xml $URL</pre>
+      where $URL is one of the below and request.xml is an XML file containing a &lt;csd:requestParams/&gt; element
+    </p>
+    ,
     <ul>{
     (
       for $function in csr_proc:stored_functions($csd_webconf:db)
@@ -135,7 +142,7 @@ declare
       </li>
     )
     }</ul>
-
+    )
   return csd_webui:wrapper($contents)
 };
 
