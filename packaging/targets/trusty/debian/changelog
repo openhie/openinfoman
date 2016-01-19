@@ -1,3 +1,13 @@
+openinfoman (1.0.103~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.103
+    -e1b5569 added curl usage info for stored functions
+    --https://github.com/openhie/openinfoman/commmit/e1b5569
+    -53f4cf8 some UI improvements
+    --https://github.com/openhie/openinfoman/commmit/53f4cf8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 23:34:01 -0500
+
 openinfoman (1.0.102~trusty) trusty; urgency=medium
 
   * Release Version 1.0.102
