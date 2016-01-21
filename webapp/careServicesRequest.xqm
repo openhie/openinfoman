@@ -110,6 +110,7 @@ return csd_webui:wrapper($response)
 
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest")
+  %rest:GET
   %output:method("xhtml")
   function page:csr($name)
 {
