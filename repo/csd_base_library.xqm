@@ -170,12 +170,12 @@ declare function csd:filter_by_coded_type($items as item()*, $codedtype as item(
 :)
 declare function csd:filter_by_primary_name($items as item()*,$primaryName as item()) as item()* 
 {
-
-      if (not($primaryName = '')) 
-      then 
-          let $u_primaryName := fn:upper-case($primaryName)
-          return $items[contains(fn:upper-case(./primaryName) , $u_primaryName)]
-      else $items          
+  let $u_primaryName := fn:upper-case($primaryName/text())
+  return
+    if (not(functx:all-whitespace($u_primaryName)))
+      (: then $items[contains(fn:upper-case(./primaryName) , $u_primaryName)] :)
+    then $items[upper-case(./primaryName) = $u_primaryName]
+    else $items          
 };
 
 
