@@ -1,3 +1,13 @@
+openinfoman (1.0.105~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.105
+    -1d44260 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/1d44260
+    -58b81ca added missing ; in csd_webapp_config.xqm
+    --https://github.com/openhie/openinfoman/commmit/58b81ca
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 29 Jan 2016 12:52:00 -0500
+
 openinfoman (1.0.104~vivid) vivid; urgency=medium
 
   * Release Version 1.0.104
