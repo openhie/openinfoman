@@ -66,7 +66,7 @@ declare
     </p>
     <div>
       <h2>Create Blank Directory</h2>
-      <form method='post' action="/CSD/createDirectory">
+      <form method='post' action="{csd_webui:generateURL(('CSD/getDirectory/'))}">     
 	<input name='directory' type='text'/>
 	<input type='submit' value='Create'/>
       </form>
