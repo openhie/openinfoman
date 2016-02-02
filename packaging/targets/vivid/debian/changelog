@@ -1,3 +1,13 @@
+openinfoman (1.0.106~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.106
+    -c1efb0d fixup relative urls
+    --https://github.com/openhie/openinfoman/commmit/c1efb0d
+    -8b98dfd added --no-check-certificate in packaging wget request
+    --https://github.com/openhie/openinfoman/commmit/8b98dfd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 18:12:10 +0000
+
 openinfoman (1.0.105~vivid) vivid; urgency=medium
 
   * Release Version 1.0.105
