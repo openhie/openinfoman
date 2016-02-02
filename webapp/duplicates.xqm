@@ -160,7 +160,7 @@ declare
     default return ()
 
 
-  let $url := concat("/CSD/directory/", $doc_name, "/get/", $entity , "/", $entityID)
+  let $url := csd_webui:generateURL(("CSD/directory", $doc_name, "get", $entity , $entityID))
   let $name :=
 	  if (local-name($entityObj) = 'provider')
 	  then (($entityObj/csd:demographic/csd:name/csd:commonName)[1])/text()
@@ -175,7 +175,7 @@ declare
 	  if (local-name($entityObj) = 'provider')
 	  then (($dup/csd:demographic/csd:name/csd:commonName)[1])/text()
    	  else $dup/csd:primaryName/text()
-	let $durl := concat("/CSD/directory/", $doc_name, "/get/", $entity , "/", $did)
+	let $durl := csd_webui:generateURL(("CSD/directory/", $doc_name, "get", $entity , $did))
 	return
 	  <li>Record duplicated by <a href="{$durl}">{$dname} [{$did}]</a></li>
       }
@@ -191,7 +191,7 @@ declare
 	  if (local-name($e) = 'provider')
 	  then (($e/csd:demographic/csd:name/csd:commonName)[1])/text()
 	  else $e/csd:primaryName/text()
-	let $eurl := concat("/CSD/directory/", $doc_name, "/get/", $entity , "/", $eid)
+	let $eurl := csd_webui:generateURL(("/CSD/directory/", $doc_name, "get", $entity ,  $eid))
 	return
 	  <li>Duplicates record <a href="{$eurl}"> {$ename} [{$eid}]</a></li>
       }
@@ -209,9 +209,9 @@ declare
 	  if (local-name($e) = 'provider')
 	  then (($e/csd:demographic/csd:name/csd:commonName)[1])/text()
 	  else $e/csd:primaryName/text()
-	let $purl := concat("/CSD/directory/", $doc_name, "/get/", $entity , "/", $pid)		  
-	let $rurl := concat( "/CSD/duplicates/", $doc_name ,"/removePotential/" ,  $entityID ,"/" , $pid)
-	let $murl := concat( "/CSD/duplicates/", $doc_name ,"/mark/" ,  $entityID ,"/" , $pid)
+	let $purl := csd_webui:generateURL(("CSD/directory", $doc_name, "get", $entity ,  $pid)		  )
+	let $rurl := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"removePotential" ,  $entityID , $pid))
+	let $murl := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"mark" ,  $entityID , $pid))
 	return
 	  <li>
 	    Potential duplicate with <a href="{$purl}">{$ename} [{$pid}]</a>
@@ -247,13 +247,13 @@ declare
 
       <hr/>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list/{$entity}">List {$entity}  information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list',$entity))}">List {$entity}  information for {$doc_name}</a>
       </p>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list-dup/{$entity}">List {$entity} duplicate information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-dup',$entity))}">List {$entity} duplicate information for {$doc_name}</a>
       </p>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list-pot-dup/{$entity}">List {$entity}  potential duplicate information for {$doc_name}</a>
+	<a href="csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-pot-dup',$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
       </p>
     </div>
   return csd_webui:wrapper($content)      
@@ -284,7 +284,7 @@ declare
     <ul>
       {
 	for $e in $p_entities
-	let $url := concat( "/CSD/duplicates/", $doc_name ,"/manage/" , string($e/@entityID))
+	let $url := csd_webui:generateURL(( "/CSD/duplicates", $doc_name ,"manage" , string($e/@entityID)))
 	let $ename :=
 	  if (local-name($e) = 'provider')
 	  then (($e/csd:demographic/csd:name/csd:commonName)[1])/text()
@@ -292,8 +292,8 @@ declare
 	return <li>Manage <a href="{$url}">{$ename} [{string($e/@entityID)}]</a></li>
       }
     </ul>
-  let $next := concat( "/CSD/duplicates/", $doc_name ,"/list/" , $entity , "?page=" , ($page +1))
-  let $prev := concat( "/CSD/duplicates/", $doc_name ,"/list/" , $entity , "?page=" , ($page -1))    
+  let $next := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"list" , concat( $entity , "?page=" , ($page +1))))
+  let $prev := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"list" , concat($entity , "?page=" , ($page -1))))
   let $content :=
     <div>
       <h2>Records </h2>
@@ -333,7 +333,7 @@ declare
     <ul>
       {
 	for $e in $p_entities
-	let $url := concat( "/CSD/duplicates/", $doc_name ,"/manage/" , string($e/@entityID))
+	let $url := csd_webui:generateURL( ("CSD/duplicates", $doc_name ,"manage" , string($e/@entityID)))
 	let $ename :=
 	  if (local-name($e) = 'provider')
 	  then (($e/csd:demographic/csd:name/csd:commonName)[1])/text()
@@ -341,8 +341,8 @@ declare
 	return <li>Manage <a href="{$url}">{$ename} [{string($e/@entityID)}]</a></li>
       }
     </ul>
-  let $next := concat( "/CSD/duplicates/", $doc_name ,"/list-dup/" , $entity , "?page=" , ($page +1))
-  let $prev := concat( "/CSD/duplicates/", $doc_name ,"/list-dup/" , $entity , "?page=" , ($page -1))    
+  let $next := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"list-dup" , concat($entity , "?page=" , ($page +1))))
+  let $prev := csd_webui:generateURL(( "CSD/duplicates", $doc_name ,"list-dup" , concat($entity , "?page=" , ($page -1))))
   let $content :=
     <div>
       <h2>Records With Duplicates</h2>
@@ -382,7 +382,7 @@ declare
     <ul>
       {
 	for $e in $p_entities
-	let $url := concat( "/CSD/duplicates/", $doc_name ,"/manage/" , string($e/@entityID))
+	let $url := csd_webui:generateURL(("/CSD/duplicates/", $doc_name ,"/manage/" , string($e/@entityID)))
 	let $ename :=
 	  if (local-name($e) = 'provider')
 	  then (($e/csd:demographic/csd:name/csd:commonName)[1])/text()
@@ -390,8 +390,8 @@ declare
 	return <li>Manage <a href="{$url}">{$ename} [{string($e/@entityID)}]</a></li>
       }
     </ul>
-  let $next := concat( "/CSD/duplicates/", $doc_name ,"/list-pot-dup/" , $entity , "?page=" , ($page +1))
-  let $prev := concat( "/CSD/duplicates/", $doc_name ,"/list-pot-dup/" , $entity , "?page=" , ($page -1))    
+  let $next := csd_webui:generateURL(( "/CSD/duplicates/", $doc_name ,"/list-pot-dup/" , concat($entity , "?page=" , ($page +1))))
+  let $prev := csd_webui:generateURL(( "/CSD/duplicates/", $doc_name ,"/list-pot-dup/" , concat($entity , "?page=" , ($page -1))))
   let $content :=
     <div>
       <h2>Records With Potential Duplicates</h2>
@@ -420,13 +420,13 @@ declare
     <div>
       <h2>Manage {$entity} duplicate information on {$doc_name}</h2>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list/{$entity}">List {$entity}  information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list',$entity))}">List {$entity}  information for {$doc_name}</a>
       </p>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list-dup/{$entity}">List {$entity} duplicate information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-dup',$entity))}">List {$entity} duplicate information for {$doc_name}</a>
       </p>
       <p>
-	<a href="/CSD/duplicates/{$doc_name}/list-pot-dup/{$entity}">List {$entity}  potential duplicate information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name','list-pot-dup','$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
       </p>
     </div>
 
@@ -447,7 +447,7 @@ declare
 	for $entity in ('provider','facility','organization','service')
 	return 
 	   <p>	
-	    <a href="/CSD/duplicates/{$doc_name}/{$entity}">Manage {$entity} information</a>
+	    <a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,$entity))}">Manage {$entity} information</a>
 	  </p>
       }
     </div>
@@ -469,7 +469,7 @@ declare
 	for $doc_name in csd_dm:registered_documents($csd_webconf:db)
 	return 
 	  <p>
-	    <a href="/CSD/duplicates/{$doc_name}">Manage {$doc_name} information</a>
+	    <a href="csd_webui:generateURL(('CSD/duplicates',$doc_name))}">Manage {$doc_name} information</a>
 	  </p>
       }
     </div>

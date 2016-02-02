@@ -185,7 +185,7 @@ else
 	order by $set/@ID
 	return 
 	<li>
-	  <a href="/CSD/SVS/initSharedValueSet/svs/{$id}">{$displayName} ({$id})</a>
+	  <a href="{csd_webui:generateURL(('CSD/SVS/initSharedValueSet/svs',$id))}">{$displayName} ({$id})</a>
 	  <br/>
 	  {page:svs_menu($id)}
 	</li>
@@ -220,17 +220,17 @@ declare function page:svs_menu($id) {
       return <ul>
 	{if ($set/@file) then
 	  if (not(svs_lsvs:exists($csd_webconf:db,$id))) then
-          <li><a href="/CSD/SVS/initSharedValueSet/svs/{$id}/load">Initialize {$id} ({$disp})</a> </li>
+          <li><a href="{csd_webui:generateURL(('CSD/SVS/initSharedValueSet/svs',$id,'load'))}">Initialize {$id} ({$disp})</a> </li>
           else 
 	  (
-	  <li><a href="/CSD/SVS/RetrieveValueSet?ID={$id}">Get {$id}</a></li>,
-	  <li><a href="/CSD/SVS/initSharedValueSet/svs/{$id}/reload">Reload {$id}</a></li>,
+	  <li><a href="{csd_webui:generateURL((concat('CSD/SVS/RetrieveValueSet?ID=',$id)))}">Get {$id}</a></li>,
+	  <li><a href="{csd_webui:generateURL(('/CSD/SVS/initSharedValueSet/svs',$id,'reload'))}">Reload {$id}</a></li>,
 	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
         else
 	  (:not @file so its not something we can load/reload :)
 	  (
-	  <li><a href="/CSD/SVS/RetrieveValueSet?ID={$id}">Get {$id}</a></li>,
+	  <li><a href="{csd_webui:generateURL((concat('/CSD/SVS/RetrieveValueSet?ID=',$id)))}">Get {$id}</a></li>,
 	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
 	  }
@@ -263,7 +263,7 @@ declare
 		 <ul>
 		   {
 		     for $set in  $sets//svs:DescribedValueSet[@ID = $id]
-		     let $href := concat("/CSD/SVS/RetrieveValueSet?ID=", $id)
+		     let $href := csd_webui:generateURL(( concat("/CSD/SVS/RetrieveValueSet?ID=", $id)))
 		     let $version := string($set/@version)
 		     order by $version
 		     return <li><a href="{$href}"> {string($set/@displayName)}</a> version {$version}   </li>

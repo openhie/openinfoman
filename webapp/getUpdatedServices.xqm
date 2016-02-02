@@ -69,7 +69,7 @@ let $response :=
       {
 	for $name in $page:csd_docs
 	return 	<li>
-	<h3>Service Directory:<a href="/CSD/getUpdatedServices/{$name}">{$name}</a></h3>
+	<h3>Service Directory:<a href="{csd_webui:generateURL(('CSD/getUpdatedServices',$name))}">{$name}</a></h3>
 	  {page:service_menu($name)}
 	</li>
       }

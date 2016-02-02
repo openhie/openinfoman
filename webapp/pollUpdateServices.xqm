@@ -322,7 +322,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	       let $name := $sample/text{@name}
 	       return 
 	       <li>
-		 <a href="/CSD/registerService/named/{$name}">Register {$name}</a>
+		 <a href="{csd_webui:generateURL(('CSD/registerService/named',$name))}">Register {$name}</a>
 	       </li>
 	       }
 	     </ul>
@@ -353,7 +353,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	 order by $name
 	 return 
 	 <li>
-	   <b><a href="/CSD/pollService/{$name}">{$name}</a></b> last <a href="/CSD/pollService/directory/{$name}">cached</a> on {$mtime}
+	   <b><a href="{csd_webui:generateURL(('CSD/pollService',$name))}">{$name}</a></b> last <a href="{csd_webui:generateURL(('CSD/pollService/directory',$name))}">cached</a> on {$mtime}
 	 </li>
 	 }
        </ul>
@@ -402,29 +402,29 @@ declare function page:service_menu($name) {
   <ul>
     {if (not(csd_lsc:directory_exists($csd_webconf:db,$name))) then
       (
-      <li><a href="/CSD/pollService/directory/{$name}/create_cache">Create cache of {$name}</a> </li>
+      <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'create_cache'))}">Create cache of {$name}</a> </li>
       )
   else 
     (
-    <li><a href="/CSD/pollService/directory/{$name}/empty_cache">Empty local cache of {$name}</a> </li>,
-    <li><a href="/CSD/pollService/directory/{$name}/get_cache">Get local cache  of {$name}</a> </li>,
+    <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name, 'empty_cache'))}">Empty local cache of {$name}</a> </li>,
+    <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'get_cache'))}">Get local cache  of {$name}</a> </li>,
     <li>
-      <a href="/CSD/pollService/directory/{$name}/update_cache" >Update local cache  of {$name}</a> 
+      <a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'update_cache'))}" >Update local cache  of {$name}</a> 
       <p>
 	<b >WARNING:</b>An InfoMan trying to cache its own service directory will result in a deadlock.  see <a href="https://github.com/BaseXdb/basex/issues/173">this issue</a>
       </p>
       </li>,
-      <li><a href="/CSD/pollService/directory/{$name}/cache_meta">Get cache Meta Data  for {$name}</a></li>,
-      <li><a href="/CSD/pollService/directory/{$name}/drop_cache_meta">Drop cache Meta Data  of {$name}</a></li>
+      <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'cache_meta'))}">Get cache Meta Data  for {$name}</a></li>,
+      <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'drop_cache_meta'))}">Drop cache Meta Data  of {$name}</a></li>
   )
     }
   </ul>
   </li>
   <li>Testing
   <ul>
-    <li><a href="/CSD/pollService/{$name}/get"> Query  {$name} for Updated Services using stored last modified time (SOAP result)</a> </li>
-    <li><a href="/CSD/pollService/{$name}/get_csd"> Query  {$name} for Updated Services using stored last modified time (CSD result)</a> </li>
-    <li><a href="/CSD/pollService/{$name}/get_soap"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
+    <li><a href="{csd_webui:generateURL(('CSD/pollService',$name,'get'))}"> Query  {$name} for Updated Services using stored last modified time (SOAP result)</a> </li>
+    <li><a href="{csd_webui:generateURL(('CSD/pollService',$name,'get_csd'))}"> Query  {$name} for Updated Services using stored last modified time (CSD result)</a> </li>
+    <li><a href="{csd_webui:generateURL(('CSD/pollService',$name,'get_soap'))}"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
     <li>
     Query {$name} for Updated Services by time
     <form method='get' action="/CSD/pollService/{$name}/get">
