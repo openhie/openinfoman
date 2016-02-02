@@ -1,3 +1,17 @@
+openinfoman (1.0.108~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.108
+    -630ea0f Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/630ea0f
+    -ed0cc7e fixed typos in duplicate webui
+    --https://github.com/openhie/openinfoman/commmit/ed0cc7e
+    -65c09b0 Merge branch 'master' of http://github.com/openhie/openinf
+    --https://github.com/openhie/openinfoman/commmit/65c09b0
+    -da00d03 fix create document action
+    --https://github.com/openhie/openinfoman/commmit/da00d03
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 20:48:02 +0000
+
 openinfoman (1.0.107~trusty) trusty; urgency=medium
 
   * Release Version 1.0.107
