@@ -253,7 +253,7 @@ declare
 	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-dup',$entity))}">List {$entity} duplicate information for {$doc_name}</a>
       </p>
       <p>
-	<a href="csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-pot-dup',$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-pot-dup',$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
       </p>
     </div>
   return csd_webui:wrapper($content)      
@@ -426,7 +426,7 @@ declare
 	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-dup',$entity))}">List {$entity} duplicate information for {$doc_name}</a>
       </p>
       <p>
-	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name','list-pot-dup','$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
+	<a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name,'list-pot-dup',$entity))}">List {$entity}  potential duplicate information for {$doc_name}</a>
       </p>
     </div>
 
@@ -469,7 +469,7 @@ declare
 	for $doc_name in csd_dm:registered_documents($csd_webconf:db)
 	return 
 	  <p>
-	    <a href="csd_webui:generateURL(('CSD/duplicates',$doc_name))}">Manage {$doc_name} information</a>
+	    <a href="{csd_webui:generateURL(('CSD/duplicates',$doc_name))}">Manage {$doc_name} information</a>
 	  </p>
       }
     </div>
