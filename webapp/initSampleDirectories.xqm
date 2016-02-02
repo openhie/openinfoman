@@ -102,7 +102,7 @@ let $response :=
 	    order by $name
 	    return 
 	    <li>
-	      <a href="/CSD/initSampleDirectory/directory/{$name}">{$name}</a>
+	      <a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name))}">{$name}</a>
 	      <br/>
 	      {page:services_menu($name)}
 	    </li>
@@ -164,11 +164,11 @@ declare function page:get_export_document_details() {
 declare function page:services_menu($name) {
   <ul> 
     {if (not(csd_dm:document_source_exists($csd_webconf:db,$name))) then
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/load">Initialize </a> {$name} </li>
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'load'))}">Initialize </a> {$name} </li>
   else 
     (
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/get">Get </a> {$name}</li>,
-    <li><a href="/CSD/initSampleDirectory/directory/{$name}/reload">Reload </a>{$name}</li>
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'get'))}">Get </a> {$name}</li>,
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'reload'))}">Reload </a>{$name}</li>
   )
     }
   </ul>

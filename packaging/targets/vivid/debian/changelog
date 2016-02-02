@@ -1,3 +1,33 @@
+openinfoman (1.0.106~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.106
+    -c1efb0d fixup relative urls
+    --https://github.com/openhie/openinfoman/commmit/c1efb0d
+    -8b98dfd added --no-check-certificate in packaging wget request
+    --https://github.com/openhie/openinfoman/commmit/8b98dfd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 18:12:10 +0000
+
+openinfoman (1.0.105~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.105
+    -1d44260 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/1d44260
+    -58b81ca added missing ; in csd_webapp_config.xqm
+    --https://github.com/openhie/openinfoman/commmit/58b81ca
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 29 Jan 2016 12:52:00 -0500
+
+openinfoman (1.0.104~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.104
+    -506a9f7 fixed restxq GET for csr/<DOC>/careServicesRequest
+    --https://github.com/openhie/openinfoman/commmit/506a9f7
+    -d2ded7c slight improvement for filter by primary name
+    --https://github.com/openhie/openinfoman/commmit/d2ded7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 21 Jan 2016 14:26:31 -0500
+
 openinfoman (1.0.103~vivid) vivid; urgency=medium
 
   * Release Version 1.0.103

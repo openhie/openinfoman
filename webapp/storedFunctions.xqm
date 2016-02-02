@@ -25,7 +25,7 @@ else
     <ul>
       <li>{count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/></li>
       <li>{count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/></li>
-      <li><a href="/CSD/storedFunctions/reload">Reload stored functions from disk</a> </li>
+      <li><a href="{csd_webui:generateURL('CSD/storedFunctions/reload')}">Reload stored functions from disk</a> </li>
 
       <li>    <a href="{csd_webui:generateURL('CSD/storedFunctions/export_doc')}">Export Documentation</a></li>
       <li><a href="{csd_webui:generateURL('CSD/storedFunctions/export_funcs')}">Export Functions</a></li>
@@ -246,8 +246,8 @@ declare function page:function_list()  {
       </i>
       <br/>
       <a href="#{$function/@urn}">View</a>
-      <a href="/CSD/storedFunctions/download/{$function/@urn}">Download</a>
-      <a href="/CSD/storedFunctions/delete/{$function/@urn}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
+      <a href="{csd_webui:generateURL(('CSD/storedFunctions/download',$function/@urn))}">Download</a>
+      <a href="{csd_webui:generateURL(('CSD/storedFunctions/delete/',$function/@urn))}" onClick="return confirm('This will remove the ability to execute this function. are you sure?');">Delete</a>
       </li>
     }
     </ul>
