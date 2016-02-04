@@ -13,8 +13,8 @@ declare variable $careServicesRequest as item() external;
    and limit paramaters as sent by the Service Finder
 :) 
 for $srvc in $careServicesRequest/service
-  let $existing := if (exists($srvc/@entityID)) then csd_bl:filter_by_primary_id(/CSD/serviceDirectory/*,$srvc/@entityID) else ()  
+  let $existing := if (exists($srvc/@entityID)) then csd_bl:filter_by_primary_id(/CSD/serviceDirectory/*,$srvc) else ()
   return
     if (exists($existing)) 
-    then insert node $srvc into /CSD/serviceDirectory
-    else replace node $existing with $srvc
+    then replace node $existing with $srvc
+    else insert node $srvc into /CSD/serviceDirectory
