@@ -1,3 +1,13 @@
+openinfoman (1.0.109~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.109
+    -0b555cb Merge pull request #27 from hnnesv/master
+    --https://github.com/openhie/openinfoman/commmit/0b555cb
+    -28266e9 Fixes for the updating query definitions
+    --https://github.com/openhie/openinfoman/commmit/28266e9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 04 Feb 2016 17:05:10 +0000
+
 openinfoman (1.0.108~trusty) trusty; urgency=medium
 
   * Release Version 1.0.108
