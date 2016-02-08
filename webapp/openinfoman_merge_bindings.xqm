@@ -26,7 +26,7 @@ declare
     if (not(page:is_merge($search_name)) ) 
       then concat('Not a stored function for a merge: ' , $search_name    )
     else 
-      let $action := concat("/CSD/csr/",$doc_name,"/careServicesRequest/",$search_name, "/adapter/merge")
+      let $action := csd_webui:generateURL(("/CSD/csr",$doc_name,"careServicesRequest",$search_name, "adapter/merge"))
       let $ufunction := csr_proc:get_updating_function_definition($csd_webconf:db,$search_name)
       let $contents := 
         <div class='container'>

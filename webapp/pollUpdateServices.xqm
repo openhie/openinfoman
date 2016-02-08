@@ -300,7 +300,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
      <div class='row'>
        <div class="col-md-4">
 	 <h3>Add New Service (Basic Auth)</h3>
-	 <form method='get' action="/CSD/registerService/basic_auth">
+	 <form method='get' action="{csd_webui:generateURL('/CSD/registerService/basic_auth')}">
 	   <ul>
 	     <li><label for='name'> Name</label><input class='pull-right'  size="35"      name='name' type="text" value=""/>   </li>
 	     <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value=""/>   </li>
@@ -367,7 +367,7 @@ if (not(csd_psd:dm_exists($csd_webconf:db))) then
 	   return
 	     <div id='svc-{$name}'>
 	       <h2>{$name}</h2>
-	       <form method='get' action="/CSD/registerService/basic_auth/{$name}">
+	       <form method='get' action="{csd_webui:generateURL(('/CSD/registerService/basic_auth',$name))}">
 		 <ul>
 		   <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value="{$url}"/></li>
 		   <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
@@ -427,14 +427,14 @@ declare function page:service_menu($name) {
     <li><a href="{csd_webui:generateURL(('CSD/pollService',$name,'get_soap'))}"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
     <li>
     Query {$name} for Updated Services by time
-    <form method='get' action="/CSD/pollService/{$name}/get">
+    <form method='get' action="{csd_webui:generateURL(('/CSD/pollService,$name,'get'))}">
       <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value="{$mtime}"/>   
       <input type='submit' />
     </form> 
     </li>
     <li>
     Get {$name}'s SOAP reuest for Query for Updated Services by time
-    <form method='get' action="/CSD/pollService/soap_query_updated_services_{$name}">
+    <form method='get' action="{csd_webui:generateURL(('/CSD/pollService',concat('soap_query_updated_services_',$name)))}">
       <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value="{$mtime}"/>   
       <input type='submit' />
     </form> 

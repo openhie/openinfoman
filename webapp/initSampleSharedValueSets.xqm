@@ -195,7 +195,7 @@ else
     ,
     <span>
       <h2>Retrieve Multiple</h2>
-      <form action="/CSD/SVS/RetrieveMultipleValueSets">
+      <form action="{csd_webui:generateURL('/CSD/SVS/RetrieveMultipleValueSets')}">
 	<ul>
 	  <li>ID: <input name="ID"/></li>
 	</ul>
@@ -225,13 +225,13 @@ declare function page:svs_menu($id) {
 	  (
 	  <li><a href="{csd_webui:generateURL((concat('CSD/SVS/RetrieveValueSet?ID=',$id)))}">Get {$id}</a></li>,
 	  <li><a href="{csd_webui:generateURL(('/CSD/SVS/initSharedValueSet/svs',$id,'reload'))}">Reload {$id}</a></li>,
-	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
+	  <li><form action="{csd_webui:generateURL(('/CSD/SVS/initSharedValueSet/svs',$id,'lookup'))}"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
         else
 	  (:not @file so its not something we can load/reload :)
 	  (
 	  <li><a href="{csd_webui:generateURL((concat('/CSD/SVS/RetrieveValueSet?ID=',$id)))}">Get {$id}</a></li>,
-	  <li><form action="/CSD/SVS/initSharedValueSet/svs/{$id}/lookup"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
+	  <li><form action="{csd_webui:generateURL(('/CSD/SVS/initSharedValueSet/svs',$id,'lookup'))}"><label for="code">Lookup Code</label><input name="code" type="text"/><input type="submit"/></form></li>
 	  )
 	  }
        </ul>

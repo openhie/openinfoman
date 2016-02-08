@@ -233,13 +233,13 @@ declare
       <h2>Manage potential duplicate information for this record</h2>
       {$plist}
       <h2>Mark this record as a duplicate</h2>
-      <form  action="/CSD/duplicates/{$doc_name}/mark/{$entityID}">
+      <form  action="{csd_webui:generateURL(('/CSD/duplicates',$doc_name,'mark',$entityID))}">
         CSD Entity ID of Master Record:
 	<input name='masterID'/>
 	<input type='submit' value='Mark Duplicate'/>
       </form>
       <h2>Mark this record as a potential duplicate</h2>
-      <form  action="/CSD/duplicates/{$doc_name}/markPotential/{$entityID}">
+      <form  action="{csd_webui:generateURL(('/CSD/duplicates',$doc_name,'/markPotential',$entityID))}">
         CSD Entity ID of Master Record:
 	<input name='masterID'/>
 	<input type='submit' value='Mark Duplicate'/>

@@ -60,12 +60,12 @@ declare function page:new_stored_function()
 {
   <span>
    <h2>Upload careServicesFunction Document</h2>
-   <form method='post' action="/CSD/storedFunctions/upload"  enctype="multipart/form-data">
+   <form method='post' action="{csd_webui:generateURL('/CSD/storedFunctions/upload')}"  enctype="multipart/form-data">
    <label for="upload">Upload</label><input name='upload' type='file'/>
    <input type="submit" value="submit"/>
    </form>
    <h2>Create New Stored Function</h2>
-   <form method='post' action="/CSD/storedFunctions/create"  enctype="multipart/form-data">
+   <form method='post' action="{csd_webui:generateURL('/CSD/storedFunctions/create')}"  enctype="multipart/form-data">
      <label for="urn">URN</label><input    size="42" name="urn" value="urn:uuid:{random:uuid()}"  readonly="readonly"/>
      <br/>
      <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>

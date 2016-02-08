@@ -76,8 +76,8 @@ declare
   <span class='svs'>
     In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
     <ul>
-      <li><a href="{csd_webui:generateURL('CSD/SVS/initSharedValueSet')}">load Shared Value Sets </a></li>
-      <li><a href="{csd_webui:generateURL('CSD/SVS/availSharedValueSet')}">available Shared Value Sets </a></li>
+      <li><a href="{csd_webui:generateURL(('CSD/SVS/initSharedValueSet'))}">load Shared Value Sets </a></li>
+      <li><a href="{csd_webui:generateURL(('CSD/SVS/availSharedValueSet'))}">available Shared Value Sets </a></li>
     </ul>
   </span>
   let $adapters :=

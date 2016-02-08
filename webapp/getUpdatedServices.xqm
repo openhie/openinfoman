@@ -93,14 +93,14 @@ declare function page:service_menu($name)
     <ul>
     <li>
     Query {$name} for Updated Services by time
-    <form method='get' action="/CSD/getUpdatedServices/{$name}/get">
+    <form method='get' action="{csd_webui:generateURL(('/CSD/getUpdatedServices',$name,'get'))}">
       <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value=""/>   
       <input type='submit' />
     </form> 
     </li>
     <li>
     Get {$name}'s SOAP reuest for Query for Updated Services by time
-    <form method='get' action="/CSD/getUpdatedServices/{$name}/soap">
+    <form method='get' action="{csd_webui:generateURL(('/CSD/getUpdatedServices',$name,'soap'))}">
       <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value=""/>   
       <input type='submit' />
     </form> 
