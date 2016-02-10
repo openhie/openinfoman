@@ -1,3 +1,11 @@
+openinfoman (1.0.110~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.110
+    -54f0e34 form action links now work behind proxy
+    --https://github.com/openhie/openinfoman/commmit/54f0e34
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 10 Feb 2016 18:49:59 +0000
+
 openinfoman (1.0.109~vivid) vivid; urgency=medium
 
   * Release Version 1.0.109
