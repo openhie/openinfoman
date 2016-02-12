@@ -1,3 +1,11 @@
+openinfoman (1.0.111~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.111
+    -6978bca fixed action for create directory form
+    --https://github.com/openhie/openinfoman/commmit/6978bca
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 12 Feb 2016 10:16:17 +0000
+
 openinfoman (1.0.110~vivid) vivid; urgency=medium
 
   * Release Version 1.0.110
