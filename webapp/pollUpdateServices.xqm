@@ -427,7 +427,7 @@ declare function page:service_menu($name) {
     <li><a href="{csd_webui:generateURL(('CSD/pollService',$name,'get_soap'))}"> Get {$name}'s Soap Query for Updated Services Request using stored last modified time</a>    </li>
     <li>
     Query {$name} for Updated Services by time
-    <form method='get' action="{csd_webui:generateURL(('/CSD/pollService,$name,'get'))}">
+    <form method='get' action="{csd_webui:generateURL(('/CSD/pollService',$name,'get'))}">
       <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value="{$mtime}"/>   
       <input type='submit' />
     </form> 
