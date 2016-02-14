@@ -1,3 +1,11 @@
+openinfoman (1.0.113~trusty) trusty; urgency=medium
+
+  * Release Version 1.0.113
+    -8510410 fixed issue with pollUdpatedServices
+    --https://github.com/openhie/openinfoman/commmit/8510410
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 14 Feb 2016 14:08:28 +0000
+
 openinfoman (1.0.112~trusty) trusty; urgency=medium
 
   * Release Version 1.0.112
