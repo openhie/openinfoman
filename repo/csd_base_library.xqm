@@ -467,7 +467,7 @@ declare function csd:filter_by_parent($items as item()*,$parent as item()*) as i
     if (not(exists($entityID)))    
     then $items
     else if (functx:all-whitespace($parent/@entityID))
-    then $items[not(./parent)]
+    then $items[not(./parent) or functx:all-whitespace(./parent/@entityID) ]
     else $items[./parent[upper-case(@entityID) = $entityID]]
 };
 
