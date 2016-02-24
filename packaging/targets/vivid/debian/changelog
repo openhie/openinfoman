@@ -1,3 +1,11 @@
+openinfoman (1.0.114~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.114
+    -07f6d9b relax check for filtering root nodes of org hierarchy
+    --https://github.com/openhie/openinfoman/commmit/07f6d9b
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 24 Feb 2016 21:27:51 +0000
+
 openinfoman (1.0.113~vivid) vivid; urgency=medium
 
   * Release Version 1.0.113
