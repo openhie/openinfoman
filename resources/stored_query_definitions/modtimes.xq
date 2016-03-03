@@ -1,5 +1,5 @@
 declare namespace csd = 'urn:ihe:iti:csd:2013';
-
+declare variable $careServicesRequest as item() external;
 let $ptime := max( for $dt in /csd:CSD/csd:providerDirectory/csd:provider/csd:record/@updated return xs:dateTime($dt))
 let $otime := max( for $dt in /csd:CSD/csd:organizationDirectory/csd:provider/csd:record/@updated return xs:dateTime($dt))
 let $ftime := max( for $dt in /csd:CSD/csd:facilityDirectory/csd:provider/csd:record/@updated return xs:dateTime($dt))
