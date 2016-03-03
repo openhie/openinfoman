@@ -8,7 +8,7 @@ module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 
 
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
-import module namespace csd_mcs = "https://github.com/openhie/openinfoman/csd_mcs";
+
 
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare namespace xquery = "http://basex.org/modules/xquery";
