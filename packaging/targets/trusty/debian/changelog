@@ -1,3 +1,11 @@
+openinfoman (1.1.15~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.15
+    -cc51175 keep backwards compatability for updating CSRs
+    --http://github.com/openhie/openinfoman/commmit/cc51175
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 21:39:44 +0000
+
 openinfoman (1.1.14~trusty) trusty; urgency=medium
 
   * Release Version 1.1.14
