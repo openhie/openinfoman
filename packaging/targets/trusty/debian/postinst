@@ -91,6 +91,7 @@ do
   $OI/resources/scripts/install_stored_function.php $OI/resources/$SF 
   if [[ $? != 0 ]]; then exit 1; fi
 done
+chown -R $USERNAME:$USERNAME $OI
 
 service openinfoman start || true
 

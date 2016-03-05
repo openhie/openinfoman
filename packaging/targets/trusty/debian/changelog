@@ -1,3 +1,11 @@
+openinfoman (1.1.10~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.10
+    -ec43a79 updated vivid packaging
+    --http://github.com/openhie/openinfoman/commmit/ec43a79
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 10:40:53 +0000
+
 openinfoman (1.1.9~trusty) trusty; urgency=medium
 
   * Release Version 1.1.9
