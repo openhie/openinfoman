@@ -12,17 +12,6 @@ import module namespace csd_qus =  "https://github.com/openhie/openinfoman/csd_q
 
 
 
-declare updating
-  %rest:path("/CSD/registerService/init")
-  function page:init() 
-{
-  (
-    csd_lsc:init_cache_meta($csd_webconf:db)
-    ,csd_psd:init($csd_webconf:db)
-    ,csd_webui:redirect_out("CSD/pollService")
-  )
-};
-
 
 
 declare updating
@@ -287,9 +276,6 @@ declare
   function page:poll_service_list()
 { 
 
-if (not(csd_psd:dm_exists($csd_webconf:db))) then
-   csd_webui:redirect("CSD/registerService/init")
- else 
    let $services := csd_psd:registered_directories($csd_webconf:db)
    let $unreg_services := 
      for $sample in  $csd_webconf:remote_services//serviceDirectory

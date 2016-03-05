@@ -16,16 +16,11 @@ declare
   %output:method("xhtml")
   function page:csr_list() 
 { 
-if (not (db:is-xml($csd_webconf:db,$csr_proc:stored_functions_doc))) then
-  csd_webui:redirect("CSD/storedFunctions/init")
-else 
-  let $new := page:new_stored_function()
-  let $reload:= <span>
+  let $content:= <span>
     <h2>Registered Stored Queries</h2>
     <ul>
       <li>{count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/></li>
       <li>{count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/></li>
-      <li><a href="{csd_webui:generateURL('CSD/storedFunctions/reload')}">Reload stored functions from disk</a> </li>
 
       <li>    <a href="{csd_webui:generateURL('CSD/storedFunctions/export_doc')}">Export Documentation</a></li>
       <li><a href="{csd_webui:generateURL('CSD/storedFunctions/export_funcs')}">Export Functions</a></li>
@@ -33,51 +28,9 @@ else
     </ul>
   </span>
   let $list := page:function_list()
-  return page:wrapper(($reload,$list),$new)
+  return csd_webui:wrapper(($content,$list))
 };
 
-declare updating
-  %rest:path("/CSD/storedFunctions/upload")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
-  %rest:form-param("upload","{$upload}")
-  %rest:POST
-  function page:upload($upload) 
-{
- for $name    in map:keys($upload)
- let $content := $upload($name)
- let $func := parse-xml(bin:decode-string($content, 'UTF-8'))
- return
-   (
-     csr_proc:load_stored_function($csd_webconf:db,$func/careServicesFunction)
-     ,
-     csd_webui:redirect_out("CSD/storedFunctions")
-  )
-
-
-};
-
-declare function page:new_stored_function() 
-{
-  <span>
-   <h2>Upload careServicesFunction Document</h2>
-   <form method='post' action="{csd_webui:generateURL('/CSD/storedFunctions/upload')}"  enctype="multipart/form-data">
-   <label for="upload">Upload</label><input name='upload' type='file'/>
-   <input type="submit" value="submit"/>
-   </form>
-   <h2>Create New Stored Function</h2>
-   <form method='post' action="{csd_webui:generateURL('/CSD/storedFunctions/create')}"  enctype="multipart/form-data">
-     <label for="urn">URN</label><input    size="42" name="urn" value="urn:uuid:{random:uuid()}"  readonly="readonly"/>
-     <br/>
-     <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
-     <br/>
-     <label for="description">Description</label><textarea  rows="20" cols="80" name="description" ></textarea>
-     <br/>
-     <label for="query">XQuery</label><textarea  rows="20" cols="80" name="query" ></textarea>
-     <br/>
-     <input type="submit" value="submit"/>
-   </form>
- </span>
-};
 
 
 declare  updating 
@@ -116,48 +69,8 @@ declare  updating
 
 };
 
-declare  updating 
-  %rest:path("/CSD/storedFunctions/create")
-  %rest:consumes("application/xml", "text/xml", "multipart/form-data")
-  %rest:POST
-  %rest:form-param("query","{$query}")
-  %rest:form-param("description","{$description}")
-  %rest:form-param("content", "{$content}","application/xml")
-  %rest:form-param("urn", "{$urn}")
-  function page:create($urn,$query,$description,$content)
-{ 
-(  if ($urn) then 
-   let $func := 
-   <careServicesFunction urn="{$urn}" content-type="{$content}">
-     <description>{$description}</description>
-     <definition>{$query}</definition>
-   </careServicesFunction>
-   return csr_proc:load_stored_function($csd_webconf:db,$func)
-  else (),
-    csd_webui:redirect_out("CSD/storedFunctions")
-)
-};
 
-
-declare updating
-  %rest:path("/CSD/storedFunctions/init")
-  %rest:GET
-  function page:init()
-{ 
-  (csr_proc:init($csd_webconf:db),
-  csd_webui:redirect_out("CSD/storedFunctions")
-  )
-};
-
-declare updating
-  %rest:path("/CSD/storedFunctions/reload")
-  %rest:GET
-  function page:reload()
-{ 
-  (csr_proc:load_functions_from_files($csd_webconf:db),
-  csd_webui:redirect_out("CSD/storedFunctions")
-  )
-};
+  csr_proc:init($csd_webconf:db)
 
 
 
@@ -312,36 +225,8 @@ declare function page:get_export_function_details() {
 
 
 
- 
-declare function page:wrapper($list,$new) {
-  let $headers := (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap/js/tab.js')}"/>  
-   ,<script type="text/javascript">
-    $( document ).ready(function() {{
-      $('#tab_list a').click(function (e) {{
-	e.preventDefault()
-	$(this).tab('show')
-      }});
-      $('#tab_new a').click(function (e) {{
-	e.preventDefault()
-	$(this).tab('show')
-      }});
-    }});
-   </script>
-  )
-  let $content := 
-    (
-      <ul class="nav nav-tabs">
-	<li id='tab_list' class="active"><a  href="#list">Available Functions</a></li>
-	<li id='tab_new'><a  href="#new">Upload Function</a></li>
-      </ul>
-      ,<div class="tab-content panel">
-	<div class="tab-pane active panel-body" id="list">{$list}</div>
-	<div class="tab-pane panel-body" id="new">{$new}</div>
-      </div>
-    )
-  return csd_webui:wrapper($content,$headers)
-};
+
+
 
 
 

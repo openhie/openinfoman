@@ -36,17 +36,19 @@ foreach ($files as $file) {
     if (! $mods['updating']) {
 	$script = "
 import module namespace csr_proc = \"https://github.com/openhie/openinfoman/csr_proc\";
+import module namespace csd_webconf =  \"https://github.com/openhie/openinfoman/csd_webconf\";
 declare   namespace   csd = \"urn:ihe:iti:csd:2013\";
 let \$func := doc('$file')/csd:careServicesFunction
-return csr_proc:load_stored_function('provider_directory',\$func)
+return csr_proc:load_stored_function(\$csd_webconf:db,\$func)
 
 ";	
     } else {
 	$script = "
 import module namespace csr_proc = \"https://github.com/openhie/openinfoman/csr_proc\";
+import module namespace csd_webconf =  \"https://github.com/openhie/openinfoman/csd_webconf\";
 declare   namespace   csd = \"urn:ihe:iti:csd:2013\";
 let \$func := doc('$file')/csd:careServicesFunction
-return csr_proc:load_stored_updating_function('provider_directory',\$func)
+return csr_proc:load_stored_updating_function(\$csd_webconf:db,\$func)
 
 ";	
     }

@@ -8,16 +8,6 @@ import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd
 
 
 
-declare updating   
-  %rest:path("/CSD/SVS/initSharedValueSet/init")
-  %rest:GET
-  function page:init()
-{ 
-(
-  svs_lsvs:init_store($csd_webconf:db),
-  csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
-)
-};
 
 
 
@@ -164,9 +154,6 @@ declare
   %output:method("xhtml") 
   function page:svs_list()
 {
-if (not(svs_lsvs:store_exists($csd_webconf:db))) then
-    csd_webui:redirect("/CSD/SVS/initSharedValueSet/init")
-else 
  csd_webui:nocache( page:wrapper_double(
     <span >
       <h2>Shared Value Sets</h2>
