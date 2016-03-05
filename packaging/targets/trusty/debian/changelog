@@ -1,3 +1,13 @@
+openinfoman (1.1.9~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.9
+    -6c5f5b7 removed old code
+    --http://github.com/openhie/openinfoman/commmit/6c5f5b7
+    -27ccef1 adhoc update to new map syntax
+    --http://github.com/openhie/openinfoman/commmit/27ccef1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:59:56 +0000
+
 openinfoman (1.1.8~trusty) trusty; urgency=medium
 
   * Release Version 1.1.8
