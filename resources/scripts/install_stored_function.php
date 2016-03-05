@@ -90,9 +90,6 @@ function create_modules($file) {
 	return false;
     }
     $definition = $nodes->item(0)->textContent;    
-    $hash = md5($search);
-    echo "Creating $file as $hash.xml\n";
-
 
     $parts = preg_split('/declare\s+variable\s+\$careServicesRequest\s+as\s+item\\(\\)\s+external\s*;/',$definition);
     if (count($parts) != 2) {
