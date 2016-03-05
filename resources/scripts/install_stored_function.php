@@ -149,6 +149,35 @@ declare $updating
   else  ()      (:need appropriate error handling:)
 
 };
+
+
+(: keep backwards compatability :)
+declare $updating
+  %rest:path(\"/CSD/csr/{\$docname}/careServicesRequest/update/$search\")
+  %rest:consumes(\"application/xml\", \"text/xml\", \"multipart/form-data\")  
+  %rest:POST(\"{\$careServicesRequest}\")
+  function page:processRequest(\$docname,\$careServicesRequest) 
+
+{ 
+
+  if (csd_dm:document_source_exists(\$csd_webconf:db,\$docname)) 
+  then 
+    let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
+    let \$base_url := csd_webui:generateURL()
+    let \$request := 
+      <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
+        {
+        if (\$careServicesRequest/csd:requestParams) 
+        then \$careServicesRequest/csd:requestParams/*
+        else \$careServicesRequest/requestParams/*
+        }
+      </csd:requestParams>
+
+    return oim-sf:processRequest(\$doc,\$request)
+  else  ()      (:need appropriate error handling:)
+
+};
+
 ";
 
 
