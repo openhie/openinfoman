@@ -70,13 +70,6 @@ declare  updating
 };
 
 
-  csr_proc:init($csd_webconf:db)
-
-
-
-
-
-
 declare function page:display_function($function,$updating) {
   let  $urn := string($function/@urn)
   return  <span id="{$function/@urn}">
