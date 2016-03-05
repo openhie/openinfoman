@@ -1,3 +1,11 @@
+openinfoman (1.1.5~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.5
+    -b6bfe93 rely on php5-cli
+    --http://github.com/openhie/openinfoman/commmit/b6bfe93
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:34:11 +0000
+
 openinfoman (1.1.4~vivid) vivid; urgency=medium
 
   * Release Version 1.1.4
