@@ -7,5 +7,5 @@ let $expr :=$careServicesRequest/adhoc/text()
 
 return 
   if ($expr) 
-  then xquery:eval($expr,map{"":=/.})
+  then xquery:eval($expr,map{"":/.})
   else ()
