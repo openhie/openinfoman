@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSD xmlns="urn:ihe:iti:csd:2013" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ihe:iti:csd:2013 CSD.xsd">
+  <organizationDirectory/>
+  <serviceDirectory/>
+  <facilityDirectory>
+    <facility entityID="urn:uuid:be4d27c3-21b8-481f-9fed-6524a8eb9bac">
+      <otherID assigningAuthorityName="test_auth1" code="test_code1">test_val1</otherID>
+      <otherID assigningAuthorityName="test_auth2" code="test_code2">test_val2</otherID>
+      <otherID assigningAuthorityName="test_auth3" code="test_code3">test_val3</otherID>
+      <primaryName>Connectathon Radiology Facility (test)</primaryName>
+    </facility>
+  </facilityDirectory>
+  <providerDirectory/>
+</CSD>
