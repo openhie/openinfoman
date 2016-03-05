@@ -1,3 +1,13 @@
+openinfoman (1.1.14~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.14
+    -4c4fa27 added simple identifier merge with sample document
+    --http://github.com/openhie/openinfoman/commmit/4c4fa27
+    -c01b98c better bound checking and documentation for simple merge
+    --http://github.com/openhie/openinfoman/commmit/c01b98c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 14:55:06 +0000
+
 openinfoman (1.1.13~vivid) vivid; urgency=medium
 
   * Release Version 1.1.13
