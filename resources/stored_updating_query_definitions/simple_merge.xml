@@ -8,7 +8,10 @@
   urn="urn:openhie.org:openinfoman:simple_merge" 
   content-type="text/xml">
   <csd:description> 
-    Performs a simple merge.  Should be "document" elements under the <documents/> element that have a @resource attribute.
+    Performs a simple merge from the indicated source document(s) into the target document.  Any existing elements in the target document are overwritten by those from the source document(s).
+
+    Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
+    If  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
   </csd:description>
   <csd:definition ><xi:include parse='text' href='simple_merge.xq'/></csd:definition>
   <xforms:instance>
