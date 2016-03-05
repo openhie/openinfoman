@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+set -e
 
 . /usr/share/debconf/confmodule
 
@@ -86,6 +87,7 @@ $BASEX -Vc "RUN $OI/resources/scripts/init_db.xq"
 
 for SF in ${SFS[@]}
 do
+  cd $OI
   $OI/resources/scripts/install_stored_function.php $OI/resources/$SF 
   if [[ $? != 0 ]]; then exit 1; fi
 done
