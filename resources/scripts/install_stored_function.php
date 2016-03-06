@@ -156,7 +156,7 @@ declare $updating
   %rest:path(\"/CSD/csr/{\$docname}/careServicesRequest/update/$search\")
   %rest:consumes(\"application/xml\", \"text/xml\", \"multipart/form-data\")  
   %rest:POST(\"{\$careServicesRequest}\")
-  function page:processRequest(\$docname,\$careServicesRequest) 
+  function page:processRequestUpdating(\$docname,\$careServicesRequest) 
 
 { 
 
