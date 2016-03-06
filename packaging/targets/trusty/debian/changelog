@@ -1,3 +1,13 @@
+openinfoman (1.1.17~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.17
+    -6acd407 Merge branch 'master' of https://github.com/his-interop/op
+    --http://github.com/openhie/openinfoman/commmit/6acd407
+    -a9978fb upgrade to 8.4.1
+    --http://github.com/openhie/openinfoman/commmit/a9978fb
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 06 Mar 2016 21:39:04 +0000
+
 openinfoman (1.1.16~trusty) trusty; urgency=medium
 
   * Release Version 1.1.16
