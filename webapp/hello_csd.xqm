@@ -78,6 +78,7 @@ declare
     <ul>
       <li><a href="{csd_webui:generateURL(('CSD/SVS/initSharedValueSet'))}">load Shared Value Sets </a></li>
       <li><a href="{csd_webui:generateURL(('CSD/SVS/availSharedValueSet'))}">available Shared Value Sets </a></li>
+      <li><a href="{csd_webui:generateURL(('CSD/SVS/registerRemoteValueSet'))}">mirror remote Shared Value Set </a></li>
     </ul>
   </span>
   let $adapters :=

@@ -18,14 +18,95 @@ declare variable $svs_lsvs:valuesets_doc := "DescribedSharedValueSets.xml";
 declare variable $svs_lsvs:sample_value_set_list := svs_lsvs:get_sample_value_set_list();
 declare variable $svs_lsvs:blank_valuesets :=  <DescribedValueSets version="{$svs_lsvs:vers}"/>;
 
-
+declare variable $svs_lsvs:remote_value_sets := 'remote_value_sets.xml';
 
 declare updating function svs_lsvs:init_store($db) {
+ (
   if (not(db:is-xml($db,$svs_lsvs:valuesets_doc))) then 
     db:add($db, $svs_lsvs:blank_valuesets,$svs_lsvs:valuesets_doc)
   else
     ()
+  ,
+  if ( not(  db:is-xml($db,$svs_lsvs:remote_value_sets))) then
+    db:add($db, <valueSetLibrary/>,$svs_lsvs:remote_value_sets)
+  else 
+      ()
+ )
+
 };
+
+
+declare updating function svs_lsvs:register_remote_value_set($db,$id,$url,$credentials) {
+  let $vsl :=  db:open($db,$svs_lsvs:remote_value_sets)/valueSetLibrary
+  (:bad bad plain text password:)
+  let $reg_doc := <remoteValueSet id="{$id}" url="{$url}">{$credentials}</remoteValueSet>
+  let $existing := $vsl/remoteValueSet[@id = @id]
+  return
+    if (not(exists($existing)))  then
+      insert node $reg_doc into $vsl
+    else 
+      replace  node $existing with $reg_doc
+};
+
+
+
+declare  updating  function svs_lsvs:update_cache($db,$id)  
+{
+
+
+  let $results := svs_lsvs:retrieve_remote_value_set($db,$id)//svs:ValueSet
+  return  
+    if (exists($results)) 
+    then  ( for $result in $results return svs_lsvs:insert($db,$result))
+    else ( )
+};
+
+declare function svs_lsvs:get_remote_value_set_ids($db) {
+  for $id in    db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet/@id
+  return string($id)
+};
+
+declare function svs_lsvs:get_remote_value_set_url($db,$id) {
+  text{ db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/@url}
+};
+declare function svs_lsvs:get_remote_value_set_credentials($db,$id) {
+   db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/credentials
+};
+
+declare function svs_lsvs:retrieve_remote_value_set($db,$id) {
+  let $url := svs_lsvs:get_remote_value_set_url($db,$id)
+  let $credentials := svs_lsvs:get_remote_value_set_credentials($db,$id)
+  let $request := 
+    if ($credentials/@type = 'basic_auth' and $credentials/@username != '') 
+      then 
+      <http:request
+      href='{$url}'  
+      username='{$credentials/@username}'
+      password='{$credentials/@password}'    
+      send-authorization='true'
+      method='get' />
+    else
+    <http:request
+      href='{$url}'  
+      send-authorization='false'
+      method='get' />
+  let $response :=  http:send-request($request)
+  let $status := text{$response[1]/@status}
+  return 
+    if ($status = "200") 
+    then $response[2]    
+    else ()
+
+};
+
+
+
+
+
+
+
+
+
 
 
 declare function svs_lsvs:store_exists($db) {
@@ -112,22 +193,26 @@ declare updating function svs_lsvs:load($db,$id) {
 
 declare updating function svs_lsvs:insert($db,$value_set) {
   let $vsets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
-  let $id := $value_set/@id
+  let $id := string($value_set/@id)
   let $version := $value_set/@version
   let $existing :=  $vsets//svs:DescribedValueSet[@ID = $id and @version = $version]
-  let $described_val_set := 
-    <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" >
-      {if ($version) then $version else ()}
-      {$value_set/*}
-    </svs:DescribedValueSet>
-  return 
-        if (exists($existing)) then
+  return
+    if (functx:all-whitespace($id)) 
+    then  ()
+    else
+      let $described_val_set := 
+        <svs:DescribedValueSet ID="{$id}" displayName="{$value_set/@displayName}" >
+	  {if ($version) then $version else ()}
+          {$value_set/*}
+	</svs:DescribedValueSet>
+      return 
+	if (exists($existing)) 
+	then
 	  (
 	    for $node in $existing return  delete node $node,
 	    insert node $described_val_set into $vsets
 	  )
-      else
-	insert node $described_val_set into $vsets
+        else insert node $described_val_set into $vsets
 };
 
 

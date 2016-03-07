@@ -291,7 +291,7 @@ declare
 	     <li><label for='name'> Name</label><input class='pull-right'  size="35"      name='name' type="text" value=""/>   </li>
 	     <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value=""/>   </li>
 	     <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
-	     <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="text" value=""/>   </li>
+	     <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="password" value=""/>   </li>
 	   </ul>
 	   <input type='submit' />
 	 </form> 
@@ -313,8 +313,8 @@ declare
 	       }
 	     </ul>
 	   </span>
-	 else ()
-}
+	   else ()
+         }
 
 	   <div >
 	     <h2>Global Operations</h2>
@@ -357,7 +357,7 @@ declare
 		 <ul>
 		   <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value="{$url}"/></li>
 		   <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
-		   <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="text" value=""/>   </li>
+		   <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="password" value=""/>   </li>
 		 </ul>
 		 <input type='submit' />
 	       </form> 

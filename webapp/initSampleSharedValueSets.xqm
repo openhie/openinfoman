@@ -83,6 +83,141 @@ declare
 
 
 
+declare updating
+  %rest:path("/CSD/SVS/registerRemoteValueSet/basic_auth")
+  %rest:POST
+  %output:method("xhtml")
+  %rest:query-param("id", "{$id}")
+  %rest:query-param("url", "{$url}")
+  %rest:query-param("password", "{$password}")
+  %rest:query-param("username", "{$username}")
+  %rest:GET
+  function page:register_basic_auth($id,$url,$username,$password) 
+{
+
+  (
+    let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
+    return svs_lsvs:register_remote_value_set($csd_webconf:db,$id,$url,$credentials)
+      ,
+  csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
+  )
+
+};
+
+
+declare updating
+  %rest:path("/CSD/SVS/registerRemoteValueSet/basic_auth/{$id}")
+  %output:method("xhtml")
+  %rest:POST
+  %rest:query-param("url", "{$url}")
+  %rest:query-param("password", "{$password}")
+  %rest:query-param("username", "{$username}")
+  %rest:GET
+  function page:update_basic_auth($id,$url,$username,$password) 
+{
+
+  (
+    let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
+    return svs_lsvs:register_remote_value_set($csd_webconf:db,$id,$url,$credentials)
+      ,
+  csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
+  )
+
+};
+
+declare updating   
+  %rest:path("/CSD/SVS/registerRemoteValueSet/update_cache/{$id}")
+  %rest:GET
+  function page:update_cache($id)
+{ 
+(
+  svs_lsvs:update_cache($csd_webconf:db,$id)   ,
+  csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
+)
+
+};
+
+declare updating   
+  %rest:path("/CSD/SVS/registerRemoteValueSet/update_caches")
+  %rest:GET
+  function page:update_caches()
+{ 
+  (
+    for $id in  svs_lsvs:get_remote_value_set_ids($csd_webconf:db)
+    return svs_lsvs:update_cache($csd_webconf:db,$id)
+    ,
+    csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
+  )
+
+};
+
+declare
+  %rest:path("/CSD/SVS/registerRemoteValueSet") 
+  %output:method("xhtml")
+  function page:removeValueSetMenu()
+{
+  let $content :=
+   <div>
+     <div class='row'>
+       <div class="col-md-4">
+	 <h3>Add New Remote Value Set (Basic Auth)</h3>
+	 <form method='post' action="{csd_webui:generateURL('/CSD/SVS/registerRemoteValueSet/basic_auth')}">
+	   <ul>
+	     <li><label for='id'>ID</label><input class='pull-right'  size="35"      name='id' type="text" value=""/>   </li>
+	     <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value=""/>   </li>
+	     <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
+	     <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="password" value=""/>   </li>
+	   </ul>
+	   <input type='submit' />
+	 </form> 
+	 <gr/>
+	 <div >
+	   <h2>Global Operations</h2>
+	   <ul>
+	     <li> <a href="{csd_webui:generateURL('CSD/SVS/registerRemoteValueSet/update_caches')}">Update Local Cache of All Remote Value Sets</a></li>
+	   </ul>
+	 </div>
+
+       </div>
+       <div class="col-md-4">
+	 <h3>Registered Remote Value Sets</h3>
+	 {
+	   for $id in  svs_lsvs:get_remote_value_set_ids($csd_webconf:db)
+	   let $url := svs_lsvs:get_remote_value_set_url($csd_webconf:db,$id) 
+	   return
+	     <div id='svc-{$id}'>
+	       <h4>Value Set ID: {$id}</h4>
+	       <ul>
+		 <li><a href="{csd_webui:generateURL(('/CSD/SVS/registerRemoteValueSet/update_cache',$id))}">Update</a> local cache of value set.</li>
+		 <li><a href="{csd_webui:generateURL(concat('/CSD/SVS/RetrieveValueSet?ID=',$id))}">View</a> local cache of value set.</li>
+	       </ul>
+	       <br/>
+	       <form method='post' action="{csd_webui:generateURL(('/CSD/SVS/registerRemoteValueSet/basic_auth',$id))}">
+		 <ul>
+		   <li><label for='url'>URL</label><input  class='pull-right' size="35"     name='url' type="text" value="{$url}"/></li>
+		   <li><label for='username'>User Name</label><input  class='pull-right' size="35"     name='username' type="text" value=""/>   </li>
+		   <li><label for='password'>Password</label><input  class='pull-right' size="35"     name='password' type="password" value=""/>   </li>
+		 </ul>
+		 <input type='submit' />
+	       </form> 
+	     </div>
+	 }
+
+
+       </div>
+     </div>
+   </div>
+
+   return csd_webui:wrapper($content)
+
+
+};
+
+
+
+
+
+
 
 declare updating   
   %rest:path("/CSD/SVS/initSharedValueSet/svs/{$id}/load")
