@@ -1,3 +1,11 @@
+openinfoman (1.1.18~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.18
+    -ae08889 try and clean up library files better when upgrading from
+    --http://github.com/openhie/openinfoman/commmit/ae08889
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 07 Mar 2016 04:08:21 +0000
+
 openinfoman (1.1.17~trusty) trusty; urgency=medium
 
   * Release Version 1.1.17
