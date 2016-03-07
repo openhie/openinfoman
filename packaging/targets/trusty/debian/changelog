@@ -1,3 +1,13 @@
+openinfoman (1.1.20~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.20
+    -a967143 Merge branch 'master' of https://github.com/his-interop/op
+    --http://github.com/openhie/openinfoman/commmit/a967143
+    -23ec3e2 allow registering of remote SVS to cache locally
+    --http://github.com/openhie/openinfoman/commmit/23ec3e2
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 07 Mar 2016 19:25:37 +0000
+
 openinfoman (1.1.19~trusty) trusty; urgency=medium
 
   * Release Version 1.1.19
