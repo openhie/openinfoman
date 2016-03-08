@@ -1,3 +1,11 @@
+openinfoman (1.1.21~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.21
+    -e24c38e fixed postinst removal
+    --http://github.com/openhie/openinfoman/commmit/e24c38e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 08 Mar 2016 10:12:07 +0000
+
 openinfoman (1.1.20~trusty) trusty; urgency=medium
 
   * Release Version 1.1.20
