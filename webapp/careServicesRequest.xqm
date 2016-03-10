@@ -109,6 +109,85 @@ declare
 };
 
 
+declare
+  %rest:path("/CSD/csr/{$name}/storedfunctions")
+  %rest:GET
+  %output:method("xhtml")
+  function page:show_type($name) 
+{ 
+  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))
+  let $options :=
+    for $func in $funcs
+    let $urn := string($func/@urn)
+    let $val := csd_webui:generateURL(('/CSD/csr',$name,'careServicesRequest',$urn))
+    return <option value="{$val}">{$urn}</option>
+
+      
+   let $content := 
+     <span>
+       <script type='text/javascript'><![CDATA[
+$(function() {	
+    var form = $("#storedfunc");
+    var sel = form.find('select[name=func]');
+    var val = sel.find('option:selected').val();
+    form.attr('action',val);
+
+    sel.change( function() {
+      var val = sel.find('option:selected').val();
+      form.attr('action',val);
+    });
+
+    form.submit( function( event ) {
+	event.preventDefault();
+        var data = form.find('textarea[name=requestParams]').val();
+        var url = form.attr('action');
+        var resp = form.find('#response');
+	$.ajax({
+		method:'POST',
+		type: 'POST',
+		url:url,
+		data:data,
+		contentType: 'text/xml',
+		dataType: "xml",
+		cache: false,
+		error: function(xhr,status,error) {
+		    alert('Failed To Send Data To ILR');
+		},
+		success: function(xml) { 
+                    var text =(new XMLSerializer()).serializeToString(xml); 
+                    console.log(text);
+                    resp.text(text);
+		}
+	    });
+     });
+
+});
+]]>
+       </script>
+
+       <h2>Submit stored function:</h2>
+       <form id='storedfunc' method='post' action=""  enctype="multipart/form-data">
+         
+	 <p><label for="func">Stored Function</label>	 </p>
+	 <select name="func">{$options}</select>
+	 <br/>
+	 <p><label for="requestParms">Request Paramaters</label>	 </p>
+	 <textarea  rows="10" cols="80" name="requestParams" ><![CDATA[<csd:requestParams xmlns:csd='urn:ihe:iti:csd:2013'/>]]></textarea>
+	 <br/>
+	 <input type="submit" value="submit"/>
+         <br/>
+         <h2>Response</h2>
+         <textarea id='response' rows="50"  style='width:100%'/>
+       </form>   
+     </span>
+
+  return csd_webui:wrapper($content)
+
+};
+
+
+
+
 
 declare function page:endpoints() {
 <span>
@@ -117,18 +196,27 @@ declare function page:endpoints() {
       {
 	for $name in $page:csd_docs
 	return 
-	<li>
-	  Submit Care Services Request for {$name} at:
-	  <pre>{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</pre> 
-	  <br/>
-	  Submit ad-hoc query:
-	  <form method='post' action="{csd_webui:generateURL(('/CSD/csr',$name,'adhoc'))}"  enctype="multipart/form-data">
-	    <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc" >{$page:sample}</textarea>
-	    <br/>
-	    <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
-	    <br/>
-	    <input type="submit" value="submit"/>
-	  </form>
+	<li> 
+        <h4>{$name} Document </h4>
+        <ul>
+	  <li>
+	     <a href="{csd_webui:generateURL(('/CSD/csr',$name,'storedfunctions'))}">Individual Stored functions</a>
+	  </li>
+	  <li>
+	    Submit Care Services Request for {$name} at:
+	    <pre>{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</pre> 
+	  </li>
+	  <li>
+	    Submit ad-hoc query:
+	    <form method='post' action="{csd_webui:generateURL(('/CSD/csr',$name,'adhoc'))}"  enctype="multipart/form-data">
+	      <label for="adhoc">Ad-Hoc Query</label><textarea  rows="10" cols="80" name="adhoc" >{$page:sample}</textarea>
+	      <br/>
+	      <label for="content">Content Type</label><input    cols="80" name="content" value="text/html"/>
+	      <br/>
+	      <input type="submit" value="submit"/>
+	    </form>
+	  </li>
+        </ul>
 	</li>
       }
     </ul>
