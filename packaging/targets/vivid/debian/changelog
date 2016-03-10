@@ -1,3 +1,11 @@
+openinfoman (1.1.22~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.22
+    -1dca698 allow easy submission of stored functions from UI
+    --http://github.com/openhie/openinfoman/commmit/1dca698
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 10 Mar 2016 10:52:13 +0000
+
 openinfoman (1.1.21~vivid) vivid; urgency=medium
 
   * Release Version 1.1.21
