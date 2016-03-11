@@ -1,3 +1,11 @@
+openinfoman (1.1.23~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.23
+    -4154813 local services cache update works even in case of duplicat
+    --http://github.com/openhie/openinfoman/commmit/4154813
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 11 Mar 2016 06:22:19 +0000
+
 openinfoman (1.1.22~trusty) trusty; urgency=medium
 
   * Release Version 1.1.22
