@@ -39,7 +39,7 @@ declare function csd_lsc:get_cache($db,$name)
 };
 
 
-declare variable $csd_lsc:beginning_of_time := '2013-10-01T00:00:00+00:00';
+declare variable $csd_lsc:beginning_of_time := '1970-01-01T00:00:00+00:00';
 declare variable $csd_lsc:cache_meta_doc := 'local_cache_meta.xml';
 
 
