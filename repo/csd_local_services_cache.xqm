@@ -155,9 +155,9 @@ declare updating function csd_lsc:refresh_doc($cache_doc,$updates)
 declare updating function csd_lsc:update_directory($oldDir,$newDir) 
 {
   for $new in  $newDir/*
-  let $old := $oldDir/*[@entityID = $new/@entityID]
-  return if ($old) then
-    replace node $old with $new 
-  else
-    insert node $new into $oldDir 
+  let $old := $oldDir/*[@entityID = $new/@entityID] (:there may be more than one:)
+  let $t:= 
+    for ($o in $old) 
+    return delete node $old     
+  return  insert node $new into $oldDir 
 };
