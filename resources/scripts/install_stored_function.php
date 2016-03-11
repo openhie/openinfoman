@@ -147,9 +147,12 @@ declare $updating
 
     return oim-sf:processRequest(\$doc,\$request)
   else  ()      (:need appropriate error handling:)
+};";
 
-};
 
+
+    if  ($updating) {
+         $page_module .= "
 
 (: keep backwards compatability :)
 declare $updating
@@ -179,7 +182,7 @@ declare $updating
 };
 
 ";
-
+}
 
 
     return array(
