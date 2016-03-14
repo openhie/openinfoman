@@ -1,3 +1,17 @@
+openinfoman (1.1.24~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.24
+    -cc4dd05 check mtimes are actually valid date times before updating
+    --http://github.com/openhie/openinfoman/commmit/cc4dd05
+    -eaa645e changed beginning of time
+    --http://github.com/openhie/openinfoman/commmit/eaa645e
+    -5639e0e Merge branch 'mastert status ' of https://github.com/his-i
+    --http://github.com/openhie/openinfoman/commmit/5639e0e
+    -979d1e9 don't put non-updating as updating
+    --http://github.com/openhie/openinfoman/commmit/979d1e9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 14 Mar 2016 17:08:36 +0000
+
 openinfoman (1.1.23~vivid) vivid; urgency=medium
 
   * Release Version 1.1.23
