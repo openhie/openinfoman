@@ -89,15 +89,22 @@ declare updating function csd_lsc:set_service_directory_mtime($db,$name,$mtime)
 {
   ( csd_lsc:init_cache_meta($db)
   ,
-  let $meta :=  db:open($db,$csd_lsc:cache_meta_doc)/cacheData      
-  return
-    if (not(exists($meta/serviceCache[@name = $name])))  then
-      insert node <serviceCache name="{$name}" mtime="{$csd_lsc:beginning_of_time}"/> into $meta
-    else if (not(exists($meta/serviceCache[@name = $name]/@mtime))) then
-      let $attr := attribute {"mtime"}{ $csd_lsc:beginning_of_time}
-      return ( insert  node $attr into $meta/serviceCache[@name = $name])
-    else
-      replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
+  try {
+    let $dt :=  xs:dateTime($mtime) (: just to make sure it's valid :)
+    let $meta :=  db:open($db,$csd_lsc:cache_meta_doc)/cacheData      
+    return
+      if (not(exists($meta/serviceCache[@name = $name])))  
+      then insert node <serviceCache name="{$name}" mtime="{$csd_lsc:beginning_of_time}"/> into $meta
+      else if (not(exists($meta/serviceCache[@name = $name]/@mtime))) 
+      then
+        let $attr := attribute {"mtime"}{ $csd_lsc:beginning_of_time}
+        return ( insert  node $attr into $meta/serviceCache[@name = $name])
+      else
+        replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
+  } catch * {
+    trace($mtime,"Invalid date time sent")
+    ()  (: do nothing :)
+  }
   )
       
 
