@@ -1,3 +1,11 @@
+openinfoman (1.1.25~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.25
+    -e046d5a removed EVENTPORT in .basex as that was removed in 8.2
+    --http://github.com/openhie/openinfoman/commmit/e046d5a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 13:09:37 +0000
+
 openinfoman (1.1.24~vivid) vivid; urgency=medium
 
   * Release Version 1.1.24
