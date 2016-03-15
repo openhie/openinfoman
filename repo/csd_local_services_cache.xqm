@@ -102,8 +102,8 @@ declare updating function csd_lsc:set_service_directory_mtime($db,$name,$mtime)
       else
         replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
   } catch * {
-    trace($mtime,"Invalid date time sent")
-    ()  (: do nothing :)
+    let $t := trace($mtime,"Invalid date time sent")
+    return ()  (: do nothing :)
   }
   )
       
