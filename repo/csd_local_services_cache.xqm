@@ -164,7 +164,7 @@ declare updating function csd_lsc:update_directory($oldDir,$newDir)
   for $new in  $newDir/*
   let $old := $oldDir/*[@entityID = $new/@entityID] (:there may be more than one:)
   let $t:= 
-    for ($o in $old) 
-    return delete node $old     
+    for $o in $old
+    return delete node $o     
   return  insert node $new into $oldDir 
 };
