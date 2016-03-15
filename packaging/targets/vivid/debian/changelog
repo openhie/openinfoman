@@ -1,3 +1,11 @@
+openinfoman (1.1.26~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.26
+    -93d0628 fixed typo in lcs
+    --http://github.com/openhie/openinfoman/commmit/93d0628
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 16:28:52 +0000
+
 openinfoman (1.1.25~vivid) vivid; urgency=medium
 
   * Release Version 1.1.25
