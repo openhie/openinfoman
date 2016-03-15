@@ -1,3 +1,9 @@
+openinfoman (1.1.28~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.28
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 19:14:22 +0000
+
 openinfoman (1.1.27~trusty) trusty; urgency=medium
 
   * Release Version 1.1.27
