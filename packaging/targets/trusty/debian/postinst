@@ -39,7 +39,7 @@ do
     cp -R $TMP/basex/$DIR/* $OI/$DIR
 done
 
-
+set +e
 $BASEX -Vc "list provider_directory" > /dev/null
 if [ $? -eq 0 ]; then
     echo "BaseX Database provider_directory exists\n"
@@ -47,6 +47,7 @@ else
     echo "BaseX Database provider_directory does not exist\n"
     $BASEX -Vc 'create database provider_directory'
 fi
+set -e
 
 
 chown -R $USERNAME:$USERNAME $OI
