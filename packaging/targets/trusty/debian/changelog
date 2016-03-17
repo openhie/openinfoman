@@ -1,3 +1,17 @@
+openinfoman (1.1.32~trusty) trusty; urgency=medium
+
+  * Release Version 1.1.32
+    -d020e5b added 422's and 404 for invlaid xquery when not using the
+    --http://github.com/openhie/openinfoman/commmit/d020e5b
+    -5a95554 put a try/catch block around care service requests
+    --http://github.com/openhie/openinfoman/commmit/5a95554
+    -6f42c9b Merge branch 'master' of http://github.com/openhie/openinf
+    --http://github.com/openhie/openinfoman/commmit/6f42c9b
+    -46d5b2c fixed issue with updating expression in csd_lsc
+    --http://github.com/openhie/openinfoman/commmit/46d5b2c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 17 Mar 2016 13:45:44 +0000
+
 openinfoman (1.1.31~trusty) trusty; urgency=medium
 
   * Release Version 1.1.31
