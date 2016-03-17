@@ -16,11 +16,24 @@ declare
   %rest:POST("{$careServicesRequest}")
   function page:csr($name,$careServicesRequest) 
 { 
-if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
- csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,csd_webui:generateURL())
-else
-  (:need appropriate error handling:)
-  ()
+  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+    try {
+       csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,csd_webui:generateURL())
+    } catch * {
+       <rest:response>
+         <http:response status="422" message="Error executing xquery.">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
+    }
+  else
+       <rest:response>
+         <http:response status="404" message="No document named {$name} exists">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
 
 };
 
@@ -32,10 +45,27 @@ declare updating
   function page:csr_updating($name,$careServicesRequest) 
 { 
   if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-    csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,csd_webui:generateURL())
+    try {
+       csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,csd_webui:generateURL())
+    } catch * {
+      db:output(  
+       <rest:response>
+         <http:response status="422" message="Error executing xquery.">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
+       )
+    }
   else
-    (:need appropriate error handling:)
-    ()
+    db:output(
+       <rest:response>
+         <http:response status="404" message="No document named {$name} exists">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
+     )
 };
 
 
@@ -47,12 +77,25 @@ declare
   %rest:form-param("adhoc","{$adhoc}")
   %rest:form-param("content", "{$content}","application/xml")
 function page:adhoc($name,$adhoc,$content) {    
-if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
-let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
-  return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,csd_webui:generateURL())
-else
-  (:need appropriate error handling:)
-  ()
+  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+    try {
+      let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
+      return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,csd_webui:generateURL())
+    } catch * {
+       <rest:response>
+         <http:response status="422" message="Error executing xquery.">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
+    }
+  else
+       <rest:response>
+         <http:response status="404" message="No document named {$name} exists">
+           <http:header name="Content-Language" value="en"/>
+           <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+         </http:response>
+       </rest:response>
 
 };
 
