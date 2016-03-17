@@ -114,6 +114,13 @@ declare $updating
 };
 
 ";
+    if ($updating) {
+        $db_out_start = 'db:output(';
+        $db_out_end = ')';
+    } else {
+        $db_out_start = '';
+        $db_out_end = '';
+    }
 
     $page_module = 
 	"
@@ -134,18 +141,29 @@ declare $updating
 
   if (csd_dm:document_source_exists(\$csd_webconf:db,\$docname)) 
   then 
-    let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
-    let \$base_url := csd_webui:generateURL()
-    let \$request := 
-      <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
-        {
-        if (\$careServicesRequest/csd:requestParams) 
-        then \$careServicesRequest/csd:requestParams/*
-        else \$careServicesRequest/requestParams/*
-        }
-      </csd:requestParams>
+    try {
+      let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
+      let \$base_url := csd_webui:generateURL()
+      let \$request := 
+        <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
+          {
+          if (\$careServicesRequest/csd:requestParams) 
+          then \$careServicesRequest/csd:requestParams/*
+          else \$careServicesRequest/requestParams/*
+          }
+        </csd:requestParams>
 
-    return oim-sf:processRequest(\$doc,\$request)
+      return oim-sf:processRequest(\$doc,\$request)
+    } catch * {
+      $db_out_start
+       <rest:response>
+	 <http:response status=\"422\" message=\"Error executing xquery.\">
+	   <http:header name=\"Content-Language\" value=\"en\"/>
+	   <http:header name=\"Content-Type\" value=\"text/html; charset=utf-8\"/>
+	 </http:response>
+       </rest:response>
+      $db_out_end
+    }
   else  ()      (:need appropriate error handling:)
 };";
 
@@ -165,18 +183,28 @@ declare $updating
 
   if (csd_dm:document_source_exists(\$csd_webconf:db,\$docname)) 
   then 
-    let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
-    let \$base_url := csd_webui:generateURL()
-    let \$request := 
-      <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
-        {
-        if (\$careServicesRequest/csd:requestParams) 
-        then \$careServicesRequest/csd:requestParams/*
-        else \$careServicesRequest/requestParams/*
-        }
-      </csd:requestParams>
-
-    return oim-sf:processRequest(\$doc,\$request)
+    try {
+      let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
+      let \$base_url := csd_webui:generateURL()
+      let \$request := 
+        <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
+          {
+          if (\$careServicesRequest/csd:requestParams) 
+          then \$careServicesRequest/csd:requestParams/*
+          else \$careServicesRequest/requestParams/*
+          }
+        </csd:requestParams>
+      return oim-sf:processRequest(\$doc,\$request)
+    } catch * {
+      $db_out_start
+        <rest:response>
+	  <http:response status=\"422\" message=\"Error executing xquery.\">
+	    <http:header name=\"Content-Language\" value=\"en\"/>
+	    <http:header name=\"Content-Type\" value=\"text/html; charset=utf-8\"/>
+	  </http:response>
+	</rest:response>
+       $db_out_end
+    }
   else  ()      (:need appropriate error handling:)
 
 };
