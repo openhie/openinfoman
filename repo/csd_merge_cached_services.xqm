@@ -51,7 +51,7 @@ declare function csd_mcs:get() {
 
 
 declare updating function csd_mcs:empty() {
-  db:replace($csd_webcond:db, $csd_mcs:merged_services_doc, csd_dm:blank_directory())
+  db:replace($csd_webconf:db, $csd_mcs:merged_services_doc, csd_dm:blank_directory())
 };
 
 
