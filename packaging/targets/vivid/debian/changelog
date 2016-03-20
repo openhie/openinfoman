@@ -1,3 +1,11 @@
+openinfoman (1.2.4~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.4
+    -128c8b7 added missing import stmt
+    --https://github.com/openhie/openinfoman/commmit/128c8b7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:34:52 +0000
+
 openinfoman (1.2.3~vivid) vivid; urgency=medium
 
   * Release Version 1.2.3
