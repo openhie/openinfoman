@@ -5,6 +5,7 @@
 :
 :)
 module namespace csd_mcs = "https://github.com/openhie/openinfoman/csd_mcs";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc" ;
 import module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_psd" ;
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm" ;
