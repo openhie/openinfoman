@@ -15,18 +15,18 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 declare variable $csd_mcs:merged_services_doc := 'merged_services.xml';
 
 
-declare function csd_mcs:store_exists($db) {
-  db:is-xml($db, $csd_mcs:merged_services_doc)
+declare function csd_mcs:store_exists() {
+  db:is-xml($csd_webconf:db, $csd_mcs:merged_services_doc)
 };
 
-declare updating function csd_mcs:init_store($db) {
-  db:add($db, csd_dm:blank_directory(), $csd_mcs:merged_services_doc)
+declare updating function csd_mcs:init_store() {
+  db:add($csd_webconf:db, csd_dm:blank_directory(), $csd_mcs:merged_services_doc)
 };
 
 (:
 : Merges together all documents registered with the document manager
 :)
-declare updating function csd_mcs:merge($db,$dest,$sources) {
+declare updating function csd_mcs:merge($dest,$sources) {
 
   (: Merges together all cached documents only
   for $name in csd_psd:registered_directories($db)
@@ -44,13 +44,13 @@ declare updating function csd_mcs:merge($db,$dest,$sources) {
     
 };
 
-declare function csd_mcs:get($db) {
-  db:open($db,$csd_mcs:merged_services_doc)
+declare function csd_mcs:get() {
+  db:open($csd_webconf:db,$csd_mcs:merged_services_doc)
 };
 
 
-declare updating function csd_mcs:empty($db) {
-  db:replace($db, $csd_mcs:merged_services_doc, csd_dm:blank_directory())
+declare updating function csd_mcs:empty() {
+  db:replace($csd_webcond:db, $csd_mcs:merged_services_doc, csd_dm:blank_directory())
 };
 
 
