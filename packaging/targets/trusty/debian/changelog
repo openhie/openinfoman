@@ -1,3 +1,11 @@
+openinfoman (1.2.5~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.5
+    -2f85425 fix typo
+    --https://github.com/openhie/openinfoman/commmit/2f85425
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:37:16 +0000
+
 openinfoman (1.2.4~trusty) trusty; urgency=medium
 
   * Release Version 1.2.4
