@@ -32,13 +32,13 @@ declare updating function csd_mcs:merge($db,$dest,$sources) {
   for $name in csd_psd:registered_directories($db)
   return csd_lsc:refresh_doc(db:open($db,$csd_mcs:merged_services_doc),csd_lsc:get_cache($db,$name))
   :)
-  let $dest_doc := csd_dm:open_document($db,$dest)
+  let $dest_doc := csd_dm:open_document($dest)
   return 
     if (exists($dest_doc)) 
     then 
       for $name in $sources
       return if ($name != $dest) then
-	csd_lsc:refresh_doc($dest_doc, csd_dm:open_document($db, $name))
+	csd_lsc:refresh_doc($dest_doc, csd_dm:open_document($name))
       else ()
     else ()
     
