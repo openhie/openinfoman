@@ -1,3 +1,13 @@
+openinfoman (1.2.3~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.3
+    -73f031a Merge branch 'master' of https://github.com/his-interop/op
+    --https://github.com/openhie/openinfoman/commmit/73f031a
+    -e617b0b move to csd_webconf:db for everything
+    --https://github.com/openhie/openinfoman/commmit/e617b0b
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:15:18 +0000
+
 openinfoman (1.2.2~trusty) trusty; urgency=medium
 
   * Release Version 1.2.2
