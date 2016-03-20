@@ -8,7 +8,7 @@ import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd
 declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 
 
-declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
+declare variable $page:csd_docs := csd_dm:registered_documents();
 
 
 
@@ -39,7 +39,7 @@ declare
   %rest:POST("{$updatedServicesRequest}")
   function page:updated_services($name,$updatedServicesRequest) 
 { 
-if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+if (csd_dm:document_source_exists($name)) then 
   (
   <rest:response>
     <http:response status="200" >
@@ -48,7 +48,7 @@ if (csd_dm:document_source_exists($csd_webconf:db,$name)) then
     </http:response>
   </rest:response>
   ,
-  csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,csd_dm:open_document($csd_webconf:db,$name))
+  csd_qus:get_updated_services_soap($updatedServicesRequest/soap:Envelope,csd_dm:open_document($name))
  							  
   )
 else 

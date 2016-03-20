@@ -19,8 +19,8 @@ declare
   let $content:= <span>
     <h2>Registered Stored Queries</h2>
     <ul>
-      <li>{count(csr_proc:stored_functions($csd_webconf:db))} Stored Functions <br/></li>
-      <li>{count(csr_proc:stored_updating_functions($csd_webconf:db))} Stored Updating Functions <br/></li>
+      <li>{count(csr_proc:stored_functions())} Stored Functions <br/></li>
+      <li>{count(csr_proc:stored_updating_functions())} Stored Updating Functions <br/></li>
 
       <li>    <a href="{csd_webui:generateURL('CSD/storedFunctions/export_doc')}">Export Documentation</a></li>
       <li><a href="{csd_webui:generateURL('CSD/storedFunctions/export_funcs')}">Export Functions</a></li>
@@ -38,7 +38,7 @@ declare  updating
   function page:delete($urn) 
   {
     (
-      csr_proc:delete_stored_function($csd_webconf:db,$urn),
+      csr_proc:delete_stored_function($urn),
       csd_webui:redirect_out("CSD/storedFunctions")
     )
 
@@ -49,8 +49,8 @@ declare
   function page:download($urn) 
   {
     let $node := (
-      csr_proc:get_function_definition($csd_webconf:db,$urn),
-      csr_proc:get_updating_function_definition($csd_webconf:db,$urn)
+      csr_proc:get_function_definition($urn),
+      csr_proc:get_updating_function_definition($urn)
     )[1]
     return $node
     
@@ -63,7 +63,7 @@ declare  updating
   function page:clear() 
   {
     (
-      csr_proc:clear_stored_functions($csd_webconf:db),
+      csr_proc:clear_stored_functions(),
       csd_webui:redirect_out("CSD/storedFunctions")
     )
 
@@ -76,7 +76,7 @@ declare function page:display_function($function,$updating) {
     {if ($updating) then  "(Updating) " else ()}
     URN: {string($urn)}  <br/>
     Method: <blockquote><pre>{string($function/definition)} </pre></blockquote>
-    Content: {string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn)) } <br/>
+    Content: {string(csr_proc:lookup_stored_content_type($urn)) } <br/>
     Description: <blockquote>{$function/description}</blockquote>
     Instance:   <blockquote><pre>{serialize($function/xforms:instance/careServicesRequest,map{'indent':'yes'})} </pre></blockquote>
     {if (exists($function/@method)) then  ("Method: ",string($function/@method),<br/>) else () }
@@ -107,8 +107,8 @@ declare
     xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" 
      >
   {(
-    csr_proc:stored_functions($csd_webconf:db)
-    ,csr_proc:stored_updating_functions($csd_webconf:db)
+    csr_proc:stored_functions()
+    ,csr_proc:stored_updating_functions()
    )}
  </careServiceFunctions>
 };
@@ -129,8 +129,8 @@ declare
     xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" 
      >
   {(
-    csr_proc:stored_functions($csd_webconf:db)
-    ,csr_proc:stored_updating_functions($csd_webconf:db)
+    csr_proc:stored_functions()
+    ,csr_proc:stored_updating_functions()
    )}
  </careServiceFunctions>
 (: return $funcs :)
@@ -143,7 +143,7 @@ declare function page:function_list()  {
     <h2>Function List</h2>
     <ul>
     {
-      for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
+      for $function in (csr_proc:stored_functions(),csr_proc:stored_updating_functions())
       return  
       <li>URN: {string($function/@urn)} {"  "}
       <i>
@@ -161,10 +161,10 @@ declare function page:function_list()  {
     <ul>
     {
       (
-	for $function in csr_proc:stored_functions($csd_webconf:db)
+	for $function in csr_proc:stored_functions()
 	return   <li>{page:display_function($function,false())}</li>
        ,
-        for $function in csr_proc:stored_updating_functions($csd_webconf:db)
+        for $function in csr_proc:stored_updating_functions()
         return  <li>{page:display_function($function,true())}</li>
       )
     }
@@ -191,25 +191,25 @@ declare
 declare function page:get_export_function_details() {
     <map xmlns="http://www.w3.org/2005/xpath-functions">
       {
-	for $function in (csr_proc:stored_functions($csd_webconf:db))
+	for $function in (csr_proc:stored_functions())
 	let $urn:= string($function/@urn)
 	return  
 	<map key="{$urn}">
 	  <boolean key="updating">false</boolean>
 	  <string key="description">{string($function/description)}</string>
 	  <string key="definition">{string($function/definition)}</string>
-	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn))}</string>
+	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($urn))}</string>
 	</map>
       }
       {
-	for $function in (csr_proc:stored_updating_functions($csd_webconf:db))
+	for $function in (csr_proc:stored_updating_functions())
 	let $urn:= string($function/@urn)
 	return  
 	<map key="{string($function/@urn)}">
 	  <boolean key="updating">true</boolean>
 	  <string key="description">{string($function/description)}</string>
 	  <string key="definition">{string($function/definition)}</string>
-	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($csd_webconf:db,$urn))}</string>
+	  <string key="content-type">{string(csr_proc:lookup_stored_content_type($urn))}</string>
 	</map>
       
       }

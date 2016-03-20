@@ -64,7 +64,7 @@ let $filter := <RetrieveMultipleValueSetsRequest
  RevisionDateBefore="{$RevisionDateBefore}"
  RevisionDateAfter="{$RevisionDateAfter}"
 />
-return svs_lsvs:get_multiple_described_value_sets($csd_webconf:db,$filter) 
+return svs_lsvs:get_multiple_described_value_sets($filter) 
 };
 
 
@@ -77,7 +77,7 @@ declare
   %rest:query-param("version", "{$version}",'')
   function page:get_single_version_value_set($id,$version,$lang)
 {
-  svs_lsvs:get_single_version_value_set($csd_webconf:db,$id,$version,$lang) 
+  svs_lsvs:get_single_version_value_set($id,$version,$lang) 
 };
 
 
@@ -97,7 +97,7 @@ declare updating
 
   (
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
-    return svs_lsvs:register_remote_value_set($csd_webconf:db,$id,$url,$credentials)
+    return svs_lsvs:register_remote_value_set($id,$url,$credentials)
       ,
   csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
   )
@@ -118,7 +118,7 @@ declare updating
 
   (
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
-    return svs_lsvs:register_remote_value_set($csd_webconf:db,$id,$url,$credentials)
+    return svs_lsvs:register_remote_value_set($id,$url,$credentials)
       ,
   csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
   )
@@ -131,7 +131,7 @@ declare updating
   function page:update_cache($id)
 { 
 (
-  svs_lsvs:update_cache($csd_webconf:db,$id)   ,
+  svs_lsvs:update_cache($id)   ,
   csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
 )
 
@@ -143,8 +143,8 @@ declare updating
   function page:update_caches()
 { 
   (
-    for $id in  svs_lsvs:get_remote_value_set_ids($csd_webconf:db)
-    return svs_lsvs:update_cache($csd_webconf:db,$id)
+    for $id in  svs_lsvs:get_remote_value_set_ids()
+    return svs_lsvs:update_cache($id)
     ,
     csd_webui:redirect_out("CSD/SVS/registerRemoteValueSet")
   )
@@ -182,8 +182,8 @@ declare
        <div class="col-md-4">
 	 <h3>Registered Remote Value Sets</h3>
 	 {
-	   for $id in  svs_lsvs:get_remote_value_set_ids($csd_webconf:db)
-	   let $url := svs_lsvs:get_remote_value_set_url($csd_webconf:db,$id) 
+	   for $id in  svs_lsvs:get_remote_value_set_ids()
+	   let $url := svs_lsvs:get_remote_value_set_url($id) 
 	   return
 	     <div id='svc-{$id}'>
 	       <h4>Value Set ID: {$id}</h4>
@@ -225,7 +225,7 @@ declare updating
   function page:load($id)
 { 
 (
-  svs_lsvs:load($csd_webconf:db,$id)   ,
+  svs_lsvs:load($id)   ,
   csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
 )
 };
@@ -237,7 +237,7 @@ declare updating
   function page:reload($id)
 { 
 (
-  svs_lsvs:reload($csd_webconf:db,$id)   ,
+  svs_lsvs:reload($id)   ,
   csd_webui:redirect_out("CSD/SVS/initSharedValueSet")
 )
 };
@@ -254,7 +254,7 @@ declare
   let $response :=
   (<h2>Code: {$code}</h2>,
 
-  for $concept in svs_lsvs:get_single_version_code($csd_webconf:db,$code,$id,$version,$lang)
+  for $concept in svs_lsvs:get_single_version_code($code,$id,$version,$lang)
   let $code_list := $concept/..
   let $value_set := $code_list/..
   return <span>
@@ -297,10 +297,10 @@ declare
       {svs_lsvs:get_sample_value_set_list()}
       </p>
       <p>
-      {svs_lsvs:get_all_value_set_list($csd_webconf:db)}
+      {svs_lsvs:get_all_value_set_list()}
       </p>
       <ul>
-	{for $set in svs_lsvs:get_all_value_set_list($csd_webconf:db)//svs:DescribedValueSet
+	{for $set in svs_lsvs:get_all_value_set_list()//svs:DescribedValueSet
 	(:ValueSet have @id while DesribedValueSet has @ID:)
 	let $id := text{$set/@ID}
 	let $displayName := text{$set/@displayName}
@@ -335,13 +335,13 @@ declare
 declare function page:svs_menu($id) {
   let $lang := ''
   let $version := ''
-  let $set := svs_lsvs:get_all_value_set_list($csd_webconf:db)//svs:DescribedValueSet[@ID = $id]
+  let $set := svs_lsvs:get_all_value_set_list()//svs:DescribedValueSet[@ID = $id]
   return 
     if (not($set)) then (<b>{$set}</b>) else 
       let $disp := text{$set/@displayName}
       return <ul>
 	{if ($set/@file) then
-	  if (not(svs_lsvs:exists($csd_webconf:db,$id))) then
+	  if (not(svs_lsvs:exists($id))) then
           <li><a href="{csd_webui:generateURL(('CSD/SVS/initSharedValueSet/svs',$id,'load'))}">Initialize {$id} ({$disp})</a> </li>
           else 
 	  (
@@ -371,13 +371,13 @@ declare
   function page:svs_menu_avail() {
   
 
-  let $sets :=   svs_lsvs:get_all_value_set_list($csd_webconf:db)
+  let $sets :=   svs_lsvs:get_all_value_set_list()
   let $ids :=  $sets/svs:DescribedValueSet/@ID
   let $list := 
       <ul>
         {
 	for $id in distinct-values($ids)
-	where svs_lsvs:exists($csd_webconf:db,$id)
+	where svs_lsvs:exists($id)
 	order by $id
 	return <li>
 	         {$id}

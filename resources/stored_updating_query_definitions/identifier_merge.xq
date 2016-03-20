@@ -15,7 +15,7 @@ for $doc in $careServicesRequest/documents/document
   let $name := string($doc/@resource)
   let $src_doc :=
     if (not (functx:all-whitespace($name)))
-    then if (not ($name = $dest)) then csd_dm:open_document($csd_webconf:db, $name) else ()
+    then if (not ($name = $dest)) then csd_dm:open_document( $name) else ()
     else $doc
   return 
     (

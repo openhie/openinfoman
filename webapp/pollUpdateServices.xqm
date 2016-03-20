@@ -24,7 +24,7 @@ declare updating
   (
     let $sample := $csd_webconf:remote_services//serviceDirectory[@name=$name]
     return if (exists($sample)) then
-      csd_psd:register_service($csd_webconf:db,$name,text{$sample/@url},$sample/credentials)
+      csd_psd:register_service($name,text{$sample/@url},$sample/credentials)
     else ()
   ,
   csd_webui:redirect_out("CSD/pollService")
@@ -44,7 +44,7 @@ declare updating
 
   (
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
-    return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
+    return csd_psd:register_service($name,$url,$credentials)
       ,
   csd_webui:redirect_out("CSD/pollService")
   )
@@ -64,7 +64,7 @@ declare updating
 
   (
     let $credentials := <credentials type="basic_auth" username="{$username}" password="{$password}"/>
-    return csd_psd:register_service($csd_webconf:db,$name,$url,$credentials)
+    return csd_psd:register_service($name,$url,$credentials)
       ,
   csd_webui:redirect_out("CSD/pollService")
   )
@@ -79,7 +79,7 @@ declare
   %rest:GET
   function page:get_cache_meta()
 {
-  csd_lsc:get_cache_data($csd_webconf:db,())
+  csd_lsc:get_cache_data(())
 };
 
 
@@ -98,7 +98,7 @@ declare
   %rest:GET
   function page:get_service_cache_meta($name)
 {
-  csd_lsc:get_cache_data($csd_webconf:db,$name) 
+  csd_lsc:get_cache_data($name) 
 };
 
 
@@ -109,9 +109,9 @@ declare updating
 {
 
   (
-    if (csd_lsc:directory_exists($csd_webconf:db,$name)) 
-    then csd_lsc:empty_cache($csd_webconf:db,$name)
-    else csd_dm:empty($csd_webconf:db,$name)
+    if (csd_lsc:directory_exists($name)) 
+    then csd_lsc:empty_cache($name)
+    else csd_dm:empty($name)
   ,
   csd_webui:redirect_out("CSD/pollService")
   )
@@ -125,7 +125,7 @@ declare updating
   function page:drop_service_cache_meta($name)
 {
   (
-  csd_lsc:drop_cache_data($csd_webconf:db,$name)
+  csd_lsc:drop_cache_data($name)
   ,
   csd_webui:redirect_out("CSD/pollService")
   )
@@ -138,7 +138,7 @@ declare
   %rest:GET
   function page:get_cache($name)
 { 
- csd_lsc:get_cache($csd_webconf:db,$name) 
+ csd_lsc:get_cache($name) 
 };
 
 declare updating
@@ -147,7 +147,7 @@ declare updating
   function page:empty_cache($name)
 { 
   (
-  csd_lsc:empty_cache($csd_webconf:db,$name) 
+  csd_lsc:empty_cache($name) 
   ,
   csd_webui:redirect_out("CSD/pollService")
   )
@@ -162,7 +162,7 @@ declare updating
   function page:update_cache($name)
 { 
 (
-  csd_lsc:update_cache($csd_webconf:db,$name)   ,
+  csd_lsc:update_cache($name)   ,
   csd_webui:redirect_out("CSD/pollService")
 )
 
@@ -174,9 +174,8 @@ declare
   function page:show_update_cache($name)
 { 
 
-  let $db := $csd_webconf:db
-  let $mtime :=  csd_lsc:get_service_directory_mtime($db,$name)
-  let $soap := csd_psd:generate_soap_request($db,$name,$mtime)
+  let $mtime :=  csd_lsc:get_service_directory_mtime($name)
+  let $soap := csd_psd:generate_soap_request($name,$mtime)
   let $result := http:send-request($soap)
   return <a><r>{$result}</r><s>{$soap}</s></a>
 
@@ -208,9 +207,9 @@ declare
   function page:poll_service($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory_soap_response($csd_webconf:db,$name,$mtime)
+ csd_psd:poll_service_directory_soap_response($name,$mtime)
 else
- csd_psd:poll_service_directory_soap_response($csd_webconf:db,$name,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
+ csd_psd:poll_service_directory_soap_response($name,csd_lsc:get_service_directory_mtime($name))
 };
 
 
@@ -221,9 +220,9 @@ declare
   function page:poll_service_csd($name,$mtime)
 { 
 if ($mtime) then
- csd_psd:poll_service_directory($csd_webconf:db,$name,$mtime)
+ csd_psd:poll_service_directory($name,$mtime)
 else
- csd_psd:poll_service_directory($csd_webconf:db,$name,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
+ csd_psd:poll_service_directory($name,csd_lsc:get_service_directory_mtime($name))
 };
 
 declare
@@ -232,7 +231,7 @@ declare
   %rest:GET
   function page:poll_service_soap($name,$mtime)
 { 
- let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name)    
+ let $url := csd_psd:get_service_directory_url($name)    
  return (
  <rest:response>
    <http:response status="200" >
@@ -244,7 +243,7 @@ declare
    if ($mtime) then
      csd_qus:create_last_update_request($url,$mtime)
    else
-     csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($csd_webconf:db,$name))
+     csd_qus:create_last_update_request($url,csd_lsc:get_service_directory_mtime($name))
  )
 
 };
@@ -256,7 +255,7 @@ declare function page:wrapper($response) {
   , <script type="text/javascript">
     $( document ).ready(function() {{
       {
-	for $name in csd_psd:registered_directories($csd_webconf:db)
+	for $name in csd_psd:registered_directories()
 	return (
 	"$('#datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'});",
 	"$('#soap_datetimepicker_",$name,"').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss+00:00',startDate:'2013-10-01'}); ")
@@ -276,10 +275,10 @@ declare
   function page:poll_service_list()
 { 
 
-   let $services := csd_psd:registered_directories($csd_webconf:db)
+   let $services := csd_psd:registered_directories()
    let $unreg_services := 
      for $sample in  $csd_webconf:remote_services//serviceDirectory
-     where not(csd_psd:is_registered($csd_webconf:db,$sample/text{@name}))
+     where not(csd_psd:is_registered($sample/text{@name}))
      return  $sample
     let $response :=
    <div>
@@ -335,7 +334,7 @@ declare
        else 
        <ul>
 	 {for $name in $services
-	 let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
+	 let $mtime := csd_lsc:get_service_directory_mtime($name)
 	 order by $name
 	 return 
 	 <li>
@@ -349,7 +348,7 @@ declare
 	 <h3>Update Service (Basic Auth)</h3>
 	 {
 	   for $name in $services
-	   let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name) 
+	   let $url := csd_psd:get_service_directory_url($name) 
 	   return
 	     <div id='svc-{$name}'>
 	       <h2>{$name}</h2>
@@ -374,8 +373,8 @@ declare
 };
 
 declare function page:service_menu($name) {
-  let $url := csd_psd:get_service_directory_url($csd_webconf:db,$name)
-  let $mtime := csd_lsc:get_service_directory_mtime($csd_webconf:db,$name)
+  let $url := csd_psd:get_service_directory_url($name)
+  let $mtime := csd_lsc:get_service_directory_mtime($name)
   return 
 <span>
   <pre>{$url}</pre>
@@ -386,7 +385,7 @@ declare function page:service_menu($name) {
   <li>Caching
 {csd_lsc:get_document_name($name)}
   <ul>
-    {if (not(csd_lsc:directory_exists($csd_webconf:db,$name))) then
+    {if (not(csd_lsc:directory_exists($name))) then
       (
       <li><a href="{csd_webui:generateURL(('CSD/pollService/directory',$name,'create_cache'))}">Create cache of {$name}</a> </li>
       )

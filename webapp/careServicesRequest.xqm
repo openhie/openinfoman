@@ -9,16 +9,16 @@ import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
-declare variable $page:csd_docs := csd_dm:registered_documents($csd_webconf:db);
+declare variable $page:csd_docs := csd_dm:registered_documents();
 
 declare
   %rest:path("/CSD/csr/{$name}/careServicesRequest")
   %rest:POST("{$careServicesRequest}")
   function page:csr($name,$careServicesRequest) 
 { 
-  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+  if (csd_dm:document_source_exists($name)) then 
     try {
-       csr_proc:process_CSR($csd_webconf:db,$careServicesRequest/careServicesRequest,$name,csd_webui:generateURL())
+       csr_proc:process_CSR($careServicesRequest/careServicesRequest,$name,csd_webui:generateURL())
     } catch * {
        <rest:response>
          <http:response status="422" message="Error executing xquery.">
@@ -44,9 +44,9 @@ declare updating
   %rest:POST("{$careServicesRequest}")
   function page:csr_updating($name,$careServicesRequest) 
 { 
-  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+  if (csd_dm:document_source_exists($name)) then 
     try {
-       csr_proc:process_updating_CSR($csd_webconf:db,$careServicesRequest/csd:careServicesRequest,$name,csd_webui:generateURL())
+       csr_proc:process_updating_CSR($careServicesRequest/csd:careServicesRequest,$name,csd_webui:generateURL())
     } catch * {
       db:output(  
        <rest:response>
@@ -77,10 +77,10 @@ declare
   %rest:form-param("adhoc","{$adhoc}")
   %rest:form-param("content", "{$content}","application/xml")
 function page:adhoc($name,$adhoc,$content) {    
-  if (csd_dm:document_source_exists($csd_webconf:db,$name)) then 
+  if (csd_dm:document_source_exists($name)) then 
     try {
       let  $adhoc_doc := csr_proc:create_adhoc_doc(string($adhoc),$content)
-      return  csr_proc:process_CSR($csd_webconf:db, $adhoc_doc,$name,csd_webui:generateURL())
+      return  csr_proc:process_CSR( $adhoc_doc,$name,csd_webui:generateURL())
     } catch * {
        <rest:response>
          <http:response status="422" message="Error executing xquery.">
@@ -128,7 +128,7 @@ declare
     ,
     <ul>{
     (
-      for $function in csr_proc:stored_functions($csd_webconf:db)
+      for $function in csr_proc:stored_functions()
       let $url := csd_webui:generateURL(("CSD/csr", $name , "careServicesRequest", string($function/@urn)))
       return
       <li>
@@ -137,7 +137,7 @@ declare
       	  <p><a href="{csd_webui:generateURL(concat('CSD/storedFunctions#',$name))}">Full Description</a></p>
       </li>
       ,
-      for $function in csr_proc:stored_updating_functions($csd_webconf:db)
+      for $function in csr_proc:stored_updating_functions()
       let $url := csd_webui:generateURL(("CSD/csr", $name , "careServicesRequest/update", string($function/@urn)))
       return
       <li>
@@ -158,7 +158,7 @@ declare
   %output:method("xhtml")
   function page:show_type($name) 
 { 
-  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))
+  let $funcs := (csr_proc:stored_functions(), csr_proc:stored_updating_functions())
   let $options :=
     for $func in $funcs
     let $urn := string($func/@urn)

@@ -41,10 +41,10 @@ declare function csd_lsd:valid_doc($name) {
 };
 
 
-declare updating function csd_lsd:load($db,$name) {
+declare updating function csd_lsd:load($name) {
   let $source := csd_lsd:get_document_source($name)
   let $doc := parse-xml(file:read-text($source))
-  return csd_dm:empty($db,$name,$doc)
+  return csd_dm:empty($name,$doc)
 
 };
 

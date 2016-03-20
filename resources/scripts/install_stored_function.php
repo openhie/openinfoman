@@ -36,19 +36,17 @@ foreach ($files as $file) {
     if (! $mods['updating']) {
 	$script = "
 import module namespace csr_proc = \"https://github.com/openhie/openinfoman/csr_proc\";
-import module namespace csd_webconf =  \"https://github.com/openhie/openinfoman/csd_webconf\";
 declare   namespace   csd = \"urn:ihe:iti:csd:2013\";
 let \$func := doc('$file')/csd:careServicesFunction
-return csr_proc:load_stored_function(\$csd_webconf:db,\$func)
+return csr_proc:load_stored_function(\$func)
 
 ";	
     } else {
 	$script = "
 import module namespace csr_proc = \"https://github.com/openhie/openinfoman/csr_proc\";
-import module namespace csd_webconf =  \"https://github.com/openhie/openinfoman/csd_webconf\";
 declare   namespace   csd = \"urn:ihe:iti:csd:2013\";
 let \$func := doc('$file')/csd:careServicesFunction
-return csr_proc:load_stored_updating_function(\$csd_webconf:db,\$func)
+return csr_proc:load_stored_updating_function(\$func)
 
 ";	
     }
@@ -125,7 +123,6 @@ declare $updating
     $page_module = 
 	"
 module namespace page = 'http://basex.org/modules/web-page';
-import module namespace csd_webconf =  \"https://github.com/openhie/openinfoman/csd_webconf\";
 import module namespace csd_webui =  \"https://github.com/openhie/openinfoman/csd_webui\";
 import module namespace csd_dm = \"https://github.com/openhie/openinfoman/csd_dm\";
 import module namespace oim-sf = \"https://github.com/openhie/openinfoman/stored-function/$search\";
@@ -139,10 +136,10 @@ declare $updating
 
 { 
 
-  if (csd_dm:document_source_exists(\$csd_webconf:db,\$docname)) 
+  if (csd_dm:document_source_exists(\$docname)) 
   then 
     try {
-      let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
+      let \$doc := csd_dm:open_document(\$docname)
       let \$base_url := csd_webui:generateURL()
       let \$request := 
         <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
@@ -181,10 +178,10 @@ declare $updating
 
 { 
 
-  if (csd_dm:document_source_exists(\$csd_webconf:db,\$docname)) 
+  if (csd_dm:document_source_exists(\$docname)) 
   then 
     try {
-      let \$doc := csd_dm:open_document(\$csd_webconf:db,\$docname)
+      let \$doc := csd_dm:open_document(\$docname)
       let \$base_url := csd_webui:generateURL()
       let \$request := 
         <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">

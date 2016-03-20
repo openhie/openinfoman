@@ -6,6 +6,7 @@
 :)
 module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace functx = "http://www.functx.com";
 declare namespace svs = "urn:ihe:iti:svs:2008";
 
@@ -20,15 +21,15 @@ declare variable $svs_lsvs:blank_valuesets :=  <DescribedValueSets version="{$sv
 
 declare variable $svs_lsvs:remote_value_sets := 'remote_value_sets.xml';
 
-declare updating function svs_lsvs:init_store($db) {
+declare updating function svs_lsvs:init_store() {
  (
-  if (not(db:is-xml($db,$svs_lsvs:valuesets_doc))) then 
-    db:add($db, $svs_lsvs:blank_valuesets,$svs_lsvs:valuesets_doc)
+  if (not(db:is-xml($csd_webconf:db,$svs_lsvs:valuesets_doc))) then 
+    db:add($csd_webconf:db, $svs_lsvs:blank_valuesets,$svs_lsvs:valuesets_doc)
   else
     ()
   ,
-  if ( not(  db:is-xml($db,$svs_lsvs:remote_value_sets))) then
-    db:add($db, <valueSetLibrary/>,$svs_lsvs:remote_value_sets)
+  if ( not(  db:is-xml($csd_webconf:db,$svs_lsvs:remote_value_sets))) then
+    db:add($csd_webconf:db, <valueSetLibrary/>,$svs_lsvs:remote_value_sets)
   else 
       ()
  )
@@ -36,8 +37,8 @@ declare updating function svs_lsvs:init_store($db) {
 };
 
 
-declare updating function svs_lsvs:register_remote_value_set($db,$id,$url,$credentials) {
-  let $vsl :=  db:open($db,$svs_lsvs:remote_value_sets)/valueSetLibrary
+declare updating function svs_lsvs:register_remote_value_set($id,$url,$credentials) {
+  let $vsl :=  db:open($csd_webconf:db,$svs_lsvs:remote_value_sets)/valueSetLibrary
   (:bad bad plain text password:)
   let $reg_doc := <remoteValueSet id="{$id}" url="{$url}">{$credentials}</remoteValueSet>
   let $existing := $vsl/remoteValueSet[@id = @id]
@@ -50,32 +51,32 @@ declare updating function svs_lsvs:register_remote_value_set($db,$id,$url,$crede
 
 
 
-declare  updating  function svs_lsvs:update_cache($db,$id)  
+declare  updating  function svs_lsvs:update_cache($id)  
 {
 
 
-  let $results := svs_lsvs:retrieve_remote_value_set($db,$id)//svs:ValueSet
+  let $results := svs_lsvs:retrieve_remote_value_set($id)//svs:ValueSet
   return  
     if (exists($results)) 
-    then  ( for $result in $results return svs_lsvs:insert($db,$result))
+    then  ( for $result in $results return svs_lsvs:insert($result))
     else ( )
 };
 
-declare function svs_lsvs:get_remote_value_set_ids($db) {
-  for $id in    db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet/@id
+declare function svs_lsvs:get_remote_value_set_ids() {
+  for $id in    db:open($csd_webconf:db,$svs_lsvs:remote_value_sets)//remoteValueSet/@id
   return string($id)
 };
 
-declare function svs_lsvs:get_remote_value_set_url($db,$id) {
-  text{ db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/@url}
+declare function svs_lsvs:get_remote_value_set_url($id) {
+  text{ db:open($csd_webconf:db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/@url}
 };
-declare function svs_lsvs:get_remote_value_set_credentials($db,$id) {
-   db:open($db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/credentials
+declare function svs_lsvs:get_remote_value_set_credentials($id) {
+   db:open($csd_webconf:db,$svs_lsvs:remote_value_sets)//remoteValueSet[@id=$id]/credentials
 };
 
-declare function svs_lsvs:retrieve_remote_value_set($db,$id) {
-  let $url := svs_lsvs:get_remote_value_set_url($db,$id)
-  let $credentials := svs_lsvs:get_remote_value_set_credentials($db,$id)
+declare function svs_lsvs:retrieve_remote_value_set($id) {
+  let $url := svs_lsvs:get_remote_value_set_url($id)
+  let $credentials := svs_lsvs:get_remote_value_set_credentials($id)
   let $request := 
     if ($credentials/@type = 'basic_auth' and $credentials/@username != '') 
       then 
@@ -109,8 +110,8 @@ declare function svs_lsvs:retrieve_remote_value_set($db,$id) {
 
 
 
-declare function svs_lsvs:store_exists($db) {
-  db:is-xml($db,$svs_lsvs:valuesets_doc)
+declare function svs_lsvs:store_exists() {
+  db:is-xml($csd_webconf:db,$svs_lsvs:valuesets_doc)
 };
 
 
@@ -140,8 +141,8 @@ declare function svs_lsvs:get_sample_value_set_list() {
 
 
 
-declare function svs_lsvs:get_all_value_set_list($db) {
-  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)
+declare function svs_lsvs:get_all_value_set_list() {
+  let $vsets := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)
   let $existing_ids := distinct-values($vsets//svs:DescribedValueSet/@ID)
   let $available_ids := $svs_lsvs:sample_value_set_list//svs:DescribedValueSet/@ID
   return <DescribedValueSets version="{$svs_lsvs:vers}">
@@ -171,28 +172,28 @@ declare function svs_lsvs:get_document_source($id) {
 };
 
 
-declare function svs_lsvs:exists($db,$id) {
-  svs_lsvs:store_exists($db) 
+declare function svs_lsvs:exists($id) {
+  svs_lsvs:store_exists() 
   and 
-  exists(db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID = $id])
+  exists(db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID = $id])
 };
 
 
 
 
-declare updating function svs_lsvs:load($db,$id) {
+declare updating function svs_lsvs:load($id) {
   let $doc_source := svs_lsvs:get_document_source($id)
   return if (not($doc_source)) 
     then  ()
   else
-    let $svs_sets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
+    let $svs_sets := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)/DescribedValueSets
     let $svs := parse-xml(file:read-text($doc_source))	 
     for $value_set in $svs//svs:ValueSet
-    return svs_lsvs:insert($db,$value_set)
+    return svs_lsvs:insert($value_set)
 };
 
-declare updating function svs_lsvs:insert($db,$value_set) {
-  let $vsets := db:open($db,$svs_lsvs:valuesets_doc)/DescribedValueSets
+declare updating function svs_lsvs:insert($value_set) {
+  let $vsets := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)/DescribedValueSets
   let $id := string($value_set/@id)
   let $version := $value_set/@version
   let $existing :=  $vsets//svs:DescribedValueSet[@ID = $id and @version = $version]
@@ -216,16 +217,16 @@ declare updating function svs_lsvs:insert($db,$value_set) {
 };
 
 
-declare updating function svs_lsvs:reload($db,$id) {
-  svs_lsvs:load($db,$id) 
+declare updating function svs_lsvs:reload($id) {
+  svs_lsvs:load($id) 
 };
 
 
 
 
 
-declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
-  let $dvs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
+declare function svs_lsvs:get_multiple_described_value_sets($filter) {
+  let $dvs0 := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
   let $dvs1 := if (not($filter/@ID = '')) then $dvs0[@ID = $filter/@ID] else $dvs0
   let $dvs2 := if (not($filter/@DisplayNameContains = '')) then $dvs1[contains(@displayName,$filter/@DisplayNameContains)] else $dvs1
   let $dvs3 := if (not($filter/@SourceContains = '')) then $dvs2[contains(./svs:Source,$filter/@SourceContains)] else $dvs2
@@ -247,16 +248,16 @@ declare function svs_lsvs:get_multiple_described_value_sets($db,$filter) {
 };
 
 
-declare function svs_lsvs:get_single_version_value_set($db,$id) {
-  svs_lsvs:get_single_version_value_set($db,$id,'')
+declare function svs_lsvs:get_single_version_value_set($id) {
+  svs_lsvs:get_single_version_value_set($id,'')
 };
 
-declare function svs_lsvs:get_single_version_value_set($db,$id,$version) {
-  svs_lsvs:get_single_version_value_set($db,$id,$version,'')
+declare function svs_lsvs:get_single_version_value_set($id,$version) {
+  svs_lsvs:get_single_version_value_set($id,$version,'')
 };
 
-declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) {
-  let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
+declare function svs_lsvs:get_single_version_value_set($id, $version,$lang) {
+  let $vs0 := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
   let $vers := if (functx:all-whitespace($version) )
      then  functx:max-string ($vs0[@version != '']/@version)  (:NEEDS TO CHANGE:)
      else  $version  
@@ -283,12 +284,12 @@ declare function svs_lsvs:get_single_version_value_set($db,$id, $version,$lang) 
 };
 
 
-declare function svs_lsvs:lookup_code($db,$code,$codeSystem) {
-  svs_lsvs:lookup_code($db,$code,$codeSystem, false) 
+declare function svs_lsvs:lookup_code($code,$codeSystem) {
+  svs_lsvs:lookup_code($code,$codeSystem, false) 
 };
 
-declare function svs_lsvs:lookup_code($db,$code,$codeSystem, $lang) {
-  let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
+declare function svs_lsvs:lookup_code($code,$codeSystem, $lang) {
+  let $vs0 := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet
 
   let $concept_lists := 
     if ($lang)
@@ -303,16 +304,16 @@ declare function svs_lsvs:lookup_code($db,$code,$codeSystem, $lang) {
 };
 
 
-declare function svs_lsvs:get_single_version_code($db,$code,$id) {
-  svs_lsvs:get_single_version_code($db,$code,$id, false())
+declare function svs_lsvs:get_single_version_code($code,$id) {
+  svs_lsvs:get_single_version_code($code,$id, false())
 };
 
-declare function svs_lsvs:get_single_version_code($db,$code,$id, $version) {
-  svs_lsvs:get_single_version_code($db,$code,$id, $version,false()) 
+declare function svs_lsvs:get_single_version_code($code,$id, $version) {
+  svs_lsvs:get_single_version_code($code,$id, $version,false()) 
 };
 
-declare function svs_lsvs:get_single_version_code($db,$code,$id, $version,$lang) {
-  let $vs0 := db:open($db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
+declare function svs_lsvs:get_single_version_code($code,$id, $version,$lang) {
+  let $vs0 := db:open($csd_webconf:db,$svs_lsvs:valuesets_doc)//svs:DescribedValueSet[@ID=$id]
   let $vers := if (not($version = '')) then $version else max(xs:int($vs0/@version))
   let $vs1:= $vs0[@version = $vers]
 

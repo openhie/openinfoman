@@ -6,7 +6,7 @@ declare namespace csd  =  "urn:ihe:iti:csd:2013";
 declare variable $careServicesRequest as item() external;
 
 let $doc_name := string($careServicesRequest/@resource)
-let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
+let $doc := csd_dm:open_document($doc_name)
 
 let $masterID := $careServicesRequest/masterEntity/@entityID
 

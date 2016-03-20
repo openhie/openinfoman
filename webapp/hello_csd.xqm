@@ -18,8 +18,8 @@ declare updating
   function page:create_directory($directory)
 { 
    (
-     if (not (csd_dm:document_source_exists($csd_webconf:db,$directory))) then
-       csd_dm:empty($csd_webconf:db,$directory) 
+     if (not (csd_dm:document_source_exists($directory))) then
+       csd_dm:empty($directory) 
      else ()
      ,
    csd_webui:redirect_out("CSD")
@@ -45,7 +45,7 @@ declare
   <span class='csd'>       
     {$what_is_dm}
     <p>
-      {let $docs := csd_dm:registered_documents($csd_webconf:db)  
+      {let $docs := csd_dm:registered_documents()  
       return ( 
 	  "You have ", count($docs) , " registered document(s) available: ", 
 	  <ul>
@@ -85,7 +85,7 @@ declare
     <span>
       <span>
         {
-	  let $docs := csd_dm:registered_documents($csd_webconf:db)  
+	  let $docs := csd_dm:registered_documents()  
 	  return ( 
 	    "You have ", count($docs) , " registered document(s) available: ", 
 	    <ul>
@@ -131,7 +131,7 @@ declare
   %rest:GET
   function page:get_directory($name)
 {
-  csd_dm:open_document($csd_webconf:db,$name) 
+  csd_dm:open_document($name) 
 };
 
 declare updating
@@ -140,7 +140,7 @@ declare updating
   function page:empty_directory($name)
 {
   (
-    csd_dm:empty($csd_webconf:db,$name) 
+    csd_dm:empty($name) 
     ,csd_webui:redirect_out("CSD")
   )
 };
@@ -151,7 +151,7 @@ declare updating
   function page:delete_directory($name)
 {
   (
-    csd_dm:delete($csd_webconf:db,$name) 
+    csd_dm:delete($name) 
     ,csd_webui:redirect_out("CSD")
   )
 };

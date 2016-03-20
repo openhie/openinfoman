@@ -24,7 +24,7 @@ declare
   %rest:GET
   function page:get_directory($name)
 {
-  csd_dm:open_document($csd_webconf:db,$name) 
+  csd_dm:open_document($name) 
 };
 
 declare
@@ -32,7 +32,7 @@ declare
   %rest:GET
   function page:get_directory2($name)
 {
-  csd_dm:open_document($csd_webconf:db,$name) 
+  csd_dm:open_document($name) 
 };
 
 
@@ -41,7 +41,7 @@ declare
   %rest:GET
   function page:get_entity($name,$entity,$entityID)
 {
-  let $doc := csd_dm:open_document($csd_webconf:db,$name)
+  let $doc := csd_dm:open_document($name)
   let $entities:=
     switch($entity)
     case "provider" return $doc/csd:CSD/csd:providerDirectory/csd:provider
@@ -64,7 +64,7 @@ declare updating
   function page:load($name)
 { 
 (
-  csd_lsd:load($csd_webconf:db,$name)   ,
+  csd_lsd:load($name)   ,
   csd_webui:redirect_out("CSD/initSampleDirectory")
 )
 };
@@ -77,7 +77,7 @@ declare updating
   function page:reload($name)
 { 
 (
-  csd_dm:empty($csd_webconf:db,$name)   ,
+  csd_dm:empty($name)   ,
   csd_webui:redirect_out(("CSD/initSampleDirectory/directory/",$name,"/load"))
 )
 
@@ -143,13 +143,13 @@ declare
 declare function page:get_export_document_details() {
   <map xmlns="http://www.w3.org/2005/xpath-functions">
     {
-      for $name in csd_dm:registered_documents($csd_webconf:db)
+      for $name in csd_dm:registered_documents()
       return 
       <map key="{string($name)}">
 	<string key="careServicesRequest">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</string>
 	<map key="careServicesRequests">
 	  {
-	    for $function in (csr_proc:stored_functions($csd_webconf:db),csr_proc:stored_updating_functions($csd_webconf:db))
+	    for $function in (csr_proc:stored_functions(),csr_proc:stored_updating_functions())
 	    let $urn:= string($function/@urn)
 	    return <string key="{$urn}">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest/',$urn))}</string>
 	  }
@@ -163,7 +163,7 @@ declare function page:get_export_document_details() {
 
 declare function page:services_menu($name) {
   <ul> 
-    {if (not(csd_dm:document_source_exists($csd_webconf:db,$name))) then
+    {if (not(csd_dm:document_source_exists($name))) then
     <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'load'))}">Initialize </a> {$name} </li>
   else 
     (

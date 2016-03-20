@@ -12,7 +12,7 @@ declare
   %output:method("xhtml")
   function page:show_types() 
 { 
-  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))
+  let $funcs := (csr_proc:stored_functions(), csr_proc:stored_updating_functions())
   let $types := distinct-values($funcs/csd:extension[@urn='urn:openhie.org:openinfoman:adapter']/@type)
   let $type_list := 
     <ul>
@@ -33,7 +33,7 @@ declare
   %output:method("xhtml")
   function page:show_endpoints($search_name,$type) 
 {  
-  let $function := csr_proc:get_any_function_definition($csd_webconf:db,$search_name)
+  let $function := csr_proc:get_any_function_definition($search_name)
   let $extensions :=  $function/csd:extension[@urn='urn:openhie.org:openinfoman:adapter' and  @type=$type]
        
   let $contents := 
@@ -46,7 +46,7 @@ declare
 	<h3>{string($function/@urn)}</h3>
         <ul>
           {
-  	    for $doc_name in csd_dm:registered_documents($csd_webconf:db)      
+  	    for $doc_name in csd_dm:registered_documents()      
 	    return
   	    <li>
 	      <a href="{csd_webui:generateURL(('CSD/csr',$doc_name,'careServicesRequest',$search_name,'adapter',$type))}">{string($doc_name)}</a>
@@ -67,7 +67,7 @@ declare
   %output:method("xhtml")
   function page:show_type($type) 
 { 
-  let $funcs := (csr_proc:stored_functions($csd_webconf:db), csr_proc:stored_updating_functions($csd_webconf:db))[./csd:extension[@type = $type] ]
+  let $funcs := (csr_proc:stored_functions(), csr_proc:stored_updating_functions())[./csd:extension[@type = $type] ]
   let $adaptations := 
     <div>
       <h2>{$type}</h2>
