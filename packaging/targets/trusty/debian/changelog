@@ -1,3 +1,11 @@
+openinfoman (1.2.8~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.8
+    -35c59e0 fixed error in QUS when CSD document has invalid date time
+    --http://github.com/openhie/openinfoman/commmit/35c59e0
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 27 Mar 2016 06:11:06 +0000
+
 openinfoman (1.2.7~trusty) trusty; urgency=medium
 
   * Release Version 1.2.7
