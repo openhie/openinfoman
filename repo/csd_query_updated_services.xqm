@@ -18,19 +18,35 @@ declare function csd_qus:get_updated_services_soap($soap,$doc) {
   return csd_qus:create_last_update_response(csd_qus:get_updated_services($last_mtime,$doc),$msgID) 
 };
 
+declare function csd_qus:get_updated_entities($dir,$mtime) {
+  for $e in $dir   
+  return 
+    try {
+      let $r_time := xs:dateTime($e/record/@updated)
+      return
+	if ($r_time >= $mtime)
+	then $e
+	else ()
+    } catch * {
+      (:invalid date time, just return it:)
+      $e
+    }
+  
+};
+
 declare function csd_qus:get_updated_services($mtime as xs:dateTime,$doc) {
 <csd:CSD xmlns="urn:ihe:iti:csd:2013" xmlns:csd="urn:ihe:iti:csd:2013">
   <organizationDirectory>
-    {$doc/csd:CSD/organizationDirectory/organization[xs:dateTime(./record/@updated) >= $mtime]}
+    {csd_qus:get_updated_entities($doc/csd:CSD/organizationDirectory/organization ,$mtime)}
   </organizationDirectory>
   <serviceDirectory>
-    {$doc/csd:CSD/serviceDirectory/service[xs:dateTime(./record/@updated) >= $mtime]}
+    {csd_qus:get_updated_entities($doc/csd:CSD/serviceDirectory/service, $mtime)}
   </serviceDirectory>
   <facilityDirectory>
-    {$doc/csd:CSD/facilityDirectory/facility[xs:dateTime(./record/@updated) >= $mtime]}
+    {csd_qus:get_updated_entities($doc/csd:CSD/facilityDirectory/facility, $mtime)}
   </facilityDirectory>
   <providerDirectory>
-    {$doc/csd:CSD/providerDirectory/provider[xs:dateTime(./record/@updated) >= $mtime] }
+    {csd_qus:get_updated_entities($doc/csd:CSD/providerDirectory/provider, $mtime) }
   </providerDirectory>
 </csd:CSD>
 };
