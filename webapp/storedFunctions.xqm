@@ -1,6 +1,5 @@
 module namespace page = 'http://basex.org/modules/web-page';
 
-import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   xforms = "http://www.w3.org/2002/xforms";

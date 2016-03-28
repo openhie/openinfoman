@@ -2,7 +2,6 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_lsd";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
-import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";

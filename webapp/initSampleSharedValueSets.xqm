@@ -2,7 +2,6 @@ module namespace page = 'http://basex.org/modules/web-page';
 
 import module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 declare namespace svs = "urn:ihe:iti:svs:2008";
-import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 
 
