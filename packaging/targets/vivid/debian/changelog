@@ -1,3 +1,11 @@
+openinfoman (1.2.9~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.9
+    -a45de7c fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/a45de7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 28 Mar 2016 01:39:03 +0000
+
 openinfoman (1.2.8~vivid) vivid; urgency=medium
 
   * Release Version 1.2.8
