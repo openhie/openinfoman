@@ -4,6 +4,7 @@ import module namespace csd_lsd = "https://github.com/openhie/openinfoman/csd_ls
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_psd = "https://github.com/openhie/openinfoman/csd_psd";
 declare   namespace   csd = "urn:ihe:iti:csd:2013";
 
 
@@ -142,18 +143,29 @@ declare
 declare function page:get_export_document_details() {
   <map xmlns="http://www.w3.org/2005/xpath-functions">
     {
-      for $name in csd_dm:registered_documents()
+      let $remote_docs :=  csd_psd:registered_directories()
       return 
-      <map key="{string($name)}">
-	<string key="careServicesRequest">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</string>
-	<map key="careServicesRequests">
+        for $name in csd_dm:registered_documents()
+	return 
+	<map key="{string($name)}">
+	  <string key="careServicesRequest">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</string>
+	  <map key="careServicesRequests">
+	    {
+	      for $function in (csr_proc:stored_functions(),csr_proc:stored_updating_functions())
+	      let $urn:= string($function/@urn)
+	      return <string key="{$urn}">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest/',$urn))}</string>
+	    }
+	  </map>
 	  {
-	    for $function in (csr_proc:stored_functions(),csr_proc:stored_updating_functions())
-	    let $urn:= string($function/@urn)
-	    return <string key="{$urn}">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest/',$urn))}</string>
+	    if ($name = $remote_docs) 
+	    then
+	      <map key="cache">
+	        <string key="update">{csd_webui:generateURL(("/CSD/pollService/directory" ,$name , "update_cache"))}</string>
+	        <string key="empty">{csd_webui:generateURL(("/CSD/pollService/directory" ,$name , "empty_cache"))}</string>
+	      </map>
+	    else ()	  
 	  }
 	</map>
-      </map>
     }
   </map>
 };
