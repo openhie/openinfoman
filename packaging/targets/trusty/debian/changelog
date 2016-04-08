@@ -1,3 +1,11 @@
+openinfoman (1.2.11~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.11
+    -9981500 added endpoints to manage local cache of remote directorie
+    --http://github.com/openhie/openinfoman/commmit/9981500
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 08 Apr 2016 13:30:00 +0000
+
 openinfoman (1.2.10~trusty) trusty; urgency=medium
 
   * Release Version 1.2.10
