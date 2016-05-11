@@ -356,7 +356,8 @@ Example: "urn:uuid:53347B2E-185E-4BC3-BCDA-7FAB5D521FE7"</xs:documentation>
     <xs:complexContent>
       <xs:extension base="uniqueID">
         <xs:sequence>
-          <xs:element name="codedType" type="codedtype"/>
+          <xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
           <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
           <xs:element name="record" type="record"/>
         </xs:sequence>
@@ -510,9 +511,7 @@ The function will assumed to be exectued such that against the root node of CSD 
              </xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element ref="xforms:instance" minOccurs="0"/>
-        <xs:element ref="xs:schema" minOccurs="0" maxOccurs="1"/>
-        <xs:element ref="xforms:bind" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" ref="xforms:model"/>
         <xs:element maxOccurs="unbounded" minOccurs="0" name="extension" type="extension"/>
       </xs:sequence>
       <xs:attribute name="urn" use="required" type="xs:string">
@@ -535,20 +534,6 @@ Values must be conformant to:
           <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
         </xs:annotation>
       </xs:anyAttribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="getModificationsRequest">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="lastModified" type="xs:dateTime"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="getModificationsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="CSD"/>
-      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>
