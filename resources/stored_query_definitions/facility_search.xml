@@ -1,84 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
-  xmlns="urn:ihe:iti:csd:2013"
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
   xmlns:xforms="http://www.w3.org/2002/xforms"
-  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:csd="urn:ihe:iti:csd:2013" 
+  xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+  xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   urn="urn:ihe:iti:csd:2014:stored-function:facility-search">
-  <description> 
-    <p>
+  <csd:description>
     Performs a search for all facilities by name, type, address or ID.   
-    </p>
-    <p>
-      The result set consists of all facilities matching the  <i>search parameters</i> ( <b>id</b>, <b>primaryName</b>, <b>name</b>, <b>codedType</b> and <b>address</b> ).
-     </p>
-     <p>   
-      The results set may be further restricted according to the <i>limit parameters</i> (<b>start</b>, <b>max</b>, <b>record/@status</b> and <b>record/@updated</b>).  An ordering of the result set is not specified.
-    </p>
-    <p>
-    <h2>Response</h2>
-    Results are returned as a valid CSD document with a root document element of &lt;CSD/&gt;.  The results set is contained entirely within the &lt;facilityDirectory/&gt; element and consists of the full content of the &lt;facility/&gt; elements of matching facilities as maintained by the Care Services InfoManager.
-    </p>
-    <h2>Parameters</h2> Query
-    Parameters are defined as the content of following elements:
-    <ul>
-      <li> &lt;id/&gt; <i>csd:uniqueID</i>: (optional) If present and the @entityID attribute contains a non-empty value, it is a ID which uniquely identifies a facility. This is an exact match.  
-      </li>
-      <li>&lt;primaryName/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those facilities whose &lt;primaryName/&gt; contains this value. Case insensitive.</li>
-      <li>&lt;name/&gt; <i>xs:string</i>: (optional) If present and contains a non-empty value, then the result set should be restricted to those facilities which have a &lt;primaryName/&gt; or &lt;otherName/&gt; element containing this value. Case insensitive.</li>      
-      <li>&lt;codedType/&gt; <i>csd:codedtype</i>:  If present and contains a non-empty value the result set should be restricted to those facilities whose &lt;codedType/@code&gt; equals this value for the coding schema specified by the @codingScheme attribute.  Case insensitive.
-      </li>
-      <li> &lt;address/&gt; <i>csd:address</i>: (optional) Contains of any-number of child &lt;addressLine/&gt; elements as follows:
-        <ul>
-          <li>Text content <i>xs:string</i>: (optional) If present and contains a non-empty value, then the results set should be restricted to those facilities whose have an &lt;addressLine/&gt; with specified @component containing this value exactly.  Case insensitive.
-          </li> 
-          <li>@component <i>xs:string</i> : (Required attribute) The component of the address we are searching. Case insensitive.</li>
-          </ul>
-      </li>
-      <li>&lt;start/&gt; <i> xs:int</i>: (optional) The starting index for results returned. Defaults to 1, which indexes the first facility matching the search parameters</li>
-      <li>&lt;max/&gt; <i> xs:int</i>: (optional) The maximum number of results returned.  A value of less than zero implies no maximum.</li>
-      <li>
-	&lt;record/&gt; <i> csd:record </i>: (optional) A child element to limit results according to
-	<ul>
-	  <li>@status <i>xs:string</i>: (optional) If present and contains a non-empty value, the result set should be restricted to those facilities whose record/@status equals this value.  Case insensitive.</li>
-	  <li>@updated <i>xs:dateTime</i>: (optional) If present and contains a non-empty value, the result set should be restricted to those facilities whose record/@updated is at least the given value.</li>
-	</ul>
-      </li>
-    </ul>
-    <h2>Example Request</h2>
-    <pre>
-         &lt;careServicesRequest&gt;
-           &lt;function urn='urn:ihe:iti:csd:2014:stored-function:facility-search'&gt;
-               &lt;codedType code='OPC' codingScheme="USDVA"/&gt;
-               &lt;address&gt;
-                 &lt;addressLine component='city'&gt;Chapel Hill&lt;/addressLine&gt;
-	       &lt;/address&gt;
-               &lt;max&gt;5&lt;/max&gt;
-           &lt;/function&gt;
-         &lt;/careServicesRequest&gt;         
-      </pre>
-  </description>
-  <definition ><xi:include parse='text' href='facility_search.xq'/></definition>
-  <xforms:instance>
-    <careServicesRequest>
-      <id/>
-      <primaryName/>
-      <name/>
-      <codedType/>
-      <address/>
-      <start/>
-      <max/>
-    </careServicesRequest>
-    <record/>
-  </xforms:instance>
-  <xforms:bind nodeset="id" type="csd:uniqueID"/>
-  <xforms:bind nodeset="primaryName" type="xs:string"/>
-  <xforms:bind nodeset="name" type="xs:string"/>
-  <xforms:bind nodeset="codedType" type="csd:codedtype"/>
-  <xforms:bind nodeset="address" type="csd:address"/>
-  <xforms:bind nodeset="start" type="xs:int"/>
-  <xforms:bind nodeset="max" type="xs:int"/>
-  <xforms:bind nodeset="record" type="csd:record"/>
-</careServicesFunction>
+  </csd:description>
+  <csd:definition ><xi:include parse='text' href='facility_search.xq'/></csd:definition>
+
+  <xforms:model id='urn:ihe:iti:csd:2014:stored-function:facility-search'>
+    <xforms:instance id='soap-request'>
+      <soap:Envelope >
+	<soap:Header>
+	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
+          <wsa:MessageID/>
+          <wsa:ReplyTo soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:To soap:mustUnderstand="1">{$LOCATION}</wsa:To>
+	</soap:Header>
+	<soap:Body>
+	  <csd:careServicesRequest>
+	    <csd:function urn="urn:ihe:iti:csd:2014:stored-function:facility-search">
+     	      <csd:requestParams>
+		<csd:id/>
+		<csd:otherID/>
+		<csd:primaryName/>
+		<csd:name/>
+		<csd:codedType/>
+		<csd:address/>
+		<csd:organization/>
+		<csd:start/>
+		<csd:max/>
+		<csd:record/>
+	      </csd:requestParams>
+            </csd:function>
+	  </csd:careServicesRequest>         
+	</soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id='http-post-request'>
+      <csd:requestParams>
+	<csd:id/>
+	<csd:otherID/>
+	<csd:primaryName/>
+	<csd:name/>
+	<csd:codedType/>
+	<csd:address/>
+	<csd:organization/>
+	<csd:start/>
+	<csd:max/>
+	<csd:record/>
+      </csd:requestParams>
+    </xforms:instance>
+
+    <xforms:instance id="soap-response" >
+      <soap:Envelope>
+	<csd:careServicesResponse/>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id="http-post-response" >
+      <csd:CSD/>
+    </xforms:instance>
+
+    <xforms:submission id='soap-submission' method="post" mediatype="text/xml"
+		       replace="instance" instance="soap-response" 
+		       targetref="soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD"
+		       resource="{$LOCATION}" />		       
+
+    <xforms:submission id='http-post-submission' method="post" mediatype="text/xml"
+		       replace="instance" instance="http-post-response" 
+		       targetref="csd:CSD"
+		       resource="{$LOCATION}/urn:ihe:iti:csd:2014:stored-function:facility-search" />
+
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope:soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:id" 
+	type="csd:uniqueID" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:otherID" 
+	type="csd:otherID" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:primaryName" 
+	type="xs:string" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:name" 
+	type="xs:string" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:codedType" 
+	type="csd:codedtype" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:address" 
+	type="csd:address" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:organizations/csd:organization" 
+	type="csd:organization" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:start" 
+	type="xs:int" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:max" 
+	type="xs:int" />
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:record" 
+	type="csd:record" />
+
+
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:id" type="csd:uniqueID" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:otherID" type="csd:otherID" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:primaryName" type="xs:string" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:name" type="xs:string" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:codedType" type="csd:codedtype" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:address" type="csd:address" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:organizations/csd:organization" type="csd:organization" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:start" type="xs:int" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:max" type="xs:int" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:record" type="csd:record" />
+
+    <xforms:bind nodeset="instance('http-post-response')/csd:CSD" type="csd:CSD" />
+
+    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD" />
+
+  </xforms:model>
+</csd:careServicesFunction>

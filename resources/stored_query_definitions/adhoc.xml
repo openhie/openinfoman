@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+  xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  urn="urn:ihe:iti:csd:2014:adhoc"
+  >
+
+  <csd:description>
+    Performs an adhoc search 
+  </csd:description>
+  <csd:definition><xi:include href="adhoc_search.xq" parse='text'/></csd:definition>
+
+
+  <xforms:model id='urn:ihe:iti:csd:2014:adhoc'>
+    <xforms:instance id='soap-request'>
+      <soap:Envelope >
+	<soap:Header>
+	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
+          <wsa:MessageID/>
+          <wsa:ReplyTo soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:To soap:mustUnderstand="1">{$LOCATION}</wsa:To>
+	</soap:Header>
+	<soap:Body>
+	  <csd:careServicesRequest>
+	    <csd:function urn="urn:ihe:iti:csd:2014:adhoc">
+     	      <csd:adhoc/>
+            </csd:function>
+	  </csd:careServicesRequest>         
+	</soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id='http-post-request'>
+      <csd:adhoc/>
+    </xforms:instance>
+
+    <xforms:instance id="soap-response" >
+      <soap:Envelope>
+	<csd:careServicesResponse/>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id="http-post-response" >
+      <content/>
+    </xforms:instance>
+
+    <xforms:submission id='soap-submission' method="post" mediatype="text/xml"
+		       replace="instance" instance="soap-response" 
+		       targetref="soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/content"
+		       resource="{$LOCATION}" />		       
+
+    <xforms:submission id='http-post-submission' method="post" mediatype="text/xml"
+		       replace="instance" instance="http-post-response" 
+		       targetref="content"
+		       resource="{$LOCATION}/urn="urn:ihe:iti:csd:2014:adhoc"/>
+
+
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope:soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:adhoc" 
+	type="xs:string" />
+
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:adhoc" type="xs:string" />
+
+  </xforms:model>
+</csd:careServicesFunction>

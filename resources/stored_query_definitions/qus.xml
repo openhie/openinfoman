@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:csd="urn:ihe:iti:csd:2013"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+  xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  urn="urn:ihe:iti:csd:2016:stored-function:query-for-updated-services"
+  >
+  <csd:description>
+    Performs a query for udpated services
+  </csd:description>
+  <csd:definition><xi:include href="query_for_updated_services.xq" parse='text'/></csd:definition>
+
+  <xforms:model id='urn:ihe:iti:csd:2016:stored-function:query-for-updated-services'>
+    <xforms:instance id='soap-request'>
+      <soap:Envelope >
+	<soap:Header>
+	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
+          <wsa:MessageID/>
+          <wsa:ReplyTo soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:To soap:mustUnderstand="1">{$LOCATION}</wsa:To>
+	</soap:Header>
+	<soap:Body>
+	  <csd:careServicesRequest>
+	    <csd:function urn="urn:ihe:iti:csd:2016:stored-function:query-for-updated-services">
+	      <csd:requestParams>
+		<csd:lastModified/>
+	      </csd:requestParams>
+            </csd:function>
+	  </csd:careServicesRequest>         
+	</soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id='http-get-request'>
+      <csd:requestParams>
+	<csd:lastModified/>
+      </csd:requestParams>
+    </xforms:instance>
+
+    <xforms:instance id="soap-response" >
+      <soap:Envelope>
+	<csd:careServicesResponse/>
+      </soap:Envelope>
+    </xforms:instance>
+
+    <xforms:instance id="http-get-response" >
+      <csd:CSD/>
+    </xforms:instance>
+
+    <xforms:submission id='soap-submission' method="post" mediatype="text/xml"
+		       replace="instance" instance="soap-response" 
+		       targetref="soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/content"
+		       resource="{$LOCATION}" />		       
+
+    <xforms:submission id='http-get-submission' method="get" mediatype="text/xml"
+		       replace="instance" instance="http-get-response" 
+		       targetref="content"
+		       serialization="application/x-www-form-urlencoded"
+		       resource="{$LOCATION}/urn:ihe:iti:csd:2016:stored-function:query-for-updated-services"/>
+
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:lastModified" 
+	type="xs:dateTime" />
+
+    <xforms:bind nodeset="instance('http-get-request')/csd:requestParams/csd:lastModified" type="xs:dateTime" />
+
+    <xforms:bind nodeset="instance('http-get-response')/csd:CSD" type="csd:CSD" />
+
+    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD" />
+
+
+  </xforms:model>
+</csd:careServicesFunction>
