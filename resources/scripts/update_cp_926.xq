@@ -4,6 +4,8 @@ declare namespace soap = "http://www.w3.org/2003/05/soap-envelope";
 declare namespace wsa = "http://www.w3.org/2005/08/addressing";
 declare namespace ev = "http://www.w3.org/2001/xml-events";
 declare namespace http = "http://expath.org/ns/http-client";
+declare namespace file = "http://expath.org/ns/file";
+
 declare variable $file as item() external;
 
 
@@ -17,7 +19,6 @@ Usage Example:
 copy $sf := fetch:xml($file, map { 'xinclude': false() })/csd:careServicesFunction
 modify (
   let $id := $sf/@urn
-  let $response := <csd:CSD/>
   let $xfi := 
     <csd:requestParams>
 {      $sf/xforms:instance/(csd:careServicesRequest,careServicesRequest)/* }
@@ -100,15 +101,15 @@ modify (
 	 origin="instance('care-services-result')/csd:careServicesResponse/csd:result/*"
 	 />
 	 <xforms:setValue 
-	 bind="instance('http-post-response')http:result/@status" 
+	 bind="instance('http-post-response')/http:result/@status" 
 	 value="instance('care-services-result')/csd:careServicesResponse/@code"
 	 />
 	 <xforms:setValue 
-	 bind="instance('http-post-response')http:body/@content-type" 
+	 bind="instance('http-post-response')/http:body/@content-type" 
 	 value="instance('care-services-result')/csd:careServicesResponse/@content-type"
 	 />
 	 <xforms:setValue 
-	 bind="instance('http-post-response')http:result/http:header[@name='X-CSD-Transaction-ID']/@value"
+	 bind="instance('http-post-response')/http:result/http:header[@name='X-CSD-Transaction-ID']/@value"
 	 value="instance('care-services-result')/csd:careServicesResponse/@id"
 	 />
        </xforms:action>
@@ -128,12 +129,12 @@ modify (
 	 origin="instance('care-services-result')/csd:careServicesRepsonse/@code"
 	 />
 	 <xforms:setValue 
-	 bind="instance('soap-response')soap:Envelope/soap:Header/wsa:messageID" 
-	 value="instance('soap-request')csd:careServicesRequest/@id"
+	 bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:messageID" 
+	 value="instance('soap-request')/csd:careServicesRequest/@id"
 	 />
 	 <xforms:setValue 
-	 bind="instance('soap-response')soap:Envelope/soap:Header/wsa:relatesTo" 
-	 value="instance('soap-request')soap:Envelope/soap:Header/wsa:messageID"
+	 bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:relatesTo" 
+	 value="instance('soap-request')/soap:Envelope/soap:Header/wsa:messageID"
 	 />
        </xforms:action>
 
@@ -148,18 +149,9 @@ modify (
 	   ,
 	   <xforms:bind nodeset="{$sns}" type="{$xfb/@type}"/>
 	   )
-       }
-       {
-         (
-	 <xforms:bind nodeset="instance('http-post-response')/csd:CSD" type="csd:CSD" />
-	 ,
-         <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD" />
-	 )
-       }
+       }              
 
        {$xfss}
-
-
     </xforms:model>
   return insert node $model after $sf /csd:definition
 
@@ -169,5 +161,5 @@ modify (
     
 )
 
-return $sf
+return file:write($file,$sf)
   
