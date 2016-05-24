@@ -19,10 +19,7 @@ Usage Example:
 copy $sf := fetch:xml($file, map { 'xinclude': false() })/csd:careServicesFunction
 modify (
   let $id := $sf/@urn
-  let $xfi := 
-    <csd:requestParams>
-{      $sf/xforms:instance/(csd:careServicesRequest,careServicesRequest)/* }
-    </csd:requestParams>
+  let $xfi :=  $sf/xforms:instance/* 
   let $xfbs := $sf/xforms:bind
   let $xfks := $sf/xforms:schema
   let $xfss := $sf/xforms:submission
