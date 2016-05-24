@@ -8,10 +8,10 @@ declare variable $careServicesRequest as item() external;
 let $doc_name := string($careServicesRequest/@resource)
 let $doc := csd_dm:open_document($doc_name)
 
-let $masterID := $careServicesRequest/masterEntity/@entityID
+let $masterID := $careServicesRequest/csd:requestParams/masterEntity/@entityID
 let $masterEntity := if (exists($masterID)) then  (/csd:CSD/*/*[@entityID = $masterID])[1] else ()
 
-let $dupID := $careServicesRequest/duplicateEntity/@entityID
+let $dupID := $careServicesRequest/csd:requestParams/duplicateEntity/@entityID
 let $dupEntity :=  if (exists($dupID)) then (/csd:CSD/*/*[@entityID = $dupID])[1] else ()
 
 

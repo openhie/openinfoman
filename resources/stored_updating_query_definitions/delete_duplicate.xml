@@ -9,7 +9,8 @@
       <li>The <b>text()</b> value will be the entity ID used to reference to the master record for the entity</li>
     </ul>
 
-    A Care Services Request can be submitted to delete the mark that the record as duplicate with the following request parameters:
+    A Care Services Request can be submitted to delete the mark that the record as duplicate with the following request parameters 	      (under a &lt;csd:requestParams/&gt; element):
+
     <ul>
       <li>
         <b>&lt;masterEntity/&gt;</b> should have attribute <b>@entityID</b> which contains the entity ID of the master record that the duplicate record should refer to</li>
@@ -26,8 +27,10 @@
       <csd:careSerivcesResponse id="" code="" content-type=""/>
     </xforms:instance>
     <xforms:instance id="http-post-request">
-      <masterEntity/>
-      <duplicateEntity/>
+      <csd:requestParams>
+	<masterEntity/>
+	<duplicateEntity/>
+      </csd:requestParams>
     </xforms:instance>
     <xforms:instance id="http-post-response">
       <http:result xmlns:http="http://expath.org/ns/http-client" status="">
@@ -47,8 +50,10 @@
         </soap:Header>
         <soap:Body>
           <csd:careServicesRequest urn="urn:openhie.org:openinfoman:delete_duplicate">
-            <masterEntity/>
-            <duplicateEntity/>
+	    <csd:requestParams>
+	      <masterEntity/>
+	      <duplicateEntity/>
+	    </csd:requestParams>
           </csd:careServicesRequest>
         </soap:Body>
       </soap:Envelope>

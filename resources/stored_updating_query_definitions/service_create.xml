@@ -31,8 +31,8 @@
         <soap:Body>
           <csd:careServicesRequest urn="urn:openhie.org:openinfoman:service_create">
             <careServicesRequest>
-	<service/>
-      </careServicesRequest>
+	      <service/>
+	    </careServicesRequest>
           </csd:careServicesRequest>
         </soap:Body>
       </soap:Envelope>
