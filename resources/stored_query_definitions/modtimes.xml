@@ -9,9 +9,7 @@
     <xforms:instance id="care-services-result">
       <csd:careSerivcesResponse id="" code="" content-type=""/>
     </xforms:instance>
-    <xforms:instance id="http-post-request">
-      <csd:requestParams/>
-    </xforms:instance>
+    <xforms:instance id="http-post-request"/>
     <xforms:instance id="http-post-response">
       <http:result xmlns:http="http://expath.org/ns/http-client" status="">
         <http:header name="X-CSD-Transaction-ID" value=""/>
@@ -29,9 +27,7 @@
           <wsa:To xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">{$LOCATION}</wsa:To>
         </soap:Header>
         <soap:Body>
-          <csd:careServicesRequest urn="urn:openhie.org:openinfoman:modtimes">
-            <csd:requestParams/>
-          </csd:careServicesRequest>
+          <csd:careServicesRequest urn="urn:openhie.org:openinfoman:modtimes"/>
         </soap:Body>
       </soap:Envelope>
     </xforms:instance>

@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<csd:careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
-  xmlns:xforms="http://www.w3.org/2002/xforms"
-  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:csd="urn:ihe:iti:csd:2013" 
-  urn="urn:openhie.org:openinfoman:mark_duplicate" 
-  content-type="text/xml">
+<csd:careServicesFunction xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" urn="urn:openhie.org:openinfoman:mark_duplicate" content-type="text/xml">
   <csd:description> 
     Marks a record as a duplicate with another record.  This is done by adding a <b>&lt;csd:otherID/&gt;</b> element to the record that is duplicate which references the master record.  
     
@@ -19,15 +11,79 @@
 
     A Care Services Request can be submitted to mark the record as duplicate with the following request parameters:
     <ul>
-      <li><b>&lt;masterEntity/&gt;</b> should have attribute <b>@entityID</b> which contains the entity ID of the master record that the duplicate record should refer to</li>
-      <li><b>&lt;duplicateEntity/&gt;</b> should have attribute <b>@entityID</b> which contains the entity ID of the  duplicate record</li>
+      <li>
+        <b>&lt;masterEntity/&gt;</b> should have attribute <b>@entityID</b> which contains the entity ID of the master record that the duplicate record should refer to</li>
+      <li>
+        <b>&lt;duplicateEntity/&gt;</b> should have attribute <b>@entityID</b> which contains the entity ID of the  duplicate record</li>
     </ul>
 
   </csd:description>
-  <csd:definition ><xi:include parse='text' href='mark_duplicate.xq'/></csd:definition>
-  <xforms:instance>
-    <masterEntity/>
-    <duplicateEntity/>
-  </xforms:instance>
+  <csd:definition>
+    <xi:include parse="text" href="mark_duplicate.xq"/>
+  </csd:definition>
+  <xforms:model id="urn:openhie.org:openinfoman:mark_duplicate">
+    <xforms:instance id="care-services-result">
+      <csd:careSerivcesResponse id="" code="" content-type=""/>
+    </xforms:instance>
+    <xforms:instance id="http-post-request">
+      <masterEntity/>
+      <duplicateEntity/>
+    </xforms:instance>
+    <xforms:instance id="http-post-response">
+      <http:result xmlns:http="http://expath.org/ns/http-client" status="">
+        <http:header name="X-CSD-Transaction-ID" value=""/>
+        <http:body/>
+      </http:result>
+    </xforms:instance>
+    <xforms:instance id="soap-request">
+      <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+        <soap:Header>
+          <wsa:Action xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
+          <wsa:MessageID xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+          <wsa:ReplyTo xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:To xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">{$LOCATION}</wsa:To>
+        </soap:Header>
+        <soap:Body>
+          <csd:careServicesRequest urn="urn:openhie.org:openinfoman:mark_duplicate">
+            <masterEntity/>
+            <duplicateEntity/>
+          </csd:careServicesRequest>
+        </soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+    <xforms:instance id="soap-response">
+      <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+        <soap:Header>
+          <wsa:Action xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesResponse</wsa:Action>
+          <wsa:MessageID xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+          <wsa:ReplyTo xmlns:wsa="http://www.w3.org/2005/08/addressing" soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:RelatesTo xmlns:wsa="http://www.w3.org/2005/08/addressing"/>
+        </soap:Header>
+        <soap:Body>
+          <csd:careServicesResponse/>
+        </soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+    <xforms:submission id="soap-submission" method="post" mediatype="application/soap+xml" ref="instance('soap-request')" resource="{$LOCATION}"/>
+    <xforms:submission id="http-post-submission" method="post" mediatype="text/xml" ref="instance('http-post-request')" resource="{$LOCATION}/urn:openhie.org:openinfoman:mark_duplicate"/>
+    <xforms:action ev:event="xforms-submit-done" id="http-post-prepare">
+      <xforms:insert context="instance('http-post-response')/http:result/http:body" origin="instance('care-services-result')/csd:careServicesResponse/csd:result/*"/>
+      <xforms:setValue bind="instance('http-post-response')/http:result/@status" value="instance('care-services-result')/csd:careServicesResponse/@code"/>
+      <xforms:setValue bind="instance('http-post-response')/http:body/@content-type" value="instance('care-services-result')/csd:careServicesResponse/@content-type"/>
+      <xforms:setValue bind="instance('http-post-response')/http:result/http:header[@name='X-CSD-Transaction-ID']/@value" value="instance('care-services-result')/csd:careServicesResponse/@id"/>
+    </xforms:action>
+    <xforms:action ev:event="xforms-submit-done" id="soap-prepare">
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result" origin="instance('care-services-result')/csd:careServicesRepsonse/csd:result/*"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@content-type" origin="instance('care-services-result')/csd:careServicesRepsonse/@content-type"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@code" origin="instance('care-services-result')/csd:careServicesRepsonse/@code"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:messageID" value="instance('soap-request')/csd:careServicesRequest/@id"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:relatesTo" value="instance('soap-request')/soap:Envelope/soap:Header/wsa:messageID"/>
+    </xforms:action>
+  </xforms:model>
+  
 
 </csd:careServicesFunction>

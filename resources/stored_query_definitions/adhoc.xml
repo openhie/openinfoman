@@ -11,7 +11,7 @@
       <csd:careSerivcesResponse id="" code="" content-type=""/>
     </xforms:instance>
     <xforms:instance id="http-post-request">
-      <csd:requestParams/>
+      <csd:adhoc/>
     </xforms:instance>
     <xforms:instance id="http-post-response">
       <http:result status="">
@@ -31,7 +31,7 @@
         </soap:Header>
         <soap:Body>
           <csd:careServicesRequest urn="urn:ihe:iti:csd:2014:adhoc">
-            <csd:requestParams/>
+            <csd:adhoc/>
           </csd:careServicesRequest>
         </soap:Body>
       </soap:Envelope>
