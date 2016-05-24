@@ -120,12 +120,9 @@ then
     <csd:careServicesRequest  urn="{$urn}" resource='{$doc_name}' base_url='{$base_url}'>
       {$function/*}
     </csd:careServicesRequest>
-    let $csr_bindings :=  map{'':$doc,'careServicesRequest':$csr}
+    let $csr_bindings :=  map{'careServicesRequest':$csr}
     let $all_bindings :=  map:merge(($csr_bindings, $bindings))
     return csr_proc:process_CSR_stored($csr,$all_bindings) 
-else if (exists($adhoc))
-then
-  csr_proc:process_CSR_adhoc($adhoc,$doc_name,$bindings) 
 else 
  (:
   <rest:response>
@@ -176,43 +173,38 @@ declare function csr_proc:process_CSR_stored($careServicesRequest)
 
 declare function csr_proc:process_CSR_stored($careServicesRequest,$bindings as map(*)) 
 {
-let $function :=
-  if ( exists($careServicesRequest/csd:function))
-  then $careServicesRequest/csd:function (: backwards compatability for CP-926 :)
-  else $careServicesRequest
-let $stored_functions := csr_proc:stored_functions()
-let $urn := string($function/@urn)
-let $definition := ($stored_functions[@urn = $urn])[1]/csd:definition/text()
-let $content_type := csr_proc:lookup_stored_content_type($function/@urn)
-let $doc_name := string($function/@resource)
-let $doc :=  csd_dm:open_document($doc_name)
+  let $function :=
+    if ( exists($careServicesRequest/csd:function))
+    then $careServicesRequest/csd:function (: backwards compatability for CP-926 :)
+    else $careServicesRequest
+  let $stored_functions := csr_proc:stored_functions()
+  let $urn := string($function/@urn)
+  let $definition := ($stored_functions[@urn = $urn])[1]/csd:definition/text()
+  let $content_type := csr_proc:lookup_stored_content_type($function/@urn)
+  let $doc_name := string($function/@resource)
+  let $doc :=  csd_dm:open_document($doc_name)
 
+  let $results0 := csr_proc:process_CSR_stored_results($doc,$careServicesRequest,$bindings)
 
-
-let $results0 := csr_proc:process_CSR_stored_results($doc,$careServicesRequest,$bindings)
-
-return if (exists($definition)) then
-  let $results1:= 
-    if ($function/@encapsulated) then (:backwards compat for CP-926 :)
-      csr_proc:wrap_result($results0,$content_type)
-    else $results0
-  return
-    (
-    <rest:response>
-      <http:response status="200" >
-	<http:header name="Content-Type" value="{$content_type}"/>
-      </http:response>
-    </rest:response>
-    ,
-    $results1
+  return 
+    if (exists($definition)) 
+    then
+     (
+       <rest:response>
+	 <http:response status="200" >
+	   <http:header name="Content-Type" value="{$content_type}"/>
+	 </http:response>
+       </rest:response>
+       ,
+       $results0
     )
-else
-  <rest:response>
-    <http:response status="404" message="No registered function with URN='{$function/@urn}'.">
-      <http:header name="Content-Language" value="en"/>
-      <http:header name="Content-Type" value="text/html; charset=utf-8"/>
-    </http:response>
-  </rest:response>
+    else
+      <rest:response>
+	<http:response status="404" message="No registered function with URN='{$function/@urn}'.">
+	  <http:header name="Content-Language" value="en"/>
+	  <http:header name="Content-Type" value="text/html; charset=utf-8"/>
+	</http:response>
+      </rest:response>
 };
 
 declare function csr_proc:wrap_result($result,$content-type) {
@@ -259,20 +251,19 @@ else ()
 
 
 
-
-
 declare function csr_proc:create_adhoc_doc($adhoc_query,$content_type) {
-let $content := if ($content_type) then $content_type else "application/xml" 
-return
- <csd:careServicesRequest xmlns:csd='urn:ihe:iti:csd:2013'>
-  <csd:expression content-type='{$content}'>
-  {$adhoc_query}
-  </csd:expression> 
-</csd:careServicesRequest>     
+  let $content := if ($content_type) then $content_type else "application/xml" 
+  return
+  <csd:careServicesRequest urn="urn:ihe:iti:csd:2014:adhoc">
+    <csd:adhoc content-type='{$content}'>
+      {$adhoc_query}
+    </csd:adhoc>
+  </csd:careServicesRequest>
 
 
 
 };
+
 
 
 declare function csr_proc:get_function_definition($urn) {
@@ -319,7 +310,6 @@ let $content_type := csr_proc:lookup_stored_content_type($function/@urn)
 let $csr := 
   <csd:careServicesRequest resource='{$doc_name}' function='{$urn}' base_url='{$base_url}'>
     {$function/*}
-  }
   </csd:careServicesRequest>
 
 let $csr_bindings :=  map{'':$doc,'careServicesRequest':$csr}
@@ -357,7 +347,7 @@ return if (exists($definition)) then
 else 
     db:output(
     <rest:response>
-      <http:response status="404" message="No registered updating function with URN='{$function}'">
+      <http:response status="404" message="No registered updating function with URN='{$urn}'">
 	<http:header name="Content-Language" value="en"/>
 	<http:header name="Content-Type" value="text/html; charset=utf-8"/>
       </http:response>
@@ -373,7 +363,7 @@ declare updating function csr_proc:process_updating_CSR($careServicesRequest, $d
 
 let $doc := csd_dm:open_document($doc_name)
 let $function := 
-  if exists($careServicesRequest//csd:function)
+  if (exists($careServicesRequest/csd:function))
   then $careServicesRequest/csd:function (: CP -926 backward compat :)
   else $careServicesRequest
 let $urn := string($function/@urn)
@@ -387,7 +377,7 @@ let $csr_bindings :=  map{'':$doc,'careServicesRequest':$csr}
 let $all_bindings :=  map:merge(($csr_bindings, $bindings))
 
 
-return csr_proc:process_updating_CSR_stored_results($doc,$requestParams,$all_bindings)
+return csr_proc:process_updating_CSR_stored_results($doc,$csr,$all_bindings)
 };
 
 
