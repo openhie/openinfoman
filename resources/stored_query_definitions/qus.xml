@@ -7,6 +7,8 @@
   xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
   xmlns:wsa="http://www.w3.org/2005/08/addressing" 
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:http="http://expath.org/ns/http-client"
+  xmlns:ev="http://www.w3.org/2001/xml-events"
   urn="urn:ihe:iti:csd:2016:stored-function:query-for-updated-services"
   >
   <csd:description>
@@ -15,6 +17,9 @@
   <csd:definition><xi:include href="query_for_updated_services.xq" parse='text'/></csd:definition>
 
   <xforms:model id='urn:ihe:iti:csd:2016:stored-function:query-for-updated-services'>
+    <xforms:instance id="care-services-result">
+      <csd:careSerivcesResponse id="" code="" content-type=""/>
+    </xforms:instance>
     <xforms:instance id='soap-request'>
       <soap:Envelope >
 	<soap:Header>
@@ -26,12 +31,10 @@
           <wsa:To soap:mustUnderstand="1">{$LOCATION}</wsa:To>
 	</soap:Header>
 	<soap:Body>
-	  <csd:careServicesRequest>
-	    <csd:function urn="urn:ihe:iti:csd:2016:stored-function:query-for-updated-services">
-	      <csd:requestParams>
-		<csd:lastModified/>
-	      </csd:requestParams>
-            </csd:function>
+	  <csd:careServicesRequest urn="urn:ihe:iti:csd:2016:stored-function:query-for-updated-services">
+	    <csd:requestParams>
+	      <csd:lastModified/>
+	    </csd:requestParams>
 	  </csd:careServicesRequest>         
 	</soap:Body>
       </soap:Envelope>
@@ -45,34 +48,59 @@
 
     <xforms:instance id="soap-response" >
       <soap:Envelope>
-	<csd:careServicesResponse/>
+	<soap:Header>
+	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesResponse</wsa:Action>
+          <wsa:MessageID/>
+	  <wsa:ReplyTo soap:mustUnderstand="1">
+	    <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+	  </wsa:ReplyTo>
+	  <wsa:RelatesTo/>
+	</soap:Header>
+	<soap:Body>
+	  <csd:careServicesResponse>
+	    <csd:result/>
+	  </csd:careServicesResponse>
+	</soap:Body>
       </soap:Envelope>
     </xforms:instance>
 
     <xforms:instance id="http-get-response" >
-      <csd:CSD/>
+      <http:result status="">
+	<http:header name="X-CSD-Transaction-ID" value=""/>
+	<http:body/>	
+      </http:result>
     </xforms:instance>
 
-    <xforms:submission id='soap-submission' method="post" mediatype="text/xml"
-		       replace="instance" instance="soap-response" 
-		       targetref="soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/content"
-		       resource="{$LOCATION}" />		       
 
-    <xforms:submission id='http-get-submission' method="get" mediatype="text/xml"
-		       replace="instance" instance="http-get-response" 
-		       targetref="content"
-		       serialization="application/x-www-form-urlencoded"
+    <xforms:submission id="soap-submission" method="post" mediatype="application/soap+xml" 
+		       ref="instance('soap-request')" resource="{$LOCATION}"/>
+
+    <xforms:submission id="http-get-submission" method="get" mediatype="text/xml" 
+		       ref="instance('http-get-request')" 
 		       resource="{$LOCATION}/urn:ihe:iti:csd:2016:stored-function:query-for-updated-services"/>
 
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:function/csd:requestParams/csd:lastModified" 
-	type="xs:dateTime" />
+    <xforms:action ev:event="xforms-submit-done" id="http-get-prepare">
+      <xforms:insert context="instance('http-get-response')/http:result/http:body" origin="instance('care-services-result')/csd:careServicesResponse/csd:result/*"/>
+      <xforms:setValue bind="instance('http-get-response')/http:result/@status" value="instance('care-services-result')/csd:careServicesResponse/@code"/>
+      <xforms:setValue bind="instance('http-get-response')/http:body/@content-type" value="instance('care-services-result')/csd:careServicesResponse/@content-type"/>
+      <xforms:setValue bind="instance('http-get-response')/http:result/http:header[@name='X-CSD-Transaction-ID']/@value" value="instance('care-services-result')/csd:careServicesResponse/@id"/>
+    </xforms:action>
 
+    <xforms:action ev:event="xforms-submit-done" id="soap-prepare">
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result" origin="instance('care-services-result')/csd:careServicesRepsonse/csd:result/*"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@content-type" origin="instance('care-services-result')/csd:careServicesRepsonse/@content-type"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@code" origin="instance('care-services-result')/csd:careServicesRepsonse/@code"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:messageID" value="instance('soap-request')csd:careServicesRequest/@id"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:relatesTo" value="instance('soap-request')soap:Envelope/soap:Header/wsa:messageID"/>
+    </xforms:action>
+
+    <xforms:bind 
+	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:lastModified" 
+	type="xs:dateTime" />
     <xforms:bind nodeset="instance('http-get-request')/csd:requestParams/csd:lastModified" type="xs:dateTime" />
 
-    <xforms:bind nodeset="instance('http-get-response')/csd:CSD" type="csd:CSD" />
-
-    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD" />
+    <xforms:bind nodeset="instance('http-get-response')/csd:CSD" type="csd:CSD"/>
+    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD"/>
 
 
   </xforms:model>

@@ -405,79 +405,23 @@ Example: "urn:uuid:53347B2E-185E-4BC3-BCDA-7FAB5D521FE7"</xs:documentation>
 
   <xs:element name="careServicesRequest">
     <xs:complexType>
-      <xs:choice>
-        <xs:element name="expression">
-          <xs:complexType>
-            <xs:attribute name="encapsulated" type="xs:boolean" use="required">
-              <xs:annotation>
-                <xs:documentation>Boolean flag to control response type. Defaults to true, in which case the result of the xquery is wrapped in a &lt;result/&gt; under a &lt;careServicesResponse&gt; by the Care Services InfoManager. If false, the raw xquery result is passed back from the Care Services InfoManager.
-                  </xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="content-type" type="xs:string" use="required">
-              <xs:annotation>
-                <xs:documentation>The content or mime-type of the query result.  If the Service Finder requests an encapsulated result than the this should be value of the corrsesponding attribute in &lt;careServicesResult&gt;.  If the Service Finder requests an unencapsulated result, then this content-type should be returned as an HTTP header.
-            
-Values must be conformant to: 
- http://tools.ietf.org/html/rfc2045
- http://tools.ietf.org/html/rfc2046</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:anyAttribute>
-              <xs:annotation>
-                <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
-              </xs:annotation>
-            </xs:anyAttribute>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="function">
-          <xs:annotation>
-            <xs:documentation>A stored function to be executed by the Care Services InfoManager which must be defined by a &lt;careServicesFunction/&gt;. If such a &lt;careServicesFunction/&gt; has been defined and a child node exists, then the Care Services InfoManager may choose to validate the the child node against any schema or binding designated by the &lt;careServicesFunction/&gt; following the rules set forth for an &lt;xforms:instance&gt; in http://www.w3.org/TR/xforms/ </xs:documentation>
-          </xs:annotation>
-          <xs:complexType>
-            <xs:sequence>
-              <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
-            </xs:sequence>
-            <xs:attribute name="urn" use="required" type="xs:string">
-              <xs:annotation>
-                <xs:documentation>Refers to a URN identifying a &lt;careServicesFunction/&gt; to be processed by the Care Services InfoManager.  These stored queries must be defined in a &lt;careServicesFunction/&gt;.</xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="encapsulated" type="xs:boolean" use="required">
-              <xs:annotation>
-                <xs:documentation>Boolean flag to control response type. Defaults to true, in which case the result, which is conformant to the xquery used to define the function, is wrapped in a &lt;result/&gt; under a &lt;careServicesResponse/&gt; by the Care Services InfoManager before being sent to the Service Finder. If false, the raw result xquery is passed back from the Care Services InfoManager to the Service Finder.
-                  </xs:documentation>
-              </xs:annotation>
-            </xs:attribute>
-            <xs:anyAttribute>
-              <xs:annotation>
-                <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
-              </xs:annotation>
-            </xs:anyAttribute>
-          </xs:complexType>
-        </xs:element>
-      </xs:choice>
+      <xs:sequence>
+        <xs:any minOccurs="0" namespace="##any" processContents="skip"/>
+      </xs:sequence>
+      <xs:attribute name="urn" use="required" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Refers to a URN identifying a &lt;careServicesFunction/&gt; to be processed by the Care Services InfoManager.  These stored queries must be defined in a &lt;careServicesFunction/&gt;.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="id" type="xs:string"/>
+      <xs:anyAttribute/>
     </xs:complexType>
   </xs:element>
   <xs:element name="careServicesResponse">
     <xs:complexType>
-      <xs:choice>
-        <xs:element name="error">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="xs:string">
-                <xs:attribute name="code" type="xs:integer"/>
-                <xs:anyAttribute>
-                  <xs:annotation>
-                    <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
-                  </xs:annotation>
-                </xs:anyAttribute>
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
+      <xs:sequence>
         <xs:element name="result" type="xs:anyType"/>
-      </xs:choice>
+      </xs:sequence>
       <xs:attribute name="content-type" type="xs:string">
         <xs:annotation>
           <xs:documentation>The content or mime-type of the query result. 
@@ -487,6 +431,8 @@ Values must be conformant to
  http://tools.ietf.org/html/rfc2046</xs:documentation>
         </xs:annotation>
       </xs:attribute>
+      <xs:attribute name="code" type="xs:integer"/>
+      <xs:attribute name="id" type="xs:string"/>
       <xs:anyAttribute>
         <xs:annotation>
           <xs:documentation>Extension point for implementation specific attributes</xs:documentation>
