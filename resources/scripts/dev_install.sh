@@ -4,14 +4,13 @@ set -e
 
 REPOS=("csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm"  )
 
-SFS=("stored_query_definitions/facility_search.xml" "stored_query_definitions/adhoc_search.xml" "stored_query_definitions/service_search.xml" "stored_query_definitions/organization_search.xml" "stored_query_definitions/provider_search.xml" "stored_query_definitions/modtimes.xml" "stored_updating_query_definitions/service_create.xml" "stored_updating_query_definitions/mark_duplicate.xml" "stored_updating_query_definitions/simple_merge.xml" "stored_updating_query_definitions/mark_potential_duplicate.xml" "stored_updating_query_definitions/delete_potential_duplicate.xml" "stored_updating_query_definitions/organization_create.xml" "stored_updating_query_definitions/provider_create.xml" "stored_updating_query_definitions/facility_create.xml" "stored_updating_query_definitions/delete_duplicate.xml" )
-
 
 
 OI=/var/lib/openinfoman
 BASEX=$OI/bin/basex
 #directory this script is in
-DIR="`cd $1; pwd`"
+DIRNAME=`dirname $0`
+DIR="`cd $DIRNAME/../..; pwd`"
 
 touch $OI/.basexhome
 
@@ -57,10 +56,13 @@ do
    $BASEX -Vc "${INST}"
 done
 
+
+SFS=$DIR/resources/stored*definitions/*xml
+
 cd $OI
 for SF in ${SFS[@]}
 do
-  $OI/resources/scripts/install_stored_function.php $DIR/resources/$SF
+  $OI/resources/scripts/install_stored_function.php $SF
   if [[ $? != 0 ]]; then exit 1; fi
 done
 
