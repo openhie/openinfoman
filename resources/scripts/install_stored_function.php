@@ -131,8 +131,8 @@ declare  namespace csd =  \"urn:ihe:iti:csd:2013\";
 declare $updating
   %rest:path(\"/CSD/csr/{\$docname}/careServicesRequest/$search\")
   %rest:consumes(\"application/xml\", \"text/xml\", \"multipart/form-data\")  
-  %rest:POST(\"{\$careServicesRequest}\")
-  function page:processRequest(\$docname,\$careServicesRequest) 
+  %rest:POST(\"{\$requestParams}\")
+  function page:processRequest(\$docname,\$requestParams) 
 
 { 
 
@@ -142,13 +142,9 @@ declare $updating
       let \$doc := csd_dm:open_document(\$docname)
       let \$base_url := csd_webui:generateURL()
       let \$request := 
-        <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
-          {
-          if (\$careServicesRequest/csd:requestParams) 
-          then \$careServicesRequest/csd:requestParams/*
-          else \$careServicesRequest/requestParams/*
-          }
-        </csd:requestParams>
+        <csd:careServicesRequest resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
+          {\$requestParams}
+        </csd:careServicesRequest>
 
       return oim-sf:processRequest(\$doc,\$request)
     } catch * {
@@ -173,8 +169,8 @@ declare $updating
 declare $updating
   %rest:path(\"/CSD/csr/{\$docname}/careServicesRequest/update/$search\")
   %rest:consumes(\"application/xml\", \"text/xml\", \"multipart/form-data\")  
-  %rest:POST(\"{\$careServicesRequest}\")
-  function page:processRequestUpdating(\$docname,\$careServicesRequest) 
+  %rest:POST(\"{\$requestParams}\")
+  function page:processRequestUpdating(\$docname,\$requestParams) 
 
 { 
 
@@ -184,13 +180,9 @@ declare $updating
       let \$doc := csd_dm:open_document(\$docname)
       let \$base_url := csd_webui:generateURL()
       let \$request := 
-        <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
-          {
-          if (\$careServicesRequest/csd:requestParams) 
-          then \$careServicesRequest/csd:requestParams/*
-          else \$careServicesRequest/requestParams/*
-          }
-        </csd:requestParams>
+        <csd:careServicesRequest resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
+          {\$requestParams }
+        </csd:careServicesRequest>
       return oim-sf:processRequest(\$doc,\$request)
     } catch * {
       $db_out_start
