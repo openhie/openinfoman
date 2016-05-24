@@ -1,27 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<csd:careServicesFunction 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xmlns:csd="urn:ihe:iti:csd:2013"
-  xmlns:xforms="http://www.w3.org/2002/xforms"
-  xmlns:xi="http://www.w3.org/2001/XInclude"
-  xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
-  xmlns:wsa="http://www.w3.org/2005/08/addressing" 
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:http="http://expath.org/ns/http-client"
-  xmlns:ev="http://www.w3.org/2001/xml-events"
-  urn="urn:ihe:iti:csd:2014:stored-function:provider-search">
+<csd:careServicesFunction xmlns:csd="urn:ihe:iti:csd:2013" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:http="http://expath.org/ns/http-client" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" urn="urn:ihe:iti:csd:2014:stored-function:provider-search">
   <csd:description>
     Performs a search for all providers.
   </csd:description>
-  <csd:definition ><xi:include parse='text' href='provider_search.xq'/></csd:definition>
+  <csd:definition>
+    <xi:include parse="text" href="provider_search.xq"/>
+  </csd:definition>
+  <xforms:model id="urn:ihe:iti:csd:2014:stored-function:provider-search">
+    <xforms:instance id="care-services-result">
+      <csd:careSerivcesResponse id="" code="" content-type=""/>
+    </xforms:instance>
+    <xforms:instance id="http-post-request">
+      <csd:requestParams/>
+    </xforms:instance>
+    <xforms:instance id="http-post-response">
+      <http:result status="">
+        <http:header name="X-CSD-Transaction-ID" value=""/>
+        <http:body/>
+      </http:result>
+    </xforms:instance>
+    <xforms:instance id="soap-request">
+      <soap:Envelope>
+        <soap:Header>
+          <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
+          <wsa:MessageID/>
+          <wsa:ReplyTo soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:To soap:mustUnderstand="1">{$LOCATION}</wsa:To>
+        </soap:Header>
+        <soap:Body>
+          <csd:careServicesRequest urn="urn:ihe:iti:csd:2014:stored-function:provider-search">
+            <csd:requestParams/>
+          </csd:careServicesRequest>
+        </soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+    <xforms:instance id="soap-response">
+      <soap:Envelope>
+        <soap:Header>
+          <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesResponse</wsa:Action>
+          <wsa:MessageID/>
+          <wsa:ReplyTo soap:mustUnderstand="1">
+            <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+          </wsa:ReplyTo>
+          <wsa:RelatesTo/>
+        </soap:Header>
+        <soap:Body>
+          <csd:careServicesResponse/>
+        </soap:Body>
+      </soap:Envelope>
+    </xforms:instance>
+    <xforms:submission id="soap-submission" method="post" mediatype="application/soap+xml" ref="instance('soap-request')" resource="{$LOCATION}"/>
+    <xforms:submission id="http-post-submission" method="post" mediatype="text/xml" ref="instance('http-post-request')" resource="{$LOCATION}/urn:ihe:iti:csd:2014:stored-function:provider-search"/>
+    <xforms:action ev:event="xforms-submit-done" id="http-post-prepare">
+      <xforms:insert context="instance('http-post-response')/http:result/http:body" origin="instance('care-services-result')/csd:careServicesResponse/csd:result/*"/>
+      <xforms:setValue bind="instance('http-post-response')/http:result/@status" value="instance('care-services-result')/csd:careServicesResponse/@code"/>
+      <xforms:setValue bind="instance('http-post-response')/http:body/@content-type" value="instance('care-services-result')/csd:careServicesResponse/@content-type"/>
+      <xforms:setValue bind="instance('http-post-response')/http:result/http:header[@name='X-CSD-Transaction-ID']/@value" value="instance('care-services-result')/csd:careServicesResponse/@id"/>
+    </xforms:action>
+    <xforms:action ev:event="xforms-submit-done" id="soap-prepare">
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result" origin="instance('care-services-result')/csd:careServicesRepsonse/csd:result/*"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@content-type" origin="instance('care-services-result')/csd:careServicesRepsonse/@content-type"/>
+      <xforms:insert context="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/@code" origin="instance('care-services-result')/csd:careServicesRepsonse/@code"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:messageID" value="instance('soap-request')/csd:careServicesRequest/@id"/>
+      <xforms:setValue bind="instance('soap-response')/soap:Envelope/soap:Header/wsa:relatesTo" value="instance('soap-request')/soap:Envelope/soap:Header/wsa:messageID"/>
+    </xforms:action>
+  </xforms:model>
 
-  <xforms:model id='urn:ihe:iti:csd:2014:stored-function:provider-search'>
+  <xforms:model id="urn:ihe:iti:csd:2014:stored-function:provider-search">
     <xforms:instance id="care-services-result">
       <csd:careSerivcesResponse id="" code="" content-type=""/>
     </xforms:instance>
 
-    <xforms:instance id='soap-request'>
-      <soap:Envelope >
+    <xforms:instance id="soap-request">
+      <soap:Envelope>
 	<soap:Header>
 	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesRequest</wsa:Action>
           <wsa:MessageID/>
@@ -49,7 +101,7 @@
       </soap:Envelope>
     </xforms:instance>
 
-    <xforms:instance id='http-post-request'>
+    <xforms:instance id="http-post-request">
       <csd:requestParams>
 	<csd:id/>
 	<csd:otherID/>
@@ -64,7 +116,7 @@
       </csd:requestParams>
     </xforms:instance>
 
-    <xforms:instance id="soap-response" >
+    <xforms:instance id="soap-response">
       <soap:Envelope>
 	<soap:Header>
 	  <wsa:Action soap:mustUnderstand="1">urn:ihe:iti:csd:2013:GetCareServicesResponse</wsa:Action>
@@ -82,7 +134,7 @@
       </soap:Envelope>
     </xforms:instance>
 
-    <xforms:instance id="http-post-response" >
+    <xforms:instance id="http-post-response">
       <http:result status="">
 	<http:header name="X-CSD-Transaction-ID" value=""/>
 	<http:body/>	
@@ -90,12 +142,9 @@
     </xforms:instance>
 
 
-    <xforms:submission id="soap-submission" method="post" mediatype="application/soap+xml" 
-		       ref="instance('soap-request')" resource="{$LOCATION}"/>
+    <xforms:submission id="soap-submission" method="post" mediatype="application/soap+xml" ref="instance('soap-request')" resource="{$LOCATION}"/>
 
-    <xforms:submission id="http-post-submission" method="post" mediatype="text/xml" 
-		       ref="instance('http-post-request')" 
-		       resource="{$LOCATION}/urn:ihe:iti:csd:2014:stored-function:provider-search" />
+    <xforms:submission id="http-post-submission" method="post" mediatype="text/xml" ref="instance('http-post-request')" resource="{$LOCATION}/urn:ihe:iti:csd:2014:stored-function:provider-search"/>
 
 
     <xforms:action ev:event="xforms-submit-done" id="http-post-prepare">
@@ -114,44 +163,28 @@
     </xforms:action>
 
 
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope:soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:id" 
-	type="csd:uniqueID" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:otherID" 
-	type="csd:otherID" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:commonName" 
-	type="xs:string" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:codedType" 
-	type="csd:codedtype" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:address" 
-	type="csd:address" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:start" 
-	type="xs:int" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:max" 
-	type="xs:int" />
-    <xforms:bind 
-	nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:record" 
-	type="csd:record" />
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope:soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:id" type="csd:uniqueID"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:otherID" type="csd:otherID"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:commonName" type="xs:string"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:codedType" type="csd:codedtype"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:address" type="csd:address"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:start" type="xs:int"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:max" type="xs:int"/>
+    <xforms:bind nodeset="instance('soap-request')/soap:Envelope/soap:Header/soap:Body/csd:careServicesRequest/csd:requestParams/csd:record" type="csd:record"/>
 
 
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:id" type="csd:uniqueID" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:otherID" type="csd:otherID" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:commonName" type="xs:string" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:codedType" type="csd:codedtype" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:address" type="csd:address" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:start" type="xs:int" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:max" type="xs:int" />
-    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:record" type="csd:record" />
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:id" type="csd:uniqueID"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:otherID" type="csd:otherID"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:commonName" type="xs:string"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:codedType" type="csd:codedtype"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:address" type="csd:address"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:start" type="xs:int"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:max" type="xs:int"/>
+    <xforms:bind nodeset="instance('http-post-request')/csd:requestParams/csd:record" type="csd:record"/>
 
-    <xforms:bind nodeset="instance('http-post-response')/csd:CSD" type="csd:CSD" />
+    <xforms:bind nodeset="instance('http-post-response')/csd:CSD" type="csd:CSD"/>
 
-    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD" />
+    <xforms:bind nodeset="instance('soap-response')/soap:Envelope/soap:Body/csd:careServicesResponse/csd:result/csd:CSD" type="csd:CSD"/>
 
   </xforms:model>
 </csd:careServicesFunction>
