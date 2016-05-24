@@ -1,3 +1,37 @@
+openinfoman (1.2.15~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.15
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 20 May 2016 16:10:34 +0000
+
+openinfoman (1.2.14~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.14
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 20 May 2016 16:07:21 +0000
+
+openinfoman (1.2.13~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.13
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 May 2016 14:13:57 +0000
+
+openinfoman (1.2.12~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.12
+    -cee789e try to make the merge adapter work with both GET and POST
+    --http://github.com/openhie/openinfoman/commmit/cee789e
+    -98b3efc Added merge of local identifiers in source documents into
+    --http://github.com/openhie/openinfoman/commmit/98b3efc
+    -ae5bed6 upcoming CP updates to CSD.xsd
+    --http://github.com/openhie/openinfoman/commmit/ae5bed6
+    -9e5ac1b fixed validation issues in anonymous.xml
+    --http://github.com/openhie/openinfoman/commmit/9e5ac1b
+    -7cf0bd7 removed +0000 from anonymous.xml
+    --http://github.com/openhie/openinfoman/commmit/7cf0bd7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 May 2016 14:13:03 +0000
+
 openinfoman (1.2.11~trusty) trusty; urgency=medium
 
   * Release Version 1.2.11

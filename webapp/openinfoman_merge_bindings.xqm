@@ -63,7 +63,6 @@ declare updating
   %rest:path("/CSD/csr/{$doc_name}/careServicesRequest/{$search_name}/adapter/merge")
 (:  %output:method("xhtml") :)
   %rest:query-param("merge", "{$merge}")
-  %rest:POST
   function page:perform_merge($search_name,$doc_name,$merge) 
 {  
   let $doc :=  csd_dm:open_document($doc_name)
