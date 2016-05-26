@@ -1,0 +1,1296 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    --></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <p><a href="CSD.indexList.html">Components</a><span> | </span><a href="schHierarchy.html">Resource Hierarchy</a></p>
+      <hr />
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'CSD.indexList.html', 'CSD.indexListns.html', 'CSD.indexListcomp.html');">
+                     <option value="toc_group_by_namespace">Namespace</option>
+                     <option value="toc_group_by_location" selected="selected">Location</option>
+                     <option value="toc_group_by_component_type">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_location" style="display:block">
+            <div>
+               <div class="level2">
+                  <p><input id="button_gr_CSD.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_CSD.xsd');" class="control" /><span class="indexGroupTitle">CSD.xsd</span></p>
+                  <div id="gr_CSD.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_CSD.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_CSD.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_CSD.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="CSD_xsd.html#urn_ihe_iti_csd_2013_CSD" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">CSD</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#careServicesFunction" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">careServicesFunction</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#careServicesRequest" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">careServicesRequest</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#careServicesResponse" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">careServicesResponse</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_CSD.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_CSD.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_CSD.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="CSD_xsd.html#CSD" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">CSD</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#address" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">address</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#codedtype" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">codedtype</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#contactPoint" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">contactPoint</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#credential" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">credential</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#extension" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">extension</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#facility" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">facility</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#geocode" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">geocode</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#name" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">name</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#operatingHours" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">operatingHours</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#organization" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">organization</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#otherID" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">otherID</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#person" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">person</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#provider" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">provider</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#record" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">record</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#service" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">service</a></b></div>
+                                                <div><b><a href="CSD_xsd.html#uniqueID" target="mainFrame" title="urn:ihe:iti:csd:2013" onclick="updatePageTitle('Schema documentation for CSD.xsd')">uniqueID</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_XForms-11-Schema.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsd');" class="control" /><span class="indexGroupTitle">XForms-11-Schema.xsd</span></p>
+                  <div id="gr_XForms-11-Schema.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#action" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:action</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#alert" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:alert</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#bind" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:bind</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#choices" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:choices</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#copy" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:copy</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#delete" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:delete</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#dispatch" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:dispatch</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_extension" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:extension</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_group" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:group</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#help" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:help</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#hint" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:hint</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#input" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:input</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#insert" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:insert</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#instance" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:instance</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#item" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:item</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#itemset" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:itemset</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#label" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:label</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#load" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:load</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#message" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:message</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#model" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:model</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#output" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:output</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#range" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:range</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#rebuild" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:rebuild</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#recalculate" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:recalculate</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#refresh" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:refresh</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:repeat</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#reset" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:reset</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#revalidate" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:revalidate</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#secret" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:secret</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#select" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:select</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#select1" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:select1</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#send" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:send</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#setfocus" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:setfocus</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#setindex" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:setindex</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#setvalue" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:setvalue</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#submission" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:submission</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#submit" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:submit</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#switch" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:switch</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#textarea" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:textarea</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#toggle" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:toggle</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#trigger" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:trigger</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#upload" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:upload</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#value" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:value</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#ValueTemplate" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:ValueTemplate</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#filename" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:filename</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#mediatype" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:mediatype</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#mediatypeWithValue" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:mediatypeWithValue</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdSimple_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdSimple_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Simple Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdSimple_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_ID" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:ID</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_IDREF" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:IDREF</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_IDREFS" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:IDREFS</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_NCName" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:NCName</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_NMTOKEN" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:NMTOKEN</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_NMTOKENS" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:NMTOKENS</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_Name" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Name</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_QName" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:QName</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#QNameButNotNCNAME" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:QNameButNotNCNAME</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#QNameList" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:QNameList</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#XPathExpression" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:XPathExpression</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_anyURI" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:anyURI</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#anyURIList" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:anyURIList</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#appearanceType" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:appearanceType</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_base64Binary" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:base64Binary</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_boolean" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:boolean</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_byte" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:byte</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#card-number" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:card-number</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_date" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:date</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_dateTime" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:dateTime</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#dayTimeDuration" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:dayTimeDuration</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_decimal" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:decimal</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_double" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:double</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_duration" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:duration</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#email" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:email</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_float" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:float</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_gDay" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:gDay</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_gMonth" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:gMonth</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_gMonthDay" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:gMonthDay</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_gYear" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:gYear</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_gYearMonth" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:gYearMonth</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_hexBinary" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:hexBinary</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_int" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:int</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_integer" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:integer</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_language" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:language</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#listItem" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:listItem</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#listItems" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:listItems</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_long" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:long</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_negativeInteger" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:negativeInteger</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_nonNegativeInteger" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:nonNegativeInteger</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_normalizedString" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:normalizedString</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_positiveInteger" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:positiveInteger</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_short" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:short</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_string" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:string</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_time" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:time</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_token" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:token</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_unsignedByte" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:unsignedByte</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_unsignedInt" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:unsignedInt</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_unsignedLong" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:unsignedLong</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#http___www.w3.org_2002_xforms_unsignedShort" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:unsignedShort</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#versionList" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:versionList</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#versionNumber" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:versionNumber</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#yearMonthDuration" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:yearMonthDuration</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdAttribute" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdAttribute');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attributes</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdAttribute" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat-bind" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">@xforms:repeat-bind</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat-model" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">@xforms:repeat-model</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat-nodeset" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">@xforms:repeat-nodeset</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat-number" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">@xforms:repeat-number</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#repeat-startindex" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">@xforms:repeat-startindex</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdElement_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdElement_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Element Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdElement_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Action" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Action</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Container.Form.Controls" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Container.Form.Controls</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Core.Form.Controls" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Core.Form.Controls</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#List.UI.Common" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:List.UI.Common</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#UI.Common" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:UI.Common</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#UI.Content" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:UI.Content</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XForms-11-Schema.xsdAttribute_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XForms-11-Schema.xsdAttribute_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attribute Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XForms-11-Schema.xsdAttribute_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Common.Action.Attributes" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Common.Action.Attributes</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Common.Attributes" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Common.Attributes</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Linking.Attributes" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Linking.Attributes</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Nodeset.Binding.Attributes" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Nodeset.Binding.Attributes</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#Single.Node.Binding.Attributes" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:Single.Node.Binding.Attributes</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#UI.Common.Attrs" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:UI.Common.Attrs</a></b></div>
+                                                <div><b><a href="XForms-11-Schema_xsd.html#XML.Events" target="mainFrame" title="http://www.w3.org/2002/xforms" onclick="updatePageTitle('Schema documentation for XForms-11-Schema.xsd')">xforms:XML.Events</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_XMLSchema.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsd');" class="control" /><span class="indexGroupTitle">XMLSchema.xsd</span></p>
+                  <div id="gr_XMLSchema.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdElement" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdElement');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Elements</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdElement" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd.html#all" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:all</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#annotation" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:annotation</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#any" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:any</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#anyAttribute" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:anyAttribute</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#appinfo" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:appinfo</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_attribute" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attribute</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_attributeGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attributeGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#choice" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:choice</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#complexContent" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:complexContent</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#complexType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:complexType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#documentation" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:documentation</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_element" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:element</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#enumeration" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:enumeration</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#field" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:field</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#fractionDigits" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:fractionDigits</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_group" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:group</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#import" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:import</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#include" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:include</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#key" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:key</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#keyref" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:keyref</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#length" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:length</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#list" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:list</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#maxExclusive" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:maxExclusive</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#maxInclusive" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:maxInclusive</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#maxLength" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:maxLength</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#minExclusive" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:minExclusive</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#minInclusive" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:minInclusive</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#minLength" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:minLength</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#notation" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:notation</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#pattern" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:pattern</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#redefine" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:redefine</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#restriction" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:restriction</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#schema" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:schema</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#selector" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:selector</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#sequence" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:sequence</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleContent" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleContent</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#totalDigits" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:totalDigits</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#union" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:union</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#unique" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:unique</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#whiteSpace" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:whiteSpace</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdSimple_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdSimple_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Simple Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdSimple_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd_1.html#ENTITIES" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:ENTITIES</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#ENTITY" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:ENTITY</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#ID" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:ID</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#IDREF" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:IDREF</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#IDREFS" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:IDREFS</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#NCName" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:NCName</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#NMTOKEN" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:NMTOKEN</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#NMTOKENS" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:NMTOKENS</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#NOTATION" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:NOTATION</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#Name" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:Name</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#QName" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:QName</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#allNNI" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:allNNI</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#anyURI" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:anyURI</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#base64Binary" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:base64Binary</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#blockSet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:blockSet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#boolean" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:boolean</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#byte" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:byte</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#date" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:date</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#dateTime" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:dateTime</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#decimal" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:decimal</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#derivationControl" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:derivationControl</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#derivationSet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:derivationSet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#double" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:double</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#duration" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:duration</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#float" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:float</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#formChoice" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:formChoice</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#fullDerivationSet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:fullDerivationSet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#gDay" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:gDay</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#gMonth" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:gMonth</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#gMonthDay" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:gMonthDay</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#gYear" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:gYear</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#gYearMonth" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:gYearMonth</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#hexBinary" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:hexBinary</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#int" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:int</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#integer" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:integer</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#language" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:language</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#long" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:long</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#namespaceList" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:namespaceList</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#negativeInteger" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:negativeInteger</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#nonNegativeInteger" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:nonNegativeInteger</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#nonPositiveInteger" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:nonPositiveInteger</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#normalizedString" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:normalizedString</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#positiveInteger" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:positiveInteger</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#public" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:public</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#reducedDerivationControl" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:reducedDerivationControl</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#short" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:short</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleDerivationSet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleDerivationSet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#string" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:string</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#time" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:time</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#token" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:token</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#typeDerivationControl" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:typeDerivationControl</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#unsignedByte" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:unsignedByte</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#unsignedInt" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:unsignedInt</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#unsignedLong" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:unsignedLong</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#unsignedShort" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:unsignedShort</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdComplex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdComplex_Type');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Complex Types</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdComplex_Type" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_all" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:all</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#annotated" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:annotated</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#anyType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:anyType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#attribute" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attribute</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#attributeGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attributeGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#attributeGroupRef" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attributeGroupRef</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#complexRestrictionType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:complexRestrictionType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_complexType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:complexType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#element" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:element</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#explicitGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:explicitGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#extensionType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:extensionType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#facet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:facet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#group" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:group</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#groupRef" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:groupRef</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#keybase" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:keybase</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#localComplexType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:localComplexType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#localElement" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:localElement</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#localSimpleType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:localSimpleType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#namedAttributeGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:namedAttributeGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#namedGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:namedGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#narrowMaxMin" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:narrowMaxMin</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#noFixedFacet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:noFixedFacet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#numFacet" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:numFacet</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#openAttrs" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:openAttrs</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#realGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:realGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#restrictionType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:restrictionType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleExplicitGroup" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleExplicitGroup</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleExtensionType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleExtensionType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleRestrictionType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleRestrictionType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#http___www.w3.org_2001_XMLSchema_simpleType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#topLevelAttribute" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:topLevelAttribute</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#topLevelComplexType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:topLevelComplexType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#topLevelElement" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:topLevelElement</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#topLevelSimpleType" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:topLevelSimpleType</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#wildcard" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:wildcard</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdElement_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdElement_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Element Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdElement_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd.html#allModel" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:allModel</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#attrDecls" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:attrDecls</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#complexTypeModel" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:complexTypeModel</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#facets" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:facets</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#identityConstraint" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:identityConstraint</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#nestedParticle" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:nestedParticle</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#particle" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:particle</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#redefinable" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:redefinable</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#schemaTop" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:schemaTop</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleDerivation" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleDerivation</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#simpleRestrictionModel" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:simpleRestrictionModel</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#typeDefParticle" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:typeDefParticle</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdAttribute_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdAttribute_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attribute Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdAttribute_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd.html#defRef" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:defRef</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd.html#occurs" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:occurs</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_XMLSchema.xsdNotation" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_XMLSchema.xsdNotation');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Notations</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_XMLSchema.xsdNotation" class="componentGroup" style="display:block">
+                                                <div><b><a href="XMLSchema_xsd_1.html#XML" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:XML</a></b></div>
+                                                <div><b><a href="XMLSchema_xsd_1.html#XMLSchemaStructures" target="mainFrame" title="http://www.w3.org/2001/XMLSchema" onclick="updatePageTitle('Schema documentation for XMLSchema.xsd')">xs:XMLSchemaStructures</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_xml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml.xsd');" class="control" /><span class="indexGroupTitle">xml.xsd</span></p>
+                  <div id="gr_xml.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_xml.xsdAttribute" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml.xsdAttribute');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attributes</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_xml.xsdAttribute" class="componentGroup" style="display:block">
+                                                <div><b><a href="xml_xsd.html#base" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for xml.xsd')">@xml:base</a></b></div>
+                                                <div><b><a href="xml_xsd.html#id" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for xml.xsd')">@xml:id</a></b></div>
+                                                <div><b><a href="xml_xsd.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for xml.xsd')">@xml:lang</a></b></div>
+                                                <div><b><a href="xml_xsd.html#space" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for xml.xsd')">@xml:space</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_xml.xsdAttribute_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml.xsdAttribute_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attribute Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_xml.xsdAttribute_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="xml_xsd.html#specialAttrs" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for xml.xsd')">xml:specialAttrs</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+               <div class="level2">
+                  <p><input id="button_gr_xml-events-attribs-1.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml-events-attribs-1.xsd');" class="control" /><span class="indexGroupTitle">xml-events-attribs-1.xsd</span></p>
+                  <div id="gr_xml-events-attribs-1.xsd" style="display:block">
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_xml-events-attribs-1.xsdAttribute" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml-events-attribs-1.xsdAttribute');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attributes</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_xml-events-attribs-1.xsdAttribute" class="componentGroup" style="display:block">
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#defaultAction" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:defaultAction</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#event" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:event</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#handler" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:handler</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#observer" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:observer</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#phase" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:phase</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#propagate" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:propagate</a></b></div>
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#target" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">@ev:target</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="horizontalLayout">
+                        <table class="rt">
+                           <tr>
+                              <td class="rt_cornerTopLeft"></td>
+                              <td class="rt_lineTop"></td>
+                              <td class="rt_cornerTopRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_lineLeft"></td>
+                              <td class="rt_content">
+                                 <table class="componentGroup">
+                                    <tbody>
+                                       <tr>
+                                          <td class="componentGroup"><input id="button_gr_xml-events-attribs-1.xsdAttribute_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('gr_xml-events-attribs-1.xsdAttribute_Group');" class="control" /></td>
+                                          <td class="componentGroup">
+                                             <div class="componentGroupTitle">Attribute Groups</div>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="componentGroup"></td>
+                                          <td class="componentGroup">
+                                             <div id="gr_xml-events-attribs-1.xsdAttribute_Group" class="componentGroup" style="display:block">
+                                                <div><b><a href="xml-events-attribs-1_xsd.html#XmlEvents.attlist" target="mainFrame" title="http://www.w3.org/2001/xml-events" onclick="updatePageTitle('Schema documentation for xml-events-attribs-1.xsd')">ev:XmlEvents.attlist</a></b></div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                              <td class="rt_lineRight"></td>
+                           </tr>
+                           <tr>
+                              <td class="rt_cornerBottomLeft"></td>
+                              <td class="rt_lineBottom"></td>
+                              <td class="rt_cornerBottomRight"></td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div style="clear:left"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Developer.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                --></script></body>
+</html>
