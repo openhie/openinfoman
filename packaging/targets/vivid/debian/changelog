@@ -1,3 +1,19 @@
+openinfoman (1.2.16~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.16
+    -5c10f7f updated stored function installer so that is preserves the
+    --http://github.com/openhie/openinfoman/commmit/5c10f7f
+    -7f823d8 Update README.md
+    --http://github.com/openhie/openinfoman/commmit/7f823d8
+    -d756221 removed duplicate identifier merges
+    --http://github.com/openhie/openinfoman/commmit/d756221
+    -ba014fc simplify dev install script
+    --http://github.com/openhie/openinfoman/commmit/ba014fc
+    -df121a3 added dev install script for core openinfoman.   expects B
+    --http://github.com/openhie/openinfoman/commmit/df121a3
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 02 Jun 2016 12:20:48 +0000
+
 openinfoman (1.2.15~vivid) vivid; urgency=medium
 
   * Release Version 1.2.15
