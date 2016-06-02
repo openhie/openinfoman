@@ -72,6 +72,12 @@ function create_modules($file) {
     $dom = new DOMDocument();
     $dom->loadXML($contents);
     $dom->xinclude();
+    $cnodes = $dom->getElementsByTagNameNS('urn:ihe:iti:csd:2013', 'careServicesFunction');
+    if (!$cnodes instanceof DOMNodeList || $cnodes->length != 1) {
+	echo "\tNo careServicesFunction found\n";
+	return false;
+    }
+    $cnode = $cnodes->item(0);
     chdir($cwd);
 
     $path_parts = pathinfo($dir);
@@ -119,6 +125,10 @@ declare $updating
         $db_out_start = '';
         $db_out_end = '';
     }
+    $content = "text/xml";    
+    if ($cnode->hasAttribute('content-type') && ($tcontent = $cnode->getAttribute('content-type'))) {
+        $content = $tcontent;
+    }
 
     $page_module = 
 	"
@@ -150,7 +160,15 @@ declare $updating
           }
         </csd:requestParams>
 
-      return oim-sf:processRequest(\$doc,\$request)
+      return 
+         (
+         <rest:response>
+	    <http:response status=\"200\">
+	      <http:header name=\"Content-Type\" value=\"$content\"/>
+	    </http:response>
+	  </rest:response>
+         ,oim-sf:processRequest(\$doc,\$request)
+         )
     } catch * {
       $db_out_start
        <rest:response>
@@ -191,7 +209,16 @@ declare $updating
           else \$careServicesRequest/requestParams/*
           }
         </csd:requestParams>
-      return oim-sf:processRequest(\$doc,\$request)
+      return 
+         (
+         <rest:response>
+	    <http:response status=\"200\">
+	      <http:header name=\"Content-Type\" value=\"$content\"/>
+	    </http:response>
+	  </rest:response>
+         ,oim-sf:processRequest(\$doc,\$request)
+         )
+
     } catch * {
       $db_out_start
         <rest:response>
