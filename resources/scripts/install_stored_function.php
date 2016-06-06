@@ -61,6 +61,7 @@ return csr_proc:load_stored_updating_function(\$func)
     }    
     #put in RESTXQ bindings
     file_put_contents($webapp_dir .DIRECTORY_SEPARATOR . 'page_' . $mods['name'] . '.xqm', $mods['page']);
+
 }
 
 function create_modules($file) {
@@ -162,11 +163,15 @@ declare $updating
 
       return 
          (
+      $db_out_start
+
          <rest:response>
 	    <http:response status=\"200\">
 	      <http:header name=\"Content-Type\" value=\"$content\"/>
 	    </http:response>
 	  </rest:response>
+      $db_out_end
+
          ,oim-sf:processRequest(\$doc,\$request)
          )
     } catch * {
@@ -211,14 +216,17 @@ declare $updating
         </csd:requestParams>
       return 
          (
+      $db_out_start
+
          <rest:response>
 	    <http:response status=\"200\">
 	      <http:header name=\"Content-Type\" value=\"$content\"/>
 	    </http:response>
 	  </rest:response>
+      $db_out_end
+
          ,oim-sf:processRequest(\$doc,\$request)
          )
-
     } catch * {
       $db_out_start
         <rest:response>
