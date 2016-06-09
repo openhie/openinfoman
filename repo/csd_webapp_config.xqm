@@ -16,19 +16,7 @@ declare variable $csd_webconf:db :=  'provider_directory';
 declare variable $csd_webconf:baseurl :=  concat(request:scheme(),"://",request:hostname(),":",request:port(), "/"); 
 
 
-declare variable $csd_webconf:remote_services := ();
+declare variable $csd_webconf:remote_services := ()
 
-(:
-<serviceDirectoryLibrary>
-  <serviceDirectory  name='rhea_simple_provider' url='http://rhea-pr.ihris.org/providerregistry/getUpdatedServices'/>
-  <serviceDirectory   name='openinfoman_providers'  url='http://csd.ihris.org:8984/CSD/getUpdatedServices/providers/get'/>
-  <serviceDirectory   name='openhim_providers'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices/providers/get'>
-    <credentials type='basic_auth' username='test'  password='test'  />
-  </serviceDirectory>
-  <serviceDirectory   name='openhim_old'  url='https://openhim.jembi.org:5000/CSD/getUpdatedServices'>
-    <credentials type='basic_auth' username='test'  password='test'  />
-  </serviceDirectory>
-</serviceDirectoryLibrary>;
-:)
 
 
