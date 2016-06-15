@@ -1,0 +1,1029 @@
+openinfoman (1.2.13~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.13
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 May 2016 14:13:57 +0000
+
+openinfoman (1.2.12~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.12
+    -cee789e try to make the merge adapter work with both GET and POST
+    --http://github.com/openhie/openinfoman/commmit/cee789e
+    -98b3efc Added merge of local identifiers in source documents into
+    --http://github.com/openhie/openinfoman/commmit/98b3efc
+    -ae5bed6 upcoming CP updates to CSD.xsd
+    --http://github.com/openhie/openinfoman/commmit/ae5bed6
+    -9e5ac1b fixed validation issues in anonymous.xml
+    --http://github.com/openhie/openinfoman/commmit/9e5ac1b
+    -7cf0bd7 removed +0000 from anonymous.xml
+    --http://github.com/openhie/openinfoman/commmit/7cf0bd7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 May 2016 14:13:03 +0000
+
+openinfoman (1.2.11~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.11
+    -9981500 added endpoints to manage local cache of remote directorie
+    --http://github.com/openhie/openinfoman/commmit/9981500
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 08 Apr 2016 13:30:00 +0000
+
+openinfoman (1.2.10~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.10
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 28 Mar 2016 01:53:36 +0000
+
+openinfoman (1.2.9~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.9
+    -d7f5e3a fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/d7f5e3a
+    -d8f6342 fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/d8f6342
+    -a45de7c fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/a45de7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 28 Mar 2016 01:40:21 +0000
+
+openinfoman (1.2.9~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.9
+    -d8f6342 fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/d8f6342
+    -a45de7c fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/a45de7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 28 Mar 2016 01:39:47 +0000
+
+openinfoman (1.2.9~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.9
+    -a45de7c fixup csd_webconf references
+    --http://github.com/openhie/openinfoman/commmit/a45de7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 28 Mar 2016 01:39:03 +0000
+
+openinfoman (1.2.8~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.8
+    -35c59e0 fixed error in QUS when CSD document has invalid date time
+    --http://github.com/openhie/openinfoman/commmit/35c59e0
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 27 Mar 2016 06:11:06 +0000
+
+openinfoman (1.2.7~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:44:33 +0000
+
+openinfoman (1.2.6~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.6
+    -aa6faa2 remove references to csd_webconf it init
+    --https://github.com/openhie/openinfoman/commmit/aa6faa2
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:39:48 +0000
+
+openinfoman (1.2.5~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.5
+    -2f85425 fix typo
+    --https://github.com/openhie/openinfoman/commmit/2f85425
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:37:16 +0000
+
+openinfoman (1.2.4~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.4
+    -128c8b7 added missing import stmt
+    --https://github.com/openhie/openinfoman/commmit/128c8b7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:34:52 +0000
+
+openinfoman (1.2.3~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.3
+    -73f031a Merge branch 'master' of https://github.com/his-interop/op
+    --https://github.com/openhie/openinfoman/commmit/73f031a
+    -e617b0b move to csd_webconf:db for everything
+    --https://github.com/openhie/openinfoman/commmit/e617b0b
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:15:19 +0000
+
+openinfoman (1.2.2~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.2
+    -6c7fdb5 move to csd_webconf:db for everything
+    --https://github.com/openhie/openinfoman/commmit/6c7fdb5
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 19:13:03 +0000
+
+openinfoman (1.2.1~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 20 Mar 2016 18:42:06 +0000
+
+openinfoman (1.1.34~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.34
+    -b111b02 fixed issue with new installs
+    --http://github.com/openhie/openinfoman/commmit/b111b02
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 17 Mar 2016 16:27:48 +0000
+
+openinfoman (1.1.33~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.33
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 17 Mar 2016 13:45:51 +0000
+
+openinfoman (1.1.32~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.32
+    -d020e5b added 422's and 404 for invlaid xquery when not using the
+    --http://github.com/openhie/openinfoman/commmit/d020e5b
+    -5a95554 put a try/catch block around care service requests
+    --http://github.com/openhie/openinfoman/commmit/5a95554
+    -6f42c9b Merge branch 'master' of http://github.com/openhie/openinf
+    --http://github.com/openhie/openinfoman/commmit/6f42c9b
+    -46d5b2c fixed issue with updating expression in csd_lsc
+    --http://github.com/openhie/openinfoman/commmit/46d5b2c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 17 Mar 2016 13:45:44 +0000
+
+openinfoman (1.1.31~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.31
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 16 Mar 2016 12:39:02 +0000
+
+openinfoman (1.1.30~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.30
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 19:17:44 +0000
+
+openinfoman (1.1.29~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.29
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 19:15:17 +0000
+
+openinfoman (1.1.28~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.28
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 19:14:22 +0000
+
+openinfoman (1.1.27~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.27
+    -ff59db2 fixed return in lcs
+    --http://github.com/openhie/openinfoman/commmit/ff59db2
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 19:12:01 +0000
+
+openinfoman (1.1.26~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.26
+    -93d0628 fixed typo in lcs
+    --http://github.com/openhie/openinfoman/commmit/93d0628
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 16:28:52 +0000
+
+openinfoman (1.1.25~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.25
+    -e046d5a removed EVENTPORT in .basex as that was removed in 8.2
+    --http://github.com/openhie/openinfoman/commmit/e046d5a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 15 Mar 2016 13:09:37 +0000
+
+openinfoman (1.1.24~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.24
+    -cc4dd05 check mtimes are actually valid date times before updating
+    --http://github.com/openhie/openinfoman/commmit/cc4dd05
+    -eaa645e changed beginning of time
+    --http://github.com/openhie/openinfoman/commmit/eaa645e
+    -5639e0e Merge branch 'mastert status ' of https://github.com/his-i
+    --http://github.com/openhie/openinfoman/commmit/5639e0e
+    -979d1e9 don't put non-updating as updating
+    --http://github.com/openhie/openinfoman/commmit/979d1e9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 14 Mar 2016 17:08:36 +0000
+
+openinfoman (1.1.23~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.23
+    -4154813 local services cache update works even in case of duplicat
+    --http://github.com/openhie/openinfoman/commmit/4154813
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 11 Mar 2016 06:22:19 +0000
+
+openinfoman (1.1.22~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.22
+    -1dca698 allow easy submission of stored functions from UI
+    --http://github.com/openhie/openinfoman/commmit/1dca698
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 10 Mar 2016 10:52:13 +0000
+
+openinfoman (1.1.21~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.21
+    -e24c38e fixed postinst removal
+    --http://github.com/openhie/openinfoman/commmit/e24c38e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 08 Mar 2016 10:12:08 +0000
+
+openinfoman (1.1.20~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.20
+    -a967143 Merge branch 'master' of https://github.com/his-interop/op
+    --http://github.com/openhie/openinfoman/commmit/a967143
+    -23ec3e2 allow registering of remote SVS to cache locally
+    --http://github.com/openhie/openinfoman/commmit/23ec3e2
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 07 Mar 2016 19:25:37 +0000
+
+openinfoman (1.1.19~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.19
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 07 Mar 2016 04:10:56 +0000
+
+openinfoman (1.1.18~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.18
+    -ae08889 try and clean up library files better when upgrading from
+    --http://github.com/openhie/openinfoman/commmit/ae08889
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 07 Mar 2016 04:08:21 +0000
+
+openinfoman (1.1.17~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.17
+    -6acd407 Merge branch 'master' of https://github.com/his-interop/op
+    --http://github.com/openhie/openinfoman/commmit/6acd407
+    -a9978fb upgrade to 8.4.1
+    --http://github.com/openhie/openinfoman/commmit/a9978fb
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 06 Mar 2016 21:39:05 +0000
+
+openinfoman (1.1.16~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.16
+    -2b658fd fixed csr updating declartion
+    --http://github.com/openhie/openinfoman/commmit/2b658fd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 06 Mar 2016 07:40:52 +0000
+
+openinfoman (1.1.15~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.15
+    -cc51175 keep backwards compatability for updating CSRs
+    --http://github.com/openhie/openinfoman/commmit/cc51175
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 21:39:44 +0000
+
+openinfoman (1.1.14~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.14
+    -4c4fa27 added simple identifier merge with sample document
+    --http://github.com/openhie/openinfoman/commmit/4c4fa27
+    -c01b98c better bound checking and documentation for simple merge
+    --http://github.com/openhie/openinfoman/commmit/c01b98c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 14:55:06 +0000
+
+openinfoman (1.1.13~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.13
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 10:50:05 +0000
+
+openinfoman (1.1.12~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.12
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 10:41:20 +0000
+
+openinfoman (1.1.11~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.11
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 10:41:08 +0000
+
+openinfoman (1.1.10~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.10
+    -ec43a79 updated vivid packaging
+    --http://github.com/openhie/openinfoman/commmit/ec43a79
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 10:40:53 +0000
+
+openinfoman (1.1.9~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.9
+    -6c5f5b7 removed old code
+    --http://github.com/openhie/openinfoman/commmit/6c5f5b7
+    -27ccef1 adhoc update to new map syntax
+    --http://github.com/openhie/openinfoman/commmit/27ccef1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:59:56 +0000
+
+openinfoman (1.1.8~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.8
+    -0a3e174 remove whitespace
+    --http://github.com/openhie/openinfoman/commmit/0a3e174
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:45:27 +0000
+
+openinfoman (1.1.7~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.7
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:45:09 +0000
+
+openinfoman (1.1.6~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.6
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:43:22 +0000
+
+openinfoman (1.1.5~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.5
+    -b6bfe93 rely on php5-cli
+    --http://github.com/openhie/openinfoman/commmit/b6bfe93
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:34:11 +0000
+
+openinfoman (1.1.4~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.4
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:32:24 +0000
+
+openinfoman (1.1.3~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.3
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:32:07 +0000
+
+openinfoman (1.1.2~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.2
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:30:07 +0000
+
+openinfoman (1.1.1~vivid) vivid; urgency=medium
+
+  * Release Version 1.1.1
+    -e95e914 removed init functions from webapp, careServiceRequest pro
+    --http://github.com/openhie/openinfoman/commmit/e95e914
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 05 Mar 2016 08:29:12 +0000
+
+openinfoman (1.0.114~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.114
+    -07f6d9b relax check for filtering root nodes of org hierarchy
+    --https://github.com/openhie/openinfoman/commmit/07f6d9b
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 24 Feb 2016 21:27:51 +0000
+
+openinfoman (1.0.113~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.113
+    -8510410 fixed issue with pollUdpatedServices
+    --https://github.com/openhie/openinfoman/commmit/8510410
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 14 Feb 2016 14:08:28 +0000
+
+openinfoman (1.0.112~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.112
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 12 Feb 2016 10:16:27 +0000
+
+openinfoman (1.0.111~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.111
+    -6978bca fixed action for create directory form
+    --https://github.com/openhie/openinfoman/commmit/6978bca
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 12 Feb 2016 10:16:17 +0000
+
+openinfoman (1.0.110~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.110
+    -54f0e34 form action links now work behind proxy
+    --https://github.com/openhie/openinfoman/commmit/54f0e34
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 10 Feb 2016 18:49:59 +0000
+
+openinfoman (1.0.109~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.109
+    -0b555cb Merge pull request #27 from hnnesv/master
+    --https://github.com/openhie/openinfoman/commmit/0b555cb
+    -28266e9 Fixes for the updating query definitions
+    --https://github.com/openhie/openinfoman/commmit/28266e9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 04 Feb 2016 17:05:11 +0000
+
+openinfoman (1.0.108~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.108
+    -630ea0f Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/630ea0f
+    -ed0cc7e fixed typos in duplicate webui
+    --https://github.com/openhie/openinfoman/commmit/ed0cc7e
+    -65c09b0 Merge branch 'master' of http://github.com/openhie/openinf
+    --https://github.com/openhie/openinfoman/commmit/65c09b0
+    -da00d03 fix create document action
+    --https://github.com/openhie/openinfoman/commmit/da00d03
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 20:48:03 +0000
+
+openinfoman (1.0.107~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.107
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 20:47:35 +0000
+
+openinfoman (1.0.106~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.106
+    -c1efb0d fixup relative urls
+    --https://github.com/openhie/openinfoman/commmit/c1efb0d
+    -8b98dfd added --no-check-certificate in packaging wget request
+    --https://github.com/openhie/openinfoman/commmit/8b98dfd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 02 Feb 2016 18:12:10 +0000
+
+openinfoman (1.0.105~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.105
+    -1d44260 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/1d44260
+    -58b81ca added missing ; in csd_webapp_config.xqm
+    --https://github.com/openhie/openinfoman/commmit/58b81ca
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 29 Jan 2016 12:52:00 -0500
+
+openinfoman (1.0.104~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.104
+    -506a9f7 fixed restxq GET for csr/<DOC>/careServicesRequest
+    --https://github.com/openhie/openinfoman/commmit/506a9f7
+    -d2ded7c slight improvement for filter by primary name
+    --https://github.com/openhie/openinfoman/commmit/d2ded7c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 21 Jan 2016 14:26:31 -0500
+
+openinfoman (1.0.103~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.103
+    -e1b5569 added curl usage info for stored functions
+    --https://github.com/openhie/openinfoman/commmit/e1b5569
+    -53f4cf8 some UI improvements
+    --https://github.com/openhie/openinfoman/commmit/53f4cf8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 23:34:01 -0500
+
+openinfoman (1.0.102~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.102
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 19:39:06 -0500
+
+openinfoman (1.0.101~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.101
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 19:38:40 -0500
+
+openinfoman (1.0.100~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.100
+    -9d1c3c8 fixed up webapp wrapper
+    --https://github.com/openhie/openinfoman/commmit/9d1c3c8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:47:20 -0500
+
+openinfoman (1.0.99~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.99
+    -6292294 packaging fixup
+    --https://github.com/openhie/openinfoman/commmit/6292294
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:30:33 -0500
+
+openinfoman (1.0.98~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.98
+    -da924ad packaging fixup
+    --https://github.com/openhie/openinfoman/commmit/da924ad
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 18:26:37 -0500
+
+openinfoman (1.0.97~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.97
+    -596004e copy vivid packaging updates to trusty
+    --https://github.com/openhie/openinfoman/commmit/596004e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:44:15 -0500
+
+openinfoman (1.0.96~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.96
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:34:59 -0500
+
+openinfoman (1.0.95~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.95
+    -e6ebf2d webap fixup
+    --https://github.com/openhie/openinfoman/commmit/e6ebf2d
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:33:39 -0500
+
+openinfoman (1.0.94~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.94
+    -f835bdc fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/f835bdc
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:28:13 -0500
+
+openinfoman (1.0.93~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.93
+    -7b010e1 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/7b010e1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:27:03 -0500
+
+openinfoman (1.0.92~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.92
+    -d33fa65 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/d33fa65
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:25:44 -0500
+
+openinfoman (1.0.91~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.91
+    -59a7929 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/59a7929
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:24:11 -0500
+
+openinfoman (1.0.90~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.90
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:24:04 -0500
+
+openinfoman (1.0.89~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.89
+    -b4bbf2d fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/b4bbf2d
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:16:30 -0500
+
+openinfoman (1.0.88~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.88
+    -13dd521 fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/13dd521
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:15:18 -0500
+
+openinfoman (1.0.87~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.87
+    -fdd40be fixup redirect
+    --https://github.com/openhie/openinfoman/commmit/fdd40be
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:14:09 -0500
+
+openinfoman (1.0.86~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.86
+    -9a5af26 fixup
+    --https://github.com/openhie/openinfoman/commmit/9a5af26
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:12:54 -0500
+
+openinfoman (1.0.85~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.85
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:12:45 -0500
+
+openinfoman (1.0.84~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.84
+    -24be1cd fixup csd_webap_ui
+    --https://github.com/openhie/openinfoman/commmit/24be1cd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:10:54 -0500
+
+openinfoman (1.0.83~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.83
+    -03d97f4 fixup csd_webap_ui
+    --https://github.com/openhie/openinfoman/commmit/03d97f4
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:08:19 -0500
+
+openinfoman (1.0.82~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.82
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:08:03 -0500
+
+openinfoman (1.0.81~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.81
+    -64cf865 fixup csd_webap_ui
+    --https://github.com/openhie/openinfoman/commmit/64cf865
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:06:39 -0500
+
+openinfoman (1.0.80~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:06:16 -0500
+
+openinfoman (1.0.79~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.79
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:06:08 -0500
+
+openinfoman (1.0.78~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.78
+    -3496d23 update create deb for local
+    --https://github.com/openhie/openinfoman/commmit/3496d23
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:02:42 -0500
+
+openinfoman (1.0.77~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.77
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:00:46 -0500
+
+openinfoman (1.0.76~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.76
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 16:00:16 -0500
+
+openinfoman (1.0.75~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.75
+    -6b76095 update webap ui
+    --https://github.com/openhie/openinfoman/commmit/6b76095
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:55:17 -0500
+
+openinfoman (1.0.74~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.74
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:52:19 -0500
+
+openinfoman (1.0.73~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.73
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:49:24 -0500
+
+openinfoman (1.0.72~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.72
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:46:14 -0500
+
+openinfoman (1.0.71~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.71
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:45:24 -0500
+
+openinfoman (1.0.70~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.70
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:43:08 -0500
+
+openinfoman (1.0.69~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.69
+    -4832e66 fixed typo in webapp_ui
+    --https://github.com/openhie/openinfoman/commmit/4832e66
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:29:09 -0500
+
+openinfoman (1.0.68~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.68
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:28:48 -0500
+
+openinfoman (1.0.67~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.67
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:17:31 -0500
+
+openinfoman (1.0.66~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.66
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 15:14:56 -0500
+
+openinfoman (1.0.65~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.65
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 14:24:55 -0500
+
+openinfoman (1.0.64~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.64
+    -3fbb8f9 expiremental cleanup and packaging for web UI and config
+    --https://github.com/openhie/openinfoman/commmit/3fbb8f9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 18 Jan 2016 14:05:38 -0500
+
+openinfoman (1.0.63~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.63
+    -d21bc8a fixed typo in other id search chagnges
+    --https://github.com/openhie/openinfoman/commmit/d21bc8a
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 12 Jan 2016 11:19:03 -0500
+
+openinfoman (1.0.62~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.62
+    -c0cdadd avoid edge case in self-duplicates
+    --https://github.com/openhie/openinfoman/commmit/c0cdadd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 23:11:56 -0500
+
+openinfoman (1.0.61~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.61
+    -a9d30a4 Added simple UI to manage duplicate and potential duplicat
+    --https://github.com/openhie/openinfoman/commmit/a9d30a4
+    -790529a addded function to get the last modification times of the
+    --https://github.com/openhie/openinfoman/commmit/790529a
+    -e1e5ee0 added handling of potential duplicate records
+    --https://github.com/openhie/openinfoman/commmit/e1e5ee0
+    -9095f1c relax the evaluation conditions for filtering by otherID
+    --https://github.com/openhie/openinfoman/commmit/9095f1c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 22:57:35 -0500
+
+openinfoman (1.0.60~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.60
+    -066d659 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/066d659
+    -d0e3f28 "Release Version 1.0.59"
+    --https://github.com/openhie/openinfoman/commmit/d0e3f28
+    -7954a83 fixup for documents.json headers (maybe)
+    --https://github.com/openhie/openinfoman/commmit/7954a83
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 17:18:28 -0500
+
+openinfoman (1.0.59~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.59
+    -7954a83 fixup for documents.json headers (maybe)
+    --https://github.com/openhie/openinfoman/commmit/7954a83
+    -b6ad10e fixup for mark duplicate
+    --https://github.com/openhie/openinfoman/commmit/b6ad10e
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 11 Jan 2016 14:27:15 +0000
+
+
+openinfoman (1.0.58~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.58
+    -e223bf9 in packaging do not create/overwrite existing database
+    --https://github.com/openhie/openinfoman/commmit/e223bf9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 13:26:25 -0500
+
+openinfoman (1.0.57~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.57
+    -f9d191c logo/branding fixup
+    --https://github.com/openhie/openinfoman/commmit/f9d191c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 12:20:18 -0500
+
+openinfoman (1.0.56~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.56
+    -a9bfe34 allow oracle JVM to satisfy packagin requirements
+    --https://github.com/openhie/openinfoman/commmit/a9bfe34
+    -b03990c in CSR processor be a bit more strict when processing upda
+    --https://github.com/openhie/openinfoman/commmit/b03990c
+    -874d0aa fixed up submission of updating CSRs
+    --https://github.com/openhie/openinfoman/commmit/874d0aa
+    -19daaf1 when listing available documents via documents.json show t
+    --https://github.com/openhie/openinfoman/commmit/19daaf1
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 10 Jan 2016 12:10:57 -0500
+
+openinfoman (1.0.55~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.55
+    -7d28e9c vivid /etc/init.d script updated for basex 8.3.1 command l
+    --https://github.com/openhie/openinfoman/commmit/7d28e9c
+    -25c41e3 in the filter by parent, if a <csd:parent/> element is sen
+    --https://github.com/openhie/openinfoman/commmit/25c41e3
+    -7d5deed removed debugging info
+    --https://github.com/openhie/openinfoman/commmit/7d5deed
+    -51b020f fixed namespace in create entity stored queries
+    --https://github.com/openhie/openinfoman/commmit/51b020f
+    -aaec970 when marking an entity as duplicative as another one, then
+    --https://github.com/openhie/openinfoman/commmit/aaec970
+    -7c3d148 added expiremental create/update for 4 CSD entities
+    --https://github.com/openhie/openinfoman/commmit/7c3d148
+    -907b972 fixed typos in mark duplicate stored method
+    --https://github.com/openhie/openinfoman/commmit/907b972
+    -5dfdbdb added (expiremental) stored query to mark a record as dupl
+    --https://github.com/openhie/openinfoman/commmit/5dfdbdb
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 06 Jan 2016 08:07:11 -0500
+
+openinfoman (1.0.54~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.54
+    -01a9ff3 added in some postinst init that got deleted
+    --https://github.com/openhie/openinfoman/commmit/01a9ff3
+    -85f9c0b Merge branch 'master' of https://github.com/his-interop/op
+    --https://github.com/openhie/openinfoman/commmit/85f9c0b
+    -3aa5e79 Added storedFunctions.json, storedFunctions.xml, documents
+    --https://github.com/openhie/openinfoman/commmit/3aa5e79
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 17 Nov 2015 13:27:23 +0000
+
+openinfoman (1.0.53~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.53
+    -929f8e3 updated to use basex 8.3.1
+    --https://github.com/openhie/openinfoman/commmit/929f8e3
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Nov 2015 13:20:33 +0000
+
+openinfoman (1.0.52~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.52
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 16 Nov 2015 13:17:24 +0000
+
+openinfoman (1.0.51~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.51
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 11 Nov 2015 13:39:03 +0000
+
+openinfoman (1.0.50~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.50
+    -184d8e9 simplied SVS loading
+    --https://github.com/openhie/openinfoman/commmit/184d8e9
+    -348e9b8 expiremental vivid support with /etc/init.d and memory siz
+    --https://github.com/openhie/openinfoman/commmit/348e9b8
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 19:14:31 +0000
+
+openinfoman (1.0.49~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.49
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 17:18:34 +0000
+
+openinfoman (1.0.48~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.48
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 17:18:22 +0000
+
+openinfoman (1.0.47~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.47
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 17:06:14 +0000
+
+openinfoman (1.0.46~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.46
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 17:02:23 +0000
+
+openinfoman (1.0.45~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.45
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 16:56:33 +0000
+
+openinfoman (1.0.44~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.44
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 16:45:58 +0000
+
+openinfoman (1.0.43~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.43
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 16:38:20 +0000
+
+openinfoman (1.0.42~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.42
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 16:32:14 +0000
+
+openinfoman (1.0.41~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.41
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 10 Nov 2015 16:26:06 +0000
+
+openinfoman (1.0.40~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.40
+    -d4ef605 Merge pull request #25 from yatesr/initsvs
+    --https://github.com/openhie/openinfoman/commmit/d4ef605
+    -8d888a6 initialize SVS in post install script fixes #23
+    --https://github.com/openhie/openinfoman/commmit/8d888a6
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 06 Nov 2015 15:29:17 +0000
+
+openinfoman (1.0.39~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.39
+    -5380773 Merge pull request #24 from yatesr/patch-23
+    --https://github.com/openhie/openinfoman/commmit/5380773
+    -a3557b9 fix #23 add 10s sleep before loading stored functions
+    --https://github.com/openhie/openinfoman/commmit/a3557b9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 28 Oct 2015 18:10:59 +0000
+
+openinfoman (1.0.38~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.38
+    -e69bdea removed easter egg.  slight branding update
+    --https://github.com/openhie/openinfoman/commmit/e69bdea
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 26 Oct 2015 14:25:09 +0000
+
+openinfoman (1.0.37~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.37
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 25 Oct 2015 20:39:35 -0400
+
+openinfoman (1.0.36~vivid) vivid; urgency=medium
+
+  * Release Version 1.0.36
+    -9f081e6 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/9f081e6
+    -1777b21 updates to changelog
+    --https://github.com/openhie/openinfoman/commmit/1777b21
+    -8d86f80 added vivid target for ubuntu
+    --https://github.com/openhie/openinfoman/commmit/8d86f80
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sat, 24 Oct 2015 21:53:30 -0400
+
+openinfoman (1.0.33~trusty) trusty; urgency=medium
+
+   [Carl Leitner <litlfred@ibiblio.org>]
+   * Initial Build
+     Fri 2015-02-13 13:55:10 -0500
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 13 March 2014 13:55:10 -0500
+

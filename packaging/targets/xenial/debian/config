@@ -1,0 +1,66 @@
+#!/bin/bash
+set -x
+
+
+OI=/var/lib/openinfoman
+USERNAME=oi
+action="$1"
+cur_version="$2"
+
+. /usr/share/debconf/confmodule
+
+db_input high openinfoman/memsize || true
+db_go || true
+
+db_get openinfoman/memsize || true
+HEAP="$RET"
+
+
+db_input high openinfoman/baseurl || true
+db_go || true
+db_get openinfoman/baseurl || true
+BASEURL="$RET"
+
+db_input high openinfoman/dbname || true
+db_go || true
+db_get openinfoman/dbname || true
+DBNAME="$RET"
+
+
+mkdir -p $OI/repo-src
+chown -R $USERNAME:$USERNAME $OI/repo-src
+
+echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
+declare variable \$csd_webconf:db :=  '$DBNAME';
+declare variable \$csd_webconf:baseurl :=  '$BASEURL';
+declare variable \$csd_webconf:remote_services := ();
+" > $OI/repo-src/generated_openinfoman_webconfig.xqm
+
+
+
+echo "#!/usr/bin/env bash                                                                                                                                                                       
+HEAP=$HEAP                                                                                                                                                                                     
+# Path to this script
+                                                                                                                                                                           
+FILE=\"\${BASH_SOURCE[0]}\"                                                                                                                                                                     
+while [ -h \"\$FILE\" ] ; do                                                                                                                                                                    
+  SRC=\"\$(readlink \"\$FILE\")\"                                                                                                                                                               
+  FILE=\"\$( cd -P \"\$(dirname \"\$FILE\")\" && \                                                                                                                                              
+           cd -P \"\$(dirname \"\$SRC\")\" && pwd )/\$(basename \"\$SRC\")\"                                                                                                                    
+done                                                                                                                                                                                            
+
+BX=\"\$( cd -P \"\$(dirname \"\$FILE\")/..\" && pwd )\"                                                                                                                                         
+# API, core, and library classes                                                                                                                                                                
+CP=\"\$BX/BaseX.jar\$(printf \":%s\" \"\$BX/lib/\"*.jar \"\$BXCORE/lib/\"*.jar)\"                                                                                                               
+# Options for virtual machine (can be extended by global options)                                                                                                                               
+BASEX_JVM=\"-Xmx\$HEAP \$BASEX_JVM\"                                                                                                                                                             
+ 
+
+# Run code                                                                                                                                                                                      
+java -cp \"\$CP\" \$BASEX_JVM org.basex.BaseXHTTP \"\$@\"                                                                                                                                       
+ 
+" > /var/lib/openinfoman/bin/openinfoman
+
+
+
+exit 0
