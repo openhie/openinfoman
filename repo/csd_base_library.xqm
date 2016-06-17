@@ -150,8 +150,22 @@ declare function csd:filter_by_coded_type($items as item()*, $codedtype as item(
 	    let $cScheme := $codedtype/@codingScheme
         return $items[codedType[
                 @code = $code
- 	            and
+ 		            and
                 @codingScheme = $cScheme
+                ]
+            ]
+     else if(not(exists($codedtype/@codingScheme)) and exists($codedtype/@code))
+     then
+	let $code := fn:upper-case($codedtype/@code)
+	    return $items[codedType[
+                @code = $code       
+                ]
+            ]
+     else if(not(exists($codedtype/@code)) and exists($codedtype/@codingScheme))
+     then
+	let $cScheme := $codedtype/@codingScheme
+	    return $items[codedType[
+                @codingScheme = $cScheme       
                 ]
             ]
      else $items
