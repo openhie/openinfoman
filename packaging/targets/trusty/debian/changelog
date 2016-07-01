@@ -1,3 +1,17 @@
+openinfoman (1.2.18~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.18
+    -9609640 Update merge_by_identifier.xml
+    --http://github.com/openhie/openinfoman/commmit/9609640
+    -3cda537 Moving the HAPI library to openinfoman-fhir
+    --http://github.com/openhie/openinfoman/commmit/3cda537
+    -f914c57 Added in java library to convert JSON <=> XML FHIR formats
+    --http://github.com/openhie/openinfoman/commmit/f914c57
+    -e3f303c Update csd_webapp_config.xqm
+    --http://github.com/openhie/openinfoman/commmit/e3f303c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 01 Jul 2016 17:47:38 +0000
+
 openinfoman (1.2.17~trusty) trusty; urgency=medium
 
   * Release Version 1.2.17
