@@ -101,25 +101,23 @@ chown -R $USERNAME:$USERNAME $OI
 
 service openinfoman start || true
 
+#wait until the webservice is up and running, at least 10 seconds
 set +e
 i=0
 for (( ; i<10; ++i )); do
-   activation=$(service openinfoman status | grep running )
+   activation=$WGET --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
    if [ -z "$activation" ]; then
       i=10
    else
-      false;
+      sleep 1
    fi
 done
 set -e
 
 
-#if not running error out.
-service openinfoman status | grep running 
-
 
 #double check to see if server isup and running.  if not, fail install
-$WGET --no-check-certificate http://locahost:8984/CSD -O /dev/null  --timeout 15
+$WGET --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
 
 
 for SVS in ${SVSS[@]}
