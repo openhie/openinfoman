@@ -1,3 +1,11 @@
+openinfoman (1.2.21~vivid) vivid; urgency=medium
+
+  * Release Version 1.2.21
+    -dc37858 30 second check to make sure server is up and running
+    --http://github.com/openhie/openinfoman/commmit/dc37858
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 01 Jul 2016 18:00:29 +0000
+
 openinfoman (1.2.20~vivid) vivid; urgency=medium
 
   * Release Version 1.2.20
