@@ -101,10 +101,10 @@ chown -R $USERNAME:$USERNAME $OI
 
 service openinfoman start || true
 
-#wait until the webservice is up and running, at least 10 seconds
+#wait until the webservice is up and running, at least 30 seconds
 set +e
 i=0
-for (( ; i<10; ++i )); do
+for (( ; i<30; ++i )); do
    activation=($WGET --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
    if [ -z "$activation" ]; then
       i=10
