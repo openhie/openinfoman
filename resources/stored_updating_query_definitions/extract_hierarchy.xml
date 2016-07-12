@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd:careServicesFunction xmlns:ev="http://www.w3.org/2001/xml-events"
+  xmlns:xforms="http://www.w3.org/2002/xforms"
+  xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:csd="urn:ihe:iti:csd:2013" 
+  urn="urn:openhie.org:openinfoman:extract_hierachy" 
+  content-type="text/xml">
+  <csd:description> 
+    Performs an organization hierarch extraction from a source document into the target document.  Any existing elements in the target document are overwritten by those from the source document(s).
+
+    There are two required parameters:
+    <ul>
+      <li>
+	The document is indicated via &lt;document/%gt; element.    If  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
+      </li>
+      <li>
+	Aa &lt;csd:organization/&gt; element to indicate the part of the hiearchy that should be extracted.  
+      </li>
+    </ul>
+    There are two options elemments:
+    <ul>
+      <li>
+	<b>keepParents</b>
+	0..1 keepParents  element has integer attribute @value.  Defaults to 1 which means we keep the parents of the indicated organization when we extract.
+      </li>
+      <li>
+	<b>processFacilities</b>
+	0..1 processFacilities  element has integer attribute @value.  Defaults to 1 which means we also include the facilities associated to the organizations in the extracted hierarchy.
+      </li>
+    </ul>
+
+
+All parent nodes of the indicated organziation 
+  </csd:description>
+  <csd:definition ><xi:include parse='text' href='extract_hierarchy.xq'/></csd:definition>
+  <xforms:instance>
+    <documents/>
+  </xforms:instance>
+  <csd:extension type='merge' urn='urn:openhie.org:openinfoman:adapter'/>
+
+</csd:careServicesFunction>
