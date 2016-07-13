@@ -726,11 +726,6 @@ This extracts all organisation units matching the given facility conditions as a
     Updates the CSD document by an import from Resource Map's export of the Organizational hierarc...</a>
         </li>
         <li>
-          <i class="urn">urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics</i>
-          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics">
-    Gets metrics on specified data fields to determine applicability of these fields for deduplicat...</a>
-        </li>
-        <li>
           <i class="urn">urn:openhie.org:openinfoman-namibia:stored-function:staff_list</i>
           <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-namibia:stored-function:staff_list">
     Create a staff list for Namibia by facility
@@ -743,6 +738,11 @@ This extracts all organisation units matching the given facility conditions as a
         <li>
           <i class="urn">urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv</i>
           <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv">Health Worker WHO MDS completeness report as CSV</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics">
+    Gets metrics on specified data fields to determine applicability of these fields for deduplicat...</a>
         </li>
         <li>
           <i class="urn">urn:openhie.org:openinfoman-ldif:provider_search</i>
@@ -903,11 +903,9 @@ This extracts all organisation units matching the given facility conditions as a
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Performs an ad-hoc search on a CSD document
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -933,8 +931,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     
     Performs a search for all facilities by name, type, address or ID.   
     
@@ -986,8 +983,7 @@ return
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1067,11 +1063,9 @@ declare  variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Gets the maximum modification times for each of the four directories
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = 'urn:ihe:iti:csd:2013';
@@ -1099,8 +1093,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     
     Performs a search for all organizations by name, coded type, address or ID.   
     
@@ -1152,8 +1145,7 @@ return
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1231,7 +1223,6 @@ declare variable $careServicesRequest as item() external;
         <br/>
         <br/>
         <span class="source">
-          <pre>
      Performs a search for all providers by name, coded type, address or ID. 
      The result set consists of all providers matching the search parameters ( id,
         otherID, commonName,codedType and address ). 
@@ -1293,8 +1284,7 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1377,8 +1367,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     
     Performs a search for all search by coded type or ID.   
     
@@ -1418,8 +1407,7 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1475,8 +1463,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Deletes duplicate record reference.  This is done by removing a &lt;csd:otherID/&gt; element on the duplicate record that  references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -1492,8 +1479,7 @@ declare variable $careServicesRequest as item() external;
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1530,8 +1516,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Deletes potential duplicate record reference.  This is done by removing a &lt;csd:otherID/&gt; element on the potetnial duplicate record which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -1547,8 +1532,7 @@ return
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1585,8 +1569,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Performs an organization hierarch extraction from a source document into the target document.  Any existing elements in the target document are overwritten by those from the source document(s).
 
     There are two required parameters:
@@ -1616,8 +1599,7 @@ return
 
 
 All parent nodes of the indicated organziation 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1699,9 +1681,7 @@ return for $doc in $careServicesRequest/documents/document
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Create or update a facility entity.   Request parameters should be one or more CSD facility entities</pre>
-        </span>
+        <span class="source">Create or update a facility entity.   Request parameters should be one or more CSD facility entities</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1736,8 +1716,7 @@ for $fac in $careServicesRequest/facility
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Marks a record as a duplicate with another record.  This is done by adding a &lt;csd:otherID/&gt; element to the record that is duplicate which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -1753,8 +1732,7 @@ for $fac in $careServicesRequest/facility
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1808,8 +1786,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Marks a record as a potential duplicate with another record.  This is done by adding a &lt;csd:otherID/&gt; element to the record that is the potential duplicate which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -1825,8 +1802,7 @@ return
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1877,8 +1853,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Performs a merge from the indicated source document(s) into the target document.   Any entities in the target document are overwritten by the corresponding entity in the source document except that &lt;csd:otherID/&gt; elements are preserved.
 
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
@@ -1890,8 +1865,7 @@ return
       insertNew 0..1 insertNew has integer attribute @value. Defaults to 1 which means we insert any new entities from the source documents if they are not already a part of the destination document
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -2000,9 +1974,7 @@ for $doc in $careServicesRequest/documents/document
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Create or update a organization entity.   Request parameters should be one or more CSD organization entities</pre>
-        </span>
+        <span class="source">Create or update a organization entity.   Request parameters should be one or more CSD organization entities</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -2037,9 +2009,7 @@ for $org in $careServicesRequest/organization
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Create or update a provider entity.   Request parameters should be one or more CSD provider entities</pre>
-        </span>
+        <span class="source">Create or update a provider entity.   Request parameters should be one or more CSD provider entities</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -2074,9 +2044,7 @@ for $prov in $careServicesRequest/provider
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Create or update a service entity.   Request parameters should be one or more CSD service entities</pre>
-        </span>
+        <span class="source">Create or update a service entity.   Request parameters should be one or more CSD service entities</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -2111,8 +2079,7 @@ for $srvc in $careServicesRequest/service
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Performs a simple merge from the indicated source document(s) into the target document.  
 
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
@@ -2123,8 +2090,7 @@ for $srvc in $careServicesRequest/service
       overwriteExisting 0..1 overwriteExisting has integer attribute @value. Defaults to 1 which aany existing elements in the target document are overwritten by those from the source document(s).
     
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -2168,14 +2134,12 @@ for $doc  in $careServicesRequest/documents/document
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF quaterly report of number of health workers by facility 
     
     Reuqest parameters:
       assigningAuthorityName: the assignining authority name for the csd:facility/csd:otherID in which the DHIS code is stored
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = "urn:ihe:iti:csd:2013";
@@ -2218,11 +2182,9 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF Metadata representation of CSD facilties and organizations for import into a DHIS2 instance 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -2328,8 +2290,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF Metadata representation of CSD providers, facilties and organizations for import into a DHIS2 instance 
     
     Request parameters are:
@@ -2348,8 +2309,7 @@ return
 	0..1 processUUIDs  element has integer attribute @value.  Defaults to 1 which means we preserve DHIS2 UUIDs, if present, when creating the DXF metadata for import.
       
     
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -2803,11 +2763,9 @@ return $out</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Updates the CSD document with a transform of the DHIS2 DXF.  
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -2835,11 +2793,9 @@ return  csd_dm:add($csd,$doc_name)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Update SVS lists from a DHIS2 MetaData Export
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -2897,7 +2853,6 @@ return (
         <br/>
         <br/>
         <span class="source">
-          <pre>
     
 This extracts all organisation units matching the given facility conditions as a CSD facility entity.  
 It also extracts all organisation units a CSD organization entity.  
@@ -2912,8 +2867,7 @@ This optionally processes DHIS2 Users as health workers (CSD Providers).
 In order to do so, you will need to have included Users, UserRoles and UserAuthorityGroups in your DXF2 meta-data extract.
 
     
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = "urn:ihe:iti:csd:2013"; 
@@ -3664,11 +3618,9 @@ return (
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace oi_csv =  "https://github.com/openhie/openinfoman/adapter/csv";
@@ -3687,11 +3639,9 @@ oi_csv:get_serialized(/,$careServicesRequest)</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Get JSON representation of CSD for import to RapidPro via API
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -3756,11 +3706,9 @@ return json:serialize($contacts,map{"format":"direct"})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Statistics on phone numbers
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -3837,11 +3785,9 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -3941,9 +3887,7 @@ return json:serialize($output,map{'format':'direct'})</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>bulk_health_worker_read_otherids_json</pre>
-        </span>
+        <span class="source">bulk_health_worker_read_otherids_json</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare default element  namespace   "urn:ihe:iti:csd:2013";
@@ -4014,9 +3958,7 @@ return json:serialize($xml,map{"format":"direct"})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_get_urns</pre>
-        </span>
+        <span class="source">facility_get_urns</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4051,9 +3993,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_indices_address</pre>
-        </span>
+        <span class="source">facility_indices_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4093,9 +4033,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_indices_contact_point</pre>
-        </span>
+        <span class="source">facility_indices_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4135,9 +4073,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_indices_organization</pre>
-        </span>
+        <span class="source">facility_indices_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4180,9 +4116,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_indices_otherid</pre>
-        </span>
+        <span class="source">facility_indices_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>
@@ -4223,9 +4157,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_indices_service</pre>
-        </span>
+        <span class="source">facility_indices_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4278,8 +4210,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     
     Performs a search for all facilities by name, type, address or ID.   
     
@@ -4331,8 +4262,7 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4412,9 +4342,7 @@ declare  variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facilty_read_address</pre>
-        </span>
+        <span class="source">facilty_read_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4456,9 +4384,7 @@ return csd_bl:wrap_facilities($facs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_read_contact_point</pre>
-        </span>
+        <span class="source">facility_read_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4505,9 +4431,7 @@ return csd_bl:wrap_facilities($facs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_read_organization</pre>
-        </span>
+        <span class="source">facility_read_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4559,9 +4483,7 @@ return csd_bl:wrap_facilities($facs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_read_otherid</pre>
-        </span>
+        <span class="source">facility_read_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4613,9 +4535,7 @@ return csd_bl:wrap_facilities($facs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_read_service</pre>
-        </span>
+        <span class="source">facility_read_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4669,9 +4589,7 @@ return csd_bl:wrap_facilities($facs3)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_get_urns</pre>
-        </span>
+        <span class="source">health_worker_get_urns</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4707,9 +4625,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_address</pre>
-        </span>
+        <span class="source">health_worker_indices_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4751,9 +4667,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_contact_point</pre>
-        </span>
+        <span class="source">health_worker_indices_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4795,9 +4709,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_credential</pre>
-        </span>
+        <span class="source">health_worker_indices_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4838,9 +4750,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_name</pre>
-        </span>
+        <span class="source">health_worker_indices_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4882,9 +4792,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_operating_hours</pre>
-        </span>
+        <span class="source">health_worker_indices_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -4948,9 +4856,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_org_address</pre>
-        </span>
+        <span class="source">health_worker_indices_org_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5003,9 +4909,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_org_contact_point</pre>
-        </span>
+        <span class="source">health_worker_indices_org_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5058,9 +4962,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_otherid</pre>
-        </span>
+        <span class="source">health_worker_indices_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5100,9 +5002,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_provider_facility</pre>
-        </span>
+        <span class="source">health_worker_indices_provider_facility</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5145,9 +5045,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_provider_organization</pre>
-        </span>
+        <span class="source">health_worker_indices_provider_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5190,9 +5088,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_indices_service</pre>
-        </span>
+        <span class="source">health_worker_indices_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5245,9 +5141,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_address</pre>
-        </span>
+        <span class="source">health_worker_read_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5291,9 +5185,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_contact_point</pre>
-        </span>
+        <span class="source">health_worker_read_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5344,9 +5236,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_credential</pre>
-        </span>
+        <span class="source">health_worker_read_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5393,9 +5283,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_name</pre>
-        </span>
+        <span class="source">health_worker_read_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5446,9 +5334,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_operating_hours</pre>
-        </span>
+        <span class="source">health_worker_read_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5496,9 +5382,7 @@ return csd_bl:wrap_providers($provs4)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_org_address</pre>
-        </span>
+        <span class="source">health_worker_read_org_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5543,9 +5427,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_org_contact_point</pre>
-        </span>
+        <span class="source">health_worker_read_org_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5599,9 +5481,7 @@ return csd_bl:wrap_providers($provs3)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_otherid</pre>
-        </span>
+        <span class="source">health_worker_read_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5653,9 +5533,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_otherids</pre>
-        </span>
+        <span class="source">health_worker_read_otherids</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5704,9 +5582,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_otherids_json</pre>
-        </span>
+        <span class="source">health_worker_read_otherids_json</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5757,9 +5633,7 @@ return json:serialize($xml,map{"format":"direct"})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_provider</pre>
-        </span>
+        <span class="source">health_worker_read_provider</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5804,9 +5678,7 @@ let $provs1 :=  if (count($provs0) = 1) then
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_provider_facility</pre>
-        </span>
+        <span class="source">health_worker_read_provider_facility</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5858,9 +5730,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_provider_organization</pre>
-        </span>
+        <span class="source">health_worker_read_provider_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5912,9 +5782,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_read_service</pre>
-        </span>
+        <span class="source">health_worker_read_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -5968,9 +5836,7 @@ return csd_bl:wrap_providers($provs3)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_urn_search_by_id</pre>
-        </span>
+        <span class="source">health_worker_urn_search_by_id</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6001,9 +5867,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_get_urns</pre>
-        </span>
+        <span class="source">organization_get_urns</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6038,9 +5902,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_indices_address</pre>
-        </span>
+        <span class="source">organization_indices_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6080,9 +5942,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_indices_contact_point</pre>
-        </span>
+        <span class="source">organization_indices_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6122,9 +5982,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_indices_credential</pre>
-        </span>
+        <span class="source">organization_indices_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6165,9 +6023,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_indices_otherid</pre>
-        </span>
+        <span class="source">organization_indices_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6207,8 +6063,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     
     Performs a search for all organizations by name, coded type, address or ID.   
     
@@ -6260,8 +6115,7 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6339,9 +6193,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facilty_read_address</pre>
-        </span>
+        <span class="source">facilty_read_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6383,9 +6235,7 @@ return csd_bl:wrap_organizations($orgs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_read_contact_point</pre>
-        </span>
+        <span class="source">organization_read_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6432,9 +6282,7 @@ return csd_bl:wrap_organizations($orgs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_read_credential</pre>
-        </span>
+        <span class="source">organization_read_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6481,9 +6329,7 @@ return csd_bl:wrap_organizations($orgs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_read_otherid</pre>
-        </span>
+        <span class="source">organization_read_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6536,7 +6382,6 @@ return csd_bl:wrap_organizations($orgs2)
         <br/>
         <br/>
         <span class="source">
-          <pre>
      Performs a search for all providers by name, coded type, address or ID. 
      The result set consists of all names  providers matching the search parameters ( id,
         otherID, commonName,codedType and address ). 
@@ -6598,8 +6443,7 @@ return csd_bl:wrap_organizations($orgs2)
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6677,9 +6521,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>service_get_urns</pre>
-        </span>
+        <span class="source">service_get_urns</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6712,9 +6554,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_address</pre>
-        </span>
+        <span class="source">facility_create_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6762,9 +6602,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_contact_point</pre>
-        </span>
+        <span class="source">facility_create_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6818,9 +6656,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_geocode</pre>
-        </span>
+        <span class="source">facility_create_geocode</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6868,9 +6704,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_language</pre>
-        </span>
+        <span class="source">facility_create_language</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6917,9 +6751,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_operating_hours</pre>
-        </span>
+        <span class="source">facility_create_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -6967,9 +6799,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_otherid</pre>
-        </span>
+        <span class="source">facility_create_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7019,9 +6849,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_address</pre>
-        </span>
+        <span class="source">facility_delete_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7062,9 +6890,7 @@ let $fac:=
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_contact_point</pre>
-        </span>
+        <span class="source">facility_delete_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7100,9 +6926,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_geocode</pre>
-        </span>
+        <span class="source">facility_delete_geocode</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7143,9 +6967,7 @@ let $fac:=
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_language</pre>
-        </span>
+        <span class="source">facility_delete_language</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7186,9 +7008,7 @@ let $fac:=
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_name</pre>
-        </span>
+        <span class="source">facility_delete_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7224,9 +7044,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_operating_hours</pre>
-        </span>
+        <span class="source">facility_delete_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7260,9 +7078,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_delete_otherid</pre>
-        </span>
+        <span class="source">facility_delete_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7298,9 +7114,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_update_address</pre>
-        </span>
+        <span class="source">facility_update_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7345,9 +7159,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_update_contact_point</pre>
-        </span>
+        <span class="source">facility_update_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7395,9 +7207,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_update_name</pre>
-        </span>
+        <span class="source">facility_update_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7442,9 +7252,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_update_operating_hours</pre>
-        </span>
+        <span class="source">facility_update_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7502,9 +7310,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_update_otherid</pre>
-        </span>
+        <span class="source">facility_update_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7562,9 +7368,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_address</pre>
-        </span>
+        <span class="source">health_worker_create_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7620,9 +7424,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_contact_point</pre>
-        </span>
+        <span class="source">health_worker_create_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7678,9 +7480,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_credential</pre>
-        </span>
+        <span class="source">health_worker_create_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7742,9 +7542,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_name</pre>
-        </span>
+        <span class="source">health_worker_create_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7795,9 +7593,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_operating_hours</pre>
-        </span>
+        <span class="source">health_worker_create_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7847,9 +7643,7 @@ else   csd_blu:wrap_updating_providers(())
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_org_address</pre>
-        </span>
+        <span class="source">health_worker_create_org_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7899,9 +7693,7 @@ else
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_org_contact_point</pre>
-        </span>
+        <span class="source">health_worker_create_org_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -7967,9 +7759,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_otherid</pre>
-        </span>
+        <span class="source">health_worker_create_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8019,9 +7809,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_provider</pre>
-        </span>
+        <span class="source">health_worker_create_provider</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8083,9 +7871,7 @@ else
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_provider_facility</pre>
-        </span>
+        <span class="source">health_worker_create_provider_facility</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8140,9 +7926,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_provider_organization</pre>
-        </span>
+        <span class="source">health_worker_create_provider_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8197,9 +7981,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_create_service</pre>
-        </span>
+        <span class="source">health_worker_create_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8258,9 +8040,7 @@ else   csd_blu:wrap_updating_providers(())
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_address</pre>
-        </span>
+        <span class="source">health_worker_delete_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8292,9 +8072,7 @@ return if (exists($address)) then (delete node $address) else ()
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_contact_point</pre>
-        </span>
+        <span class="source">health_worker_delete_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8330,9 +8108,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_credential</pre>
-        </span>
+        <span class="source">health_worker_delete_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8370,9 +8146,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_name</pre>
-        </span>
+        <span class="source">health_worker_delete_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8408,9 +8182,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_operating_hours</pre>
-        </span>
+        <span class="source">health_worker_delete_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8444,9 +8216,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_org_address</pre>
-        </span>
+        <span class="source">health_worker_delete_org_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8482,9 +8252,7 @@ return if (exists($address)) then (delete node $address) else ()
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_org_contact_point</pre>
-        </span>
+        <span class="source">health_worker_delete_org_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8524,9 +8292,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_otherid</pre>
-        </span>
+        <span class="source">health_worker_delete_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8562,9 +8328,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_provider</pre>
-        </span>
+        <span class="source">health_worker_delete_provider</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8593,9 +8357,7 @@ return  if (count($provs0) = 1) then
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_provider_facility</pre>
-        </span>
+        <span class="source">health_worker_delete_provider_facility</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8631,9 +8393,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_provider_organization</pre>
-        </span>
+        <span class="source">health_worker_delete_provider_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8669,9 +8429,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_delete_service</pre>
-        </span>
+        <span class="source">health_worker_delete_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8711,9 +8469,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_address</pre>
-        </span>
+        <span class="source">health_worker_update_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8759,9 +8515,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_contact_point</pre>
-        </span>
+        <span class="source">health_worker_update_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8815,9 +8569,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_credential</pre>
-        </span>
+        <span class="source">health_worker_update_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8887,9 +8639,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_name</pre>
-        </span>
+        <span class="source">health_worker_update_name</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -8939,9 +8689,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_operating_hours</pre>
-        </span>
+        <span class="source">health_worker_update_operating_hours</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9005,9 +8753,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_org_address</pre>
-        </span>
+        <span class="source">health_worker_update_org_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9059,9 +8805,7 @@ else
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_org_contact_point</pre>
-        </span>
+        <span class="source">health_worker_update_org_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9118,9 +8862,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_otherid</pre>
-        </span>
+        <span class="source">health_worker_update_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9178,9 +8920,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_provider</pre>
-        </span>
+        <span class="source">health_worker_update_provider</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9242,9 +8982,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_provider_facility</pre>
-        </span>
+        <span class="source">health_worker_update_provider_facility</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9271,9 +9009,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_provider_organization</pre>
-        </span>
+        <span class="source">health_worker_update_provider_organization</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9300,9 +9036,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>health_worker_update_service</pre>
-        </span>
+        <span class="source">health_worker_update_service</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9357,9 +9091,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>facility_create_address</pre>
-        </span>
+        <span class="source">facility_create_address</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9407,9 +9139,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_create_contact_point</pre>
-        </span>
+        <span class="source">organization_create_contact_point</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9463,9 +9193,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_create_credential</pre>
-        </span>
+        <span class="source">organization_create_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9527,9 +9255,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>organization_create_otherid</pre>
-        </span>
+        <span class="source">organization_create_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -9579,11 +9305,9 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Get JSON representation of CSD for import to RapidPro via API
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -9652,11 +9376,9 @@ return json:serialize($contacts,map{"format":"direct"})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Performs merge for Liberia preserving any mHero/RapidPRO identifiers for existing providers.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
@@ -9696,11 +9418,9 @@ return mhero:merge_into($mhero_doc, $src_doc)
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Provider XML representation of organizational-facility hierarchy a FHIR value set resource.  
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -9850,11 +9570,9 @@ return
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Provider XML representation of a faciltiy as a FHIR location resource.  
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -9940,11 +9658,9 @@ return $contents/csd:facilityDirectory/csd:facility
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Provider XML representation of a organization as a FHIR organization resource.  
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -10030,11 +9746,9 @@ return $contents/csd:organizationDirectory/csd:organization
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Provider XML representation of a provider as a FHIR practitioner resource.  
 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -10124,11 +9838,9 @@ return $contents/csd:providerDirectory/csd:provider
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations with a specified parent.  Designed as part of heierarchical organization selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -10207,11 +9919,9 @@ return json:serialize($output,map{'format':'direct'})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -10311,11 +10021,9 @@ return json:serialize($output,map{'format':'direct'})</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Updates the CSD document by an import from Health Facility Registry export of the Organizational hierarchy
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -10518,11 +10226,9 @@ return  csd_dm:add($csd_webconf:db,$csd,$doc_name)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Updates the CSD document by an import from Resource Map's export of the Organizational hierarchy
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -10629,39 +10335,6 @@ return  csd_dm:add($csd,$doc_name)
 </pre></span>
       </div>
     </div>
-    <a id="urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics"/>
-    <div class="function">
-      <div class="callout">
-        <span class="attribute">Content-Type: 
-        text/html<br/>
-	URN: urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics</span>
-        <h2>Description</h2>
-        <br/>
-        <br/>
-        <span class="source">
-          <pre>
-    Gets metrics on specified data fields to determine applicability of these fields for deduplication of records.  Output is text representation of result.
-  </pre>
-        </span>
-        <h2>Definition            </h2>
-        <span class="source">Source: 
-	<pre>import module namespace rscript = "https://github.com/openhie/openinfoman/adapter/r";
-
-declare namespace csd = "urn:ihe:iti:csd:2013";
-declare variable $careServicesRequest as item() external;
-
-
-(: 
-   The query will be executed against the root element of the CSD document.    
-   The dynamic context of this query has $careServicesRequest set to contain any of the search 
-   and limit paramaters as sent by the Service Finder
-:) 
-
-
-rscript:html_result(/.,$careServicesRequest)
-</pre></span>
-      </div>
-    </div>
     <a id="urn:openhie.org:openinfoman-namibia:stored-function:staff_list"/>
     <div class="function">
       <div class="callout">
@@ -10672,10 +10345,8 @@ rscript:html_result(/.,$careServicesRequest)
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Create a staff list for Namibia by facility
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = 'urn:ihe:iti:csd:2013';
@@ -10743,9 +10414,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Health Worker WHO MDS completeness report</pre>
-        </span>
+        <span class="source">Health Worker WHO MDS completeness report</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -10838,9 +10507,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>Health Worker WHO MDS completeness report as CSV</pre>
-        </span>
+        <span class="source">Health Worker WHO MDS completeness report as CSV</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare   namespace   csd = "urn:ihe:iti:csd:2013";
@@ -10926,6 +10593,37 @@ return csv:serialize($csv,map{ 'header': 'no', 'separator': 'tab'  })
 </pre></span>
       </div>
     </div>
+    <a id="urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/html<br/>
+	URN: urn:openhie.org:openinfoman-r:stored-function:duplicate_record_field_metrics</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+    Gets metrics on specified data fields to determine applicability of these fields for deduplication of records.  Output is text representation of result.
+  </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace rscript = "https://github.com/openhie/openinfoman/adapter/r";
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+
+(: 
+   The query will be executed against the root element of the CSD document.    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+
+rscript:html_result(/.,$careServicesRequest)
+</pre></span>
+      </div>
+    </div>
     <a id="urn:openhie.org:openinfoman-ldif:provider_search"/>
     <div class="function">
       <div class="callout">
@@ -10936,10 +10634,8 @@ return csv:serialize($csv,map{ 'header': 'no', 'separator': 'tab'  })
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Gets LDIF (for LDAP) representaiton of provider search results
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>
@@ -10966,12 +10662,10 @@ ldif:get(/.,$careServicesRequest)
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specification:
       http://www.opensearch.org/Specifications/OpenSearch/1.1
     Returns search results in opensearch feed for a provider by common name including link to free busy information on Zimbra for scheduling information.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
@@ -11051,9 +10745,7 @@ return osf:create_feed_from_entities($matched_providers,$careServicesRequest,$pr
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>rwanda_lookup_epid</pre>
-        </span>
+        <span class="source">rwanda_lookup_epid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -11093,15 +10785,13 @@ return $provider
         <br/>
         <br/>
         <span class="source">
-          <pre>
     
     Extracts Organisation Unit hierarchy and Facility/Site list from DATIM (DHIS2) as CSD Organization and Facility entities.   
     Also creates SVS for relevant terminologies (e.g. facility/site type)
 
     Imports: DHIS2 metadata export of Organsation Units, Organisation Unit Group,  Organisation Unit Group Set, Organization Unit Level from DHIS2 2.19
     
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = "urn:ihe:iti:csd:2013"; 
@@ -11283,12 +10973,10 @@ return (
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specification:
       http://www.opensearch.org/Specifications/OpenSearch/1.1
     Returns search results in opensearch feed for a provider by common name
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
@@ -11345,12 +11033,10 @@ return osf:create_feed_from_entities($matched_providers,$careServicesRequest)
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Peforms a search request on a provider's credential number according to the OpenSearch 1.1 Specification:
       http://www.opensearch.org/Specifications/OpenSearch/1.1
     Returns search results in opensearch feed 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
@@ -11434,11 +11120,9 @@ return osf:create_feed_from_entities($matched_providers,$careServicesRequest,$pr
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Anonymizes data using biblical names for person names and star names for places (sourced from wikipedia)
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
@@ -11543,10 +11227,8 @@ return
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Validates a healthcare worker's entity ID.   If optional facility and service information is provided, validates that the healthcare worker is registered to perform the service at the indicated facility
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -11603,11 +11285,9 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace oi_csv =  "https://github.com/openhie/openinfoman/adapter/csv";
@@ -11626,11 +11306,9 @@ oi_csv:get_serialized(/,$careServicesRequest)</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Get JSON representation of CSD for import to RapidPro via API
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
@@ -11695,11 +11373,9 @@ return json:serialize($contacts,map{"format":"direct"})
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Statistics on phone numbers
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -11776,11 +11452,9 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace functx = "http://www.functx.com";
@@ -11880,9 +11554,7 @@ return json:serialize($output,map{'format':'direct'})</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_indices_demogrpahic_birth</pre>
-        </span>
+        <span class="source">nigeria_health_worker_indices_demogrpahic_birth</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -11926,9 +11598,7 @@ return csd_bl:wrap_providers($provs1)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_indices_demogrpahic_citizenship</pre>
-        </span>
+        <span class="source">nigeria_health_worker_indices_demogrpahic_citizenship</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -11972,9 +11642,7 @@ return csd_bl:wrap_providers($provs1)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_indices_demographic_photo</pre>
-        </span>
+        <span class="source">nigeria_health_worker_indices_demographic_photo</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12017,9 +11685,7 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_read_demographic_birth</pre>
-        </span>
+        <span class="source">nigeria_health_worker_read_demographic_birth</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12057,9 +11723,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_read_demographic_citizenship</pre>
-        </span>
+        <span class="source">nigeria_health_worker_read_demographic_citizenship</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12097,9 +11761,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_read_demographic_photo</pre>
-        </span>
+        <span class="source">nigeria_health_worker_read_demographic_photo</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12146,9 +11808,7 @@ return csd_bl:wrap_providers($provs2)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_read_otherid</pre>
-        </span>
+        <span class="source">nigeria_health_worker_read_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12203,12 +11863,10 @@ return csd_bl:wrap_providers($provs2)
         <br/>
         <br/>
         <span class="source">
-          <pre>
     Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specification:
       http://www.opensearch.org/Specifications/OpenSearch/1.1
     Returns search results in opensearch feed for a provider by common name
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
@@ -12323,9 +11981,7 @@ return osf:create_feed_from_entities($matched_providers,$careServicesRequest,$pr
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_create_demographic_birth</pre>
-        </span>
+        <span class="source">nigeria_health_worker_create_demographic_birth</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12376,9 +12032,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_create_demographic_citizenship</pre>
-        </span>
+        <span class="source">nigeria_health_worker_create_demographic_citizenship</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12429,9 +12083,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_create_demogrpahic_photo</pre>
-        </span>
+        <span class="source">nigeria_health_worker_create_demogrpahic_photo</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12481,9 +12133,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_create_otherid</pre>
-        </span>
+        <span class="source">nigeria_health_worker_create_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12527,9 +12177,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_create_provider_credential</pre>
-        </span>
+        <span class="source">nigeria_health_worker_create_provider_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12589,9 +12237,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_delete_demogrpahic_birth</pre>
-        </span>
+        <span class="source">nigeria_health_worker_delete_demogrpahic_birth</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12626,9 +12272,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_delete_demogrpahic_citizenship</pre>
-        </span>
+        <span class="source">nigeria_health_worker_delete_demogrpahic_citizenship</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12663,9 +12307,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_delete_demogrpahic_photo</pre>
-        </span>
+        <span class="source">nigeria_health_worker_delete_demogrpahic_photo</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12704,9 +12346,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_update_demogrpahic_birth</pre>
-        </span>
+        <span class="source">nigeria_health_worker_update_demogrpahic_birth</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12774,9 +12414,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_update_demogrpahic_citizenship</pre>
-        </span>
+        <span class="source">nigeria_health_worker_update_demogrpahic_citizenship</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12838,9 +12476,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_update_demogrpahic_phto</pre>
-        </span>
+        <span class="source">nigeria_health_worker_update_demogrpahic_phto</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12888,9 +12524,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_update_otherid</pre>
-        </span>
+        <span class="source">nigeria_health_worker_update_otherid</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -12960,9 +12594,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre>nigeria_health_worker_update_provider_credential</pre>
-        </span>
+        <span class="source">nigeria_health_worker_update_provider_credential</span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";

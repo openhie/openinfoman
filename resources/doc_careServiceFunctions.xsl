@@ -108,7 +108,7 @@
 	<br/>
 
 	<span class='source'>
-	  <pre><xsl:value-of select="$func/csd:description"/></pre>
+	 <xsl:value-of select="$func/csd:description"/>
 	</span> 
         
 	<h2>Definition            </h2>

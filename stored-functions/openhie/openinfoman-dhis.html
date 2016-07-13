@@ -104,14 +104,12 @@ This extracts all organisation units matching the given facility conditions as a
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF quaterly report of number of health workers by facility 
     
     Reuqest parameters:
       assigningAuthorityName: the assignining authority name for the csd:facility/csd:otherID in which the DHIS code is stored
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = "urn:ihe:iti:csd:2013";
@@ -154,11 +152,9 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF Metadata representation of CSD facilties and organizations for import into a DHIS2 instance 
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -264,8 +260,7 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Returns DHIS2 DXF Metadata representation of CSD providers, facilties and organizations for import into a DHIS2 instance 
     
     Request parameters are:
@@ -284,8 +279,7 @@ return
 	0..1 processUUIDs  element has integer attribute @value.  Defaults to 1 which means we preserve DHIS2 UUIDs, if present, when creating the DXF metadata for import.
       
     
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -739,11 +733,9 @@ return $out</pre></span>
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Updates the CSD document with a transform of the DHIS2 DXF.  
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -771,11 +763,9 @@ return  csd_dm:add($csd,$doc_name)
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">
-          <pre> 
+        <span class="source"> 
     Update SVS lists from a DHIS2 MetaData Export
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
@@ -833,7 +823,6 @@ return (
         <br/>
         <br/>
         <span class="source">
-          <pre>
     
 This extracts all organisation units matching the given facility conditions as a CSD facility entity.  
 It also extracts all organisation units a CSD organization entity.  
@@ -848,8 +837,7 @@ This optionally processes DHIS2 Users as health workers (CSD Providers).
 In order to do so, you will need to have included Users, UserRoles and UserAuthorityGroups in your DXF2 meta-data extract.
 
     
-  </pre>
-        </span>
+  </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = "urn:ihe:iti:csd:2013"; 
