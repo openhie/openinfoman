@@ -53,6 +53,7 @@
           pre {
           font-family: "Courier New",Courier,monospace;
           font-size: 0.8em;
+	  overflow:scroll;
           }
 	  li i.urn {
 	  display:inline-block;
