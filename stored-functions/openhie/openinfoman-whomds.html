@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker">Health Worker WHO MDS completeness report</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv">Health Worker WHO MDS completeness report as CSV</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>Health Worker WHO MDS completeness report</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>declare   namespace   csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+let $doc := /.
+
+
+let $xpaths := map{
+    "Posting/Facility": "csd:facilities/csd:facility",
+    "ID Number": "csd:otherID/@code",
+    "ID Date of Issue":"csd:otherID/@issueDate/text()",
+    "ID Date of Expiration":"csd:otherID/@expirationDate/text()",
+    "Place of Issue": "csd:otherID/@assigningAuthorityName/text()",
+    "First name": "csd:demographic/csd:name/csd:forename/text()",
+    "Last name": "csd:demographic/csd:name/csd:surname/text()",
+    "Middle name":"csd:demographic/csd:name/csd:otherNames[@type='middle']/text()",
+    "Maiden name": "csd:demographic/csd:name/csd:otherNames[@type='maiden']/text()",
+    "Other name 1" : "csd:demographic/csd:name/csd:otherNames[@type='other_1']/text()",
+    "Other name 2" :"csd:demographic/csd:name/csd:otherNames[@type='other_2']/text()",
+    "Other name 3" : "csd:demographic/csd:name/csd:otherNames[@type='other_3']/text()",
+    "Place of birth country":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:country/text()",
+    "Place of birth town": "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:town/text()",
+    "Father’s name":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:fatherName/text()",
+    "Mother’s name":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:motherName/text()",
+    "Photograph" :    "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds'  and @type='photograph']/csd:image/text()",
+    "Date of birth" :  "csd:demographic/csd:dateOfBirth/text()",
+    "Sex at birth " : "csd:demographic/csd:gender/text()",
+    "Citizenship at birth" : "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='citizenship']/csd:birth/text()" , 
+    "Citizenship at present country of residence":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='citizenship']/csd:residence/text()",
+    "Ability in written languages":"csd:language[@code]/@written-ability",
+    "Ability in spoken languages": "csd:language[@code]/@spoken-ability",
+    "Address Country":"csd:demographic/csd:address/csd:addressLine[@component='country']/text()",
+    "Address City": "csd:demographic/csd:address/csd:addressLine[@component='city']/text()" ,
+    "Street Address": "csd:demographic/csd:address/csd:addressLine[@component='streetAddress']/text()",
+    "Address Postal Code" :"csd:demographic/csd:address/csd:addressLine[@component='postalCode']/text()" ,
+    "Telephone number" : "csd:demographic/csd:contactPoint/csd:codedType[@code='BP'  and @codingScheme='urn:ihe:iti:csd:2013:contactPoint']/text()",
+    "Email address" : "csd:demographic/csd:contactPoint/csd:codedType[@code='EMAIL' and @codingScheme='urn:ihe:iti:csd:2013:contactPoint']/text()",
+    "Emergency contact name" : "csd:demographic/csd:contactPoint/csd:codedType[@code='EMERGENCY'  and @codingScheme= 'urn:who.int:hrh:mds']/text()",
+    "Professional License and Certification Document Type" : "csd:credential/csd:codedType/@code",
+    "Professional License and Certification Document Category" : "csd:credential/csd:codedType/@category",
+    "Professional License and Certification Issuing Institution": "csd:credential/csd:issuingAuthority/text()",
+    "Professional License and Certification Date of Issue" : "csd:credential/csd:credentialIssueDate/text()",
+    "Professional License and Certification Date of Expiration" : "csd:credential/csd:credentialRenewalDate/text()" ,
+    "Professional License and Certification Scan/Photograph" :  "csd:credential/csd:extension[@urn ='urn:who.int:hrh:mds' and @type='photograph']/csd:image/text()" ,
+    "Employment status" : "csd:record/@status" ,
+    "Occupational category" : "csd:codedType/@code" ,
+    "Employment title" : "csd:codedType[@code]/text()",
+    "Complaints" : "csd:credential/csd:extension[@urn = 'urn:who.int:hrh:mds' and @type='complaints']/@value",
+    "Data submission  institution ": "csd:record/@sourceDirectory",
+    "Data submission date" : "csd:record/@updated" 
+}
+
+
+
+let $total := count($doc/csd:CSD/csd:providerDirectory/csd:provider)
+
+let $stats := 
+  map:for-each($xpaths, 
+    function($label,$xpath) {
+      let $matches := 
+        for $provider in $doc/csd:CSD/csd:providerDirectory/csd:provider
+        let $bindings := map{"provider":$provider}
+	let $expr := " declare namespace csd = 'urn:ihe:iti:csd:2013'; declare variable $provider external; $provider/" || $xpath
+	let $result := xquery:eval($expr,$bindings) 
+	where exists($result)
+	return 	$provider
+      let $count:=count($matches)
+      return &lt;tr count="{$count}" xpath="{$xpath}"&gt;&lt;td&gt;{$label}&lt;/td&gt;&lt;td&gt;{$count}&lt;/td&gt;&lt;td&gt;{if ($total &gt; 0) then floor($count div $total * 100) else "N/A"} %&lt;/td&gt;&lt;/tr&gt;
+    })
+
+
+return 
+  &lt;table &gt;
+  &lt;tr&gt;&lt;th style='width:33%'&gt;Data Field&lt;/th&gt;&lt;th style='width:33%'&gt;Number of Records&lt;br/&gt;Total of {$total}&lt;/th&gt;&lt;th style='width:33%'&gt;Percentage&lt;/th&gt;&lt;/tr&gt;
+   { 
+     for $stat in $stats
+     order by number($stat/@count) descending
+     return $stat
+   }
+  &lt;/table&gt;
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/csv<br/>
+	URN: urn:openhie.org:openinfoman-whomds:stored-function:mds_completeness_healthworker_csv</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>Health Worker WHO MDS completeness report as CSV</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>declare   namespace   csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+let $doc := /.
+
+
+let $xpaths := map{
+    "Posting/Facility": "csd:facilities/csd:facility",
+    "ID Number": "csd:otherID/@code",
+    "ID Date of Issue":"csd:otherID/@issueDate/text()",
+    "ID Date of Expiration":"csd:otherID/@expirationDate/text()",
+    "Place of Issue": "csd:otherID/@assigningAuthorityName/text()",
+    "First name": "csd:demographic/csd:name/csd:forename/text()",
+    "Last name": "csd:demographic/csd:name/csd:surname/text()",
+    "Middle name":"csd:demographic/csd:name/csd:otherNames[@type='middle']/text()",
+    "Maiden name": "csd:demographic/csd:name/csd:otherNames[@type='maiden']/text()",
+    "Other name 1" : "csd:demographic/csd:name/csd:otherNames[@type='other_1']/text()",
+    "Other name 2" :"csd:demographic/csd:name/csd:otherNames[@type='other_2']/text()",
+    "Other name 3" : "csd:demographic/csd:name/csd:otherNames[@type='other_3']/text()",
+    "Place of birth country":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:country/text()",
+    "Place of birth town": "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:town/text()",
+    "Father’s name":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:fatherName/text()",
+    "Mother’s name":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='birth']/csd:motherName/text()",
+    "Photograph" :    "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds'  and @type='photograph']/csd:image/text()",
+    "Date of birth" :  "csd:demographic/csd:dateOfBirth/text()",
+    "Sex at birth " : "csd:demographic/csd:gender/text()",
+    "Citizenship at birth" : "csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='citizenship']/csd:birth/text()" , 
+    "Citizenship at present country of residence":"csd:demographic/csd:extension[@urn='urn:who.int:hrh:mds' and @type='citizenship']/csd:residence/text()",
+    "Ability in written languages":"csd:language[@code]/@written-ability",
+    "Ability in spoken languages": "csd:language[@code]/@spoken-ability",
+    "Address Country":"csd:demographic/csd:address/csd:addressLine[@component='country']/text()",
+    "Address City": "csd:demographic/csd:address/csd:addressLine[@component='city']/text()" ,
+    "Street Address": "csd:demographic/csd:address/csd:addressLine[@component='streetAddress']/text()",
+    "Address Postal Code" :"csd:demographic/csd:address/csd:addressLine[@component='postalCode']/text()" ,
+    "Telephone number" : "csd:demographic/csd:contactPoint/csd:codedType[@code='BP'  and @codingScheme='urn:ihe:iti:csd:2013:contactPoint']/text()",
+    "Email address" : "csd:demographic/csd:contactPoint/csd:codedType[@code='EMAIL' and @codingScheme='urn:ihe:iti:csd:2013:contactPoint']/text()",
+    "Emergency contact name" : "csd:demographic/csd:contactPoint/csd:codedType[@code='EMERGENCY'  and @codingScheme= 'urn:who.int:hrh:mds']/text()",
+    "Professional License and Certification Document Type" : "csd:credential/csd:codedType/@code",
+    "Professional License and Certification Document Category" : "csd:credential/csd:codedType/@category",
+    "Professional License and Certification Issuing Institution": "csd:credential/csd:issuingAuthority/text()",
+    "Professional License and Certification Date of Issue" : "csd:credential/csd:credentialIssueDate/text()",
+    "Professional License and Certification Date of Expiration" : "csd:credential/csd:credentialRenewalDate/text()" ,
+    "Professional License and Certification Scan/Photograph" :  "csd:credential/csd:extension[@urn ='urn:who.int:hrh:mds' and @type='photograph']/csd:image/text()" ,
+    "Employment status" : "csd:record/@status" ,
+    "Occupational category" : "csd:codedType/@code" ,
+    "Employment title" : "csd:codedType[@code]/text()",
+    "Complaints" : "csd:credential/csd:extension[@urn = 'urn:who.int:hrh:mds' and @type='complaints']/@value",
+    "Data submission  institution ": "csd:record/@sourceDirectory",
+    "Data submission date" : "csd:record/@updated" 
+}
+
+
+
+let $total := count($doc/csd:CSD/csd:providerDirectory/csd:provider)
+
+let $stats := 
+  map:for-each($xpaths, 
+    function($label,$xpath) {
+      let $matches := 
+        for $provider in $doc/csd:CSD/csd:providerDirectory/csd:provider
+        let $bindings := map{"provider":$provider}
+	let $expr := " declare namespace csd = 'urn:ihe:iti:csd:2013'; declare variable $provider external; $provider/" || $xpath
+	let $result := xquery:eval($expr,$bindings) 
+	where exists($result)
+	return 	$provider
+      let $count:=count($matches)
+      return &lt;record&gt;&lt;label&gt;{$label}&lt;/label&gt;&lt;count&gt;{$count}&lt;/count&gt;&lt;percent&gt;{if ($total &gt; 0) then floor($count div $total * 100) else "N/A"} %&lt;/percent&gt;&lt;/record&gt;
+    })
+
+
+let $csv:=
+  &lt;csv &gt;
+  &lt;record&gt;&lt;label&gt;Data Field&lt;/label&gt;&lt;count&gt;Number of Records Total of {$total}&lt;/count&gt;&lt;percent&gt;Percentage&lt;/percent&gt;&lt;/record&gt;
+   { 
+     for $stat in $stats
+     order by number($stat/count/text()) descending
+     return $stat
+   }
+  &lt;/csv&gt;
+
+return csv:serialize($csv,map{ 'header': 'no', 'separator': 'tab'  })
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

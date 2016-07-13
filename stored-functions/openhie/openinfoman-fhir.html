@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-fhir:fhir_fac_by_organizational_hierarchy_value_set</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-fhir:fhir_fac_by_organizational_hierarchy_value_set">
+    Provider XML representation of organizational-facility hierarchy a FHIR value set resource.  
+
+...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-fhir:fhir_location_read</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-fhir:fhir_location_read">
+    Provider XML representation of a faciltiy as a FHIR location resource.  
+
+  </a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-fhir:fhir_organization_read</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-fhir:fhir_organization_read">
+    Provider XML representation of a organization as a FHIR organization resource.  
+
+  </a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-fhir:fhir_practitioner_read</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-fhir:fhir_practitioner_read">
+    Provider XML representation of a provider as a FHIR practitioner resource.  
+
+  </a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-fhir:fhir_fac_by_organizational_hierarchy_value_set"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-fhir:fhir_fac_by_organizational_hierarchy_value_set</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Provider XML representation of organizational-facility hierarchy a FHIR value set resource.  
+
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace fhir = "http://hl7.org/fhir";
+declare variable $careServicesRequest as item() external;
+
+let $org_id := $careServicesRequest/fhir:_id/text()
+let $search_name := string($careServicesRequest/@function)
+let $resource := string($careServicesRequest/@resource)
+
+let $function := csr_proc:get_function_definition($search_name)
+let $entity :=   string(($function/csd:extension[@urn='urn:openhie.org:openinfoman:adapter:fhir:valueset' ])[1]/@type)
+
+
+let $t_base_url := 
+  if (exists($careServicesRequest/@xml:base))
+  then string($careServicesRequest/@xml:base)
+  else string($careServicesRequest/@base_url)
+
+
+let $base_url :=
+  concat($t_base_url, "CSD/csr/", $resource, "/careServicesRequest/" , $search_name , "/adapter/fhir/" , $entity , "/valueset" )
+
+let $expand := 
+    (exists($careServicesRequest/fhir:_query)
+    and matches(functx:trim(($careServicesRequest/fhir:_query)[1]/text()),'expand','i')
+    )
+      
+
+
+let $org := (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $org_id])[1]
+let $child_orgs := /csd:CSD/csd:organizationDirectory/csd:organization[ ./csd:parent[@entityID = $org_id]]
+let $child_facs := /csd:CSD/csd:facilityDirectory/csd:facility[ ./csd:organizations/csd:organization[@entityID = $org_id]]
+let $org_name := ($org/csd:primaryName)[1]/text()
+
+
+return
+  if (exists($org) ) 
+  then
+    &lt;fhir:ValueSet&gt;
+      &lt;fhir:text&gt;
+	&lt;fhir:status value="generated"/&gt;
+	&lt;div xmlns="http://www.w3.org/1999/xhtml"&gt;
+	  &lt;h2&gt;Value Set {$org_id}&lt;/h2&gt;
+	  &lt;h3&gt;Valueset {$entity}: {$org/csd:primaryName/text()}&lt;/h3&gt;
+	  {
+	    let $parent := (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $org/csd:parent/@entityID ])[1]
+	    return 
+	       if (exists($parent))
+	       then
+	         &lt;span class='vs_parent'&gt;
+		   &lt;p&gt;Parent Oraganization (Imports this value set): &lt;/p&gt;
+		   &lt;a href="{$base_url}?_id={$parent/@entityID}"&gt;{string($parent/@entityID)}&lt;/a&gt;{$parent/csd:primaryName}
+		 &lt;/span&gt;
+	       else()
+	  }
+	  {
+	    if (count($child_orgs) &gt; 0)
+	    then
+	      &lt;span class='vs_child'&gt;
+	       &lt;p&gt;
+  	         Child Organizatons (Imported Value Sets):
+	       &lt;/p&gt;
+	       &lt;ul&gt;
+	         {
+		   for $child_org in $child_orgs
+		   return &lt;li&gt;&lt;a href="{$base_url}?_id={$child_org/@entityID}"&gt;{string($child_org/@entityID)}&lt;/a&gt;{$child_org/csd:primaryName}&lt;/li&gt;
+		 }
+	       &lt;/ul&gt;
+	      &lt;/span&gt;
+	    else ()
+	    
+	  }
+	  {
+	    if (count($child_facs) &gt; 0)
+	    then 
+	      &lt;span class='vs_facs'&gt;
+	        &lt;p&gt;
+	          Facility codes directly defined by this code set:
+		&lt;/p&gt;
+	        &lt;ul&gt;
+		  {
+		     for $child_fac in $child_facs
+		     return &lt;li&gt;Value: {string($child_fac/@entityID)} is {$child_fac/csd:primaryName/text()} &lt;/li&gt;
+		  }
+		&lt;/ul&gt;
+	      &lt;/span&gt;
+	    else ()
+
+	  }
+	&lt;/div&gt;
+      &lt;/fhir:text&gt;
+      &lt;fhir:identifier value="{$base_url}?_id={$org_id}"/&gt;
+      &lt;fhir:version value="0"/&gt;
+      &lt;fhir:name&gt;Organization: {$org_name}&lt;/fhir:name&gt;
+      &lt;fhir:status value="active"/&gt;      
+      &lt;fhir:date&gt;{string($org/csd:record/@lastModified)}&lt;/fhir:date&gt;
+      &lt;fhir:define&gt;
+
+        &lt;fhir:system value="{$base_url}?_id={$org_id}"/&gt;
+        &lt;fhir:version value="0"/&gt;
+	&lt;fhir:caseSensitive value="true"/&gt;
+
+	{
+	  for $child_fac in $child_facs
+	  let $fac_name := ($child_fac/csd:primaryName[1])/text()
+	  let $definition := out:format("%s in %s", $fac_name,$org_name)
+	  let $value := string($child_fac/@entityID)
+	  where (not (functx:all-whitespace($value)) and not (functx:all-whitespace($fac_name)))
+	  return 
+	    &lt;fhir:concept&gt;
+	      &lt;fhir:code value="{$value}"/&gt;
+	      &lt;fhir:display value="{$fac_name}"/&gt;
+	      &lt;fhir:definition value="{$definition}"/&gt;
+	    &lt;/fhir:concept&gt;
+	}
+      &lt;/fhir:define&gt;
+      {
+	if(not($expand) ) 
+	then
+  	  &lt;fhir:compose&gt;
+            {
+	      for $child_org in $child_orgs
+	      let $child_id := string($child_org/@entityID)
+	      where not (functx:all-whitespace($child_id))
+	      return &lt;fhir:import value="{$base_url}?_id={$child_id}"/&gt;
+	    }
+	  &lt;/fhir:compose&gt;    
+	 else  ()
+
+        }
+    &lt;/fhir:ValueSet&gt;
+  else $careServicesRequest</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-fhir:fhir_location_read"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-fhir:fhir_location_read</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Provider XML representation of a faciltiy as a FHIR location resource.  
+
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace fadpt = "https://github.com/openhie/openinfoman/adapter/fhir";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace fhir = "http://hl7.org/fhir";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+ 
+let $search_name := "urn:ihe:iti:csd:2014:stored-function:facility-search"
+
+let $careServicesSubRequest :=  
+  &lt;csd:careServicesRequest&gt;
+    &lt;csd:function urn="{$search_name}" resource="{$careServicesRequest/@resource}" base_url="{$careServicesRequest/@base_url}"&gt;
+      &lt;csd:requestParams&gt;
+         {
+	  let $id := $careServicesRequest/fhir:_id/text()
+	  return if (functx:all-whitespace($id)) then () else &lt;csd:id entityID="{$id}"/&gt;
+	 }
+         {
+	  let $cn := $careServicesRequest/fhir:name/text()
+	  return if (functx:all-whitespace($cn)) then () else  &lt;csd:primaryName&gt;{$cn}&lt;/csd:primaryName&gt; 
+	 }
+	 {
+	  let $org := string($careServicesRequest/fhir:manaingOrganization/@value)
+	  return if (functx:all-whitespace($org)) then () else &lt;csd:organizations&gt;&lt;csd:organization&gt;{$org}&lt;/csd:organization&gt;&lt;/csd:organizations&gt; 
+	 }
+
+         {
+	  let $t_start := $careServicesRequest/page/text()
+	  return if (functx:is-a-number($t_start))
+	    then
+	      let $start := max((xs:int($t_start),1))
+	      let $t_count := $careServicesRequest/fhir:_count/text()
+	      let $count := if(functx:is-a-number($t_count)) then  max((xs:int($t_count),1)) else 50
+	      let $startIndex := ($start - 1)*$count + 1
+	      return &lt;csd:start&gt;{$startIndex}&lt;/csd:start&gt;
+	    else () 
+	 }
+	 {
+	   let $count := $careServicesRequest/fhir:_count/text()
+	   return 
+	      if(functx:is-a-number($count)) 
+	      then  &lt;csd:max&gt;{max((xs:int($count),1))} &lt;/csd:max&gt;
+	      else ()
+	 }
+	 {
+	  let $since := $careServicesRequest/fhir:_since/text()
+	  return if (functx:all-whitespace($since)) then () else &lt;csd:record updated="{$since}"/&gt; 
+	 }
+      &lt;/csd:requestParams&gt;
+    &lt;/csd:function&gt;
+  &lt;/csd:careServicesRequest&gt;
+
+ 
+let $contents := csr_proc:process_CSR_stored_results( /. , $careServicesSubRequest)
+
+   (:note this is a CSD:csd element, not a document :)
+return $contents/csd:facilityDirectory/csd:facility
+
+
+
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-fhir:fhir_organization_read"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-fhir:fhir_organization_read</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Provider XML representation of a organization as a FHIR organization resource.  
+
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace fadpt = "https://github.com/openhie/openinfoman/adapter/fhir";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace fhir = "http://hl7.org/fhir";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+ 
+let $search_name := "urn:ihe:iti:csd:2014:stored-function:organization-search"
+
+let $careServicesSubRequest :=  
+  &lt;csd:careServicesRequest&gt;
+    &lt;csd:function urn="{$search_name}" resource="{$careServicesRequest/@resource}" base_url="{$careServicesRequest/@base_url}"&gt;
+      &lt;csd:requestParams&gt;
+         {
+	  let $id := $careServicesRequest/fhir:_id/text()
+	  return if (functx:all-whitespace($id)) then () else &lt;csd:id entityID="{$id}"/&gt;
+	 }
+         {
+	  let $cn := $careServicesRequest/fhir:name/text()
+	  return if (functx:all-whitespace($cn)) then () else &lt;csd:primaryName&gt;{$cn}&lt;/csd:primaryName&gt; 
+	 }
+	 {
+	  let $org := string($careServicesRequest/fhir:partOf/@value)
+	  return if (functx:all-whitespace($org)) then () else  &lt;csd:parent&gt;{$org}&lt;/csd:parent&gt; 
+	 }
+
+         {
+	  let $t_start := $careServicesRequest/page/text()
+	  return if (functx:is-a-number($t_start))
+	    then
+	      let $start := max((xs:int($t_start),1))
+	      let $t_count := $careServicesRequest/fhir:_count/text()
+	      let $count := if(functx:is-a-number($t_count)) then  max((xs:int($t_count),1)) else 50
+	      let $startIndex := ($start - 1)*$count + 1
+	      return &lt;csd:start&gt;{$startIndex}&lt;/csd:start&gt;
+	    else () 
+	 }
+         {
+	   let $count := $careServicesRequest/fhir:_count/text()
+	   return 
+	      if(functx:is-a-number($count)) 
+	      then &lt;csd:max&gt;{max(($count,1))} &lt;/csd:max&gt;
+	      else ()
+	 }
+	 {
+	  let $since := $careServicesRequest/fhir:_since/text()
+	  return if ($since) then &lt;csd:record updated="{$since}"/&gt; else () 
+	 }
+      &lt;/csd:requestParams&gt;
+    &lt;/csd:function&gt;
+  &lt;/csd:careServicesRequest&gt;
+
+ 
+let $contents := csr_proc:process_CSR_stored_results( /. , $careServicesSubRequest)
+
+   (:note this is a CSD:csd element, not a document :)
+return $contents/csd:organizationDirectory/csd:organization
+
+
+
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-fhir:fhir_practitioner_read"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-fhir:fhir_practitioner_read</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Provider XML representation of a provider as a FHIR practitioner resource.  
+
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace fadpt = "https://github.com/openhie/openinfoman/adapter/fhir";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace fhir = "http://hl7.org/fhir";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+ 
+let $search_name := "urn:ihe:iti:csd:2014:stored-function:provider-search"
+
+let $careServicesSubRequest :=  
+  &lt;csd:careServicesRequest&gt;
+    &lt;csd:function urn="{$search_name}" resource="{$careServicesRequest/@resource}" base_url="{$careServicesRequest/@base_url}"&gt;
+      &lt;csd:requestParams&gt;
+         {
+	  let $id := $careServicesRequest/fhir:_id/text()
+	  return if (functx:all-whitespace($id)) then () else &lt;csd:id entityID="{$id}"/&gt;
+	 }
+         {
+	  let $cn := $careServicesRequest/fhir:name/fhir:text/text()
+	  return if (functx:all-whitespace($cn)) then () else &lt;csd:commonName&gt;{$cn}&lt;/csd:commonName&gt;
+	 }
+	 {
+	  let $org := string($careServicesRequest/fhir:organization/@value)
+	  return if (functx:all-whitespace($org)) then () else  &lt;csd:organizations&gt;&lt;csd:organization&gt;{$org}&lt;/csd:organization&gt;&lt;/csd:organizations&gt; 
+	 }
+
+	 {
+	  let $loc := string($careServicesRequest/fhir:location/@value)
+	  return if (functx:all-whitespace($loc)) then () else &lt;csd:facilities&gt;&lt;csd:facility&gt;{$loc}&lt;/csd:facility&gt;&lt;/csd:facilities&gt; 
+	 }
+
+         {
+	  let $t_start := $careServicesRequest/page/text()
+	  return if (functx:is-a-number($t_start))
+	    then
+	      let $start := max((xs:int($t_start),1))
+	      let $t_count := $careServicesRequest/fhir:_count/text()
+	      let $count := if(functx:is-a-number($t_count)) then  max((xs:int($t_count),1)) else 50
+	      let $startIndex := ($start - 1)*$count + 1
+	      return &lt;csd:start&gt;{xs:string($startIndex)}&lt;/csd:start&gt;
+	    else () 
+	 }
+         {
+	   let $count := $careServicesRequest/fhir:_count/text()
+	   return 
+	      if(functx:is-a-number($count)) 
+	      then &lt;csd:max&gt;{max(($count,1))} &lt;/csd:max&gt;
+	      else ()
+	 }
+	 {
+	  let $since := $careServicesRequest/fhir:_since/text()
+	  return if (functx:all-whitespace($since)) then () else &lt;csd:record updated="{$since}"/&gt; 
+	 }
+      &lt;/csd:requestParams&gt;
+    &lt;/csd:function&gt;
+  &lt;/csd:careServicesRequest&gt;
+
+ 
+let $contents := csr_proc:process_CSR_stored_results( /. , $careServicesSubRequest)
+
+   (:note this is a CSD:csd element, not a document :)
+return $contents/csd:providerDirectory/csd:provider
+
+
+
+
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

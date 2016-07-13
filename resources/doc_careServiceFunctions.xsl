@@ -89,7 +89,7 @@
 
   <xsl:template name="CareServicesConsumerFunction">
     <xsl:param name="func" />
-    <a><xsl:attribute name="id"><xsl:value-of select='@urnd'/></xsl:attribute></a>          
+    <a><xsl:attribute name="id"><xsl:value-of select='@urn'/></xsl:attribute></a>          
     
     <div class="function">
       <div class="callout">

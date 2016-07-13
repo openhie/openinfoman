@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_birth</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_birth">nigeria_health_worker_indices_demogrpahic_birth</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_citizenship</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_citizenship">nigeria_health_worker_indices_demogrpahic_citizenship</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_photo</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_photo">nigeria_health_worker_indices_demographic_photo</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_birth</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_birth">nigeria_health_worker_read_demographic_birth</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_citizenship</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_citizenship">nigeria_health_worker_read_demographic_citizenship</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_photo</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_photo">nigeria_health_worker_read_demographic_photo</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_otherid</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_otherid">nigeria_health_worker_read_otherid</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:opensearch_name</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:opensearch_name">
+    Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specificat...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_birth</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_birth">nigeria_health_worker_create_demographic_birth</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_citizenship</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_citizenship">nigeria_health_worker_create_demographic_citizenship</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_photo</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_photo">nigeria_health_worker_create_demogrpahic_photo</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_other_id</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_other_id">nigeria_health_worker_create_otherid</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_provider_credenital</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_provider_credenital">nigeria_health_worker_create_provider_credential</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_birth</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_birth">nigeria_health_worker_delete_demogrpahic_birth</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demogrpahic_citizenship</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demogrpahic_citizenship">nigeria_health_worker_delete_demogrpahic_citizenship</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_photo</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_photo">nigeria_health_worker_delete_demogrpahic_photo</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_birth</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_birth">nigeria_health_worker_update_demogrpahic_birth</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demogrpahic_citizenship</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demogrpahic_citizenship">nigeria_health_worker_update_demogrpahic_citizenship</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_photo</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_photo">nigeria_health_worker_update_demogrpahic_phto</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_otherid</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_otherid">nigeria_health_worker_update_otherid</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_provider_credenital</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_provider_credenital">nigeria_health_worker_update_provider_credential</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_birth"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_birth</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_indices_demogrpahic_birth</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+let $provs0 := 
+  if (exists($careServicesRequest/id/@entityID)) then 
+    csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) 
+  else (/CSD/providerDirectory/*)
+let $provs1:=     
+  for $provider in  $provs0
+  return
+  &lt;provider entityID="{$provider/@entityID}"&gt;
+    &lt;demographic&gt;
+     {
+       if (exists(($provider/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1])) then
+	 &lt;extension urn="urn:who.int:hrh:mds" type='birth'/&gt;
+       else ()
+     }
+    &lt;/demographic&gt;
+  &lt;/provider&gt;
+    
+return csd_bl:wrap_providers($provs1)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_citizenship"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_citizenship</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_indices_demogrpahic_citizenship</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+let $provs0 := 
+  if (exists($careServicesRequest/id/@entityID)) then 
+    csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) 
+  else (/CSD/providerDirectory/*)
+let $provs1:=     
+  for $provider in  $provs0
+  return
+  &lt;provider entityID="{$provider/@entityID}"&gt;
+    &lt;demographic&gt;
+     {
+       if (exists(($provider/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1])) then
+	 &lt;extension urn="urn:who.int:hrh:mds" type='citizenship'/&gt;
+       else ()
+     }
+    &lt;/demographic&gt;
+  &lt;/provider&gt;
+    
+return csd_bl:wrap_providers($provs1)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_photo"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:indices_demographic_photo</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_indices_demographic_photo</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+  let $provs0 := 
+    if (exists($careServicesRequest/id/@entityID)) then 
+      csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) 
+    else (/CSD/providerDirectory/*)
+  let $provs1:=     
+      for $provider in  $provs0
+      return
+      &lt;provider entityID="{$provider/@entityID}"&gt;
+	&lt;demographic&gt;
+	  {
+	    for $name at $pos  in  $provider/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds']
+	    return &lt;extension type='photograph' urn='urn:who.int:hrh:mds'  position="{$pos}"/&gt; 
+	  }
+	&lt;/demographic&gt;
+    &lt;/provider&gt;
+      
+    return csd_bl:wrap_providers($provs1)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_birth"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_birth</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_read_demographic_birth</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id(/CSD/providerDirectory/* ,$careServicesRequest/id) else ()
+let $provs2 := 
+  if (count($provs1) = 1) 
+    then 
+    &lt;provider entityID="{$provs1[1]/@entityID}"&gt;
+      &lt;demographic&gt;
+	{($provs1[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1]}
+      &lt;/demographic&gt;
+    &lt;/provider&gt;
+  else ()        
+return csd_bl:wrap_providers($provs2)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_citizenship"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_citizenship</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_read_demographic_citizenship</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id(/CSD/providerDirectory/* ,$careServicesRequest/id) else ()
+let $provs2 := 
+  if (count($provs1) = 1) 
+    then 
+    &lt;provider entityID="{$provs1[1]/@entityID}"&gt;
+      &lt;demographic&gt;
+	{($provs1[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1]}
+      &lt;/demographic&gt;
+    &lt;/provider&gt;
+  else ()        
+return csd_bl:wrap_providers($provs2)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_photo"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_demographic_photo</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_read_demographic_photo</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+let $exts := $careServicesRequest/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds']
+let $provs0 := if (count($exts) = 1 and exists($exts[1]/@position)) then /CSD/providerDirectory/*  else ()
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id($provs0,$careServicesRequest/id) else ()
+let $provs2 := 
+  if (count($provs1) = 1) 
+    then 
+    let $provider :=  $provs1[1] 
+    return 
+    &lt;provider entityID="{$provider/@entityID}"&gt;
+      &lt;demographic&gt;
+	{
+	  for $ext in ($provider/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds'])[position() = $exts[1]/@position]
+	  return      &lt;extension type='photograph' urn='urn:who.int:hrh:mds'  position="{$exts[1]/@position}"&gt;{$ext/*}&lt;/extension&gt;
+	}
+      &lt;/demographic&gt;
+      {$provider/record}
+    &lt;/provider&gt;
+  else ()    
+    
+return csd_bl:wrap_providers($provs2)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_otherid"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:read_otherid</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_read_otherid</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+let $provs0 := if (exists($careServicesRequest/otherID/@position)) then /CSD/providerDirectory/*  else ()
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id($provs0,$careServicesRequest/id) else ()
+let $provs2 := 
+  if (count($provs1) = 1) 
+    then 
+    let $provider :=  $provs1[1] 
+    return 
+    &lt;provider entityID="{$provider/@entityID}"&gt;
+      {(
+	if (exists($careServicesRequest/otherID/@position))
+	  then 
+	  for $id in $provider/otherID[position() = $careServicesRequest/otherID/@position]
+	  return       
+	  &lt;otherID 
+	  position="{$careServicesRequest/otherID/@position}"
+	  code="{$id/@code}"
+	  expirationDate="{$id/@expirationDate}"
+	  issueDate="{$id/@issueDate}"
+	  assigningAuthorityName="{$id/@assigningAuthorityName}"&gt;{string($id)}&lt;/otherID&gt;
+	else
+	  ()
+        ,      
+	$provider/record
+	)}
+    &lt;/provider&gt;
+  else ()    
+    
+return csd_bl:wrap_providers($provs2)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:opensearch_name"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:opensearch_name</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specification:
+      http://www.opensearch.org/Specifications/OpenSearch/1.1
+    Returns search results in opensearch feed for a provider by common name
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace rss = "http://backend.userland.com/rss2";
+declare namespace atom = "http://www.w3.org/2005/Atom";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+declare namespace os  = "http://a9.com/-/spec/opensearch/1.1/";
+declare variable $careServicesRequest as item() external;
+
+
+(: 
+   The query will be executed against the root element of the CSD document.    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+
+(:Get the search terms passed in the request :)
+let $search_terms := xs:string($careServicesRequest/os:searchTerms/text())
+(:Find the matching providers -- to be customized for your search:)
+let $matched_providers :=  
+  for $provider in /csd:CSD/csd:providerDirectory/csd:provider
+  let $surname := $provider/csd:demographic/csd:name/csd:surname
+  where  exists($search_terms) and exists($surname) and functx:contains-case-insensitive($surname,  $search_terms)  
+  return $provider  
+
+
+
+let $html_wrap_func :=  function($meta,$content) {
+  &lt;html:html xml:lang="en" lang="en"&gt;
+    &lt;html:head profile="http://a9.com/-/spec/opensearch/1.1/" &gt;    
+
+      &lt;html:link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet"/&gt;
+      &lt;html:link href="/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/&gt;
+      
+      &lt;html:script src="https://code.jquery.com/jquery.js"/&gt;
+      &lt;script src="/static/bootstrap/js/bootstrap.min.js"/&gt;
+
+      &lt;html:script src="https://code.jquery.com/jquery.js"/&gt;
+      &lt;html:script src="/static/bootstrap/js/bootstrap.min.js"/&gt;
+      {$meta}
+    &lt;/html:head&gt;
+    &lt;html:body&gt;  
+      &lt;html:div class="navbar navbar-inverse navbar-static-top"&gt;
+	&lt;html:div class="container"&gt;
+          &lt;html:div class="navbar-header"&gt;
+	    &lt;html:img class='pull-left' height='38px' src='/static/FMOH_Nigeria_logo.png'/&gt;
+            &lt;html:button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"&gt;
+              &lt;html:span class="icon-bar"&gt;&lt;/html:span&gt;
+              &lt;html:span class="icon-bar"&gt;&lt;/html:span&gt;
+              &lt;html:span class="icon-bar"&gt;&lt;/html:span&gt;
+            &lt;/html:button&gt;
+            &lt;html:a class="navbar-brand" href="/CSD"&gt;Nigeria Health Workforce Registry&lt;/html:a&gt;
+          &lt;/html:div&gt;
+	&lt;/html:div&gt;
+      &lt;/html:div&gt;
+      &lt;html:div class="container"&gt;
+	&lt;html:p align="justify" class='bold'&gt;
+	The Nigeria Health Workforce Registry (NHWR) is an information system developed and managed by the Department of Planning, Research and Statistics,
+	in the Federal Ministry of Health. The Nigeria Health Workforce Registry represents the Government of Nigeria's health workforce, aggregated from the three
+	tiers of the country's health system - Local, State and Federal levels.
+	&lt;/html:p&gt;
+	&lt;html:p&gt;
+	The Nigeria Health Workforce Registry implements the Care Services Directory 
+	(&lt;html:a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_CSD.pdf"&gt;CSD&lt;/html:a&gt;)
+	profile from Integrating the Health Enterprise &lt;html:a href="http://ihe.net"&gt;(IHE)&lt;/html:a&gt; as recommened by OpenHIE.
+	&lt;/html:p&gt;
+	
+
+	&lt;html:p&gt;
+	  &lt;html:b&gt;The Nigeria Health Workforce Registry is a free, Open Source software solution.&lt;/html:b&gt;
+	&lt;/html:p&gt;
+      &lt;/html:div&gt;
+      &lt;html:div class='wrapper_search'&gt;
+	&lt;html:div class="container"&gt;
+	  {$content}
+	&lt;/html:div&gt;
+      &lt;/html:div&gt;
+
+
+      &lt;html:div id='site_footer' class='container'&gt;
+        © 2014 Department of Planning, Research and statistics, Federal Ministry of Health. 
+      &lt;/html:div&gt;
+    &lt;/html:body&gt;
+  &lt;/html:html&gt;
+
+}
+
+
+
+let $processors := map{
+  'html_wrap' : $html_wrap_func
+}
+
+(:Produce the feed in the neccesary format :)
+return osf:create_feed_from_entities($matched_providers,$careServicesRequest,$processors)
+
+
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_birth"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_birth</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_create_demographic_birth</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provs := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+let $birth :=  ($careServicesRequest/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1]
+let $existingBirth :=  ($provs[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1]
+let $demo := $provs[1]/demographic
+let $insert := 
+  if (not(exists($demo))) then &lt;demographic&gt;{$birth}&lt;/demographic&gt; else $birth
+    let $return := 
+    &lt;provider entityID="{$provs[1]/@entityID}"&gt;
+      &lt;demographic&gt;&lt;extension type="birth" urn="urn:who.int:hrh:mds"/&gt;&lt;/demographic&gt;
+    &lt;/provider&gt;
+let $insertTo :=
+  if (not(exists($demo))) then $provs[1] else $provs[1]/demographic
+
+return  
+  if ( count($provs) = 1 and not(exists($existingBirth)))
+  then
+     (
+      insert node $insert into $insertTo,
+      csd_blu:bump_timestamp($provs[1]),
+      csd_blu:wrap_updating_providers($return)
+      )
+  else  csd_blu:wrap_updating_providers(())
+      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_citizenship"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_citizenship</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_create_demographic_citizenship</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provs := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+let $citizenship :=  ($careServicesRequest/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1]
+let $existingCitizenship :=  ($provs[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1]
+let $demo := $provs[1]/demographic
+let $insert := 
+  if (not(exists($demo))) then &lt;demographic&gt;{$citizenship}&lt;/demographic&gt; else $citizenship
+    let $return := 
+    &lt;provider entityID="{$provs[1]/@entityID}"&gt;
+      &lt;demographic&gt;&lt;extension type="citizenship" urn="urn:who.int:hrh:mds"/&gt;&lt;/demographic&gt;
+    &lt;/provider&gt;
+let $insertTo :=
+  if (not(exists($demo))) then $provs[1] else $provs[1]/demographic
+
+return  
+  if ( count($provs) = 1 and not(exists($existingCitizenship)))
+  then
+     (
+      insert node $insert into $insertTo,
+      csd_blu:bump_timestamp($provs[1]),
+      csd_blu:wrap_updating_providers($return)
+      )
+  else  csd_blu:wrap_updating_providers(())
+      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_photo"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_demographic_photo</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_create_demogrpahic_photo</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+let $ext := $careServicesRequest/demographic/extension[@type='photograph' and urn ='urn:who.int:hrh:mds']
+let $provs := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+return  
+  if ( exists($ext) and count($provs) = 1 )
+    then
+    let $provider:= $provs[1]
+    let $position := count($provider/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds']) +1
+    let $return:=  
+    &lt;provider entityID="{$provider/@entityID}"&gt;
+      &lt;demographic&gt;
+	&lt;extension type='photograph' urn='urn:who.int:hrh:mds' position="{$position}"/&gt;
+      &lt;/demographic&gt;
+    &lt;/provider&gt;
+    return 
+      (
+	if (exists($provider/demographic))
+	  then insert node $ext into $provider/demographic 
+	else
+	  insert node &lt;demographic&gt;{$ext}&lt;/demographic&gt; into $provider
+	  ,   csd_blu:wrap_updating_providers($return)
+	)
+  else  csd_blu:wrap_updating_providers(())
+      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_other_id"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_other_id</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_create_otherid</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provider := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id)[1] else ()
+let $new_id := $careServicesRequest/otherID
+return  
+  if ( exists($provider) and not($new_id/@code = ''))     
+    then
+    let $position := count($provider/otherID) +1
+    let $return:=  
+      &lt;provider entityID="{$provider/@entityID}"&gt;
+	&lt;otherID position="{$position}"/&gt;
+      &lt;/provider&gt;
+    return 
+      (
+	insert node $new_id into $provider ,    
+	csd_blu:wrap_updating_providers($return)
+      )
+  else  csd_blu:wrap_updating_providers(())
+      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_provider_credenital"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:create_provider_credenital</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_create_provider_credential</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provider := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id)[1] else ()
+let $cred_request := $careServicesRequest/credential
+let $code:= $cred_request/codedType/@code
+let $codingScheme:= $cred_request/codedType/@codingScheme
+let $creds := $provider/credential[@code = $code and @codingScheme = $codingScheme]
+return  
+  if ( exists($provider) and count($creds) = 0 and exists($code) and exists($codingScheme))  (:DO NOT ALLOW SAME CRED TWICE :)
+    then
+    let $return:=  
+      &lt;provider entityID="{$provider/@entityID}"&gt;
+	&lt;credential&gt;
+	  &lt;codedType code="{$code}" codingScheme="{$codingScheme}"/&gt;
+	&lt;/credential&gt;
+      &lt;/provider&gt;
+    let $cred_new :=
+      &lt;credential&gt;
+	&lt;codedType code="{$code}" codingScheme="{$codingScheme}"/&gt;
+	{(
+	  if (exists($cred_request/number)) then $cred_request/number else (),
+	  if (exists($cred_request/issuingAuthority)) then $cred_request/issuingAuthority else (),
+	  if (exists($cred_request/credentialIssueDate)) then $cred_request/credentialIssueDate else (),
+	  if (exists($cred_request/credentialRenewalDate)) then $cred_request/credentialRenewalDate else (),
+	  if (exists($cred_request/extension[@urn='urn:who.int:hrh:mds' and @type='photograph']/image)) then $cred_request/extension[@urn='urn:who.int:hrh:mds' and @type='photograph'] else ()
+	 )}
+      &lt;/credential&gt;
+    return 
+	(
+	insert node $cred_new into $provider,
+	csd_blu:wrap_updating_providers($return)
+	)
+
+  else  csd_blu:wrap_updating_providers(())
+      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_birth"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_birth</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_delete_demogrpahic_birth</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+let $providers := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+return
+  if ( count($providers) = 1 )
+    then
+    let $birth := ($providers[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])
+    return if (exists($birth)) then (delete node $birth) else ()
+  else  ()
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demogrpahic_citizenship"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demogrpahic_citizenship</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_delete_demogrpahic_citizenship</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+let $providers := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+return
+  if ( count($providers) = 1 )
+    then
+    let $citizenship := ($providers[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])
+    return if (exists($citizenship)) then (delete node $citizenship) else ()
+  else  ()
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_photo"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:delete_demographic_photo</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_delete_demogrpahic_photo</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+let $pos := $careServicesRequest/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds']/@position
+return
+  if (exists($pos)) 
+    then 
+    let $providers := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+    return
+      if ( count($providers) = 1 )
+	then
+	let  $ext :=  ($providers[1]/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds'])[position() = $pos]
+	return if (exists($ext)) then (delete node $ext) else ()
+      else  ()
+    else ()      
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_birth"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_birth</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_update_demogrpahic_birth</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provs := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+let $updBirth :=  ($careServicesRequest/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1]
+let $existBirth := ($provs[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='birth'])[1]
+
+return  
+  if ( count($provs) = 1 and exists( $existBirth ) and exists($updBirth)) then
+   (
+     if (exists($updBirth/country))
+       then 	    
+       if (exists($existBirth/country))
+	 then  replace value of node $existBirth/country with $updBirth/country
+       else insert node  $updBirth/country into $existBirth
+     else (),
+     if (exists($updBirth/town))
+       then 	    
+       if (exists($existBirth/town))
+	 then  replace value of node $existBirth/town with $updBirth/town
+       else insert node  $updBirth/town into $existBirth
+     else (),
+     if (exists($updBirth/motherName))
+       then 	    
+       if (exists($existBirth/motherName))
+	 then  replace value of node $existBirth/motherName with $updBirth/motherName
+       else insert node  $updBirth/motherName into $existBirth
+     else (),
+     if (exists($updBirth/fatherName))
+       then 	    
+       if (exists($existBirth/fatherName))
+	 then  replace value of node $existBirth/fatherName with $updBirth/fatherName
+       else insert node  $updBirth/fatherName into $existBirth
+     else (),	    
+     csd_blu:bump_timestamp($provs[1]),
+     let $return := 
+     &lt;provider entityID="{$provs[1]/@entityID}"&gt;
+       &lt;demographic&gt;&lt;extension type="birth" urn="urn:who.int:hrh:mds"/&gt;&lt;/demographic&gt;
+     &lt;/provider&gt;
+     return csd_blu:wrap_updating_providers($return)
+    )
+  else 	csd_blu:wrap_updating_providers(())
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demogrpahic_citizenship"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demogrpahic_citizenship</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_update_demogrpahic_citizenship</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provs := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+let $updCitizen :=  ($careServicesRequest/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1]
+let $existCitizen := ($provs[1]/demographic/extension[@urn='urn:who.int:hrh:mds' and @type='citizenship'])[1]
+
+return  
+  if ( count($provs) = 1 and exists( $existCitizen ) and exists($updCitizen)) then
+   (
+     if (exists($updCitizen/residence))
+       then 	    
+       if (exists($existCitizen/residence))
+	 then  replace value of node $existCitizen/residence with $updCitizen/residence
+       else insert node  $updCitizen/residence into $existCitizen
+     else (),
+     if (exists($updCitizen/current))
+       then 	    
+       if (exists($existCitizen/current))
+	 then  replace value of node $existCitizen/current with $updCitizen/current
+       else insert node  $updCitizen/current into $existCitizen
+     else (),
+     if (exists($updCitizen/birth))
+       then 	    
+       if (exists($existCitizen/birth))
+	 then  replace value of node $existCitizen/birth with $updCitizen/birth
+       else insert node  $updCitizen/birth into $existCitizen
+     else (),
+     csd_blu:bump_timestamp($provs[1]),
+     let $return := 
+     &lt;provider entityID="{$provs[1]/@entityID}"&gt;
+       &lt;demographic&gt;&lt;extension type='citizenship' urn="urn:who.int:hrh:mds"/&gt;&lt;/demographic&gt;
+     &lt;/provider&gt;
+     return csd_blu:wrap_updating_providers($return)
+    )
+  else 	csd_blu:wrap_updating_providers(())
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_photo"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_demographic_photo</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_update_demogrpahic_phto</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+let $new_ext := $careServicesRequest/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds']
+let $provs0 := if (exists($new_ext/@position)) then /CSD/providerDirectory/*  else ()
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id($provs0,$careServicesRequest/id) else ()
+let $ext := ($provs1[1]/demographic/extension[@type='photograph' and @urn='urn:who.int:hrh:mds'])[position() = $new_ext/@position]
+return
+  if (count($provs1) = 1 and exists($ext)) 
+    then
+    let $provs2 := 
+    &lt;provider entityID="{$provs1[1]/@entityID}"&gt;
+      &lt;demographic&gt;
+	&lt;extension type='photograph' urn='urn:who.int:hrh:mds' position="{$new_ext/@position}"/&gt;
+      &lt;/demographic&gt;
+    &lt;/provider&gt;
+    return
+      (
+	csd_blu:bump_timestamp($provs1[1]),
+	replace  node $ext with $new_ext,
+	csd_blu:wrap_updating_providers($provs2)
+     )
+  else 	csd_blu:wrap_updating_providers(())
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_otherid"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_otherid</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_update_otherid</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+let $provs0 := if (exists($careServicesRequest/otherID)) then /CSD/providerDirectory/*  else ()
+let $provs1 := if (exists($careServicesRequest/id/@entityID)) then csd_bl:filter_by_primary_id($provs0,$careServicesRequest/id) else ()
+let $id := $provs1[1]/otherID[position() = $careServicesRequest/otherID/@position]
+return
+  if (count($provs1) = 1 and exists($id)) 
+    then
+    let $provs2 := 
+    &lt;provider entityID="{$provs1[1]/@entityID}"&gt;
+      &lt;otherID position="{$careServicesRequest/otherID/@position}"/&gt;
+    &lt;/provider&gt;
+    return
+      (
+	csd_blu:bump_timestamp($provs1[1]),
+	if ($careServicesRequest/otherID/@code) 
+	  then 	    
+	    if (exists($id/@code))
+	      then  (replace value of node $id/@code with $careServicesRequest/otherID/@code)
+	      else (insert node  $careServicesRequest/otherID/@code into $id)
+	  else (),
+	if (exists($careServicesRequest/otherID/@assigningAuthorityName) )
+	  then 
+	    if (exists($id/@assigningAuthorityName))
+	      then replace value of node $id/@assigningAuthorityName with $careServicesRequest/otherID/@assigningAuthorityName
+	      else insert node $careServicesRequest/otherID/@assigningAuthorityName into $id		
+	  else (),
+	if (exists($careServicesRequest/otherID/@issueDate) )
+	  then 
+	    if (exists($id/@issueDate))
+	      then replace value of node $id/@issueDate with $careServicesRequest/otherID/@issueDate
+	      else insert node $careServicesRequest/otherID/@issueDate into $id		
+	  else (),
+	if (exists($careServicesRequest/otherID/@expirationDate) )
+	  then 
+	    if (exists($id/@expirationDate))
+	      then replace value of node $id/@expirationDate with $careServicesRequest/otherID/@expirationDate
+	      else insert node $careServicesRequest/otherID/@expirationDate into $id		
+	  else (),
+	if (not(string($careServicesRequest/otherID) = '')) 
+	  then (replace value of node $id with string($careServicesRequest/otherID))
+	  else (),
+	csd_blu:wrap_updating_providers($provs2)
+     )
+  else 	csd_blu:wrap_updating_providers(())
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_provider_credenital"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-hwr-nigeria:stored-function:update_provider_credenital</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>nigeria_health_worker_update_provider_credential</pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+
+import module namespace csd_blu = "https://github.com/openhie/openinfoman/csd_blu";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+   
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:)   
+
+let $provs0 := if (exists($careServicesRequest/id/@entityID)) then	csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id) else ()
+let $provs1 := if (count($provs0) = 1) then $provs0 else ()
+let $provs2 := if (exists($careServicesRequest/credential/codedType/@code) and exists($careServicesRequest/credential/codedType/@codingScheme) ) then $provs1  else ()
+let $cred_new := $careServicesRequest/credential
+let $code:= $cred_new/codedType/@code
+let $codingScheme:= $cred_new/codedType/@codingScheme
+let $creds0 := $provs2/credential/codedType[@code = $code and @codingScheme = $codingScheme]
+return  
+  if ( count($provs2) = 1 and count($creds0) = 1)  (:Update only:)
+    then
+    let $cred_old := $creds0[1]/..
+    let $provider:= $provs2[1]
+    let $provs3 := 
+      &lt;provider entityID="{$provider/@entityID}"&gt;
+	&lt;credential&gt;
+	  &lt;codedType code="{$code}" codingScheme="{$codingScheme}"/&gt;
+	&lt;/credential&gt;
+      &lt;/provider&gt;
+
+
+    return
+      
+      (
+	csd_blu:bump_timestamp($provider),
+	if (exists($cred_new/issuingAuthority)) then
+	  (if (exists($cred_old/issuingAuthority)) then (delete node $cred_old/issuingAuthority) else (),
+	  insert node $cred_new/issuingAuthority into $cred_old)
+	else (),
+	if (exists($cred_new/number)) then
+	  (if (exists($cred_old/number)) then (delete node $cred_old/number) else (),
+	  insert node $cred_new/number into $cred_old)
+	else (),
+	if (exists($cred_new/credentialIssueDate)) then
+	  (if (exists($cred_old/credentialIssueDate)) then (delete node $cred_old/credentialIssueDate) else (),
+	  insert node $cred_new/credentialIssueDate into $cred_old)
+	else (),
+	if (exists($cred_new/credentialRenewalDate)) then
+	  (if (exists($cred_old/credentialRenewalDate)) then (delete node $cred_old/credentialRenewalDate) else (),
+	  insert node $cred_new/credentialRenewalDate into $cred_old)
+	else (),
+	if (exists($cred_new/extension[@urn='urn:who.int:hrh:mds' and @type='photograph']/image)) then
+	  (if (exists($cred_old/extension[@urn='urn:who.int:hrh:mds' and @type='photograph'])) then (delete node $cred_old/extension[@urn='urn:who.int:hrh:mds' and @type='photograph']) else (),
+	  insert node $cred_new/extension[@urn='urn:who.int:hrh:mds' and @type='photograph'] into $cred_old	   )
+	else (),
+
+	csd_blu:wrap_updating_providers($provs3)
+       )
+  else 	csd_blu:wrap_updating_providers(())
+
+
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

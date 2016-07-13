@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-anon:wiki-star-bible</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-anon:wiki-star-bible"> 
+    Anonymizes data using biblical names for person names and star names for places (sourced from ...</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-anon:wiki-star-bible"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-anon:wiki-star-bible</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Anonymizes data using biblical names for person names and star names for places (sourced from wikipedia)
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace anonymize = "https://github.com/openhie/openinfoman-anon";
+import module namespace functx = "http://www.functx.com";
+
+declare namespace csd  =  "urn:ihe:iti:csd:2013";
+
+declare variable $careServicesRequest as item() external;
+
+let $dest_doc := /.
+let $dest := $careServicesRequest/@resource
+
+let $values_doc := "anonymous/bible.xml"
+let $fac_values_doc := "anonymous/star.xml"
+
+
+let $values_src_0 := db:open($csd_webconf:db,$values_doc)
+let $values_src_1 := 
+ if (count($values_src_0//value[1]) &gt; 0)  
+ then $values_src_0
+ else 
+   let $number-for-a := string-to-codepoints('A')
+   let $number-for-z := string-to-codepoints('Z')
+
+   let $values_src := 
+     &lt;values&gt;
+       {
+	 for $letter in ($number-for-a to $number-for-z)
+	 let $url := concat('http://en.wikipedia.org/wiki/List_of_biblical_names_starting_with_', codepoints-to-string($letter))
+	 let $resp := http:send-request(&lt;http:request method='get' href="{$url}"/&gt;)
+ 	   for $li in $resp/html/body//div[@id="mw-content-text"]/ul[1]/li
+	   let $text := string-join(($li/a[1]/text(),$li/text()))
+	   let $name := tokenize($text,'\W+')[1]
+	   return &lt;value&gt;{functx:trim($name)}&lt;/value&gt;
+       }
+     &lt;/values&gt;
+    return $values_src
+let $values := $values_src_1//value/text()
+  
+
+
+let $fac_values_src_0 := db:open($csd_webconf:db,  $fac_values_doc)
+let $fac_values_src_1 := 
+ if (count($fac_values_src_0//value[1]) &gt; 0)  
+ then $fac_values_src_0
+ else 
+   let $fac_url := 'http://en.wikipedia.org/wiki/List_of_proper_names_of_stars_in_alphabetical_order'
+   let $resp := http:send-request(&lt;http:request method='get' href="{$fac_url}"/&gt;)
+  
+   return
+     &lt;values&gt;
+       {
+	 for $td in $resp//table[@class="wikitable"]//td[1]
+	 let $text := 
+	   functx:trim(string-join(($td/a[1]/text(),$td/text())))
+	 return if ($text) then &lt;value&gt;{$text}&lt;/value&gt; else ()
+       }
+     &lt;/values&gt;
+
+
+let $fac_values := $fac_values_src_1//value/text()
+ 
+
+return 
+(
+  if (count($values_src_0//value[1]) = 0)  
+  then 
+     if (db:exists($csd_webconf:db, $values_doc))
+     then db:replace($csd_webconf:db, $values_src_1, $values_doc)
+     else db:add($csd_webconf:db, $values_src_1, $values_doc)
+  else ()
+  ,
+  if (count($fac_values_src_0//value[1]) = 0)  
+  then 
+     if (db:exists($csd_webconf:db, $fac_values_doc))
+     then db:replace($csd_webconf:db, $fac_values_src_1, $fac_values_doc)
+     else db:add($csd_webconf:db, $fac_values_src_1, $fac_values_doc)
+  else ()
+  ,
+  for $doc  in $careServicesRequest/documents/document
+    let $name := $doc/@resource
+    let $src_doc :=
+      if (not ($name = $dest)) then csd_dm:open_document( $name) 
+      else ()
+    let $anon_doc := anonymize:document($src_doc,$values,$fac_values,$fac_values)
+    return   (csd_lsc:refresh_doc($dest_doc, $anon_doc))
+
+)
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

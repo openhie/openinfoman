@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-opensearch:provider_common_name</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-opensearch:provider_common_name">
+    Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specificat...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-opensearch:provider_credenital</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-opensearch:provider_credenital">
+    Peforms a search request on a provider's credential number according to the OpenSearch 1.1 Spec...</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-opensearch:provider_common_name"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-opensearch:provider_common_name</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Peforms a search request on a provider's common name according to the OpenSearch 1.1 Specification:
+      http://www.opensearch.org/Specifications/OpenSearch/1.1
+    Returns search results in opensearch feed for a provider by common name
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace rss = "http://backend.userland.com/rss2";
+declare namespace atom = "http://www.w3.org/2005/Atom";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+declare namespace os  = "http://a9.com/-/spec/opensearch/1.1/";
+
+declare variable $careServicesRequest as item() external;
+
+
+
+(: 
+   The query will be executed against the root element of the CSD document.    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+
+(:Get the search terms passed in the request :)
+let $search_terms := xs:string($careServicesRequest/os:searchTerms/text())
+(:Find the matching providers -- to be customized for your search:)
+let $filter:= function($common_name) {
+  functx:contains-case-insensitive($common_name,  $search_terms)  
+}
+let $matched_providers :=  
+  if ($search_terms) then
+    for $provider in /csd:CSD/csd:providerDirectory/csd:provider
+    let $common_names := $provider/csd:demographic/csd:name/csd:commonName
+    where  count(filter($common_names,$filter)) &gt; 0
+    return $provider  
+  else ()
+
+
+
+(:Produce the feed in the neccesary format :)
+return osf:create_feed_from_entities($matched_providers,$careServicesRequest)
+
+
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-opensearch:provider_credenital"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-opensearch:provider_credenital</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Peforms a search request on a provider's credential number according to the OpenSearch 1.1 Specification:
+      http://www.opensearch.org/Specifications/OpenSearch/1.1
+    Returns search results in opensearch feed 
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace osf = "https://github.com/openhie/openinfoman/adapter/opensearch";
+import module namespace functx = 'http://www.functx.com';
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare namespace rss = "http://backend.userland.com/rss2";
+declare namespace atom = "http://www.w3.org/2005/Atom";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+declare namespace os  = "http://a9.com/-/spec/opensearch/1.1/";
+declare variable $careServicesRequest as item() external;
+
+
+(: 
+   The query will be executed against the root element of the CSD document.    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+(:Get the search terms passed in the request :)
+let $search_terms := xs:string($careServicesRequest/os:searchTerms/text())
+(:Find the matching providers -- to be customized for your search:)
+let $filter:= function($credential) {
+  functx:contains-case-insensitive($credential,  $search_terms)  
+}
+let $matched_providers :=  
+  if ($search_terms) then
+    for $provider in /csd:CSD/csd:providerDirectory/csd:provider
+    let $credentials := $provider/csd:credential/csd:number
+    where  count(filter($credentials,$filter)) &gt; 0
+    return $provider  
+  else ()
+  
+
+
+let $html_func :=  function($provider ,$doc_name,$search_name) 
+{
+  let $demo:= $provider/csd:demographic[1]
+  return 
+  &lt;html:li&gt;
+    &lt;html:a href="{osf:get_entity_link($provider,$search_name)}"&gt;
+      {$demo/csd:name[1]/csd:surname/text()}, {$demo/csd:name[1]/csd:forename/text()}
+    &lt;/html:a&gt;
+    &lt;html:div class='description_html'&gt;
+      {osf:get_provider_desc_html($provider,$doc_name)}
+      &lt;html:h2&gt;Credentials&lt;/html:h2&gt;
+      &lt;html:ul&gt;
+	  {
+	    for $cred in $provider/csd:credential
+	    return      
+	      &lt;html:li&gt;
+	        {$cred/csd:number} assigned by {$cred/csd:issuingAuthority}
+	      &lt;/html:li&gt;
+
+	  }
+      &lt;/html:ul&gt;
+    &lt;/html:div&gt;
+  &lt;/html:li&gt; 
+}
+
+
+let $processors := map{
+  'html' : $html_func
+}
+
+
+(:Produce the feed in the neccesary format :)
+return osf:create_feed_from_entities($matched_providers,$careServicesRequest,$processors)
+
+
+
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>
