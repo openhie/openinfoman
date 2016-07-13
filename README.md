@@ -48,6 +48,11 @@ You can find additional libraries extending the core OpenInfoMan funcitonality h
 - https://github.com/openhie/openinfoman-whomds WHO Minimum Data Set Analysis
 - https://github.com/openhie/openinfoman-zimbra  Integration with Zimbra
 
+Stored Functions
+================
+The base CSD standard can be extended using stored functions.
+
+You can find documentation on the available stored functions across the OpenInfoMan libraries <a href="http://openhie.github.io/openinfoman/stored-functions">here</a>.
 
 
 
