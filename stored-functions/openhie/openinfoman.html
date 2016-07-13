@@ -167,9 +167,11 @@
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Performs an ad-hoc search on a CSD document
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -195,7 +197,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     
     Performs a search for all facilities by name, type, address or ID.   
     
@@ -247,7 +250,8 @@ return
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -327,9 +331,11 @@ declare  variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Gets the maximum modification times for each of the four directories
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>declare namespace csd = 'urn:ihe:iti:csd:2013';
@@ -357,7 +363,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     
     Performs a search for all organizations by name, coded type, address or ID.   
     
@@ -409,7 +416,8 @@ return
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -487,6 +495,7 @@ declare variable $careServicesRequest as item() external;
         <br/>
         <br/>
         <span class="source">
+          <pre class="source">
      Performs a search for all providers by name, coded type, address or ID. 
      The result set consists of all providers matching the search parameters ( id,
         otherID, commonName,codedType and address ). 
@@ -548,7 +557,8 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -631,7 +641,8 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     
     Performs a search for all search by coded type or ID.   
     
@@ -671,7 +682,8 @@ declare variable $careServicesRequest as item() external;
            &lt;/function&gt;
          &lt;/careServicesRequest&gt;         
       
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -727,7 +739,8 @@ declare variable $careServicesRequest as item() external;
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Deletes duplicate record reference.  This is done by removing a &lt;csd:otherID/&gt; element on the duplicate record that  references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -743,7 +756,8 @@ declare variable $careServicesRequest as item() external;
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -780,7 +794,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Deletes potential duplicate record reference.  This is done by removing a &lt;csd:otherID/&gt; element on the potetnial duplicate record which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -796,7 +811,8 @@ return
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -833,7 +849,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Performs an organization hierarch extraction from a source document into the target document.  Any existing elements in the target document are overwritten by those from the source document(s).
 
     There are two required parameters:
@@ -863,7 +880,8 @@ return
 
 
 All parent nodes of the indicated organziation 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -945,7 +963,9 @@ return for $doc in $careServicesRequest/documents/document
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">Create or update a facility entity.   Request parameters should be one or more CSD facility entities</span>
+        <span class="source">
+          <pre class="source">Create or update a facility entity.   Request parameters should be one or more CSD facility entities</pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -980,7 +1000,8 @@ for $fac in $careServicesRequest/facility
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Marks a record as a duplicate with another record.  This is done by adding a &lt;csd:otherID/&gt; element to the record that is duplicate which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -996,7 +1017,8 @@ for $fac in $careServicesRequest/facility
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1050,7 +1072,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Marks a record as a potential duplicate with another record.  This is done by adding a &lt;csd:otherID/&gt; element to the record that is the potential duplicate which references the master record.  
     
     This a &lt;csd:otherID/&gt; is characterized as follows:
@@ -1066,7 +1089,8 @@ return
       &lt;duplicateEntity/&gt; should have attribute @entityID which contains the entity ID of the  duplicate record
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1117,7 +1141,8 @@ return
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Performs a merge from the indicated source document(s) into the target document.   Any entities in the target document are overwritten by the corresponding entity in the source document except that &lt;csd:otherID/&gt; elements are preserved.
 
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
@@ -1129,7 +1154,8 @@ return
       insertNew 0..1 insertNew has integer attribute @value. Defaults to 1 which means we insert any new entities from the source documents if they are not already a part of the destination document
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
@@ -1238,7 +1264,9 @@ for $doc in $careServicesRequest/documents/document
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">Create or update a organization entity.   Request parameters should be one or more CSD organization entities</span>
+        <span class="source">
+          <pre class="source">Create or update a organization entity.   Request parameters should be one or more CSD organization entities</pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1273,7 +1301,9 @@ for $org in $careServicesRequest/organization
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">Create or update a provider entity.   Request parameters should be one or more CSD provider entities</span>
+        <span class="source">
+          <pre class="source">Create or update a provider entity.   Request parameters should be one or more CSD provider entities</pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1308,7 +1338,9 @@ for $prov in $careServicesRequest/provider
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source">Create or update a service entity.   Request parameters should be one or more CSD service entities</span>
+        <span class="source">
+          <pre class="source">Create or update a service entity.   Request parameters should be one or more CSD service entities</pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
@@ -1343,7 +1375,8 @@ for $srvc in $careServicesRequest/service
         <h2>Description</h2>
         <br/>
         <br/>
-        <span class="source"> 
+        <span class="source">
+          <pre class="source"> 
     Performs a simple merge from the indicated source document(s) into the target document.  
 
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
@@ -1354,7 +1387,8 @@ for $srvc in $careServicesRequest/service
       overwriteExisting 0..1 overwriteExisting has integer attribute @value. Defaults to 1 which aany existing elements in the target document are overwritten by those from the source document(s).
     
 
-  </span>
+  </pre>
+        </span>
         <h2>Definition            </h2>
         <span class="source">Source: 
 	<pre>import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_lsc";
