@@ -7,6 +7,10 @@ declare namespace csd  =  "urn:ihe:iti:csd:2013";
 declare variable $careServicesRequest as item() external;
 
 
+let $overwriteExisting := 
+  if (exists($careServicesRequest/overwriteExisting/@value))
+  then ($careServicesRequest/overwriteExisting/@value = 1)
+  else true()
 
 
 let $dest_doc := /.
@@ -19,7 +23,7 @@ for $doc  in $careServicesRequest/documents/document
     then if (not ($name = $dest)) then csd_dm:open_document($name) else ()
     else $doc
   return  
-    csd_lsc:refresh_doc($dest_doc, $src_doc) 
+    csd_lsc:refresh_doc($dest_doc, $src_doc,$overwriteExisting) 
 
 
 

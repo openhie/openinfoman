@@ -13,8 +13,14 @@
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
     The  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
 
+
+    The following optional elements are allowed:
+    <ul>
+      <li>insertNew</li> 0..1 insertNew has integer attribute @value. Defaults to 1 which means we insert any new entities from the source documents if they are not already a part of the destination document
+    </ul>
+
   </csd:description>
-  <csd:definition ><xi:include parse='text' href='identifier_merge.xq'/></csd:definition>
+  <csd:definition ><xi:include parse='text' href='merge_by_identifier.xq'/></csd:definition>
   <xforms:instance>
     <documents/>
   </xforms:instance>

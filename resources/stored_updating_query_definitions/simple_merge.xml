@@ -8,10 +8,16 @@
   urn="urn:openhie.org:openinfoman:simple_merge" 
   content-type="text/xml">
   <csd:description> 
-    Performs a simple merge from the indicated source document(s) into the target document.  Any existing elements in the target document are overwritten by those from the source document(s).
+    Performs a simple merge from the indicated source document(s) into the target document.  
 
     Documents are indicated via &lt;document/%gt; elements under the top-level &lt;documents/&gt; element.   
     If  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
+
+    The following optional elements are allowed:
+    <ul>
+      <li>overwriteExisting</li> 0..1 overwriteExisting has integer attribute @value. Defaults to 1 which aany existing elements in the target document are overwritten by those from the source document(s).
+    </ul>
+
   </csd:description>
   <csd:definition ><xi:include parse='text' href='simple_merge.xq'/></csd:definition>
   <xforms:instance>

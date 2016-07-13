@@ -6,7 +6,10 @@ declare namespace csd  =  "urn:ihe:iti:csd:2013";
 
 declare variable $careServicesRequest as item() external;
 
-
+let $insertNew := 
+  if (exists($careServicesRequest/insertNew/@value))
+  then ($careServicesRequest/insertNew/@value = 1)
+  else true()
 
 
 let $dest_doc := /.
@@ -33,7 +36,7 @@ for $doc in $careServicesRequest/documents/document
 	      {$e/*}
 	    </csd:organization>
 	  return replace node $existing with $new 
-        else insert node $e into $dest_dir
+        else if ($insertNew) then insert node $e into $dest_dir else ()
     ,
     let $src_dir := $src_doc/csd:CSD/csd:providerDirectory
     let $dest_dir := $dest_doc/csd:CSD/csd:providerDirectory
@@ -49,7 +52,7 @@ for $doc in $careServicesRequest/documents/document
 	      {$e/*}
 	    </csd:provider>
 	  return replace node $existing with $new 
-        else insert node $e into $dest_dir
+        else if ($insertNew) then insert node $e into $dest_dir else ()
     ,
     let $src_dir := $src_doc/csd:CSD/csd:serviceDirectory
     let $dest_dir := $dest_doc/csd:CSD/csd:serviceDirectory
@@ -65,7 +68,7 @@ for $doc in $careServicesRequest/documents/document
 	      {$e/*}
 	    </csd:service>
 	  return replace node $existing with $new 
-        else insert node $e into $dest_dir
+        else if ($insertNew) then insert node $e into $dest_dir else ()
     ,
     let $src_dir := $src_doc/csd:CSD/csd:facilityDirectory
     let $dest_dir := $dest_doc/csd:CSD/csd:facilityDirectory
@@ -81,7 +84,7 @@ for $doc in $careServicesRequest/documents/document
 	      {$e/*}
 	    </csd:facility>
 	  return replace node $existing with $new 
-        else insert node $e into $dest_dir
+        else if ($insertNew) then insert node $e into $dest_dir else ()
 
     )
 

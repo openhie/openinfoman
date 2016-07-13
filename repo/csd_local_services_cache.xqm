@@ -150,24 +150,45 @@ declare  updating  function csd_lsc:update_cache($name)
 };
 
 
-declare updating function csd_lsc:refresh_doc($cache_doc,$updates) 
+declare updating function csd_lsc:refresh_doc($cache_doc,$updates)
+{
+  csd_lsc:refresh_doc($cache_doc,$updates,true()) 
+};
+
+declare updating function csd_lsc:refresh_doc($cache_doc,$updates,$overwriteExisting) 
 {
   (
-   csd_lsc:update_directory($cache_doc/csd:CSD/csd:organizationDirectory,$updates/(csd:CSD/csd:organizationDirectory|csd:organizationDirectory))
-  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:facilityDirectory,$updates/(csd:CSD/csd:facilityDirectory|csd:facilityDirectory))
-  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:serviceDirectory,$updates/(csd:CSD/csd:serviceDirectory|csd:serviceDirectory))
-  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/(csd:CSD/csd:providerDirectory|csd:providerDirectory))
+   csd_lsc:update_directory($cache_doc/csd:CSD/csd:organizationDirectory,$updates/(csd:CSD/csd:organizationDirectory|csd:organizationDirectory),$overwriteExisting)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:facilityDirectory,$updates/(csd:CSD/csd:facilityDirectory|csd:facilityDirectory),$overwriteExisting)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:serviceDirectory,$updates/(csd:CSD/csd:serviceDirectory|csd:serviceDirectory),$overwriteExisting)
+  ,csd_lsc:update_directory($cache_doc/csd:CSD/csd:providerDirectory,$updates/(csd:CSD/csd:providerDirectory|csd:providerDirectory),$overwriteExisting)
   )
 };
 
-declare updating function csd_lsc:update_directory($oldDir,$newDir) 
+
+
+declare updating function csd_lsc:update_directory($oldDir,$newDir)  {
+  csd_lsc:update_directory($oldDir,$newDir,true()) 
+};
+
+declare updating function csd_lsc:update_directory($oldDir,$newDir,$overwriteExisting) 
 {
   for $new in  $newDir/*
-  let $old := $oldDir/*[@entityID = $new/@entityID] (:there may be more than one:)
+  let $old := $oldDir/*[@entityID = $new/@entityID] (:there may be more than one:)    
   return (  
-     for $o in $old
-     return delete node $o     
-    ,
-     insert node $new into $oldDir 
+     if ($overwriteExisting) 
+     then
+       (
+	 for $o in $old
+	 return delete node $o     
+	 ,
+	 insert node $new into $oldDir 
+       )
+     else 
+       (
+	 if (count($old) > 0)
+	 then ()
+	 else insert node $new into $oldDir 
+       )
    )
 };
