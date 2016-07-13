@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-ilr:validate_provider_facility_service</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-ilr:validate_provider_facility_service">
+    Validates a healthcare worker's entity ID.   If optional facility and service information is pr...</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-ilr:validate_provider_facility_service"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-ilr:validate_provider_facility_service</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre>
+    Validates a healthcare worker's entity ID.   If optional facility and service information is provided, validates that the healthcare worker is registered to perform the service at the indicated facility
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+(: 
+   The query will be executed against the root element of the CSD document.
+    
+   The dynamic context of this query has $careServicesRequest set to contain any of the search 
+   and limit paramaters as sent by the Service Finder
+:) 
+
+&lt;CSD xmlns:csd="urn:ihe:iti:csd:2013"  &gt;
+  &lt;organizationDirectory/&gt;
+  &lt;serviceDirectory/&gt;
+  &lt;facilityDirectory/&gt;
+  &lt;providerDirectory&gt;
+    {
+      let $facility_entityID := $careServicesRequest/facility[1]/@entityID
+      let $service_entityID := $careServicesRequest/facility[1]/service[1]/@entityID
+	  
+      (: if no provider id was provided, then this is invalid. :)
+      let $provs0 := if (exists($careServicesRequest/id/@entityID))
+	then csd_bl:filter_by_primary_id(/CSD/providerDirectory/*,$careServicesRequest/id)
+      else ()   
+
+      let $provs1 := if (exists($facility_entityID) and count($provs0) = 1)
+	then 
+	   if (count ($provs0[1]/facilities/facility[@entityID = $facility_entityID]) &gt; 0) then $provs0 else ()
+	else $provs0
+
+      let $provs2 := if (exists($service_entityID) and count($provs1) = 1)
+	then 
+	   if (count ($provs1[1]/facilities/facility[upper-case(@entityID) = upper-case($facility_entityID)]/service[upper-case(@entityID) = upper-case($service_entityID)]) &gt; 0) then $provs1 else ()
+	else $provs1
+
+      return if (count($provs2) = 1) then
+	&lt;provider entityID='{$provs2[1]/@entityID}'/&gt;
+      else 
+	 ()
+    }     
+  &lt;/providerDirectory&gt;
+&lt;/CSD&gt;
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

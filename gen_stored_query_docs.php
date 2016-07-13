@@ -1,6 +1,6 @@
 <?php
 
-$cmd = 'curl -s https://api.github.com/search/repositories?q=openinfoman+language:XQuery | grep full_name | grep openhie | awk -F\\" \'{print $4}\'' ;
+$cmd = 'curl -s https://api.github.com/search/repositories?q=openinfoman | grep full_name | grep openhie | awk -F\\" \'{print $4}\'' ;
 $tmp_dir = '/tmp/gen_sq';
 $xsl = "resources/doc_careServiceFunctions.xsl";
 $repos = preg_split('/\s+/', `$cmd` ,-1,PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
@@ -35,6 +35,7 @@ print_r($repos);
 foreach ($repos as $repo) {
     echo $repo . "\n";
     list($owner,$name) = explode('/',$repo);
+    if (!substr($name,0,11) == 'openinfoman') {continue;}
     $dir = $tmp_dir .'/'. $repo;
     $cmd = "mkdir -p $tmp_dir/stored-functions/$owner";
     `$cmd`;

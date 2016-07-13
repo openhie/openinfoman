@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:get_csv_for_import</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:get_csv_for_import"> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  D...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:get_json_for_import</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:get_json_for_import"> 
+    Get JSON representation of CSD for import to RapidPro via API
+  </a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:phone_stats</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:phone_stats"> 
+    Statistics on phone numbers
+  </a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:select_facility</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:select_facility"> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  D...</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:get_csv_for_import"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/csv<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:get_csv_for_import</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace oi_csv =  "https://github.com/openhie/openinfoman/adapter/csv";
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+oi_csv:get_serialized(/,$careServicesRequest)</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:get_json_for_import"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        application/json<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:get_json_for_import</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Get JSON representation of CSD for import to RapidPro via API
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+
+
+let $careServicesSubRequest :=  
+  &lt;csd:careServicesRequest&gt;
+    &lt;csd:function  urn="urn:ihe:iti:csd:2014:stored-function:provider-search" &gt;
+      &lt;csd:requestParams/&gt;
+    &lt;/csd:function&gt;
+  &lt;/csd:careServicesRequest&gt; 
+
+let $providers := csr_proc:process_CSR_stored_results( /. , $careServicesSubRequest)
+
+
+let $contacts :=  
+  &lt;json type='object'&gt;
+    &lt;contacts type="array"&gt;
+    {
+      for $provider in  $providers/csd:providerDirectory/csd:provider
+      let $uuid := lower-case(string($provider/@entityID))
+      let $name := ($provider/csd:demographic/csd:name/csd:commonName)[1]/text()
+      let $tels := $provider/csd:demographic/csd:contactPoint/csd:codedType[@code="BP" and  @codingScheme="urn:ihe:iti:csd:2013:contactPoint"]
+      let $tel_1 := $tels[1]/text()
+      let $tel_2 := $tels[2]/text()
+      let $tel_3 := $tels[3]/text()
+      return 
+	if (true()) (:  ($uuid and $name)  :)
+       then 
+         &lt;_  type="object"&gt;
+	   &lt;name&gt;{$name}&lt;/name&gt;
+	   &lt;urns type="array"&gt;
+             { if ($tel_1) then   &lt;_ type='string'&gt;tel:{$tel_1}&lt;/_&gt; else ()} 
+             { if ($tel_2) then   &lt;_ type='string'&gt;tel:{$tel_2}&lt;/_&gt; else ()} 
+             { if ($tel_3) then   &lt;_ type='string'&gt;tel:{$tel_3}&lt;/_&gt; else ()} 
+	   &lt;/urns&gt;
+	   &lt;fields type="object"&gt;
+             &lt;globalid&gt;{$uuid}&lt;/globalid&gt;
+	   &lt;/fields&gt;
+         &lt;/_&gt;
+       else ()
+    }
+    &lt;/contacts&gt;
+  &lt;/json&gt;
+
+
+return json:serialize($contacts,map{"format":"direct"})  
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:phone_stats"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/html<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:phone_stats</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Statistics on phone numbers
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace functx = "http://www.functx.com";
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+
+let $country_code := '+231'
+let $cellcom_code := '77'
+
+let $get_clean_phones := function($provider) {
+  let $all_phones := $provider/csd:demographic/csd:contactPoint/csd:codedType[@code = "BP" and @codingScheme="urn:ihe:iti:csd:2013:contactPoint"]
+  let $clean_phones :=
+    for $phone in $all_phones
+    let $raw_phones := tokenize($phone/text(),'[/\s]+')
+    let $normalized_phones := 
+      for $raw_phone in $raw_phones
+      let $clean_phone := replace($raw_phone,'[^\d\+]/', '')
+      return 
+	if (string-length($clean_phone) = 0)
+	then ()
+        else 
+	  if (starts-with($clean_phone,'0'))
+	  then concat($country_code, substring($clean_phone,2))
+	  else $clean_phone
+    return $normalized_phones
+  return $clean_phones
+}
+
+let $clean_providers := 
+  for $provider in /csd:CSD/csd:providerDirectory/csd:provider
+  let $clean_phones := $get_clean_phones($provider)
+  where count($clean_phones) &gt; 0
+  return $provider
+
+let $cellcom_providers := 
+  for $provider in $clean_providers 
+  let $clean_phones := $get_clean_phones($provider)
+  let $cellcom_phones := 
+    for $clean_phone in $clean_phones
+    return 
+      if (starts-with($clean_phone,concat($country_code,$cellcom_code))) 
+      then $clean_phone
+      else ()
+  where (count($cellcom_phones) &gt; 0)
+  return $provider
+
+let $multi_providers :=
+  for $provider in $clean_providers
+  let $clean_phones := $get_clean_phones($provider)
+  where (count($clean_phones) &gt; 1)
+  return $provider
+
+return 
+  &lt;div&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Total number of health workers: {count(/csd:CSD/csd:providerDirectory/csd:provider)}&lt;/li&gt;
+      &lt;li&gt;Total number of health workers with phone: {count($clean_providers)}&lt;/li&gt;
+      &lt;li&gt;Total number of health workers with cellcom phone: {count($cellcom_providers)}&lt;/li&gt;
+      &lt;li&gt;Total number of health workers with multiple phones: {count($multi_providers)}&lt;/li&gt;      
+    &lt;/ul&gt;
+  &lt;/div&gt;
+
+
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:select_facility"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        application/json<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:select_facility</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace functx = "http://www.functx.com";
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+let $t_top_orgid  :=  $careServicesRequest/query[@name = 'orgid']/text()
+let $top_org :=  (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $t_top_orgid])[1]
+
+
+
+let $selected_text := $careServicesRequest/query[@name = 'input']/text()
+(:
+let $selections := $careServicesRequest/values/item[./pair[@name = 'label' and ./text() = 'facilityselection']]
+let $selected_text := 
+  if (count($selections) &gt; 0)
+  then
+    let $max_time := max(for $time in $selections/pair[@name='time'] return xs:dateTime($time))
+    return $selections[./pair[@name = 'time'] = $max_time]/pair[@name='text']/text()
+   else ()
+:)
+
+let $selected_index := if ($selected_text castable as xs:integer) then xs:integer($selected_text) else -1
+
+
+let $selected :=
+  if ($selected_index = 0)
+  then
+    /csd:CSD/csd:organizationDirectory/csd:organization[
+      @entityID = /csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $top_org/@entityID]/csd:parent/@entityID
+    ]
+  else if ($selected_index &gt; 0)
+  then
+    let $select_orgs := 
+      if (exists($top_org))
+      then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $top_org/@entityID]
+      else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+	
+    let $select_facs := 
+      if (exists($top_org))
+      then /csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization[@entityID = $top_org/@entityID]]
+      else ()
+    return ($select_orgs,$select_facs)[ $selected_index]
+  else ()
+
+    
+let $orgs := 
+  if (exists($selected) and  local-name($selected ) = 'organization')
+  then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $selected/@entityID]
+  else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+	
+let $facs := 
+  if (exists($selected) and  local-name($selected ) = 'organization')
+  then /csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization[@entityID = $selected/@entityID]]
+  else ()
+
+
+
+let $output := 
+  if ( local-name($selected ) = 'facility')
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext&gt;You already selected a facility.  You shouldn't see this message&lt;/menutext&gt;
+      &lt;facility&gt;{string($selected/@entityID)}&lt;/facility&gt;
+      &lt;facilityname&gt;{$selected/csd:primaryName/text()}&lt;/facilityname&gt;
+    &lt;/json&gt;
+  else  if ( local-name($selected ) = 'organization'  or not(exists($selected)))
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext &gt;
+ 	{ if (exists($selected)) then concat("In ", $selected/csd:primaryName/text(), ". ")  else () }
+	{
+	  let $parent := (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $selected/csd:parent/@entityID])[1]/csd:primaryName/text()
+	  return
+	    if ($parent)
+	    then concat("O) Up to ", $parent, " ") 
+	    else ()
+        }
+	{ for $ent at $pos in ($orgs,$facs)  return concat( $pos, ") ", $ent/csd:primaryName/text())    }
+      &lt;/menutext&gt;
+      &lt;orgid&gt;{if (exists($selected)) then string($selected/@entityID) else ()}&lt;/orgid&gt;
+      &lt;facility/&gt;
+      &lt;facilityname/&gt;      
+    &lt;/json&gt;
+   else &lt;json type='object'/&gt;
+
+(:return $output :)
+return json:serialize($output,map{'format':'direct'})</pre></span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="urn:ihe:iti:csd:2013" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:csd="urn:ihe:iti:csd:2013" xmlns:xforms="http://www.w3.org/2002/xforms">
+  <head>
+    <style type="text/css">
+          div {
+          border-radius: 1em 1em 1em 1em;
+          }
+          .function {
+          background-color: #feedff;
+          width:90%;
+          magin-top:2em;
+          padding-bottom:1em;
+          padding-left:1em;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+	  .source {
+	  overflow:auto;
+	  }
+          .attribute{
+          border-radius: 1em 1em 1em 1em;
+          background-color: #FBFBEF;                    
+          font-style: italic;
+          font-weight: lighter;
+          height: auto;
+          float:right;
+          margin-right:2em;
+          margin-left: 1em;
+          padding: 2em;
+	  box-shadow:0 4px 2px 0 #CCCCCC;
+          }
+          .callout{
+          background: none repeat scroll 0 0 #EEEEEE;
+          margin: 1em;
+          overflow: auto;
+          padding: 1em 2em;
+          width: auto;
+	  box-shadow:0 6px 2px 0 #CCCCCC;
+          }
+          .callout h2 {
+          background-color: #EEFFFF;
+          border-radius: 0.5em 0.5em 0.5em 0.5em;
+          padding: 0.2em 0.2em 0.2em 1em;
+          }
+          pre {
+          font-family: "Courier New",Courier,monospace;
+          font-size: 0.8em;
+          }
+	  li i.urn {
+	  display:inline-block;
+	  min-width:18em;
+	  max-width:18em;
+	  width:18em;
+	  }
+        </style>
+  </head>
+  <body>
+    <div class="function">
+      <h2>Stored Functions</h2>
+      <ul>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:select_hfr_facility</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:select_hfr_facility"> 
+    Creates selection menu of all the CSD organizations with a specified parent.  Designed as part...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-rapidpro:select_village</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-rapidpro:select_village"> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  D...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-tz:hfr_facilities_to_csd</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-tz:hfr_facilities_to_csd"> 
+    Updates the CSD document by an import from Health Facility Registry export of the Organization...</a>
+        </li>
+        <li>
+          <i class="urn">urn:openhie.org:openinfoman-tz:rm_org_hierarchy_to_csd</i>
+          <a style="position:relative;left:2em" href="#urn:openhie.org:openinfoman-tz:rm_org_hierarchy_to_csd"> 
+    Updates the CSD document by an import from Resource Map's export of the Organizational hierarc...</a>
+        </li>
+      </ul>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:select_hfr_facility"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        application/json<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:select_hfr_facility</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Creates selection menu of all the CSD organizations with a specified parent.  Designed as part of heierarchical organization selection menus in RapidPro webhooks.
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace functx = "http://www.functx.com";
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+let $t_top_orgid  :=  $careServicesRequest/query[@name = 'orgid']/text()
+let $top_org :=  (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $t_top_orgid])[1]
+
+let $selected_text := $careServicesRequest/query[@name = 'input']/text()
+
+let $selected_index := if ($selected_text castable as xs:integer) then xs:integer($selected_text) else -1
+
+let $selected :=
+  if ($selected_index = 0)
+  then
+    /csd:CSD/csd:organizationDirectory/csd:organization[
+      @entityID = /csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $top_org/@entityID]/csd:parent/@entityID
+    ]
+  else if ($selected_index &gt; 0)
+  then
+    let $select_orgs := 
+      if (exists($top_org))
+      then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $top_org/@entityID]
+      else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+    return ($select_orgs)[$selected_index]
+  else ()
+
+    
+let $orgs := 
+  if (exists($selected) and  local-name($selected ) = 'organization')
+  then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $selected/@entityID]
+  else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+
+let $output := 
+  if ( $selected[./csd:codedType/@code=7])
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext&gt;Facility Selected&lt;/menutext&gt;
+      &lt;facility&gt;{string($selected/@entityID)}&lt;/facility&gt;
+      &lt;facilityname&gt;{$selected/csd:primaryName/text()}&lt;/facilityname&gt;
+      &lt;orgcode&gt;{string($selected/csd:otherID/@code)}&lt;/orgcode&gt;
+    &lt;/json&gt;
+  else  if ( local-name($selected ) = 'organization'  or not(exists($selected)))
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext &gt;
+ 	{ if (exists($selected)) then concat("In ", $selected/csd:primaryName/text(), ". ")  else () }
+	{
+	  let $parent := (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $selected/csd:parent/@entityID])[1]/csd:primaryName/text()
+	  return
+	    if ($parent)
+	    then concat("O) Up to ", $parent, " ") 
+	    else ()
+        }
+	{ for $ent at $pos in ($orgs)  return concat( $pos, ") ", $ent/csd:primaryName/text())    }
+      &lt;/menutext&gt;
+      &lt;orgid&gt;{if (exists($selected)) then string($selected/@entityID) else ()}&lt;/orgid&gt;
+      &lt;orgcode&gt;{string($selected/csd:otherID/@code)}&lt;/orgcode&gt;
+      &lt;facility/&gt;
+      &lt;facilityname/&gt;      
+    &lt;/json&gt;
+   else &lt;json type='object'/&gt;
+
+(:return $output :)
+return json:serialize($output,map{'format':'direct'})
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-rapidpro:select_village"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        application/json<br/>
+	URN: urn:openhie.org:openinfoman-rapidpro:select_village</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Creates selection menu of all the CSD organizations and faciltiies with a specified parent.  Designed as part of heierarchical facility selection menus in RapidPro webhooks.
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace functx = "http://www.functx.com";
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare variable $careServicesRequest as item() external;
+
+let $t_top_orgid  :=  $careServicesRequest/query[@name = 'orgid']/text()
+let $top_org :=  (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $t_top_orgid])[1]
+
+
+
+let $selected_text := $careServicesRequest/query[@name = 'input']/text()
+(:
+let $selections := $careServicesRequest/values/item[./pair[@name = 'label' and ./text() = 'facilityselection']]
+let $selected_text := 
+  if (count($selections) &gt; 0)
+  then
+    let $max_time := max(for $time in $selections/pair[@name='time'] return xs:dateTime($time))
+    return $selections[./pair[@name = 'time'] = $max_time]/pair[@name='text']/text()
+   else ()
+:)
+
+let $selected_index := if ($selected_text castable as xs:integer) then xs:integer($selected_text) else -1
+
+
+let $selected :=
+  if ($selected_index = 0)
+  then
+    /csd:CSD/csd:organizationDirectory/csd:organization[
+      @entityID = /csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $top_org/@entityID]/csd:parent/@entityID
+    ]
+  else if ($selected_index &gt; 0)
+  then
+    let $select_orgs := 
+      if (exists($top_org))
+      then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $top_org/@entityID]
+      else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+	
+    let $select_facs := 
+      if (exists($top_org))
+      then /csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization[@entityID = $top_org/@entityID]]
+      else ()
+    return ($select_orgs,$select_facs)[ $selected_index]
+  else ()
+
+    
+let $orgs := 
+  if (exists($selected) and  local-name($selected ) = 'organization')
+  then /csd:CSD/csd:organizationDirectory/csd:organization[./csd:parent/@entityID = $selected/@entityID]
+  else /csd:CSD/csd:organizationDirectory/csd:organization[count(./csd:parent[@entityID]) = 0]
+	
+let $facs := 
+  if (exists($selected) and  local-name($selected ) = 'organization')
+  then /csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization[@entityID = $selected/@entityID]]
+  else ()
+
+
+
+let $output := 
+  if ( local-name($selected ) = 'facility')
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext&gt;You already selected a facility.  You shouldn't see this message&lt;/menutext&gt;
+      &lt;facility&gt;{string($selected/@entityID)}&lt;/facility&gt;
+      &lt;facilityname&gt;{$selected/csd:primaryName/text()}&lt;/facilityname&gt;
+    &lt;/json&gt;
+  else  if ( local-name($selected ) = 'organization'  or not(exists($selected)))
+  then
+    &lt;json type='object'&gt;
+      &lt;menutext &gt;
+ 	{ if (exists($selected)) then concat("In ", $selected/csd:primaryName/text(), ". ")  else () }
+	{
+	  let $parent := (/csd:CSD/csd:organizationDirectory/csd:organization[@entityID = $selected/csd:parent/@entityID])[1]/csd:primaryName/text()
+	  return
+	    if ($parent)
+	    then concat("O) Up to ", $parent, " ") 
+	    else ()
+        }
+	{ for $ent at $pos in ($orgs,$facs)  return concat( $pos, ") ", $ent/csd:primaryName/text())    }
+      &lt;/menutext&gt;
+      &lt;orgid&gt;{if (exists($selected)) then string($selected/@entityID) else ()}&lt;/orgid&gt;
+      &lt;facility/&gt;
+      &lt;facilityname/&gt;      
+    &lt;/json&gt;
+   else &lt;json type='object'/&gt;
+
+(:return $output :)
+return json:serialize($output,map{'format':'direct'})</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-tz:hfr_facilities_to_csd"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-tz:hfr_facilities_to_csd</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Updates the CSD document by an import from Health Facility Registry export of the Organizational hierarchy
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
+import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace functx = "http://www.functx.com";
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+
+declare variable $careServicesRequest as item() external;
+
+let $doc_name := string($careServicesRequest/@resource)
+let $doc := csd_dm:open_document($csd_webconf:db,$doc_name)
+let $org_dir := $doc/csd:CSD/csd:organizationDirectory
+
+let $oid := $careServicesRequest/oid
+let $csv_src := $careServicesRequest/csv  
+let $csv :=    csv:parse($csv_src, map{ 'header': true()})/csv/record
+
+
+
+let $namespace_uuid := "7ee93e32-78da-4913-82f8-49eb0a618cfc"
+
+let $generate_UUID_v3 := function($name) {
+  concat('urn:uuid:' , dxf2csd:generate_UUID_v3($name,$namespace_uuid))
+}
+
+let $zone_csd :=
+for $zone_record in distinct-values($csv/Zone)
+ let $now := current-dateTime()
+ let $zone_urn := $generate_UUID_v3(concat('zone:',$zone_record))
+  return
+   &lt;csd:organization entityID="{$zone_urn}"&gt;
+     &lt;csd:codedType code="1" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$zone_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+   &lt;/csd:organization&gt;
+
+let $region_csd :=
+for $region_record in distinct-values($csv/Region)
+ let $now := current-dateTime()
+ let $region_urn := $generate_UUID_v3(concat('region:',$region_record))
+ let $parent_urns :=
+ for $record in $csv  
+  let $zone := $record/Zone
+  let $region := $record/Region
+  return if($region_record=$region)
+   then $generate_UUID_v3(concat('zone:',$zone))
+   else ()
+ return
+   &lt;csd:organization entityID="{$region_urn}"&gt;
+     &lt;csd:codedType code="2" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$region_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urns[last()]}"/&gt;
+   &lt;/csd:organization&gt;
+
+let $district_csd :=
+for $district_record in distinct-values($csv/District)
+ let $now := current-dateTime()
+ let $district_urn := $generate_UUID_v3(concat('district:',$district_record))
+ let $parent_urns :=
+ for $record in $csv
+  let $region := $record/Region
+  let $district := $record/District
+  return if($district_record=$district)
+   then $generate_UUID_v3(concat('region:',$region))
+   else ()
+ return
+   &lt;csd:organization entityID="{$district_urn}"&gt;
+     &lt;csd:codedType code="3" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$district_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urns[last()]}"/&gt;
+   &lt;/csd:organization&gt;
+
+let $council_csd :=
+for $council_record in distinct-values($csv/Council)
+ let $now := current-dateTime()
+ let $council_urn := $generate_UUID_v3(concat('council:',$council_record))
+ let $parent_urns :=
+ for $record in $csv
+  let $district := $record/District
+  let $council := $record/Council
+  return if($council_record=$council)
+   then $generate_UUID_v3(concat('district:',$district))
+   else ()
+ return
+   &lt;csd:organization entityID="{$council_urn}"&gt;
+     &lt;csd:codedType code="4" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$council_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urns[last()]}"/&gt;
+   &lt;/csd:organization&gt;
+
+let $ward_csd :=
+for $ward_record in distinct-values($csv/Ward)
+ let $now := current-dateTime()
+ let $ward_urn := $generate_UUID_v3(concat('ward:',$ward_record))
+ let $parent_urns :=
+ for $record in $csv
+  let $council := $record/Council
+  let $ward := $record/Ward
+  return if($ward_record=$ward)
+   then $generate_UUID_v3(concat('council:',$council))
+   else ()
+ return if (not (contains($ward_record,"Not set"))) then
+   &lt;csd:organization entityID="{$ward_urn}"&gt;
+     &lt;csd:codedType code="5" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$ward_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urns[last()]}"/&gt;
+   &lt;/csd:organization&gt;
+   else ()
+
+let $village_csd :=
+for $village_record in distinct-values($csv/VillageStreet)
+ let $now := current-dateTime()
+ let $village_urn := $generate_UUID_v3(concat('village:',$village_record))
+ let $parent_urns :=
+ for $record in $csv
+  let $ward := if ((contains($record/Ward,"Not set"))) then $record/Council else($record/Ward)
+  let $village := $record/VillageStreet
+  return if($village_record=$village)
+   then $generate_UUID_v3(concat('ward:',$ward))
+   else ()
+ return if (not (contains($village_record,"Not set"))) then
+   &lt;csd:organization entityID="{$village_urn}"&gt;
+     &lt;csd:codedType code="6" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$village_record}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urns[last()]}"/&gt;
+   &lt;/csd:organization&gt;
+   else ()
+
+let $facility_csd :=
+for $record in $csv
+ let $facNum := $record/FacilityNumber
+ let $facName  := $record/FacilityName
+ let $now := current-dateTime()
+ let $facility_urn := $generate_UUID_v3(concat('facility:',$facNum))
+ let $parent := if ((contains($record/VillageStreet,"Not set"))) then 
+                     (if ((contains($record/Ward,"Not set"))) then $record/Council else $record/Ward) 
+                     else($record/VillageStreet)
+ let $parent_string := if ((contains($record/VillageStreet,"Not set"))) then
+                     (if ((contains($record/Ward,"Not set"))) then "council:" else "ward:")
+                     else("village:")
+ let $parent_urn := $generate_UUID_v3(concat($parent_string,$parent))
+ return if (not (contains($facName,"Not set"))) then
+   &lt;csd:organization entityID="{$facility_urn}"&gt;
+     &lt;csd:otherID assigningAuthorityName='health_facility_registry' code="{$facNum}"/&gt;
+     &lt;csd:codedType code="7" codingScheme="{$oid}"/&gt;
+     &lt;csd:primaryName&gt;{$facName/text()}&lt;/csd:primaryName&gt;
+     &lt;csd:record
+       created="{$now}"
+       updated="{$now}"
+       sourceDirectory="http://hfrportal.ehealth.go.tz"/&gt;
+     &lt;csd:parent entityID="{$parent_urn}"/&gt;
+   &lt;/csd:organization&gt;
+   else ()
+
+let $csd :=
+  &lt;csd:CSD&gt;
+    &lt;csd:organizationDirectory&gt;
+      {($zone_csd,$region_csd,$district_csd,$council_csd,$ward_csd,$village_csd,$facility_csd)}
+    &lt;/csd:organizationDirectory&gt;
+    &lt;csd:serviceDirectory/&gt;
+    &lt;csd:facilityDirectory/&gt;
+    &lt;csd:providerDirectory/&gt;
+  &lt;/csd:CSD&gt;
+
+return  csd_dm:add($csd_webconf:db,$csd,$doc_name)
+</pre></span>
+      </div>
+    </div>
+    <a id="urn:openhie.org:openinfoman-tz:rm_org_hierarchy_to_csd"/>
+    <div class="function">
+      <div class="callout">
+        <span class="attribute">Content-Type: 
+        text/xml<br/>
+	URN: urn:openhie.org:openinfoman-tz:rm_org_hierarchy_to_csd</span>
+        <h2>Description</h2>
+        <br/>
+        <br/>
+        <span class="source">
+          <pre> 
+    Updates the CSD document by an import from Resource Map's export of the Organizational hierarchy
+  </pre>
+        </span>
+        <h2>Definition            </h2>
+        <span class="source">Source: 
+	<pre>import module namespace dxf2csd = "http://dhis2.org/csd/dxf/2.0";
+import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
+import module namespace functx = "http://www.functx.com";
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+
+declare variable $careServicesRequest as item() external;
+
+
+let $doc_name := string($careServicesRequest/@resource)
+let $doc := csd_dm:open_document($doc_name)
+
+
+let $oid := $careServicesRequest/oid
+let $csv_src := $careServicesRequest/csv  
+let $csv :=    csv:parse($csv_src, map{ 'header': true()})/csv/record
+
+
+
+let $namespace_uuid := "7ee93e32-78da-4913-82f8-49eb0a618cfc"
+
+let $generate_UUID_v3 := function($name) {
+  concat('urn:uuid:' , dxf2csd:generate_UUID_v3($name,$namespace_uuid))
+}
+
+
+
+let $csd_orgs := 
+  for $record in $csv
+   let $village := $record/VillMtaa
+   let $ward  := $record/Ward
+   let $council  := $record/Council
+   let $district  := $record/District
+   let $region  := $record/Region
+   let $zone  := $record/Zone 
+   let $country  := $record/Country
+   let $name  := $record/Name
+   let $id  := $record/NodeID
+   let $urn := $generate_UUID_v3(concat('organization:',$id))
+   let $level := 
+      if (not(functx:all-whitespace($village)))
+      then  '6'
+      else if (not(functx:all-whitespace($ward)))
+      then  '5'
+      else if (not(functx:all-whitespace($council)))
+      then  '4'
+      else if (not(functx:all-whitespace($district)))
+      then  '3'
+      else if (not(functx:all-whitespace($region)))
+      then  '2'
+      else if (not(functx:all-whitespace($zone)))
+      then  '1'
+      else if (not(functx:all-whitespace($country)))
+      then  '0'
+      else ()
+   let $pid := 
+      if ( not(functx:all-whitespace($village)) )
+      then  $csv[./Country = $country and ./Zone = $zone and ./Region = $region and ./District = $district and ./Council = $council and ./Ward = $ward and functx:all-whitespace(./VillMtaa)]/NodeID/text()
+      else if (not(functx:all-whitespace($ward)))
+      then  $csv[./Country = $country and ./Zone = $zone and ./Region = $region and ./District = $district and ./Council = $council and functx:all-whitespace(./VillMtaa) and functx:all-whitespace(./Ward)]/NodeID/text()
+      else if (not(functx:all-whitespace($council)))
+      then  $csv[./Country = $country and ./Zone = $zone and ./Region = $region and ./District = $district and functx:all-whitespace(./Council) and functx:all-whitespace(./VillMtaa) and functx:all-whitespace(./Ward) ]/NodeID/text()
+      else if (not(functx:all-whitespace($district)))
+      then  $csv[./Country = $country and ./Zone = $zone and ./Region = $region and functx:all-whitespace(./District) and functx:all-whitespace(./Council) and functx:all-whitespace(./VillMtaa) and functx:all-whitespace(./Ward) ]/NodeID/text()
+      else if (not(functx:all-whitespace($region)))
+      then  $csv[./Country = $country and ./Zone = $zone and functx:all-whitespace(./Region) and functx:all-whitespace(./District) and functx:all-whitespace(./Council) and functx:all-whitespace(./VillMtaa) and functx:all-whitespace(./Ward)]/NodeID/text()
+      else if (not(functx:all-whitespace($zone)))
+      then  $csv[./Country = $country  and functx:all-whitespace(./Zone) and functx:all-whitespace(./Region) and functx:all-whitespace(./District) and functx:all-whitespace(./Council) and functx:all-whitespace(./VillMtaa) and functx:all-whitespace(./Ward)]/NodeID/text()
+      else ()
+   let $parent := 
+     if ($pid)
+     then
+       let $parent_urn := $generate_UUID_v3(concat('organization:',$pid))
+       return &lt;csd:parent entityID="{$parent_urn}"/&gt;
+     else ()
+   return 
+     if (($name) and ($level)  and ($urn) )
+     then 
+       &lt;csd:organization entityID="{$urn}"&gt;
+	 &lt;csd:otherID assigningAuthorityName='resource_map_tanzania' code="{$id}"/&gt;
+	 &lt;csd:codedType code="{$level}" codingScheme="{$oid}"/&gt;
+	 &lt;csd:primaryName&gt;{$name/text()}&lt;/csd:primaryName&gt;
+	 {$parent}
+       &lt;/csd:organization&gt;
+     else ($record)  (:no name or id or type :)
+
+
+
+let $csd :=
+  &lt;csd:CSD&gt;
+    &lt;csd:organizationDirectory&gt;
+      {$csd_orgs}
+    &lt;/csd:organizationDirectory&gt;
+    &lt;csd:serviceDirectory/&gt;
+    &lt;csd:facilityDirectory/&gt;  
+    &lt;csd:providerDirectory/&gt;
+  &lt;/csd:CSD&gt;
+
+return  csd_dm:add($csd,$doc_name)
+
+
+</pre></span>
+      </div>
+    </div>
+  </body>
+</html>
