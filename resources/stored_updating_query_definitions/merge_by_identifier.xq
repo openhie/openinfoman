@@ -6,15 +6,16 @@ declare namespace csd  =  "urn:ihe:iti:csd:2013";
 
 declare variable $careServicesRequest as item() external;
 
-let $insertNew := 
-  if (exists($careServicesRequest/insertNew/@value))
-  then ($careServicesRequest/insertNew/@value = 1)
-  else true()
 
 
 let $dest_doc := /.
 let $dest := $careServicesRequest/@resource
 for $doc in $careServicesRequest/documents/document
+  let $insertNew := 
+    if (exists($doc/insertNew/@value))
+    then ($doc/insertNew/@value = 1)
+    else true()
+
   let $name := string($doc/@resource)
   let $src_doc :=
     if (not (functx:all-whitespace($name)))

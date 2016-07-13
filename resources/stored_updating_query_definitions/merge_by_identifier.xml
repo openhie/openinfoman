@@ -14,7 +14,7 @@
     The  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
 
 
-    The following optional elements are allowed:
+    The following optional elements are allowed under each &lt;document/%gt; element :
     <ul>
       <li>insertNew</li> 0..1 insertNew has integer attribute @value. Defaults to 1 which means we insert any new entities from the source documents if they are not already a part of the destination document
     </ul>
