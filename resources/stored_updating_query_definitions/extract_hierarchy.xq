@@ -12,56 +12,56 @@ declare variable $careServicesRequest as item() external;
 let $dest_doc := /.
 let $dest := $careServicesRequest/@resource
 
-let $doc :=  $careServicesRequest/document
-let $name := $doc/@resource
-let $src_doc :=
-  if (not (functx:all-whitespace($name)))
-  then if (not ($name = $dest)) then csd_dm:open_document($name) else ()
-  else $doc
-let $req_org_id :=    $careServicesRequest/csd:organization/@entityID 
 
-let $processFacilities := 
-  if (exists($careServicesRequest/processFacilities/@value))
-  then ($careServicesRequest/processFacilities/@value = 1)
-  else true()
-let $keepParents := 
-  if (exists($careServicesRequest/keepParents/@value))
-  then ($careServicesRequest/keepParents/@value = 1)
-  else true()
+return for $doc in $careServicesRequest/documents/document
+  let $name := $doc/@resource
+  let $src_doc :=
+    if (not (functx:all-whitespace($name)))
+    then if (not ($name = $dest)) then csd_dm:open_document($name) else ()
+    else $doc/csd:CSD
+  let $req_org_id :=  $doc/csd:organization/@entityID 
+
     
-let $all_orgs := $src_doc/csd:CSD/csd:organizationDirectory/csd:organization
-let $org := $all_orgs[@entityID = $req_org_id]
+  let $processFacilities := 
+    if (exists($doc/processFacilities/@value))
+    then ($doc/processFacilities/@value = 1)
+    else true()
+  let $keepParents := 
+    if (exists($doc/keepParents/@value))
+    then ($doc/keepParents/@value = 1)
+    else true()
+    
+  let $all_orgs := $src_doc/csd:CSD/csd:organizationDirectory/csd:organization
+  let $org := $all_orgs[@entityID = $req_org_id]
+
+  let $orgs := 
+    if (not(exists($org)))
+    then () (: nothing to extract:) 
+    else
+      (
+	if ($keepParents)
+	then csd_bl:get_parent_orgs($all_orgs,$org)
+	else ()
+	,
+	$org
+	,
+	csd_bl:get_child_orgs($all_orgs,$org)
+      )
+
+  let $facs := 
+    if (not ($processFacilities) )
+    then ()
+    else 
+      for $org in $orgs
+      return  $src_doc/csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization/@entityID = $org/@entityID]
+	
 
 
-
-let $orgs := 
-  if (not(exists($org)))
-  then () (: nothing to extract:) 
-  else
-     (
-       if ($keepParents)
-       then csd_bl:get_parent_orgs($all_orgs,$org)
-       else ()
-       ,
-       $org
-       ,
-       csd_bl:get_child_orgs($all_orgs,$org)
-     )
-
-let $facs := 
-  if (not ($processFacilities) )
-  then ()
-  else 
-    for $org in $orgs
-    return  $src_doc/csd:CSD/csd:facilityDirectory/csd:facility[./csd:organizations/csd:organization/@entityID = $org/@entityID]
-
-
-
-return
-  (
-   csd_lsc:update_directory($dest_doc/csd:CSD/csd:organizationDirectory,$orgs)
-  ,csd_lsc:update_directory($dest_doc/csd:CSD/csd:facilityDirectory,$facs)
-  )
+  return
+    (
+      csd_lsc:update_directory($dest_doc/csd:CSD/csd:organizationDirectory,$orgs)
+      ,csd_lsc:update_directory($dest_doc/csd:CSD/csd:facilityDirectory,$facs)
+    )
 
 
 

@@ -15,11 +15,15 @@
       <li>
 	The document is indicated via &lt;document/%gt; element.    If  @resource attribute of the &lt;document/&gt; should be the name of a document available to OpenInfoMan.   Otherwise the content of the &lt;document/&gt; should be a valid CSD document.
       </li>
+    </ul>
+
+    Under each  &lt;document/&gt; is the required elements:
+    <ul>
       <li>
 	Aa &lt;csd:organization/&gt; element to indicate the part of the hiearchy that should be extracted.  
       </li>
     </ul>
-    There are two options elemments:
+    Under each  &lt;document/&gt; are two optional elements:
     <ul>
       <li>
 	<b>keepParents</b>
