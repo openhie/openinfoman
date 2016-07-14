@@ -15,7 +15,7 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 (:Utility methods:)
 declare function csd:get_parent_orgs($all_orgs,$org) {
-  let $porg_id := $org/csd:parent/@entityID
+  let $porg_id := $org/parent/@entityID
   let $porg :=
     if (functx:all-whitespace($porg_id)) 
     then ()
@@ -27,11 +27,11 @@ declare function csd:get_parent_orgs($all_orgs,$org) {
 };
 
 declare function csd:get_child_orgs($orgs,$org) {
-  let $org_id := $org/@entityID     
+  let $org_id := $org/@entityID
   let $c_orgs := 
     if (functx:all-whitespace($org_id))
     then ()
-    else $orgs[./csd:parent[@entityID = $org_id]]	
+    else $orgs[./parent[@entityID = $org_id]]	
   return 
     for $c_org in $c_orgs
     return ($c_org,csd:get_child_orgs($orgs,$c_org))

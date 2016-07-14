@@ -59,8 +59,8 @@ return for $doc in $careServicesRequest/documents/document
 
   return
     (
-      csd_lsc:update_directory($dest_doc/csd:CSD/csd:organizationDirectory,$orgs)
-      ,csd_lsc:update_directory($dest_doc/csd:CSD/csd:facilityDirectory,$facs)
+      csd_lsc:update_directory_entities($dest_doc/csd:CSD/csd:organizationDirectory,$orgs)
+      ,csd_lsc:update_directory_entities($dest_doc/csd:CSD/csd:facilityDirectory,$facs)
     )
 
 

@@ -103,7 +103,6 @@ declare updating function csd_lsc:set_service_directory_mtime($name,$mtime)
       else
         replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
   } catch * {
-    let $t := trace($mtime,"Invalid date time sent")
     return ()  (: do nothing :)
   }
   )
@@ -173,8 +172,17 @@ declare updating function csd_lsc:update_directory($oldDir,$newDir)  {
 
 declare updating function csd_lsc:update_directory($oldDir,$newDir,$overwriteExisting) 
 {
-  for $new in  $newDir/*
-  let $old := $oldDir/*[@entityID = $new/@entityID] (:there may be more than one:)    
+  csd_lsc:update_directory_entities($oldDir,$newDir/*,$overwriteExisting)
+};
+
+declare updating function csd_lsc:update_directory_entities($dir,$entities)  {
+  csd_lsc:update_directory_entities($dir,$entities,true()) 
+};
+
+declare updating function csd_lsc:update_directory_entities($dir,$entities,$overwriteExisting) 
+{
+  for $new in  $entities
+  let $old := $dir/*[@entityID = $new/@entityID] (:there may be more than one:)    
   return (  
      if ($overwriteExisting) 
      then
@@ -182,13 +190,13 @@ declare updating function csd_lsc:update_directory($oldDir,$newDir,$overwriteExi
 	 for $o in $old
 	 return delete node $o     
 	 ,
-	 insert node $new into $oldDir 
+	 insert node $new into $dir 
        )
      else 
        (
 	 if (count($old) > 0)
 	 then ()
-	 else insert node $new into $oldDir 
+	 else insert node $new into $dir 
        )
    )
 };
