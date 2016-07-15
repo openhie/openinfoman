@@ -30,7 +30,7 @@ declare function csd_bl:get_parent_orgs($all_orgs,$org) {
 declare function csd_bl:get_child_orgs($orgs,$org) {
   let $org_id := $org/@entityID
 
-
+(:
   return
     if (functx:all-whitespace($org_id))
     then ()
@@ -40,8 +40,8 @@ declare function csd_bl:get_child_orgs($orgs,$org) {
         for $c_org in $c_orgs
 	return function() {csd_bl:get_child_orgs($orgs,$c_org)}    
       return ($c_orgs,xquery:fork-join($c_org_funcs))
+:)
 
-(:
   let $c_orgs := 
     if (functx:all-whitespace($org_id))
     then ()
@@ -49,7 +49,7 @@ declare function csd_bl:get_child_orgs($orgs,$org) {
   return 
     for $c_org in $c_orgs
     return ($c_org,csd_bl:get_child_orgs($orgs,$c_org))
-:)	      
+
 
 };
 
