@@ -1,3 +1,21 @@
+openinfoman (1.2.22~trusty) trusty; urgency=medium
+
+  * Release Version 1.2.22
+    -63fe0f2 fixup extract hierarchy
+    --http://github.com/openhie/openinfoman/commmit/63fe0f2
+    -fbfd5e8 Update README.md
+    --http://github.com/openhie/openinfoman/commmit/fbfd5e8
+    -ac5094b when extracting a hierarcy you can now specify multiple do
+    --http://github.com/openhie/openinfoman/commmit/ac5094b
+    -99e9980 merge by identifier.. you can now specify, for each source
+    --http://github.com/openhie/openinfoman/commmit/99e9980
+    -bb3dd61 simple merge stored query lets you optionally not overwrit
+    --http://github.com/openhie/openinfoman/commmit/bb3dd61
+    -7fedb1d added (drat) stored query urn:openhie.org:openinfoman:extr
+    --http://github.com/openhie/openinfoman/commmit/7fedb1d
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 15 Jul 2016 14:23:22 +0000
+
 openinfoman (1.2.21~trusty) trusty; urgency=medium
 
   * Release Version 1.2.21
