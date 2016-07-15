@@ -31,7 +31,7 @@ declare function csd_bl:get_child_orgs($orgs,$org) {
   let $org_id := $org/@entityID
 
 
-  let $c_orgs := 
+  return
     if (functx:all-whitespace($org_id))
     then ()
     else 
