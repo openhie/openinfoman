@@ -5,8 +5,9 @@
 :
 :)
 
-module namespace csd = "https://github.com/openhie/openinfoman/csd_bl";
+module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
 import module namespace functx = "http://www.functx.com";
+import module namespace xquery = " http://basex.org/modules/xquery";
 
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
@@ -14,7 +15,7 @@ declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
 (:Utility methods:)
-declare function csd:get_parent_orgs($all_orgs,$org) {
+declare function csd_bl:get_parent_orgs($all_orgs,$org) {
   let $porg_id := $org/parent/@entityID
   let $porg :=
     if (functx:all-whitespace($porg_id)) 
@@ -23,24 +24,37 @@ declare function csd:get_parent_orgs($all_orgs,$org) {
   return 
     if (not(exists($porg)))
     then ()
-    else (csd:get_parent_orgs($all_orgs,$porg),$porg)
+    else (csd_bl:get_parent_orgs($all_orgs,$porg),$porg)
 };
 
-declare function csd:get_child_orgs($orgs,$org) {
+declare function csd_bl:get_child_orgs($orgs,$org) {
   let $org_id := $org/@entityID
+
+
+  let $c_orgs := 
+    if (functx:all-whitespace($org_id))
+    then ()
+    else 
+      let $c_orgs := $orgs[./parent[@entityID = $org_id]]	
+      let $c_org_funcs:= 
+        for $c_org in $c_orgs
+	return function() {csd_bl:get_child_orgs($orgs,$c_org)}    
+      return ($c_orgs,xquery:fork-join($c_org_funcs))
+
+(:
   let $c_orgs := 
     if (functx:all-whitespace($org_id))
     then ()
     else $orgs[./parent[@entityID = $org_id]]	
   return 
     for $c_org in $c_orgs
-    return ($c_org,csd:get_child_orgs($orgs,$c_org))
-	      
+    return ($c_org,csd_bl:get_child_orgs($orgs,$c_org))
+:)	      
 
 };
 
 
-declare function csd:wrap_providers($providers) 
+declare function csd_bl:wrap_providers($providers) 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory/>
@@ -54,7 +68,7 @@ declare function csd:wrap_providers($providers)
 };
 
 
-declare function csd:wrap_organizations($organizations) 
+declare function csd_bl:wrap_organizations($organizations) 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory>
@@ -67,7 +81,7 @@ declare function csd:wrap_organizations($organizations)
 
 };
 
-declare function csd:wrap_facilities($facilities) 
+declare function csd_bl:wrap_facilities($facilities) 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory/>
@@ -81,7 +95,7 @@ declare function csd:wrap_facilities($facilities)
 };
 
 
-declare function csd:wrap_services($services) 
+declare function csd_bl:wrap_services($services) 
 {
 <CSD xmlns:csd="urn:ihe:iti:csd:2013"  >
   <organizationDirectory/>
@@ -98,7 +112,7 @@ declare function csd:wrap_services($services)
 (:~
  :Generate UUID as OID according to http://www.itu.int/ITU-T/asn1/uuid.html
  :)
-declare function csd:uuid_as_oid() {
+declare function csd_bl:uuid_as_oid() {
   let $zero := convert:binary-to-bytes('0')
   let $nine := convert:binary-to-bytes('9')
   let $a := convert:binary-to-bytes('A')
@@ -118,7 +132,7 @@ declare function csd:uuid_as_oid() {
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_address($items as item()*,$components as item()*) as item()* 
+declare function csd_bl:filter_by_address($items as item()*,$components as item()*) as item()* 
 {
     if (count($components) = 0 
        or not ($components[1]/@component)
@@ -128,7 +142,7 @@ declare function csd:filter_by_address($items as item()*,$components as item()*)
     else  
            let $comp := $components[1]/@component
            let $val := fn:upper-case($components[1]/text())	     
-           return csd:filter_by_address(
+           return csd_bl:filter_by_address(
 	     $items[address/addressLine[@component = $comp and fn:upper-case(text()) = $val]],
 	     fn:subsequence($components,2))
 };
@@ -143,7 +157,7 @@ declare function csd:filter_by_address($items as item()*,$components as item()*)
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_demographic_address($items as item()*,$components as item()*) as item()* 
+declare function csd_bl:filter_by_demographic_address($items as item()*,$components as item()*) as item()* 
 {
     if (count($components) = 0 
        or not ($components[1]/@component)
@@ -153,7 +167,7 @@ declare function csd:filter_by_demographic_address($items as item()*,$components
     else  
            let $comp := $components[1]/@component
            let $val := fn:upper-case($components[1]/text())	     
-           return csd:filter_by_address(
+           return csd_bl:filter_by_address(
 	     $items[demographic/address/addressLine[@component = $comp and fn:upper-case(text()) = $val]],
 	     fn:subsequence($components,2))
 };
@@ -167,7 +181,7 @@ declare function csd:filter_by_demographic_address($items as item()*,$components
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_coded_type($items as item()*, $codedtype as item()) as item()*
+declare function csd_bl:filter_by_coded_type($items as item()*, $codedtype as item()) as item()*
 {
      if (exists($codedtype/@code) and exists($codedtype/@codingScheme))
      then
@@ -193,7 +207,7 @@ declare function csd:filter_by_coded_type($items as item()*, $codedtype as item(
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_primary_name($items as item()*,$primaryName as item()) as item()* 
+declare function csd_bl:filter_by_primary_name($items as item()*,$primaryName as item()) as item()* 
 {
   let $u_primaryName := fn:upper-case($primaryName/text())
   return
@@ -213,7 +227,7 @@ declare function csd:filter_by_primary_name($items as item()*,$primaryName as it
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_name($items as item()*,$name as item()) as item()* 
+declare function csd_bl:filter_by_name($items as item()*,$name as item()) as item()* 
 {
   if (not($name = '')) 
     then  
@@ -238,7 +252,7 @@ declare function csd:filter_by_name($items as item()*,$name as item()) as item()
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_primary_id($items as item()*,$id as item()) as item()* 
+declare function csd_bl:filter_by_primary_id($items as item()*,$id as item()) as item()* 
 {
        if ($id/@entityID) 
        then 
@@ -257,7 +271,7 @@ declare function csd:filter_by_primary_id($items as item()*,$id as item()) as it
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_other_id($items as item()*,$id as item()) as item()* 
+declare function csd_bl:filter_by_other_id($items as item()*,$id as item()) as item()* 
 {
        if (exists($id))
        then 
@@ -318,7 +332,7 @@ declare function csd:filter_by_other_id($items as item()*,$id as item()) as item
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_common_name($items as item()*, $name as item()) as item()*
+declare function csd_bl:filter_by_common_name($items as item()*, $name as item()) as item()*
 {
        if (not($name = ''))
 	 then
@@ -341,7 +355,7 @@ declare function csd:filter_by_common_name($items as item()*, $name as item()) a
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_surname($items as item()*, $name as item()) as item()*
+declare function csd_bl:filter_by_surname($items as item()*, $name as item()) as item()*
 {
        if (not($name = ''))
        then
@@ -364,7 +378,7 @@ declare function csd:filter_by_surname($items as item()*, $name as item()) as it
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_surname_starts_with($items as item()*, $name as item()) as item()*
+declare function csd_bl:filter_by_surname_starts_with($items as item()*, $name as item()) as item()*
 {
        if (not($name = '')) 
        then
@@ -388,7 +402,7 @@ declare function csd:filter_by_surname_starts_with($items as item()*, $name as i
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_forename($items as item()*, $name as item()) as item()*
+declare function csd_bl:filter_by_forename($items as item()*, $name as item()) as item()*
 {
        if (not($name = '')) 
        then
@@ -412,7 +426,7 @@ declare function csd:filter_by_forename($items as item()*, $name as item()) as i
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_forename_starts_with($items as item()*, $name as item()) as item()*
+declare function csd_bl:filter_by_forename_starts_with($items as item()*, $name as item()) as item()*
 {
        if (not($name ='')) 
        then
@@ -437,7 +451,7 @@ declare function csd:filter_by_forename_starts_with($items as item()*, $name as 
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_record($items as item()*, $record as item()) as item()* 
+declare function csd_bl:filter_by_record($items as item()*, $record as item()) as item()* 
 {
     let $items1:= 
         if (not($record/@status) )
@@ -462,7 +476,7 @@ declare function csd:filter_by_record($items as item()*, $record as item()) as i
  : @since 1.0
  : 
 :)
-declare function csd:limit_items($items as item()*, $start as item(),$max as item()) as item()* 
+declare function csd_bl:limit_items($items as item()*, $start as item(),$max as item()) as item()* 
 {
         if (not(fn:number($start)) or xs:integer($start) < 1)
         then if (not(fn:number($max)) or xs:integer($max) < 0)
@@ -485,7 +499,7 @@ declare function csd:limit_items($items as item()*, $start as item(),$max as ite
  : 
 :)
 
-declare function csd:filter_by_parent($items as item()*,$parent as item()*) as item()*
+declare function csd_bl:filter_by_parent($items as item()*,$parent as item()*) as item()*
 {
   let $entityID:= upper-case($parent/@entityID)
   return 
@@ -507,7 +521,7 @@ declare function csd:filter_by_parent($items as item()*,$parent as item()*) as i
  : 
 :)
 
-declare function csd:filter_by_organizations($items as item()*,$orgs as item()*) as item()*
+declare function csd_bl:filter_by_organizations($items as item()*,$orgs as item()*) as item()*
 {
     if (count($orgs) = 0 
        or not ($orgs[1]/@entityID)
@@ -515,14 +529,14 @@ declare function csd:filter_by_organizations($items as item()*,$orgs as item()*)
     then  $items
     else  
            let $org := upper-case($orgs[1]/@entityID)
-           return csd:filter_by_organizations(
+           return csd_bl:filter_by_organizations(
 	     $items[organizations/organization[upper-case(@entityID) = $org]],
 	     fn:subsequence($orgs,2))
   
 };
 
 
-declare function csd:filter_by_languages($items as item()*,$langs as item()*) as item()*
+declare function csd_bl:filter_by_languages($items as item()*,$langs as item()*) as item()*
 {
     if (count($langs) = 0 
        or (not ($langs[1]/@code) )
@@ -532,7 +546,7 @@ declare function csd:filter_by_languages($items as item()*,$langs as item()*) as
     else  
            let $code := upper-case($langs[1]/@code)
            let $codingScheme := upper-case($langs[1]/@codingScheme)
-           return csd:filter_by_languages(
+           return csd_bl:filter_by_languages(
 	     $items[./language[upper-case(@code) = $code and upper-case(@codingScheme) = $codingScheme]],
 	     fn:subsequence($langs,2))
   
@@ -548,7 +562,7 @@ declare function csd:filter_by_languages($items as item()*,$langs as item()*) as
  : @since 1.0
  : 
 :)
-declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as item()*
+declare function csd_bl:filter_by_facilities($items as item()*,$facs as item()*) as item()*
 {
     if (count($facs) = 0 
        or not ($facs[1]/@entityID)
@@ -556,7 +570,7 @@ declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as
     then  $items
     else  
            let $fac := upper-case($facs[1]/@entityID)
-           return csd:filter_by_facilities(
+           return csd_bl:filter_by_facilities(
 	     $items[facilities/facility[upper-case(@entityID) = $fac]],
 	     fn:subsequence($facs,2))
 };
@@ -571,14 +585,14 @@ declare function csd:filter_by_facilities($items as item()*,$facs as item()*) as
  : @param $orgdir - the organization directory we are looking within to find (grand-)*child organizations
  : @return all organizations of $orgdir which are (grand-)*child organization of the list or given organizations $orgs. includes $orgs.
 :)
-declare function csd:join_child_organizations($orgs as item()*,$orgdir as item()) as item()* 
+declare function csd_bl:join_child_organizations($orgs as item()*,$orgdir as item()) as item()* 
 {
      if (count($orgs) = 0)
      then ()
      else 
-        csd:get_child_organizations($orgs[1],$orgdir)
+        csd_bl:get_child_organizations($orgs[1],$orgdir)
         union
-        csd:join_child_organizations(fn:subsequence($orgs,2),$orgdir)
+        csd_bl:join_child_organizations(fn:subsequence($orgs,2),$orgdir)
 };
 
 
@@ -588,7 +602,7 @@ declare function csd:join_child_organizations($orgs as item()*,$orgdir as item()
  : @param $orgdir - the organization directory we are looking within to find (grand-)*child organizations
  : @return all organizations of $orgdir which are (grand-)*child organization of the list or given organization $org. includes $org.
 :)
-declare function csd:get_child_organizations($org as item(),$orgdir as item()) as item()* 
+declare function csd_bl:get_child_organizations($org as item(),$orgdir as item()) as item()* 
 {
     if (not($org)) 
     then ()
@@ -599,7 +613,7 @@ declare function csd:get_child_organizations($org as item(),$orgdir as item()) a
                                fn:upper-case(parent/@root)=$root 
                                and fn:upper-case(parent/@extension)=$extension
                                ]                        
-       return ($org,csd:join_child_organizations($child_orgs,$orgdir))
+       return ($org,csd_bl:join_child_organizations($child_orgs,$orgdir))
 };
 
 (:~
@@ -608,7 +622,7 @@ declare function csd:get_child_organizations($org as item(),$orgdir as item()) a
  : @param $orgdir - the organization directory we are looking within to find (grand-)*parent organizations
  : @return all organizations of $orgdir which are (grand-)*parent organization of the list or given organization $org. includes $org.
 :)
-declare function csd:get_parent_organizations($org as item(),$orgdir as item()) as item()* 
+declare function csd_bl:get_parent_organizations($org as item(),$orgdir as item()) as item()* 
 {
     if (not($org/parent/@root))
     then $org
@@ -617,7 +631,7 @@ declare function csd:get_parent_organizations($org as item(),$orgdir as item()) 
        let $extension := fn:upper-case($org/parent/@extension)
        return (
                 $org , 
-               csd:get_parent_organizations(
+               csd_bl:get_parent_organizations(
                     $orgdir/organization[
                         fn:upper-case(@root)=$root and fn:upper-case(@extension)=$extension
                         ],
@@ -632,13 +646,13 @@ declare function csd:get_parent_organizations($org as item(),$orgdir as item()) 
  : @param $orgdir - the organization directory we are looking within to find (grand-)*parent organizations
  : @return all organizations of $orgdir which are (grand-)*parent organization of the list or given organizations $orgs. includes $orgs.
 :)
-declare function csd:join_parent_organizations($orgs as item()*,$orgdir as item()) as item()* 
+declare function csd_bl:join_parent_organizations($orgs as item()*,$orgdir as item()) as item()* 
 {
      if (count($orgs) = 0)
      then ()
      else 
-        csd:get_parent_organizations($orgs[1],$orgdir)
+        csd_bl:get_parent_organizations($orgs[1],$orgdir)
         union
-        csd:join_parent_organizations(fn:subsequence($orgs,2),$orgdir)
+        csd_bl:join_parent_organizations(fn:subsequence($orgs,2),$orgdir)
 };
 
