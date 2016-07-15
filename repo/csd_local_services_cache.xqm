@@ -103,7 +103,7 @@ declare updating function csd_lsc:set_service_directory_mtime($name,$mtime)
       else
         replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
   } catch * {
-    return ()  (: do nothing :)
+     ()  (: do nothing :)
   }
   )
       
