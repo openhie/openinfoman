@@ -1,3 +1,21 @@
+openinfoman (1.3.1~vivid) vivid; urgency=medium
+
+  * Release Version 1.3.1
+    -d760551 added new stored queries to packaging
+    --http://github.com/openhie/openinfoman/commmit/d760551
+    -1b1e456 revert parallelized hierarchy extraction as it is not work
+    --http://github.com/openhie/openinfoman/commmit/1b1e456
+    -4b9f972 typo fix in async get children
+    --http://github.com/openhie/openinfoman/commmit/4b9f972
+    -6a47cad 8.5 fork-join for hierarchy extraction
+    --http://github.com/openhie/openinfoman/commmit/6a47cad
+    -6bac86f fix syntax error for 8.5
+    --http://github.com/openhie/openinfoman/commmit/6bac86f
+    -c193477 preparing for BaseX 8.5
+    --http://github.com/openhie/openinfoman/commmit/c193477
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 15 Jul 2016 17:55:36 +0000
+
 openinfoman (1.2.22~vivid) vivid; urgency=medium
 
   * Release Version 1.2.22
