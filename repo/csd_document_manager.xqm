@@ -34,7 +34,7 @@ declare  function csd_dm:document_source_exists($name) {
 
 declare  function csd_dm:open_document($name) {
   if (csd_dm:document_source_exists($name)) then      
-    db:open($csd_webconf:db,csd_dm:document_source($name))
+    db:open($csd_webconf:db,csd_dm:document_source($name)) update{} (:stick it in main memory :)
   else
     csd_dm:blank_directory()
 };
