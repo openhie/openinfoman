@@ -1,3 +1,11 @@
+openinfoman (1.4.2~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.2
+    -1cb53dd testing breakout of packaging
+    --http://github.com/openhie/openinfoman/commmit/1cb53dd
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 22 Jul 2016 02:03:01 +0000
+
 openinfoman (1.4.1~trusty) trusty; urgency=medium
 
   * Release Version 1.4.1
