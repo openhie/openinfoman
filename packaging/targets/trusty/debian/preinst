@@ -19,8 +19,21 @@ rm -fr ${TMP}/*
 
 service openinfoman stop || true
 
-case "$ACTION" in
-    install)
+
+function install_basex() {
+    $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
+    $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
+
+    cp $TMP/basex/BaseX.jar $OI
+    DIRS=("bin" "etc" "lib" "webapp/dba")
+    for DIR in ${DIRS[@]}
+    do
+	mkdir -p $OI/$DIR
+	cp -R $TMP/basex/$DIR/* $OI/$DIR
+    done
+}
+
+function do_user() {
 	if ! getent group $USERNAME >/dev/null; then
 	    echo "Creating group $USERNAME"
 	    $ADDGROUP --quiet --system $USERNAME
@@ -33,26 +46,19 @@ case "$ACTION" in
 	    echo "user $USERNAME does not exist. adding."
 	    $USERADD  $USERNAME -g $USERNAME -m -s /bin/bash 
 	fi
+}
+
+case "$ACTION" in
+    install)
+	do_user()
+	install_basex()
      ;;
+    update)
+	OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.2`   #returns 0 if $VERSION < 1.4.2
+	if [ $OLDVERSION -eq 0 ] then
+	    install_basex()
+	fi
 esac
-
-#$ACTION can be be 'install' or 'upgrade'
-OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.2`   #returns 0 if $VERSION < 1.4.2
-DOBASEX=(  ( "$ACTION" == "install" ) || ( ( "$ACTION" == "upgrade" )  &&  (( $OLDVERSION == 0 )) ) )
-
-if [ "$DOBASEX" ] then
-    $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
-    $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
-
-    cp $TMP/basex/BaseX.jar $OI
-    DIRS=("bin" "etc" "lib" "webapp/dba")
-    for DIR in ${DIRS[@]}
-    do
-	mkdir -p $OI/$DIR
-	cp -R $TMP/basex/$DIR/* $OI/$DIR
-    done
-fi
-
 
 
 exit 0

@@ -1,3 +1,9 @@
+openinfoman (1.4.10~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.10
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 22 Jul 2016 02:52:17 +0000
+
 openinfoman (1.4.9~trusty) trusty; urgency=medium
 
   * Release Version 1.4.9
