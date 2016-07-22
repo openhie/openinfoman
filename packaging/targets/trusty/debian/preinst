@@ -61,7 +61,6 @@ case "$ACTION" in
     install)
 	do_user
 	install_basex
-	do_db
      ;;
     upgrade)
 	if  dpkg --compare-versions $VERSION lt 1.4.16; then
