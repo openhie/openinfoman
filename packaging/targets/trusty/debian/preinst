@@ -37,18 +37,21 @@ case "$ACTION" in
 esac
 
 #$ACTION can be be 'install' or 'upgrade'
+OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.1`
+DOBASEX=[ "$ACTION"="install" ] || [ [ "$ACTION"="upgrade" ] && [ "$OLDVERSION" ] ]
 
+if [ "$DOBASEX" ] then
+    $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
+    $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
 
-$WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
-$UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
-
-cp $TMP/basex/BaseX.jar $OI
-DIRS=("bin" "etc" "lib" "webapp/dba")
-for DIR in ${DIRS[@]}
-do
-    mkdir -p $OI/$DIR
-    cp -R $TMP/basex/$DIR/* $OI/$DIR
-done
+    cp $TMP/basex/BaseX.jar $OI
+    DIRS=("bin" "etc" "lib" "webapp/dba")
+    for DIR in ${DIRS[@]}
+    do
+	mkdir -p $OI/$DIR
+	cp -R $TMP/basex/$DIR/* $OI/$DIR
+    done
+fi
 
 
 
