@@ -1,5 +1,7 @@
 #!/bin/bash
 set -x
+ACTION="$1"
+VERSION="$2"
 
 USERNAME=oi
 HOME=/home/$USERNAME
@@ -17,18 +19,25 @@ rm -fr ${TMP}/*
 
 service openinfoman stop || true
 
-if ! getent group $USERNAME >/dev/null; then
-    echo "Creating group $USERNAME"
-    $ADDGROUP --quiet --system $USERNAME
-fi
+case "$ACTION" in
+    install)
+	if ! getent group $USERNAME >/dev/null; then
+	    echo "Creating group $USERNAME"
+	    $ADDGROUP --quiet --system $USERNAME
+	fi
 
 
-if id -u $USERNAME >/dev/null 2>&1; then
-    echo "user $USERNAME exists."
-else
-    echo "user $USERNAME does not exist. adding."
-    $USERADD  $USERNAME -g $USERNAME -m -s /bin/bash 
-fi
+	if id -u $USERNAME >/dev/null 2>&1; then
+	    echo "user $USERNAME exists."
+	else
+	    echo "user $USERNAME does not exist. adding."
+	    $USERADD  $USERNAME -g $USERNAME -m -s /bin/bash 
+	fi
+     ;;
+esac
+
+#$ACTION can be be 'install' or 'upgrade'
+
 
 $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
 $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
