@@ -21,6 +21,7 @@ service openinfoman stop || true
 
 
 install_basex() {
+    mkdir -p $OI
     $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
     $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
 
