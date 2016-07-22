@@ -6,6 +6,14 @@ HOME=/home/$USERNAME
 USERADD=/usr/sbin/useradd
 ADDGROUP=/usr/sbin/addgroup
 ADDUSER=/usr/sbin/adduser
+WGET=/usr/bin/wget
+UNZIP=/usr/bin/unzip
+OI=/var/lib/openinfoman
+
+
+TMP=/tmp/openinfoman-basex
+mkdir -p "${TMP}"
+rm -fr ${TMP}/*
 
 service openinfoman stop || true
 
@@ -21,6 +29,17 @@ else
     echo "user $USERNAME does not exist. adding."
     $USERADD  $USERNAME -g $USERNAME -m -s /bin/bash 
 fi
+
+$WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
+$UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
+
+cp $TMP/basex/BaseX.jar $OI
+DIRS=("bin" "etc" "lib" "webapp/dba")
+for DIR in ${DIRS[@]}
+do
+    mkdir -p $OI/$DIR
+    cp -R $TMP/basex/$DIR/* $OI/$DIR
+done
 
 
 
