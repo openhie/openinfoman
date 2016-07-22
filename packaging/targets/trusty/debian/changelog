@@ -1,3 +1,13 @@
+openinfoman (1.4.3~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.3
+    -130e49a don't always d/l basex - attempt 1
+    --http://github.com/openhie/openinfoman/commmit/130e49a
+    -32a4c59 only create oi user on install
+    --http://github.com/openhie/openinfoman/commmit/32a4c59
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 22 Jul 2016 02:31:55 +0000
+
 openinfoman (1.4.2~trusty) trusty; urgency=medium
 
   * Release Version 1.4.2
