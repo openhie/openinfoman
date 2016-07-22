@@ -48,10 +48,38 @@ do_user() {
 	fi
 }
 
+
+
+do_db() {
+
+
+    set +e
+
+    db_input high openinfoman/dbname || true
+    db_go || true
+    db_get openinfoman/dbname || true
+    DBNAME="$RET"
+
+    $BASEX -Vc "list $DBNAME" > /dev/null
+    if [ $? -eq 0 ]; then
+	echo "BaseX Database $DBNAME exists\n"
+    else
+	echo "BaseX Database $DBNAME does not exist\n"
+	$BASEX -Vc "create database $DBNAME"
+    fi
+    set -e
+
+}
+
+chown -R $USERNAME:$USERNAME $OI
+chmod +s /usr/bin/oi-log
+
+
 case "$ACTION" in
     install)
 	do_user
 	install_basex
+	do_db
      ;;
     upgrade)
 	if  dpkg --compare-versions $VERSION lt 1.4.16; then
@@ -61,6 +89,7 @@ esac
 
 
 exit 0
+
 
 
 
