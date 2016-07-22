@@ -38,7 +38,7 @@ esac
 
 #$ACTION can be be 'install' or 'upgrade'
 OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.2`   #returns 0 if $VERSION < 1.4.2
-DOBASEX=(  [ "$ACTION" == "install" ] || ( [ "$ACTION" == "upgrade" ] &&  (( $OLDVERSION == 0 )) ) )
+DOBASEX=(  ( "$ACTION" == "install" ) || ( ( "$ACTION" == "upgrade" )  &&  (( $OLDVERSION == 0 )) ) )
 
 if [ "$DOBASEX" ] then
     $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
