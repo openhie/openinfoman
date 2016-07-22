@@ -20,7 +20,7 @@ rm -fr ${TMP}/*
 service openinfoman stop || true
 
 
-function install_basex() {
+install_basex() {
     $WGET http://files.basex.org/releases/8.5.2/BaseX852.zip -O ${TMP}/BaseX.zip
     $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
 
@@ -33,7 +33,7 @@ function install_basex() {
     done
 }
 
-function do_user() {
+do_user() {
 	if ! getent group $USERNAME >/dev/null; then
 	    echo "Creating group $USERNAME"
 	    $ADDGROUP --quiet --system $USERNAME
@@ -50,13 +50,13 @@ function do_user() {
 
 case "$ACTION" in
     install)
-	do_user()
-	install_basex()
+	do_user
+	install_basex
      ;;
     update)
 	OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.2`   #returns 0 if $VERSION < 1.4.2
 	if [ $OLDVERSION -eq 0 ] then
-	    install_basex()
+	    install_basex
 	fi
 esac
 
