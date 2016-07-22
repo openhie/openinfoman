@@ -71,8 +71,6 @@ do_db() {
 
 }
 
-chown -R $USERNAME:$USERNAME $OI
-chmod +s /usr/bin/oi-log
 
 
 case "$ACTION" in
