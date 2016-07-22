@@ -54,7 +54,7 @@ case "$ACTION" in
 	install_basex
      ;;
     upgrade)
-	if  dpkg --compare-versions $VERSION lt 1.4.15; then
+	if  dpkg --compare-versions $VERSION lt 1.4.16; then
 	    install_basex
 	fi
 esac
