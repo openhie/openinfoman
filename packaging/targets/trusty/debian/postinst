@@ -22,13 +22,14 @@ DBNAME="$RET"
 
 set +e
 $BASEX -Vc "list $DBNAME" > /dev/null
-set -e
 if [ $? -eq 0 ]; then
     echo "BaseX Database $DBNAME exists\n"
 else
     echo "BaseX Database $DBNAME does not exist\n"
+    set -e
     $BASEX -Vc "create database $DBNAME"
 fi
+set -e
 
 
 
