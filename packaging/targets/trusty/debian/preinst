@@ -54,8 +54,7 @@ case "$ACTION" in
 	install_basex
      ;;
     upgrade)
-	OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.14`   #returns 0 if $VERSION < 1.4.14
-	if [ $OLDVERSION -eq 0 ]; then
+	if ! dpkg --compare-versions $VERSION lt 1.4.15; then
 	    install_basex
 	fi
 esac
