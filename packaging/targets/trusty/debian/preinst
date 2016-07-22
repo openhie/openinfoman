@@ -55,7 +55,7 @@ case "$ACTION" in
      ;;
     update)
 	OLDVERSION=`dpkg --compare-versions $VERSION lt 1.4.2`   #returns 0 if $VERSION < 1.4.2
-	if [ $OLDVERSION -eq 0 ] then
+	if [ $OLDVERSION -eq 0 ]; then
 	    install_basex
 	fi
 esac
