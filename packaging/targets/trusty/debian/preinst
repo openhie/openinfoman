@@ -53,21 +53,22 @@ do_user() {
 do_db() {
 
 
-    set +e
 
     db_input high openinfoman/dbname || true
     db_go || true
     db_get openinfoman/dbname || true
     DBNAME="$RET"
 
+    set +e
     $BASEX -Vc "list $DBNAME" > /dev/null
+    set -e
     if [ $? -eq 0 ]; then
 	echo "BaseX Database $DBNAME exists\n"
     else
 	echo "BaseX Database $DBNAME does not exist\n"
 	$BASEX -Vc "create database $DBNAME"
     fi
-    set -e
+
 
 }
 
