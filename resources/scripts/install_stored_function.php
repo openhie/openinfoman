@@ -17,6 +17,7 @@ $webapp_dir = getcwd() . DIRECTORY_SEPARATOR . "webapp";
 $files = $argv;
 array_shift($files);
 foreach ($files as $file) {
+    $file = realpath($file);
     echo "Processing $file\n";
     if ( ! ($mods = create_modules($file))) {
 	echo "\tCould not process $file\n";
