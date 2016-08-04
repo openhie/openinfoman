@@ -151,7 +151,13 @@ declare $updating
   if (csd_dm:document_source_exists(\$docname)) 
   then 
     try {
-      let \$doc := csd_dm:open_document(\$docname)
+";
+     if ($updating) {
+         $page_module .= "\n     let \$doc := csd_dm:open_document(\$docname,true())\n";
+     } else {
+         $page_module .= "\n     let \$doc := csd_dm:open_document(\$docname)\n";
+     }
+     $page_module .= "
       let \$base_url := csd_webui:generateURL()
       let \$request := 
         <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
@@ -205,7 +211,7 @@ declare $updating
   if (csd_dm:document_source_exists(\$docname)) 
   then 
     try {
-      let \$doc := csd_dm:open_document(\$docname)
+      let \$doc := csd_dm:open_document(\$docname,true())
       let \$base_url := csd_webui:generateURL()
       let \$request := 
         <csd:requestParams resource=\"{\$docname}\" function=\"{$search}\" base_url=\"{\$base_url}\">
