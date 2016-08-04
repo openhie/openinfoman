@@ -1,3 +1,13 @@
+openinfoman (1.4.32~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.32
+    -6eef4fa open documents as read-only only when non-updating
+    --https://github.com/openhie/openinfoman/commmit/6eef4fa
+    -7f5af27 Making sure a stored function is processed with its full p
+    --https://github.com/openhie/openinfoman/commmit/7f5af27
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 04 Aug 2016 09:36:21 +0300
+
 openinfoman (1.4.31~trusty) trusty; urgency=medium
 
   * Release Version 1.4.31
