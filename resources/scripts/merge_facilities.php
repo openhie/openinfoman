@@ -1,3 +1,8 @@
+<?php
+/*
+Need to change this script and use Openinfoman CSD docs instead of mysql database
+*/
+?>
 <script type="text/javascript">
 function show(id,level_message) {
 	var label="label"+id
