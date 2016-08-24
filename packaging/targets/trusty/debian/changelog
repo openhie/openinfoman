@@ -1,3 +1,29 @@
+openinfoman (1.4.35~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.35
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 23 Aug 2016 12:50:42 +0000
+
+openinfoman (1.4.34~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.34
+    -82bccac fix up removals of old libs in packaging
+    --http://github.com/openhie/openinfoman/commmit/82bccac
+    -079922a Merge branch 'master' of http://github.com/openhie/openinf
+    --http://github.com/openhie/openinfoman/commmit/079922a
+    -f6ab6af fix typo in csd_webapp_config.xqm - does not impact Ubuntu
+    --http://github.com/openhie/openinfoman/commmit/f6ab6af
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 23 Aug 2016 12:50:20 +0000
+
+openinfoman (1.4.33~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.33
+    -47358fb more robust updating of datetime for cache
+    --http://github.com/openhie/openinfoman/commmit/47358fb
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 14 Aug 2016 15:17:48 +0000
+
 openinfoman (1.4.32~trusty) trusty; urgency=medium
 
   * Release Version 1.4.32

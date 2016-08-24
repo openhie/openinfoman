@@ -16,7 +16,7 @@ declare variable $csd_webconf:db :=  'provider_directory';
 declare variable $csd_webconf:baseurl :=  concat(request:scheme(),"://",request:hostname(),":",request:port(), "/"); 
 
 
-declare variable $csd_webconf:remote_services := ()
+declare variable $csd_webconf:remote_services := ();
 
 
 

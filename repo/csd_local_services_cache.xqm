@@ -88,27 +88,24 @@ declare updating function csd_lsc:init_cache_meta() {
 
 declare updating function csd_lsc:set_service_directory_mtime($name,$mtime) 
 {
-  ( csd_lsc:init_cache_meta()
-  ,
   try {
     let $dt :=  xs:dateTime($mtime) (: just to make sure it's valid :)
-    let $meta :=  db:open($csd_webconf:db,$csd_lsc:cache_meta_doc)/cacheData      
+    let $cache_data := <serviceCache name="{$name}" mtime="{$dt}"/> 
+    let $meta :=  db:open($csd_webconf:db,$csd_lsc:cache_meta_doc)/cacheData  
+    let $old_cache_data := $meta/serviceCache[@name = $name]
+    let $t0 := trace(($mtime,$name), "Updating cache time: ")
     return
-      if (not(exists($meta/serviceCache[@name = $name])))  
-      then insert node <serviceCache name="{$name}" mtime="{$csd_lsc:beginning_of_time}"/> into $meta
-      else if (not(exists($meta/serviceCache[@name = $name]/@mtime))) 
-      then
-        let $attr := attribute {"mtime"}{ $csd_lsc:beginning_of_time}
-        return ( insert  node $attr into $meta/serviceCache[@name = $name])
-      else
-        replace value of node $meta/serviceCache[@name = $name]/@mtime with $mtime
+      if (not(exists($meta) ))
+      then db:add($csd_webconf:db, <cacheData>{$cache_data}</cacheData>,$csd_lsc:cache_meta_doc)
+      else if (not(exists($old_cache_data)))
+      then insert node <serviceCache name="{$name}" mtime="{$dt}"/> into $meta
+      else if (not(exists($old_cache_data/@mtime)))
+      then insert  node attribute {"mtime"}{ $dt} into $old_cache_data 
+      else replace value of node $old_cache_data/@mtime with $dt
   } catch * {
-     ()  (: do nothing :)
+    let $t0 := trace(($mtime,$name), "Could not update cache time: ")
+    return ()  (: do nothing :)
   }
-  )
-      
-
-  
 };
 
 declare function csd_lsc:get_service_directory_mtime($name) 
