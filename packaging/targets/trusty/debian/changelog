@@ -1,3 +1,15 @@
+openinfoman (1.4.36~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.36
+    -027a988 Adding comments
+    --https://github.com/openhie/openinfoman/commmit/027a988
+    -726f601 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/726f601
+    -ef4b591 Adding a script for merging iHRIS and DHIS2 facilities
+    --https://github.com/openhie/openinfoman/commmit/ef4b591
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Wed, 24 Aug 2016 08:57:22 +0300
+
 openinfoman (1.4.35~trusty) trusty; urgency=medium
 
   * Release Version 1.4.35
