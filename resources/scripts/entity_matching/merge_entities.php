@@ -22,40 +22,59 @@
 
 abstract public  class entityMatch {
     protected $host;
-    protected $doc_name;
+    protected $src_doc_name;
+    protected $target_doc_name;
     protected $entity_type;
 
     public abstract function find_matching_entities($entity_id);
-    __construct($host,$doc_name,$entity_type) {
+    __construct($host,$target_doc_name,$src_doc_name,$entity_type) {
         $this->host = $host;
-        $this->doc_name = $doc_name;
+        $this->target_doc_name = $src_doc_name;
+        $this->src_doc_name = $target_doc_name;
         $this->entity_type = $entity_type;
     };
 
 
 
-    public function retrieve_entitiy( $entity_id) {
-        $results =$this->retrieve_entities( array($entity_id));
+    public function retrieve_src_entitiy( $entity_id) {
+        return $this->rerieve_entity($this->src_doc_name,$entity_id);
+    }
+    public function retrieve_target_entitiy( $entity_id) {
+        return $this->rerieve_entity($this->target_doc_name,$entity_id);
+    }
+    public function retrieve_src_entitiy( $doc_name,$entity_id) {
+        $results =$this->retrieve_entities( $doc_name,$array($entity_id));
         if (!is_array($results) || count($results) != 1 ) {
             return false;
         }
         return array_pop($results);        
     };
 
+
     protected $entity_cache = array();
-    public function retrieve_entities( $entity_ids = array()) {
+    public function retrieve_src_entities( $entity_ids) {
+        return $this->retrieve_entities($this->src_doc_name,$entity_ids);
+    }
+    public function retrieve_target_entities( $entity_ids) {
+        return $this->retrieve_entities($this->target_doc_name,$entity_ids);
+    }
+    public function retrieve_entities( $doc_name,$entity_ids) {
         $results =araray();
         foreach ($entity_ids as $entity_id) {
-            if (array_key_exists($entity_id,$this->entity_cache)) {
-                $entity = $this->entity_cache[$entity_id];
+            if (array_key_exists($doc_name,$this->entity_cache)
+                && array_key_exists($entity_id,$this->entity_cache[$doc_name])) {
+                $entity = $this->entity_cache[$doc_name][$entity_id];
             } else {
                 $csr = "
 <csd:requestparams xmlns:csd='urn:ihe:iti:csd:2013'>
     <csd:{$this->entity_type} entityid='{$entity_id}'/> 
 </csd:requestparams>";               
                 $urn ="urn:ihe:iti:csd:2014:stored-function:{$this->entity_type}-search";
-                $entity = $this->exec_request($csr,$urn);
-                $this->entity_cache[$entity_id] = $entity;
+                $entity = $this->exec_request($doc_name,$csr,$urn);
+                if (!array_key_exists($doc_name,$this->entity_cache)) {
+                    $this->entity_cache[$doc_name] = array();
+                }
+                $this->entity_cache[$doc_name][$entity_id] = $entity;
             }
             if ($entity) {
                 $results[] = $entity;
@@ -65,7 +84,13 @@ abstract public  class entityMatch {
     };
 
         
-    public function get_entity_ids( $page = 0, $page_size = 50) {
+    public function get_target_entity_ids( $page , $page_size ) {
+        return $this->get_entity_ids($this->target_doc_name,$page,$page_size);
+    }
+    public function get_src_entity_ids( $page , $page_size ) {
+        return $this->get_entity_ids($this->src_doc_name,$page,$page_size);
+    }
+    public function get_entity_ids( $doc_name,$page = 0, $page_size = 50) {
         $entity_ids = array();
         switch ($this->entity_type) {
         case 'provider':
@@ -83,7 +108,7 @@ abstract public  class entityMatch {
     <csd:start>{$page}</csd:start>
     <csd:max/>{$page_size}</csd:max>
 </csd:requestparams>";               
-        if (! $respose = $this->exec_req($csr,$urn)) {
+        if (! $respose = $this->exec_req($doc_name,$csr,$urn)) {
             return $entity_ids;
         }
         
@@ -98,7 +123,7 @@ abstract public  class entityMatch {
     };
 
     public is_marked_duplicate($id1,$id2 ) {
-        $entity1 = $this->retrieve_entity($id1);
+        $entity1 = $this->retrieve_entity($this->target_doc_name,$id1);
         if ($this->extract($entity1,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='duplicate' and ./text()='{$id2}']")) {
             return true;
         } else {
@@ -108,7 +133,7 @@ abstract public  class entityMatch {
 
 
     public is_marked_not_duplicate($id1,$id2 ) {
-        $entity1 = $this->retrieve_entity($id1);
+        $entity1 = $this->retrieve_entity($this->target_doc_name,$id1);
         if ($this->extract($entity1,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='not-duplicate' and ./text()='{$id2}']")) {
             return true;
         } else {
@@ -138,26 +163,24 @@ abstract public  class entityMatch {
 	    'HTTPHEADER'=>array('content-type'=>'content-type: text/xml'),
             'CURLOPT_RETURNTRANSFER'=>1
 	    );
-    protected $curl =null;
-    public function exec_request($csr,$urn) {
-        if ( ! is_resource($this->curl)) {
-            $this->curl =  curl_init($this->host);
-            foreach ($this->curl_opts as $k=>$v)  {
-                curl_setopt($this->curl,@costant($k) ,$v);
+    public function exec_request($doc_name,$csr,$doc_name) {
+        $curl =  curl_init($this->host . "/csr/{$doc_name}/careServicesRequest/{$urn}");
+        foreach ($this->curl_opts as $k=>$v)  {
+                curl_setopt($curl,@costant($k) ,$v);
             }
         }
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $csr);
-        $curl_out = curl_exec($ch);
-        if ($err = curl_errno($ch) ) {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $csr);
+        $curl_out = curl_exec($curl);
+        if ($err = curl_errno($curl) ) {
             return false;
         }
+        curl_close($curl);
         return $curl_out;
     };
   }
 
 
 public class entityMatchPotentialDuplicates extends entityMatch {
-
     public function find_matching_entities($entity_id) {
         switch ($this->entity_type) {
         case 'organization':
@@ -177,7 +200,7 @@ public class entityMatchPotentialDuplicates extends entityMatch {
     }
 
     public function get_potential_duplicates($entity_id) {
-        $entity1 = $this->retrieve_entity($id1);
+        $entity1 = $this->retrieve_entity($this->target_doc_name,$id1);
         if (is_array($results = $this->extract($entity1,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='potential-duplicate']"))) {
             $dups = array();
             foreach ($results as $result) {
@@ -206,7 +229,7 @@ public class entityMatchLevenshtein extends entityMatch {
             return array();
             
         }
-        $entity = $this->retrieve_entity($entity_id);
+        $entity = $this->retrieve_entity($this->target_doc_name,$entity_id);
         $entity_names = $this->extract($entity,$name_path,false);
         foreach ($entity_names as $entity_name) {
             $entity_name = trim(strtolower($entity_name));
@@ -219,24 +242,28 @@ public class entityMatchLevenshtein extends entityMatch {
                 || $this->is_marked_not_duplicate($entity_id,$entity_other_id)) {
                 continue;
             }
-            foreach ($namepaths as $namepath) {
-                $other_entity = $this->retrieve_entity($other_entity_id);
-                $other_entity_names = $this->extract($other_entity,$name_path);
-                foreach ($other_entity_names as $other_enity_name) {
-                    $other_entity_name = trim(strtolower($other_entity_name));
-                    foreach ($entity_names as $entity_name) {
-                        $lev = levenshtein($entity_name,$other_entity_name);
-                        if (!array_key_exists($lev,$rankings)) {
-                            $rankings[$lev] = array();
-                        }
-                        $rankings[$lev][$other_entity_id] = $other_entity_name;
+            $other_entity = $this->retrieve_entity($this->src_doc_name,$other_entity_id);
+            $other_entity_names = $this->extract($other_entity,$name_path,false);
+            foreach ($other_entity_names as $other_enity_name) {
+                $other_entity_name = trim(strtolower($other_entity_name));
+                foreach ($entity_names as $entity_name) {
+                    $lev = levenshtein($entity_name,$other_entity_name);
+                    if (!array_key_exists($lev,$rankings)) {
+                        $rankings[$lev] = array();
                     }
+                    $rankings[$lev][$other_entity_id] = $other_entity_name;
                 }
             }
         }
         return $rankings;
     }
 }
+
+
+$src_doc_name = $_GET['src_doc_name'];  //where we are looking for matching entities against.  Needs UI to select if not set
+$target_doc_name = $_GET['target_doc_name']; //where we are saving matching entity data.  Needs UI to select if not set
+$host = "http://localhost:8984/CSD";
+$entity_match = new entityMatchLevenshtein($host,$target_doc_name,$src_doc_name,"facility");
 
 
 
@@ -260,7 +287,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
             mysql_query("insert into `dhis2-ihris-comments` (ihris_id,comment) values ('$ihris_id','$comment')") or die(mysql_error());
     }
     echo "<b>Data is saved successfully</b><br>";
-    echo "<a href='merge_facilities.php'>Return</a>";
+    $href = "merge_facilities.php?src_doc_name=" . $_GET['src_doc_name'] . '&target_doc_name=' . $_GET['target_doc_name'];
+    echo "<a href='$href'>Return</a>";
 }
 else 
 {
@@ -284,7 +312,8 @@ else
     $count=$first_row;
     $match=array("1<sup>st</sup> Best Matches","2<sup>nd</sup> Best Matches","3<sup>rd</sup> Best Matches","4<sup>th</sup> Best Matches","5<sup>th</sup> Best Matches");
     $colors=array("FF3333","FF8633","6EBB07","07BBB6","0728BB");
-    echo "<form method='POST' action='#'>";
+    $href = "merge_facilities.php?src_doc_name=" . $_GET['src_doc_name'] . '&target_doc_name=' . $_GET['target_doc_name'];
+    echo "<form method='POST' action='$href'>";
     echo "<center><u><b><font color='green'>Page Number ".($page+1)."/".($total_page+1)."</font><font color='orange'> Showing ".mysql_num_rows($results)."/".$total_rows." Records</b><p></u>";
     echo "<table><tr>";
     if($page>0)
@@ -314,10 +343,7 @@ else
      *  
      * TO DO :  Replace the logic below with display logic based on the following:
      * $page = 
-     * $doc_name = $_GET['doc_name'];
-     * $host = "http://localhost:8984/CSD";
-     * $entity_match = new entityMatchLevenshtein($host,$doc_name,"facility");
-     * foreach ($entity_match->get_entity_ids( $page , $max_rows) as $entity_id) {
+     * foreach ($entity_match->get_target_entity_ids( $page , $max_rows) as $entity_id) {
      *   $rankings = $entity_match->find_matching_entities($entity_id);
      *   
      *   // INSERT DISPLAY AND HTML FORM LOGIC HERE
