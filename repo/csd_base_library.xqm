@@ -43,6 +43,7 @@ declare function csd_bl:get_child_orgs($orgs,$org,$seen) {
       else 
         let $c_orgs := $orgs[./parent[@entityID = $org_id]]	
 	return 
+(:
   	  if (count($c_orgs) > 2)  
   	  then 
             let $c_org_funcs:= 
@@ -50,6 +51,7 @@ declare function csd_bl:get_child_orgs($orgs,$org,$seen) {
   	      return function() {(   csd_bl:get_child_orgs($orgs,$c_org,($seen,$org)))}
             return ($c_orgs,xquery:fork-join($c_org_funcs))
           else 
+:)
 	    for $c_org in $c_orgs
 	    return ($c_org,csd_bl:get_child_orgs($orgs,$c_org))	  
 
