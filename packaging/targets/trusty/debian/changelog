@@ -1,6 +1,18 @@
 openinfoman (1.4.37~trusty) trusty; urgency=medium
 
   * Release Version 1.4.37
+    -c37d2a1 revert parallelization of extracing children from org hier
+    --http://github.com/openhie/openinfoman/commmit/c37d2a1
+    -5b12730 Moving merge script to oim-dhis
+    --http://github.com/openhie/openinfoman/commmit/5b12730
+    -7a5d7f9 "Release Version 1.4.37"
+    --http://github.com/openhie/openinfoman/commmit/7a5d7f9
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 29 Aug 2016 13:42:14 +0000
+
+openinfoman (1.4.37~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.37
 
  -- Carl Leitner <litlfred@ibiblio.org>  Thu, 25 Aug 2016 11:17:50 +0300
 
