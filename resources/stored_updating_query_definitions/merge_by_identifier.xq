@@ -2,6 +2,7 @@ import module namespace csd_lsc = "https://github.com/openhie/openinfoman/csd_ls
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace functx = "http://www.functx.com";
+declare default element  namespace   "urn:ihe:iti:csd:2013";
 declare namespace csd  =  "urn:ihe:iti:csd:2013";
 
 declare variable $careServicesRequest as item() external;
