@@ -9,7 +9,9 @@ module namespace csd_bl = "https://github.com/openhie/openinfoman/csd_bl";
 import module namespace functx = "http://www.functx.com";
 import module namespace xquery = " http://basex.org/modules/xquery";
 
-declare default element  namespace   "urn:ihe:iti:csd:2013";
+
+declare namespace csd = "urn:ihe:iti:csd:2013";
+declare default element namespace   "urn:ihe:iti:csd:2013";
 
 
 
@@ -20,7 +22,7 @@ declare function csd_bl:get_parent_orgs($all_orgs,$org) {
   let $porg :=
     if (functx:all-whitespace($porg_id)) 
     then ()
-    else $all_orgs[@entityID = $porg_id]
+    else ($all_orgs[@entityID = $porg_id])[1]
   return 
     if (not(exists($porg)))
     then ()
@@ -28,11 +30,16 @@ declare function csd_bl:get_parent_orgs($all_orgs,$org) {
 };
 
 declare function csd_bl:get_child_orgs($orgs,$org) {
-  csd_bl:get_child_orgs($orgs,$org,())
+  csd_bl:get_child_orgs($orgs,$org,false(),())
 };
 
 
-declare function csd_bl:get_child_orgs($orgs,$org,$seen) {
+declare function csd_bl:get_child_orgs($orgs,$org,$updated) {
+  csd_bl:get_child_orgs($orgs,$org,$updated,())
+};
+
+
+declare function csd_bl:get_child_orgs($orgs,$org,$updated,$seen) {
   let $org_id := $org/@entityID
   return 
     if ($org = $seen) 
@@ -42,22 +49,50 @@ declare function csd_bl:get_child_orgs($orgs,$org,$seen) {
       then ()
       else 
         let $c_orgs := $orgs[./parent[@entityID = $org_id]]	
-	return 
-(:
-  	  if (count($c_orgs) > 2)  
-  	  then 
-            let $c_org_funcs:= 
-              for $c_org in $c_orgs
-  	      return function() {(   csd_bl:get_child_orgs($orgs,$c_org,($seen,$org)))}
-            return ($c_orgs,xquery:fork-join($c_org_funcs))
-          else 
-:)
+        let $child_extracts :=
+	  if (count($c_orgs) < 2)
+	  then 	    
 	    for $c_org in $c_orgs
-	    return ($c_org,csd_bl:get_child_orgs($orgs,$c_org))	  
-
-
+	    let $children := csd_bl:get_child_orgs($orgs,$c_org,$updated,($org,$seen))
+	    let $extracted := csd_bl:extract_updated_children($c_org,$children,$updated)
+	    return $extracted
+          else (: try threads :)
+	    let $c_org_funcs:= 
+              for $c_org in $c_orgs
+              return function() {
+		let $t0 := trace($c_org/@entityID," Executing child extract thread for:")
+	        let $children := csd_bl:get_child_orgs($orgs,$c_org,$updated,($org,$seen))
+		let $extracted := csd_bl:extract_updated_children($c_org,$children,$updated)
+		let $t1 := trace($c_org/@entityID," Extracted children in thread for:")
+		return $extracted
+	      }
+	    return xquery:fork-join($c_org_funcs)
+	 let $t := trace( concat($org/@entityID," / ",count($child_extracts)), "All extracts are (entityID/count): ")
+	 return $child_extracts
 };
 
+
+
+
+declare function csd_bl:extract_updated_children($c_org,$children,$updated)
+{
+  if (not($updated instance of xs:dateTime))
+  then ($c_org,$children)
+  else 
+    let $c_updated := 
+      try {
+	xs:dateTime($c_org/csd:record/@updated)
+      } catch e {
+	false()
+      }
+    return
+      if (($c_updated instance of xs:dateTime) and ($c_updated >= $updated))
+      then ($c_org,$children) (: $c_updated >= $updated  so we need to include it any any matching children :)
+      else 
+	if (count($children) > 0)
+	then ($c_org,$children)
+	else ()
+};
 
 declare function csd_bl:wrap_providers($providers) 
 {
@@ -464,10 +499,22 @@ declare function csd_bl:filter_by_record($items as item()*, $record as item()) a
         else 
              let $status:= $record/@status
              return $items[record/@status = $status]
+
+    let $updated := 
+       if (exists($record/@updated))
+       then
+         try {
+	   let $t_time := xs:dateTime($record/@updated)
+	   return $t_time
+	 } catch e {
+	   false()
+	 }
+       else false()
+
     return 
-        if (not($record/@updated) ) 
+        if (not($updated instance of xs:dateTime))
         then $items1
-        else $items1[record/@updated >= $record/@updated ]
+        else $items1[xs:dateTime(record/@updated) >= $updated ]
             
 };
 

@@ -6,19 +6,26 @@
 :)
 module namespace csd_qus = "https://github.com/openhie/openinfoman/csd_qus";
 
-
-declare   namespace   csd = "urn:ihe:iti:csd:2013";
+declare namespace csd = "urn:ihe:iti:csd:2013";
 declare namespace soap="http://www.w3.org/2003/05/soap-envelope";
 declare namespace wsa="http://www.w3.org/2005/08/addressing" ;
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
+
+declare variable $csd_qus:beginning_of_time := '1970-01-01T00:00:00+00:00';
+
 declare function csd_qus:get_updated_services_soap($soap,$doc) {
-  let $last_mtime := text{$soap/soap:Body/csd:getModificationsRequest/csd:lastModified}
+  let $last_mtime :=  
+    try {
+      xs:dateTime($soap/soap:Body/csd:getModificationsRequest/csd:lastModified)
+    } catch e {
+      $csd_qus:beginning_of_time
+    }
   let $msgID := $soap/soap:Envelope/soap:Header/wsa:MessageID
   return csd_qus:create_last_update_response(csd_qus:get_updated_services($last_mtime,$doc),$msgID) 
 };
 
-declare function csd_qus:get_updated_entities($dir,$mtime) {
+declare function csd_qus:get_updated_entities($dir,$mtime as xs:dateTime ) {
   for $e in $dir   
   return 
     try {
@@ -51,7 +58,7 @@ declare function csd_qus:get_updated_services($mtime as xs:dateTime,$doc) {
 </csd:CSD>
 };
 
-declare function csd_qus:create_last_update_request($url,$last_mtime) {
+declare function csd_qus:create_last_update_request($url,$last_mtime as xs:dateTime) {
   <soap:Envelope 
    xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
    xmlns:wsa="http://www.w3.org/2005/08/addressing" 

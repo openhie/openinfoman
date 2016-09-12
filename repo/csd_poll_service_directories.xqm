@@ -68,7 +68,7 @@ declare function csd_psd:get_service_directory_credentials($name) {
   db:open($csd_webconf:db,$csd_psd:directory_manager)//serviceDirectory[@name=$name]/credentials
 };
 
-declare function csd_psd:poll_service_directory($name,$mtime) 
+declare function csd_psd:poll_service_directory($name,$mtime as xs:dateTime) 
 {
   let $soap := csd_psd:poll_service_directory_soap_response($name,$mtime)
   let $resp := $soap/soap:Envelope/soap:Body/csd:getModificationsResponse
@@ -80,7 +80,7 @@ declare function csd_psd:poll_service_directory($name,$mtime)
 
 
 
-declare function csd_psd:generate_soap_request ($name,$mtime)  {
+declare function csd_psd:generate_soap_request ($name,$mtime as xs:dateTime)  {
   let $url := csd_psd:get_service_directory_url($name)    
   let $message :=       
     (<http:header name="Content-Type" value="application/soap+xml"/>
@@ -110,7 +110,7 @@ declare function csd_psd:generate_soap_request ($name,$mtime)  {
   return $request
 };
 
-declare function csd_psd:poll_service_directory_soap_response($name,$mtime) 
+declare function csd_psd:poll_service_directory_soap_response($name,$mtime as xs:dateTime) 
 {
   let $request := csd_psd:generate_soap_request($name,$mtime)
   let $response := http:send-request($request)
