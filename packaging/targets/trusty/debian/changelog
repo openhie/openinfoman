@@ -1,3 +1,15 @@
+openinfoman (1.4.38~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.38
+    -bc80b16 more debugging info when for 422's
+    --http://github.com/openhie/openinfoman/commmit/bc80b16
+    -e1388fc better handling of @updated as xs:dateTime.   Can now extr
+    --http://github.com/openhie/openinfoman/commmit/e1388fc
+    -cc571da Declaring the element namespace
+    --http://github.com/openhie/openinfoman/commmit/cc571da
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 13 Sep 2016 19:53:56 +0000
+
 openinfoman (1.4.37~trusty) trusty; urgency=medium
 
   * Release Version 1.4.37
