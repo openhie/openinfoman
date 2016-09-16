@@ -18,7 +18,7 @@ let $dupEntity :=  if (exists($dupID)) then (/csd:CSD/*/*[@entityID = $dupID])[1
 let $masterRef := <csd:otherID assigningAuthorityName='urn:openhie.org:openinfoman' code='duplicate'>{string($masterID)}</csd:otherID>
 
 return 
-  if (not(exists($masterEntity)) or not( exists($dupEntity)))
+  if (not( exists($dupEntity)))
   then ()
   else 
     let $existingRef := ($dupEntity/csd:otherID[@assigningAuthorityName = 'urn:openhie.org:openinfoman' and @code='duplicate'])[1]
