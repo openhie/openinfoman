@@ -182,6 +182,11 @@ declare $updating
          ,oim-sf:processRequest(\$doc,\$request)
          )
     } catch * {
+      (
+       let \$msg := concat(\$err:code, \$err:value, \" module: \", \$err:module, \"(\", \$err:line-number, \",\", \$err:column-number, \")\")
+       let \$t := trace( \$msg ,\"Stored Query Execution Exception (422):\")
+       return ()
+      ,
       $db_out_start
        <rest:response>
 	 <http:response status=\"422\" message=\"Error executing xquery.\">
@@ -190,6 +195,7 @@ declare $updating
 	 </http:response>
        </rest:response>
       $db_out_end
+      )
     }
   else  ()      (:need appropriate error handling:)
 };";
@@ -235,6 +241,11 @@ declare $updating
          ,oim-sf:processRequest(\$doc,\$request)
          )
     } catch * {
+      (
+       let \$msg := concat(\$err:code, \$err:value, \" module: \", \$err:module, \"(\", \$err:line-number, \",\", \$err:column-number, \")\")
+       let \$t := trace( \$msg ,\"Stored Query Execution Exception (422):\")  
+       return ()
+       ,
       $db_out_start
         <rest:response>
 	  <http:response status=\"422\" message=\"Error executing xquery.\">
@@ -243,6 +254,7 @@ declare $updating
 	  </http:response>
 	</rest:response>
        $db_out_end
+       )
     }
   else  ()      (:need appropriate error handling:)
 

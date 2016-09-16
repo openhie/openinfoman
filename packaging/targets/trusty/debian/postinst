@@ -32,7 +32,7 @@ fi
 set -e
 
 
-
+$BASEX -Vc "SET DEBUG TRUE"
 
 mkdir -p $OI/repo-src
 chown -R $USERNAME:$USERNAME $OI
@@ -105,3 +105,5 @@ for SVS in ${SVSS[@]}
 do
     $WGET --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
 done
+
+
