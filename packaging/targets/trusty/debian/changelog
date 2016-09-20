@@ -1,3 +1,11 @@
+openinfoman (1.4.45~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.45
+    -4925d70 fixed minor typo
+    --http://github.com/openhie/openinfoman/commmit/4925d70
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 20 Sep 2016 14:13:57 +0000
+
 openinfoman (1.4.44~trusty) trusty; urgency=medium
 
   * Release Version 1.4.44
