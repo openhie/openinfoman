@@ -208,7 +208,7 @@ declare
 { 
   try {    
     if ($mtime) then
-      csd_psd:poll_service_directory_soap_response($name,xsd:dateTime($mtime))
+      csd_psd:poll_service_directory_soap_response($name,xs:dateTime($mtime))
     else
       csd_psd:poll_service_directory_soap_response($name,csd_lsc:get_service_directory_mtime($name))
   } catch * {
