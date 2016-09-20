@@ -109,15 +109,15 @@ declare updating function csd_lsc:set_service_directory_mtime($name,$mtime)
 };
 
 declare function csd_lsc:get_service_directory_mtime($name) 
-{
+{  
   if ( db:is-xml($csd_webconf:db,$csd_lsc:cache_meta_doc))  then
     let $mtime := text{db:open($csd_webconf:db,$csd_lsc:cache_meta_doc)/cacheData/serviceCache[@name = $name]/@mtime}
     return if ($mtime) then
-	$mtime
+        xs:dateTime($mtime)
       else 
-	$csd_lsc:beginning_of_time
+	xs:dateTime($csd_lsc:beginning_of_time)
     else
-      $csd_lsc:beginning_of_time
+      xs:dateTime($csd_lsc:beginning_of_time)
       
 };
 

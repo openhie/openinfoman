@@ -206,10 +206,20 @@ declare
   %rest:GET
   function page:poll_service($name,$mtime)
 { 
-if ($mtime) then
- csd_psd:poll_service_directory_soap_response($name,$mtime)
-else
- csd_psd:poll_service_directory_soap_response($name,csd_lsc:get_service_directory_mtime($name))
+  try {    
+    if ($mtime) then
+      csd_psd:poll_service_directory_soap_response($name,xsd:dateTime($mtime))
+    else
+      csd_psd:poll_service_directory_soap_response($name,csd_lsc:get_service_directory_mtime($name))
+  } catch * {
+    let $msg := concat("Could retrieve remote directory soap response: " , 
+      $err:code, $err:value, " module: ", $err:module, "(", $err:line-number, ",", $err:column-number, ")")
+    return 
+      <rest:response>
+	<http:response status="500" message="$msg">
+	</http:response>
+      </rest:response>
+  }
 };
 
 
@@ -219,10 +229,20 @@ declare
   %rest:GET
   function page:poll_service_csd($name,$mtime)
 { 
-if ($mtime) then
- csd_psd:poll_service_directory($name,$mtime)
-else
- csd_psd:poll_service_directory($name,csd_lsc:get_service_directory_mtime($name))
+  try {    
+    if ($mtime) then
+      csd_psd:poll_service_directory($name,xs:dateTime($mtime))
+    else
+      csd_psd:poll_service_directory($name,csd_lsc:get_service_directory_mtime($name))
+  } catch * {
+    let $msg := concat("Could not initiate poll of remote directory: " , 
+      $err:code, $err:value, " module: ", $err:module, "(", $err:line-number, ",", $err:column-number, ")")
+    return 
+      <rest:response>
+	<http:response status="500" message="$msg">
+	</http:response>
+      </rest:response>
+  }
 };
 
 declare
