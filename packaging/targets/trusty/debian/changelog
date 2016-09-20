@@ -1,3 +1,11 @@
+openinfoman (1.4.44~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.44
+    -5295c51 addressing date time issue as reported https://github.com/
+    --http://github.com/openhie/openinfoman/commmit/5295c51
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Tue, 20 Sep 2016 14:10:21 +0000
+
 openinfoman (1.4.43~trusty) trusty; urgency=medium
 
   * Release Version 1.4.43
