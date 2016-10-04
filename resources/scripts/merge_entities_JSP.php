@@ -137,7 +137,7 @@ abstract class entityMatch {
     public function is_marked_duplicate($id1,$id2 ) {
         $entity2 = $this->retrieve_entities($this->target_doc_name,array($id2));
         foreach($entity2 as $ent2)
-        if ($this->extract($ent2,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='duplicate' and ./text()='{$id1}']")) {
+        if ($this->extract($ent2,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='duplicate' and ./text()='{$id1}']",false)) {
             return true;
         } else {
             return false;
@@ -147,7 +147,7 @@ abstract class entityMatch {
 
     public function is_marked_not_duplicate($id1,$id2 ) {
         $entity1 = $this->retrieve_entities($this->target_doc_name,$id1);
-        if ($this->extract($entity1,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='not-duplicate' and ./text()='{$id2}']")) {
+        if ($this->extract($entity1,"/csd:otherID[@assigningAuthorityName='urn:openhie.org:openinfoman' and @code='not-duplicate' and ./text()='{$id2}']",false)) {
             return true;
         } else {
             return false;
@@ -219,8 +219,8 @@ class entityMatchLevenshtein extends entityMatch {
 	 public $target_entity_names=array();
     public function find_matching_entities($src_entity_id,$src_entity_name) {
         $rankings = array();
-        if(count($this->target_entity_names)==0) {
-        $target_entities=$this->get_target_entity_ids(0, -1);echo "fetched<br>";}
+        if(count($this->target_entity_names)==0)
+        $target_entities=$this->get_target_entity_ids(0, -1);
         else
         $source_entities=array();
         foreach ($target_entities as $target_entity_id) {
@@ -307,6 +307,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 			$entity_match->exec_request($_POST["target_doc_name"],$csr,$urn);
 		}
 	}
+echo "<a href='merge_entities.php'>Return</a>";
 }
 
 else {
