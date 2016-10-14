@@ -241,10 +241,10 @@ class entityMatchLevenshtein extends entityMatch {
 		 $this->shortest = -1;
 		 $rankings=array();
        foreach ($this->target_entity_names as $target_entity_id=>$target_entity_name) {
-       	//if it is already marked as dupplicate then lev=0
+       	//if it is already marked as duplicate then lev=0
        	if ($this->is_marked_duplicate($src_entity_id,$target_entity_id)) {
             		$lev=0;
-            		$rankings[$lev][$target_entity_id]=$target_entity_name;
+            		$rankings['dup'][$target_entity_id]=$target_entity_name;
                 	continue;
             }
        	$strs=explode(" ",$target_entity_name);
@@ -292,12 +292,19 @@ class entityMatchLevenshtein extends entityMatch {
 
 if($_SERVER["REQUEST_METHOD"]=="POST") {
 	$entity_match = new entityMatchLevenshtein($_POST["host"],$_POST["target_doc_name"],$_POST["src_doc_name"],$_POST["entity_type"]);
+	$entity_type=$_POST["entity_type"];
 	foreach ($_POST["target"] as $source_id=>$target_id) {
-		//if not dupplicate
-		if($target_id=="not_dupplicate") {
+		//if not duplicate
+		if($target_id=="no_duplicate") {
+			$csr = "<csd:requestParams xmlns:csd='urn:ihe:iti:csd:2013'>
+						<adhoc>declare namespace csd = 'urn:ihe:iti:csd:2013';
+						//csd:CSD/*/csd:{$entity_type}[./csd:otherID[@code='duplicate' and ./text()='{$source_id}']]</adhoc>
+					  </csd:requestParams>";
+			$urn = "urn:ihe:iti:csd:2014:adhoc";
+			$entities = $entity_match->exec_request($_POST["target_doc_name"],$csr,$urn);
 			
 		}
-		//if dupplicate
+		//if duplicate
 		else {
 			$csr = "<csd:requestParams xmlns:csd='urn:ihe:iti:csd:2013'>
 							<masterEntity entityID='$source_id'/>
@@ -374,7 +381,7 @@ echo"<td><a href='#' onclick='return display_report(\"page\",$total_page,$total_
 echo "<td align='center'><input type='submit' name='save' value='Save Changes'></td></tr>";
 echo "</table>";
 $count=++$first_row;
-echo "<table border='1' cellspacing='0'><tr style='background-color:black;color:white'><th>SN</th><th>$src_doc_name</th><th>Marked Dupplicate In $target_doc_name</th><th>Possible Dupplicates In $target_doc_name</th></tr>";
+echo "<table border='1' cellspacing='0'><tr style='background-color:black;color:white'><th>SN</th><th>$src_doc_name</th><th>Marked Duplicate In $target_doc_name</th><th>Possible Duplicates In $target_doc_name</th></tr>";
 
 $src_entities=$entity_match->get_src_entity_ids( $first_row,$max_rows );
 
@@ -387,12 +394,12 @@ foreach ($src_entities as $entity_id) {
 	$rankings = $entity_match->find_matching_entities($entity_id,$entity_name);
 	echo "<tr><td>$count</td><td><input type='hidden' name=source[$entity_id] value=".$entity_id.">".$entity_name."</td>";
 	$count++;
-		//Display entity which is already marked as dupplicate and unset the key
-		if(array_key_exists(0,$rankings)) {
+		//Display entity which is already marked as duplicate and unset the key
+		if(array_key_exists('dup',$rankings)) {
 			echo "<td>";
-			foreach($rankings[0] as $values)
+			foreach($rankings['dup'] as $values)
 			echo "$values</br>";
-			unset($rankings[0]);
+			unset($rankings['dup']);
 			echo "</td>";
 		}
 		else
@@ -409,7 +416,7 @@ foreach ($src_entities as $entity_id) {
    		echo "</div></font>";
    		$match_index++;
    	}
-   	echo "<input type='radio' name=target[$entity_id] value='not_dupplicate'>No Dupplicate<br>";
+   	echo "<input type='radio' name=target[$entity_id] value='no_duplicate'>No Duplicate<br>";
    	echo "</td></tr>";
 }
 
