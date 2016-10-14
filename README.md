@@ -25,6 +25,8 @@ sudo apt-get install openinfoman
 Once you have installed, you should be able to access OpenInfoMan at:
 > http://localhost:8984/CSD
 
+Follow instructions on this wiki manual https://wiki.ihris.org/wiki/OIM_authentication_with_OHIM to add authentication to OpenInfoMan.
+
 Manual Installation
 ===================
 See the wiki https://github.com/openhie/openinfoman/wiki
