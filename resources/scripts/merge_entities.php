@@ -108,7 +108,7 @@ echo "<td>Source CSD Document</td><td><select name='src_doc_name'>".display_docs
 </select></td>
 ";
 ?>
-<td></td><td><input type='button' value='Find Dupplicates' name='set_docs' onclick='display_report("","","")'></td>
+<td></td><td><input type='button' value='Find Duplicates' name='set_docs' onclick='display_report("","","")'></td>
 </tr></table>
 </center></form>
 <?php
@@ -119,7 +119,7 @@ echo "<td>Source CSD Document</td><td><select name='src_doc_name'>".display_docs
 						<adhoc>db:list('provider_directory','service_directories')</adhoc>
 					 </csd:requestParams>";
 		$urn = "urn:ihe:iti:csd:2014:adhoc";
-		$docs=exec_request("slfacilities",$csr,$urn,$host);
+		$docs=exec_request("doc1",$csr,$urn,$host);
 		$docs=str_replace("service_directories/","",$docs);
 		$docs=explode(".xml",$docs);
 		return $docs;
@@ -147,6 +147,7 @@ echo "<td>Source CSD Document</td><td><select name='src_doc_name'>".display_docs
                 curl_setopt($curl,@constant($k) ,$v);
             }
         curl_setopt($curl, CURLOPT_POSTFIELDS, $csr);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         $curl_out = curl_exec($curl);
         if ($err = curl_errno($curl) ) {
             return false;
