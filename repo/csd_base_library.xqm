@@ -588,6 +588,23 @@ declare function csd_bl:filter_by_organizations($items as item()*,$orgs as item(
 };
 
 
+declare function csd_bl:filter_by_cadres($items as item()*,$cadres as item()*) as item()*
+{
+    if (count($cadres) = 0
+       or (not ($cadres[1]/@code) )
+       or (not ($cadres[1]/@codingScheme))
+       )
+    then $items
+    else 
+           let $code := upper-case($cadres[1]/@code)
+           let $codingScheme := upper-case($cadres[1]/@codingScheme)
+           return csd_bl:filter_by_cadres(
+             $items[./codedType[upper-case(@code) = $code and upper-case(@codingScheme) = $codingScheme]],
+             fn:subsequence($cadres,2))
+
+};
+
+
 declare function csd_bl:filter_by_languages($items as item()*,$langs as item()*) as item()*
 {
     if (count($langs) = 0 
