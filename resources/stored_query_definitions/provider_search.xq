@@ -53,17 +53,17 @@ declare variable $careServicesRequest as item() external;
       else $provs7
       
       let $provs8 := if(exists($careServicesRequest/cadre))
-        then csd_bl:filter_by_languages($provs7,$careServicesRequest/cadre)
-      else $provs78
+        then csd_bl:filter_by_cadres($provs7a,$careServicesRequest/cadre)
+      else $provs7a
 
 
       return if (exists($careServicesRequest/start)) then
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs7a,$careServicesRequest/start,$careServicesRequest/max)         
-	else csd_bl:limit_items($provs7a,$careServicesRequest/start,<max/>)         
+	  then csd_bl:limit_items($provs8,$careServicesRequest/start,$careServicesRequest/max)         
+	else csd_bl:limit_items($provs8,$careServicesRequest/start,<max/>)         
       else
 	if (exists($careServicesRequest/max)) 
-	  then csd_bl:limit_items($provs7a,<start/>,$careServicesRequest/max)         
+	  then csd_bl:limit_items($provs8,<start/>,$careServicesRequest/max)
 	else $provs8
 
     }     

@@ -80,6 +80,7 @@
       <start/>
       <max/>
       <record/>
+      <cadre/>
     </careServicesRequest>
   </xforms:instance>
   <xforms:bind nodeset="id" type="csd:uniqueID"/>
@@ -90,4 +91,5 @@
   <xforms:bind nodeset="start" type="xsd:int"/>
   <xforms:bind nodeset="max" type="xsd:int"/>
   <xforms:bind nodeset="record" type="csd:record"/>
+  <xforms:bind nodeset="cadre" type="csd:cadre"/>
 </careServicesFunction>
