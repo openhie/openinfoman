@@ -14,7 +14,7 @@ CSD Schema
 You can find documentation for the CSD schema data mode  <a href="http://openhie.github.io/openinfoman/CSD.html">here</a> which has be generated from <a href="https://github.com/openhie/openinfoman/blob/master/resources/CSD.xsd">CSD.xsd</a>
 
 Ubuntu Installation
-===================
+==================
 You can easily install on Ubuntu 14.04 and Ubuntu 14.10 using the following commands
 <pre>
 sudo add-apt-repository ppa:openhie/release
