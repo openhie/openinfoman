@@ -14,7 +14,7 @@ declare namespace svs = "urn:ihe:iti:svs:2008";
 
 
 declare variable $svs_lsvs:vers := "1.1";
-declare variable $svs_lsvs:base_path := concat(file:current-dir() ,'../resources/shared_value_sets/');
+declare variable $svs_lsvs:base_path := file:resolve-path('resources/shared_value_sets/', file:current-dir());
 declare variable $svs_lsvs:valuesets_doc := "DescribedSharedValueSets.xml";
 declare variable $svs_lsvs:sample_value_set_list := svs_lsvs:get_sample_value_set_list();
 declare variable $svs_lsvs:blank_valuesets :=  <DescribedValueSets version="{$svs_lsvs:vers}"/>;
