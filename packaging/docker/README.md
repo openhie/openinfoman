@@ -5,6 +5,8 @@ This builds [OpenInfoMan](https://github.com/openhie/openinfoman) and additional
 + [Inter-Linked Health Worker Registry Validation](https://github.com/openhie/openinfoman-ilr)
 + [DHIS2](https://github.com/openhie/openinfoman-dhis)
 
+All builds are tagged with the commit hash of the latest commit, which is also tagged as latest on hub.docker.com.
+
 To use, just pull the image from Docker Hub and run it.
 ```
 docker run -d -p 8984:8984 openhie/openinfoman
