@@ -46,10 +46,25 @@ For an automated installation of the requirements in CentOS there is an Ansible 
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts prep_centos.yaml
 ```
 
+> OpenInfoMan runs on an unprivileged port. Any user can manage the processes. See notes on production deployments below.
+
 Once requirements are created, install OpenInfoMan using the provided script in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts)
 
-```sh
 
+```sh
+ssh user@IP_ADDR 'bash -s' < install_oim-1.4.49.sh
+```
+
+or
+
+```sh
+curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
+```
+
+To install additional libraries:
+
+```sh
+curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_additional.sh | sh -
 ```
 
 # macOS Installation
@@ -63,6 +78,24 @@ brew install git wget
 
 And install Java.
 
+Once requirements are created, install OpenInfoMan using the provided script in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts)
+
+
+```sh
+ssh user@IP_ADDR 'bash -s' < install_oim-1.4.49.sh
+```
+
+or
+
+```sh
+curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
+```
+
+To install additional libraries:
+
+```sh
+curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_additional.sh | sh -
+```
 
 
 # Docker images
@@ -115,6 +148,7 @@ VM="-Xms2g -Xmx2g"
 # OpenInfoMan Libraries
 
 You can find additional libraries extending the core OpenInfoMan funcitonality here:
+
 - https://github.com/openhie/openinfoman-hwr Health Worker Registry 
 - https://github.com/openhie/openinfoman-dhis DHIS2
 - https://github.com/openhie/openinfoman-fhir FHIR 
@@ -136,13 +170,5 @@ Stored Functions
 The base CSD standard can be extended using stored functions.
 
 You can find documentation on the available stored functions across the OpenInfoMan libraries <a href="http://openhie.github.io/openinfoman/stored-functions">here</a>.
-
-
-
-
-
-
-
-
 
 (tra-la-la)
