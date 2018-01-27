@@ -91,11 +91,44 @@ or
 curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
 ```
 
+# OpenInfoMan Libraries
+
 To install additional libraries:
 
 ```sh
 curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_additional.sh | sh -
 ```
+
+There are six options. DATIM libraries require access to private repo and for SSH to be setup for git. All other options are in public repositories.
+
+```sh
+Which OpenInfoMan libraries do you wish to install?
+1) All_public	     		  
+2) All_DATIM	     
+3) DHIS
+4) ILR
+5) RapidPro_and_CSV
+6) HWR
+7) Quit     
+```
+
+You can find the additional libraries extending the core OpenInfoMan funcitonality here:
+
+- https://github.com/openhie/openinfoman-hwr Health Worker Registry 
+- https://github.com/openhie/openinfoman-dhis DHIS2
+- https://github.com/openhie/openinfoman-fhir FHIR 
+- https://github.com/openhie/openinfoman-rapidpro RapidPro
+- https://github.com/openhie/openinfoman-opensearch OpenSearch
+- https://github.com/openhie/openinfoman-hwr-nigeria Nigeria
+- https://github.com/openhie/openinfoman-tz Tanzania
+- https://github.com/openhie/openinfoman-ilr Inter-Linked Health Worker Registry Validation
+- https://github.com/openhie/openinfoman-ldif LDIF Export
+- https://github.com/openhie/openinfoman-r R Statistics Package 
+- https://github.com/openhie/openinfoman-anon Anonymizer
+- https://github.com/openhie/openinfoman-zim Zimbabwe
+- https://github.com/openhie/openinfoman-csv Configurable Export to CSV
+- https://github.com/openhie/openinfoman-whomds WHO Minimum Data Set Analysis
+- https://github.com/openhie/openinfoman-zimbra  Integration with Zimbra
 
 
 # Docker images
@@ -145,28 +178,8 @@ then change to suitable values:
 VM="-Xms2g -Xmx2g"
 ```
 
-# OpenInfoMan Libraries
+# Stored Functions
 
-You can find additional libraries extending the core OpenInfoMan funcitonality here:
-
-- https://github.com/openhie/openinfoman-hwr Health Worker Registry 
-- https://github.com/openhie/openinfoman-dhis DHIS2
-- https://github.com/openhie/openinfoman-fhir FHIR 
-- https://github.com/openhie/openinfoman-rapidpro RapidPro
-- https://github.com/openhie/openinfoman-opensearch OpenSearch
-- https://github.com/openhie/openinfoman-hwr-nigeria Nigeria
-- https://github.com/openhie/openinfoman-tz Tanzania
-- https://github.com/openhie/openinfoman-ilr Inter-Linked Health Worker Registry Validation
-- https://github.com/openhie/openinfoman-ldif LDIF Export
-- https://github.com/openhie/openinfoman-r R Statistics Package 
-- https://github.com/openhie/openinfoman-anon Anonymizer
-- https://github.com/openhie/openinfoman-zim Zimbabwe
-- https://github.com/openhie/openinfoman-csv Configurable Export to CSV
-- https://github.com/openhie/openinfoman-whomds WHO Minimum Data Set Analysis
-- https://github.com/openhie/openinfoman-zimbra  Integration with Zimbra
-
-Stored Functions
-================
 The base CSD standard can be extended using stored functions.
 
 You can find documentation on the available stored functions across the OpenInfoMan libraries <a href="http://openhie.github.io/openinfoman/stored-functions">here</a>.

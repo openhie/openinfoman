@@ -105,8 +105,8 @@ function hwr () {
 # rapidpro: req csv
 # hwr
 
-echo "Do you wish to install this program?"
-select yn in "All_public" "All_DATIM" "DHIS" "ILR" "RapidPro_and_CSV" "HWR" "None"; do
+echo "Which OpenInfoMan libraries do you wish to install?"
+select yn in "All_public" "All_DATIM" "DHIS" "ILR" "RapidPro_and_CSV" "HWR" "Quit"; do
   case $yn in
       All_public ) dhis; ilr; csv; rapidpro; hwr; printf "\n\e[32mCompleted!\n"; break;;
       All_DATIM) dhis; datim; printf "\n\e[32mCompleted!\n"; break;;
@@ -114,6 +114,6 @@ select yn in "All_public" "All_DATIM" "DHIS" "ILR" "RapidPro_and_CSV" "HWR" "Non
       ILR) ilr; printf "\n\e[32mCompleted!\n"; break;;
       RapidPro_and_CSV) csv; rapidpro; printf "\n\e[32mCompleted!\n"; break;;
       HWR) dhis; datim; printf "\n\e[32mCompleted!\n"; break;;
-      None ) printf "\n\e[32mQuit!\n"; exit;;
+      Quit ) printf "\n\e[32mQuit!\n"; exit;;
   esac
 done
