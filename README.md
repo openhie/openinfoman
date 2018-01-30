@@ -91,6 +91,32 @@ or
 curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
 ```
 
+# Backup and Restore
+
+Logs and data are located in `data`. The logs are under data in the .logs folder. A one-liner can create a backup of the data in OpenInfoMan and a one-liner can restore it.
+
+For example to backup data and logs and store them on S3:
+
+```sh
+basex -c"CREATE BACKUP provider_directory"
+zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs
+ls -la $HOME/openinfoman/data/
+# move the logs and data zipfiles to a safe location, e.g.
+aws s3 cp $HOME/openinfoman/data/logs-* s3://backup_bucket/logs
+aws s3 cp $HOME/openinfoman/data/provider_directory-* s3://backup_bucket/data
+# or
+mv $HOME/openinfoman/data/logs-* ~/backup/logs
+mv $HOME/openinfoman/data/provider_directory-* ~/backup/data
+```
+
+For restores:
+
+```sh
+basex -c"RESTORE <filename>"
+```
+
+The backup and restore process is the same on any operating system.
+
 # OpenInfoMan Libraries
 
 To install additional libraries:
@@ -153,21 +179,6 @@ See the wiki https://github.com/openhie/openinfoman/wiki
 * OpenInfoMan should be run by a user without superuser privileges. It is recommended to create a non-root and non-sudo user.
 
 * Ensure that TCP port 8984 is open on security policy/firewall.
-
-* Logs and data are located in `data`. Make regular backups of existing data and logs. BaseX, the underlying Java database engine, has a command for backups but similarly one may zipify the data directory.
-
-For example:
-```sh
-basex -c"CREATE BACKUP provider_directory"
-zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs
-ls -la $HOME/openinfoman/data/
-# move the logs and data zipfiles to a safe location, e.g.
-aws s3 cp $HOME/openinfoman/data/logs-* s3://backup_bucket/logs
-aws s3 cp $HOME/openinfoman/data/provider_directory-* s3://backup_bucket/data
-# or
-mv $HOME/openinfoman/data/logs-* ~/backup/logs
-mv $HOME/openinfoman/data/provider_directory-* ~/backup/data
-```
 
 * Increase memory usage by modifying the `bin/basexhttp` shell script and uncomment
 ```sh
