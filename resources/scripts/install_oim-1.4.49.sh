@@ -20,7 +20,7 @@ cp $HOME/basex/.basexhome $HOME/openinfoman/
 
 if  [ -d $HOME/openinfoman/data/provider_directory ]
 then
-  echo "BaseX Database provider_directory exists\n"
+  echo "BaseX Database provider_directory exists"
   # backup data and logs for safety
   mkdir -p $HOME/backup/data
   mkdir -p $HOME/backup/logs
@@ -30,7 +30,7 @@ then
   zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs || true
   mv $HOME/openinfoman/data/logs-* $HOME/backup/logs || true
 else
-  echo "BaseX Database provider_directory does not exist\n"
+  echo "BaseX Database provider_directory does not exist"
   $BASEX -Vc 'create database provider_directory'
 fi
 
@@ -80,8 +80,9 @@ do
   $BASEX -q"import module namespace svs_lsvs = 'https://github.com/openhie/openinfoman/svs_lsvs';' (svs_lsvs:load($SV))'"
 done
 
-cd $HOME/openinfoman/bin && nohup ./basexhttp > foo.out 2> foo.err < /dev/null &
+# cd $HOME/openinfoman/bin && nohup ./basexhttp > foo.out 2> foo.err < /dev/null &
+cd $HOME/openinfoman/bin && nohup ./basexhttp &
 
-printf "\e[32mOpenInfoMan successfully installed and started!\n"
+printf "\n\e[32mOpenInfoMan successfully installed and started!\n"
 
 exit
