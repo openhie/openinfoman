@@ -113,7 +113,7 @@ select yn in "All_public" "All_DATIM" "DHIS" "ILR" "RapidPro_and_CSV" "HWR" "Qui
       DHIS) dhis; printf "\n\e[32mCompleted!\n"; break;;
       ILR) ilr; printf "\n\e[32mCompleted!\n"; break;;
       RapidPro_and_CSV) csv; rapidpro; printf "\n\e[32mCompleted!\n"; break;;
-      HWR) dhis; datim; printf "\n\e[32mCompleted!\n"; break;;
+      HWR) hwr; printf "\n\e[32mCompleted!\n"; break;;
       Quit ) printf "\n\e[32mQuit!\n"; exit;;
   esac
 done
