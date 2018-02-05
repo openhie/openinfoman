@@ -9,6 +9,7 @@ BASEX=$HOME/openinfoman/bin/basex
 
 # openinfoman-dhis
 function dhis () {
+  printf "\n\e[32mInstalling openinfoman-dhis...\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-dhis || true
   git clone https://github.com/openhie/openinfoman-dhis
@@ -28,6 +29,9 @@ function dhis () {
 
 # openinfoman-datim: requires openinfoman-dhis
 function datim () {
+  printf "\n\e[32mInstalling openinfoman-datim...\n"
+  printf "\n\e[32mExit now if you have not configured access to the openinfoman-datim private repo\033[0;37m\n"
+  sleep 5
   cd $HOME
   rm -rf openinfoman-datim || true
   git clone git@github.com:OHIEDATIM/openinfoman-datim.git
@@ -47,6 +51,7 @@ function datim () {
 
 # openinfoman-ilr
 function ilr () {
+  printf "\n\e[32mInstalling openinfoman-ilr\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-ilr || true
   git clone https://github.com/openhie/openinfoman-ilr
@@ -60,6 +65,7 @@ function ilr () {
 
 # openinfoman-csv
 function csv () {
+  printf "\n\e[32mInstalling openinfoman-csv\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-csv || true
   git clone https://github.com/openhie/openinfoman-csv
@@ -71,6 +77,7 @@ function csv () {
 
 # openinfoman-rapidpro: requires openinfoman-csv
 function rapidpro () {
+  printf "\n\e[32mInstalling openinfoman-rapidpro\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-rapidpro || true
   git clone https://github.com/openhie/openinfoman-rapidpro
@@ -85,6 +92,7 @@ function rapidpro () {
 
 # openinfoman-hwr
 function hwr () {
+  printf "\n\e[32mInstalling openinfoman-hwr\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-hwr || true
   git clone https://github.com/openhie/openinfoman-hwr

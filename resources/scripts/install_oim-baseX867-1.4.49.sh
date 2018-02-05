@@ -2,6 +2,8 @@
 #set -ex
 set -e
 
+printf "\n\e[32mInstalling OpenInfoMan\033[0;37m\n"
+
 # cleanup from last install
 cd $HOME
 $HOME/openinfoman/bin/basexhttp stop || true
@@ -20,7 +22,7 @@ cp $HOME/basex/.basexhome $HOME/openinfoman/
 
 if  [ -d $HOME/openinfoman/data/provider_directory ]
 then
-  echo "BaseX Database provider_directory exists"
+  printf "\n\e[32mBaseX Database provider_directory exists\033[0;37m\n"
   # backup data and logs for safety
   mkdir -p $HOME/backup/data
   mkdir -p $HOME/backup/logs
@@ -30,7 +32,7 @@ then
   zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs || true
   mv $HOME/openinfoman/data/logs-* $HOME/backup/logs || true
 else
-  echo "BaseX Database provider_directory does not exist"
+  printf "\n\e[32mBaseX Database provider_directory does not exist\033[0;37m\n"
   $BASEX -Vc 'create database provider_directory'
 fi
 
