@@ -1,0 +1,44 @@
+---
+- name: Preparation for OIM
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Ensure git
+    yum:
+      name: git
+      state: present
+
+  - name: Ensure wget
+    yum:
+      name: wget
+      state: present
+
+  - name: Ensure unzip
+    yum:
+      name: unzip
+      state: present
+
+  - name: Ensure java 7
+    yum:
+      name: java-1.7.0-openjdk
+      state: present
+
+  - name: Ensure php
+    yum:
+      name: php
+      state: present
+
+  - name: Ensure php-xml
+    yum:
+      name: php-xml
+      state: present
+
+  - name: open 8984
+    firewalld:
+      port: 8984/tcp
+      permanent: true
+      state: enabled
+
+  - name: reload firewall
+    command: firewall-cmd --reload
