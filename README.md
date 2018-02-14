@@ -52,19 +52,18 @@ Once requirements are created, install OpenInfoMan using the provided script in 
 
 
 ```sh
+# locally
+bash resources/scripts/install_oim-1.4.49.sh
+# or on a remote host
 ssh user@IP_ADDR 'bash -s' < install_oim-1.4.49.sh
 ```
 
-or
-
-```sh
-curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
-```
-
 To install additional libraries:
-
 ```sh
-curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_additional.sh | sh -
+# locally
+bash resources/scripts/install_additional.sh
+# or on a remote host
+ssh user@IP_ADDR 'bash -s' < install_additional.sh
 ```
 
 # macOS Installation
@@ -76,19 +75,47 @@ It is suggested to use [homebrew](https://brew.sh/):
 brew install git wget
 ```
 
-And install Java.
-
-Once requirements are created, install OpenInfoMan using the provided script in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts)
+And install Java. Once requirements are created, install OpenInfoMan using the provided script in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts)
 
 
 ```sh
-ssh user@IP_ADDR 'bash -s' < install_oim-1.4.49.sh
+bash resources/scripts/install_oim-1.4.49.sh
+# and for additional libraries
+bash resources/scripts/install_additional.sh
 ```
 
-or
+# Tests
+
+The generic install without libraries and the libraries installations include simple tests. The tests do not cover the majority of functions, they are rather meant as a simple test for first level functionality in a help desk environment.
 
 ```sh
-curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_oim-1.4.49.sh | sh -
+$ bash resources/scripts/oim_test.sh
+PASS [200]: Landing page
+PASS [302]: Add test document
+PASS [200]: List Shared Value Sets
+PASS [200]: List Stored Functions
+PASS [200]: Export Stored Functions
+PASS [200]: List sample dirs
+PASS [302]: Load provider sample dir
+PASS [200]: Get providers sample dir
+PASS [302]: Reload providers dir
+PASS [302]: Delete providers sample dir
+PASS [302]: Remove test document
+```
+
+```sh
+$ bash resources/scripts/oim_test_additional.sh
+Which OpenInfoMan libraries do you wish to test?
+1) All_public	     4) ILR		  7) Quit
+2) All_DATIM	     5) RapidPro_and_CSV
+3) DHIS		         6) HWR
+#? 1
+PASS [302]: DHIS - Load Sierra Leone demo as CSD
+PASS [200]: DHIS - Get Sierra Leone demo as CSD
+PASS [302]: DHIS - Delete Sierra Leone demo as CSD
+PASS [200]: ILR - Download validate provider facility service
+PASS [200]: CSV-RapidPro - Download CSV for import
+PASS [200]: HWR - Get all facilities
 ```
 
 # Backup and Restore
@@ -119,26 +146,7 @@ The backup and restore process is the same on any operating system.
 
 # OpenInfoMan Libraries
 
-To install additional libraries:
-
-```sh
-curl -L https://raw.githubusercontent.com/openhie/openinfoman/master/resources/scripts/install_additional.sh | sh -
-```
-
-There are six options. DATIM libraries require access to private repo and for SSH to be setup for git. All other options are in public repositories.
-
-```sh
-Which OpenInfoMan libraries do you wish to install?
-1) All_public	     		  
-2) All_DATIM	     
-3) DHIS
-4) ILR
-5) RapidPro_and_CSV
-6) HWR
-7) Quit     
-```
-
-You can find the additional libraries extending the core OpenInfoMan funcitonality here:
+There are additional libraries thatextend the core OpenInfoMan funcitonality:
 
 - https://github.com/openhie/openinfoman-hwr Health Worker Registry 
 - https://github.com/openhie/openinfoman-dhis DHIS2
@@ -155,6 +163,25 @@ You can find the additional libraries extending the core OpenInfoMan funcitonali
 - https://github.com/openhie/openinfoman-csv Configurable Export to CSV
 - https://github.com/openhie/openinfoman-whomds WHO Minimum Data Set Analysis
 - https://github.com/openhie/openinfoman-zimbra  Integration with Zimbra
+
+To install additional libraries:
+
+```sh
+bash resources/scripts/install_additional.sh
+```
+
+There are six options. DATIM libraries require access to private repo and for SSH to be setup for git. All other options are in public repositories.
+
+```sh
+Which OpenInfoMan libraries do you wish to install?
+1) All_public	     		  
+2) All_DATIM	     
+3) DHIS
+4) ILR
+5) RapidPro_and_CSV
+6) HWR
+7) Quit     
+```
 
 
 # Docker images

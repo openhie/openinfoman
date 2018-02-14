@@ -34,7 +34,7 @@ function datim () {
   sleep 5
   cd $HOME
   rm -rf openinfoman-datim || true
-  git clone git@github.com:OHIEDATIM/openinfoman-datim.git
+  git clone git@github.com:pepfar-datim/openinfoman-datim.git
   cp openinfoman-datim/repo/* openinfoman/repo-src/
   cd $HOME/openinfoman/repo-src
   declare -a arr=("datim-uuid.xqm" "datim.xqm");\
