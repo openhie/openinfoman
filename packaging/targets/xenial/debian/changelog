@@ -1,3 +1,51 @@
+openinfoman (1.4.50~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.50
+    -5c67343 packaging openinfoman for 16.04
+    --https://github.com/openhie/openinfoman/commmit/5c67343
+    -cc9f097 update repo location of openinfoman-datim in install scrip
+    --https://github.com/openhie/openinfoman/commmit/cc9f097
+    -34c3814 Updated README.md, install scripts for CentOS (#33)
+    --https://github.com/openhie/openinfoman/commmit/34c3814
+    -3249d24 explain, fix tags
+    --https://github.com/openhie/openinfoman/commmit/3249d24
+    -3d50d72 added dockerization for basex 8.5.3
+    --https://github.com/openhie/openinfoman/commmit/3d50d72
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 05 Mar 2018 11:43:57 +0300
+
+openinfoman (1.4.50~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.50
+    -5c67343 packaging openinfoman for 16.04
+    --https://github.com/openhie/openinfoman/commmit/5c67343
+    -cc9f097 update repo location of openinfoman-datim in install scrip
+    --https://github.com/openhie/openinfoman/commmit/cc9f097
+    -34c3814 Updated README.md, install scripts for CentOS (#33)
+    --https://github.com/openhie/openinfoman/commmit/34c3814
+    -3249d24 explain, fix tags
+    --https://github.com/openhie/openinfoman/commmit/3249d24
+    -3d50d72 added dockerization for basex 8.5.3
+    --https://github.com/openhie/openinfoman/commmit/3d50d72
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 05 Mar 2018 11:43:47 +0300
+
+openinfoman (1.4.50~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.50
+    -5c67343 packaging openinfoman for 16.04
+    --https://github.com/openhie/openinfoman/commmit/5c67343
+    -cc9f097 update repo location of openinfoman-datim in install scrip
+    --https://github.com/openhie/openinfoman/commmit/cc9f097
+    -34c3814 Updated README.md, install scripts for CentOS (#33)
+    --https://github.com/openhie/openinfoman/commmit/34c3814
+    -3249d24 explain, fix tags
+    --https://github.com/openhie/openinfoman/commmit/3249d24
+    -3d50d72 added dockerization for basex 8.5.3
+    --https://github.com/openhie/openinfoman/commmit/3d50d72
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 05 Mar 2018 11:39:17 +0300
+
 openinfoman (1.4.49~xenial) xenial; urgency=medium
 
   * Release Version 1.4.49
