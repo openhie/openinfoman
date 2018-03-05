@@ -26,9 +26,6 @@ TARGETS=(*)
 echo $TARGETS
 cd $HOME
 
-export DEB_SIGN_KEYID=BFE8DF64
-
-
 
 LASTVERS=`$GIT tag -l '1.*.*' | $SORT -rV | $HEAD -1`
 VERS="${LASTVERS%.*}.$((${LASTVERS##*.}+1))"
