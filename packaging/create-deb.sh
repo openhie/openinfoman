@@ -26,6 +26,7 @@ TARGETS=(*)
 echo $TARGETS
 cd $HOME
 
+export DEB_SIGN_KEYID=BFE8DF64
 
 
 
