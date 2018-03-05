@@ -1,3 +1,9 @@
+openinfoman (1.4.52~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.52
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Mon, 05 Mar 2018 15:04:32 +0300
+
 openinfoman (1.4.51~xenial) xenial; urgency=medium
 
   * Release Version 1.4.51
