@@ -1,7 +1,14 @@
 ---
 - name: Preparation for OIM
   hosts: all
+  remote_user: "{{ user_for_oim }}"
   become: true
+  tags: prep
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (with sudo) for preparing for OIM"
+      private: no
 
   tasks:
   - name: Ensure git
@@ -19,9 +26,9 @@
       name: unzip
       state: present
 
-  - name: Ensure java 7
+  - name: Ensure java 8
     yum:
-      name: java-1.7.0-openjdk
+      name: java-1.8.0-openjdk
       state: present
 
   - name: Ensure php
