@@ -2,7 +2,7 @@
 - name: Install generic OIM
   hosts: all
   # remote_user: "{{ user_for_oim }}"
-  become_user: "{{ user_for_oim }}"
+  remote_user: "{{ user_for_oim }}"
   become: true
   
   tags: install

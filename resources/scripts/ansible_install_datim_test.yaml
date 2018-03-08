@@ -38,7 +38,7 @@
   
   - name: DATIM - Get DATIM test mechanism
     uri:
-      url: "{{base}}CSD/initSampleDirectory/directory/datim-test-mechanisms/get"
+      url: "{{base}}/CSD/initSampleDirectory/directory/datim-test-mechanisms/get"
 
   - name: DATIM - Delete DATIM test mechanism
     uri:

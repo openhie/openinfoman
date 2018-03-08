@@ -1,0 +1,23 @@
+---
+- name: Install DATIM modules for OIM
+  hosts: all
+  # remote_user: "{{ user_for_oim }}"
+  remote_user: "{{ user_for_oim }}"
+  become: true
+  
+  tags: install
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo) for installing DATIM modules for OIM"
+      private: no
+
+  tasks:
+  - copy:
+      src: ./install_datim.sh
+      dest: $HOME
+      owner: "{{ user_for_oim }}"
+      mode: 0644
+
+  - name: Install DATIM modules for OIM
+    command: bash install_datim.sh

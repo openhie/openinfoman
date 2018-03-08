@@ -27,6 +27,8 @@
   - name: Add Test Document
     uri:
       url: "{{base}}/CSD/createDirectory"
+      method: POST
+      follow_redirects: all
 
   - name: List Shared Value Sets
     uri:
