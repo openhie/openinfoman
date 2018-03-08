@@ -1,8 +1,11 @@
 ---
-- name: Preparation for OIM
+- name: Install generic OIM
   hosts: all
-  remote_user: "{{ user_for_oim }}"
-  tags: backup
+  # remote_user: "{{ user_for_oim }}"
+  become_user: "{{ user_for_oim }}"
+  become: true
+  
+  tags: install
 
   vars_prompt:
     - name: "user_for_oim"
@@ -10,25 +13,11 @@
       private: no
 
   tasks:
-    - name: Does data/logs folder exist
-      stat:
-        path: ~/openinfoman/data
-      register: stat_result
+  - copy:
+      src: ./install.sh
+      dest: $HOME
+      owner: "{{ user_for_oim }}"
+      mode: 0644
 
-    - debug:
-        msg: "OpenInfoMan folder does not have data/logs dir"
-      when: stat_result.stat.exists == False
-
-    - name: Backup OIM data dir.
-      shell: basex -c"CREATE BACKUP provider_directory"
-      when: stat_result.stat.exists == False
-
-    - name: Backup OIM data dir.
-      shell: zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs
-      when: stat_result.stat.exists == False
-
-    - debug:
-        msg: "OpenInfoMan folder has data/logs dir"
-      when: stat_result.stat.exists == True
-
-    # - script: ./install_oim-1.4.49.sh
+  - name: Install generic OIM
+    command: bash install.sh
