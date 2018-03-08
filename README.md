@@ -8,13 +8,13 @@ OpenInfoMan is XQuery and RESTXQ based implementation of the <a href="http://wik
 
 OpenInfoMan has been developed as part of <a href="http://ohie.org">OpenHIE</a> and is intended to be the engine behind the CSD compliant <a href="https://wiki.ohie.org/display/SUB/Health+Worker+Registry+Community">Health Worker Registry</a> and to be incorporated in <a href="http://openhim.org/">OpenHIM</a>.
 
-# CSD Schema
+## CSD Schema
 
 You can find documentation for the CSD schema data mode  <a href="http://openhie.github.io/openinfoman/CSD.html">here</a> which has be generated from <a href="https://github.com/openhie/openinfoman/blob/master/resources/CSD.xsd">CSD.xsd</a>
 
-# Ubuntu Installation
+## Ubuntu Installation
 
-You can easily install on Ubuntu 14.04 and Ubuntu 14.10 using the following commands
+You can easily install on Ubuntu 14.x and 16.x using the following commands
 ```sh
 sudo add-apt-repository ppa:openhie/release
 sudo apt-get update
@@ -26,24 +26,18 @@ Note that the Debian packaging creates an `openinfoman` user.
 Once you have installed the package, you should be able to access OpenInfoMan at:
 > http://localhost:8984/CSD
 
-# CentOS Installation
+## CentOS Manual Installation
 
-Requirements are a Java Runtime Environment (Java 7 for the current [1.4.49] release), PHP, git, wget, and unzip. Note that php-xml is an additional requirement for CentOS.
+Requirements are a Java Runtime Environment (Java 8 for the current [1.4.58] release), PHP, git, wget, and unzip. Note that php-xml is an additional requirement for CentOS.
 
 ```sh
-sudo yum install -y git wget unzip java-1.7.0-openjdk php php-xml
+sudo yum install -y git wget unzip java-1.8.0-openjdk php php-xml
 ```
 
 The default ingress point is TCP port 8984. Ensure that port 8984 is unblocked. For example:
 ```sh
 sudo firewall-cmd --permanent --add-port=8984/tcp
 sudo firewall-cmd --reload
-```
-
-For an automated installation of the requirements in CentOS there is an Ansible playbook in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts) for requirements (not for app installation). To use Ansible, your SSH public key should be in `.ssh/authorized_keys` and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag. For example:
-
-```
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts prep_centos.yaml
 ```
 
 > OpenInfoMan runs on an unprivileged port. Any user can manage the processes. See notes on production deployments below.
@@ -53,9 +47,9 @@ Once requirements are created, install OpenInfoMan using the provided script in 
 
 ```sh
 # locally
-bash resources/scripts/install_oim-1.4.49.sh
+bash resources/scripts/install.sh
 # or on a remote host
-ssh user@IP_ADDR 'bash -s' < install_oim-1.4.49.sh
+ssh user@IP_ADDR 'bash -s' < install.sh
 ```
 
 To install additional libraries:
@@ -66,7 +60,45 @@ bash resources/scripts/install_additional.sh
 ssh user@IP_ADDR 'bash -s' < install_additional.sh
 ```
 
-# macOS Installation
+## Remote Installation with Ansible (CentOS only)
+
+A series of Ansible playbooks are available in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts) and should be installed in this order:
+
+Order | File | Privileges Req | Purpose
+--- | --- | --- | ---
+1 | ansible_backup_restore.yaml | Non-sudo | Backs up any OpenInfoMan data and logs by default and can be used to restore from backup. There is an additional backup backup in the install script, but this one is recommended.
+2 | ansible_prep.yaml | Sudo | Ensures the required dependencies are installed. Requires sudo.
+3 | ansible_install_base.yaml | Non-sudo | Installs the generic, base OpenInfoMan. No additional libraries are installed. Most use cases for OIM require more libraries.
+4 | ansible_install_base_test.yaml | Non-sudo | Tests to ensure that OIM is running and has some minimal functions working as expected. This is recommended before continuing and as a first-level support method.
+5 | ansible_install_datim.yaml | Non-sudo | DATIM oriented additional libraries. If you want to install additional libaries other than just the DATIM ones (which include only DHIS2 and DATIM) then do not use this playbook. Use the install_additional.sh script instead.
+6 | ansible_install_datim_test.yaml | Non-sudo | Tests to ensure the DATIM libraries are running correctly. Use this as a first level support tool.
+
+The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. For example:
+
+```sh
+# ansible for remote hosts that need access to private git
+Host www.stuff.com 172.16.174.137
+  ForwardAgent yes
+```
+
+To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host, such as:
+
+```sh
+[local]
+localhost ansible_connection=local
+
+[servers]
+172.16.174.137
+```
+
+Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag. For example:
+
+```
+ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_prep.yaml
+```
+
+
+## macOS Installation
 
 macOS does not include Java (since 10.7 and above), git, or wget. It includes unzip and PHP.
 
@@ -79,17 +111,17 @@ And install Java. Once requirements are created, install OpenInfoMan using the p
 
 
 ```sh
-bash resources/scripts/install_oim-1.4.49.sh
+bash resources/scripts/install.sh
 # and for additional libraries
 bash resources/scripts/install_additional.sh
 ```
 
-# Tests
+## Tests
 
 The generic install without libraries and the libraries installations include simple tests. The tests do not cover the majority of functions, they are rather meant as a simple test for first level functionality in a help desk environment.
 
 ```sh
-$ bash resources/scripts/oim_test.sh
+$ bash resources/scripts/install_test.sh
 PASS [200]: Landing page
 PASS [302]: Add test document
 PASS [200]: List Shared Value Sets
@@ -104,7 +136,7 @@ PASS [302]: Remove test document
 ```
 
 ```sh
-$ bash resources/scripts/oim_test_additional.sh
+$ bash resources/scripts/install_additional_test.sh
 Which OpenInfoMan libraries do you wish to test?
 1) All_public	     4) ILR		  7) Quit
 2) All_DATIM	     5) RapidPro_and_CSV
@@ -118,7 +150,7 @@ PASS [200]: CSV-RapidPro - Download CSV for import
 PASS [200]: HWR - Get all facilities
 ```
 
-# Backup and Restore
+## Backup and Restore
 
 Logs and data are located in `data`. The logs are under data in the .logs folder. A one-liner can create a backup of the data in OpenInfoMan and a one-liner can restore it.
 
@@ -144,7 +176,7 @@ basex -c"RESTORE <filename>"
 
 The backup and restore process is the same on any operating system.
 
-# OpenInfoMan Libraries
+## OpenInfoMan Libraries
 
 There are additional libraries thatextend the core OpenInfoMan funcitonality:
 
@@ -183,8 +215,7 @@ Which OpenInfoMan libraries do you wish to install?
 7) Quit     
 ```
 
-
-# Docker images
+## Docker images
 
 Docker builds suitable for testing are on https://hub.docker.com/r/openhie/openinfoman/ Note that the images do not use a mounted volume. This means that all data is removed when containers are destroyed. Releases are tagged with the SHA hash of the commit it is based upon in this repo.
 
@@ -195,11 +226,11 @@ docker run -d -p 8984:8984 docker pull openhie/openinfoman
 
 See [packaging/docker](https://github.com/openhie/openinfoman/tree/master/packaging/docker)for Dockerfiles to build your own image.
 
-# Manual Installation
+## Manual Installation
 
 See the wiki https://github.com/openhie/openinfoman/wiki
 
-# OpenInfoMan in Production
+## OpenInfoMan in Production
 
 * OpenInfoMan does not include authentication or authorization. It is meant to be run inside a private cloud/cluster and behind a proxy. Follow instructions on this [wiki manual](https://wiki.ihris.org/wiki/OIM_authentication_with_OHIM) to add authentication using OpenHIM, or this youtube video https://www.youtube.com/watch?v=bXLpNlMSZdM&feature=youtu.be or roll your own solution using another proxy with authentication.
 
@@ -216,7 +247,7 @@ then change to suitable values:
 VM="-Xms2g -Xmx2g"
 ```
 
-# Stored Functions
+## Stored Functions
 
 The base CSD standard can be extended using stored functions.
 
