@@ -1,0 +1,76 @@
+---
+- name: Backup data and logs
+  hosts: all
+  remote_user: "{{ user_for_oim }}"
+  tags: backup
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo) for installing and running for OIM"
+      private: no
+
+  tasks:
+    - name: Does local backup data/logs folder exist
+      stat:
+        path: ~/backup
+      register: stat_result2
+
+    - name: Create local backups folder to hold backups
+      shell: mkdir -p ~/backup/logs && mkdir -p ~/backup/data
+      when: stat_result2.stat.exists == False
+
+    - debug:
+        msg: "Local backup directory didn't exist, is now created"
+      when: stat_result2.stat.exists == False
+
+    - debug:
+        msg: "There is a local backups folder in $HOME/backup"
+      when: stat_result2.stat.exists == True
+
+
+    - name: Does OIM main data/logs folder exist
+      stat:
+        path: ~/openinfoman/data
+      register: stat_result
+
+    - debug:
+        msg: "OpenInfoMan folder has data/logs dir"
+      when: stat_result.stat.exists == True
+
+    - name: Backup OIM data dir.
+      shell: $HOME/openinfoman/bin/basex -c"CREATE BACKUP provider_directory"
+      when: stat_result.stat.exists == True
+
+    - debug:
+        msg: "Data backed up"
+      when: stat_result.stat.exists == True
+
+    - name: Backup OIM logs dir.
+      shell: zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs
+      when: stat_result.stat.exists == True
+
+    - debug:
+        msg: "Logs backed up"
+      when: stat_result.stat.exists == True
+
+    - name: Move OIM data backup
+      shell: mv $HOME/openinfoman/data/logs-* ~/backup/logs && mv $HOME/openinfoman/data/provider_directory-* ~/backup/data
+      when: stat_result.stat.exists == True
+
+    - debug:
+        msg: "Data and logs backup zipfiles moved"
+      when: stat_result.stat.exists == True
+
+    - name: Show ls -l output of backups
+      shell: ls -l ~/backup/*
+      register: out
+      when: stat_result.stat.exists == True
+
+    - debug: var=out.stdout_lines
+      when: stat_result.stat.exists == True
+
+    - debug:
+        msg: "OpenInfoMan folder doesn't have data/logs dir"
+      when: stat_result.stat.exists == False
+
+  

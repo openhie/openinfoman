@@ -1,0 +1,23 @@
+---
+- name: Install generic OIM
+  hosts: all
+  # remote_user: "{{ user_for_oim }}"
+  remote_user: "{{ user_for_oim }}"
+  become: true
+  
+  tags: install
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo) for installing and running for OIM"
+      private: no
+
+  tasks:
+  - copy:
+      src: ./install.sh
+      dest: $HOME
+      owner: "{{ user_for_oim }}"
+      mode: 0644
+
+  - name: Install generic OIM
+    command: bash install.sh

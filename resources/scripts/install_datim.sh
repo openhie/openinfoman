@@ -9,7 +9,6 @@ BASEX=$HOME/openinfoman/bin/basex
 
 # openinfoman-dhis
 function dhis () {
-  printf "\n\e[32mInstalling openinfoman-dhis...\033[0;37m\n"
   cd $HOME
   rm -rf openinfoman-dhis || true
   git clone https://github.com/openhie/openinfoman-dhis
@@ -29,9 +28,6 @@ function dhis () {
 
 # openinfoman-datim: requires openinfoman-dhis
 function datim () {
-  printf "\n\e[32mInstalling openinfoman-datim...\n"
-  printf "\n\e[32mExit now if you have not configured access to the openinfoman-datim private repo\033[0;37m\n"
-  sleep 5
   cd $HOME
   rm -rf openinfoman-datim || true
   git clone git@github.com:pepfar-datim/openinfoman-datim.git
@@ -49,4 +45,4 @@ function datim () {
   cp -R $HOME/openinfoman-datim/resources/service_directories/* $HOME/openinfoman/resources/service_directories/
 }
 
-dhis; datim; printf "\n\e[32mCompleted!\n";
+dhis; datim; printf "\n\e[32mCompleted!\n"; exit
