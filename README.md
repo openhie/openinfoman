@@ -62,26 +62,21 @@ ssh user@IP_ADDR 'bash -s' < install_additional.sh
 
 ## Remote Installation with Ansible (CentOS only)
 
-A series of Ansible playbooks are available in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts) and should be installed in this order:
+A series of Ansible playbooks are available in [resources/scripts](https://github.com/openhie/openinfoman/tree/master/resources/scripts) and should be used in this order:
 
 Order | File | Privileges Req | Purpose
 --- | --- | --- | ---
-1 | ansible_backup_restore.yaml | Non-sudo | Backs up any OpenInfoMan data and logs by default and can be used to restore from backup. There is an additional backup backup in the install script, but this one is recommended.
-2 | ansible_prep.yaml | Sudo | Ensures the required dependencies are installed. Requires sudo.
-3 | ansible_install_base.yaml | Non-sudo | Installs the generic, base OpenInfoMan. No additional libraries are installed. Most use cases for OIM require more libraries.
-4 | ansible_install_base_test.yaml | Non-sudo | Tests to ensure that OIM is running and has some minimal functions working as expected. This is recommended before continuing and as a first-level support method.
-5 | ansible_install_datim.yaml | Non-sudo | DATIM oriented additional libraries. If you want to install additional libaries other than just the DATIM ones (which include only DHIS2 and DATIM) then do not use this playbook. Use the install_additional.sh script instead.
-6 | ansible_install_datim_test.yaml | Non-sudo | Tests to ensure the DATIM libraries are running correctly. Use this as a first level support tool.
+1 | ansible_backup.yaml | non-sudo | Backs up any OpenInfoMan data and logs by default into `~/backup`. This should be amended for S3 buckets or other storage as well. There is an additional backup backup in the install script, but this one is recommended.
+2 | ansible_prep.yaml | sudo | Ensures the required dependencies are installed.
+3 | ansible_install.yaml | non-sudo | Installs base OpenInfoMan. No additional libraries are installed. Most use cases require more libraries.
+4 | ansible_install_test.yaml | non-sudo | Tests to ensure that OIM is running and has some functionality. A first-level support method.
+5 | ansible_install_datim.yaml | non-sudo | DATIM additional libraries. If you want to install additional libaries other than just the DATIM ones (which include only DHIS2 and DATIM) then do not use this playbook. Use the install_additional.sh script instead.
+6 | ansible_install_datim_test.yaml | non-sudo | Tests to ensure the DATIM libraries are running correctly. A first level support tool.
+If needed | ansible_restore.yaml | non-sudo | Restores the latest backup from `~/backup/data`.
 
-The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. For example:
+### Considerations
 
-```sh
-# ansible for remote hosts that need access to private git
-Host www.stuff.com 172.16.174.137
-  ForwardAgent yes
-```
-
-To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host, such as:
+To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. An `ansible/hosts` file that has an entry for localhost and one server would be:
 
 ```sh
 [local]
@@ -90,13 +85,25 @@ localhost ansible_connection=local
 [servers]
 172.16.174.137
 ```
+Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag.
 
-Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag. For example:
+> Note: The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document. See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). On CentOS, SSH agent forwarding is off by default. Change this in `/etc/ssh/ssh_config`. Also note the issue with connecting from [Macs](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots)
 
-```
+
+The install playbooks invoke bash installation scripts. These do not remove data and logs, but always ensure to backup. See backup and restore below.
+
+To run the full set of Ansible playbooks for an initial installation including a backup if it OpenInfoMan used to exist:
+
+```sh
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_backup.yaml
+# on centos only
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_prep.yaml
+ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install.yaml
+ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
+# for datim
+# ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
+# ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
 ```
-
 
 ## macOS Installation
 
@@ -164,14 +171,14 @@ ls -la $HOME/openinfoman/data/
 aws s3 cp $HOME/openinfoman/data/logs-* s3://backup_bucket/logs
 aws s3 cp $HOME/openinfoman/data/provider_directory-* s3://backup_bucket/data
 # or
-mv $HOME/openinfoman/data/logs-* ~/backup/logs
-mv $HOME/openinfoman/data/provider_directory-* ~/backup/data
+cp $HOME/openinfoman/data/logs-* ~/backup/logs
+cp $HOME/openinfoman/data/provider_directory-* ~/backup/data
 ```
 
-For restores:
+Restores require that just the name be used in the filename, e.g. `provider_directory`, and the additional timestamp will be ignored. For restores:
 
 ```sh
-basex -c"RESTORE <filename>"
+basex -c"RESTORE provider_directory"
 ```
 
 The backup and restore process is the same on any operating system.
@@ -234,7 +241,7 @@ See the wiki https://github.com/openhie/openinfoman/wiki
 
 * OpenInfoMan does not include authentication or authorization. It is meant to be run inside a private cloud/cluster and behind a proxy. Follow instructions on this [wiki manual](https://wiki.ihris.org/wiki/OIM_authentication_with_OHIM) to add authentication using OpenHIM, or this youtube video https://www.youtube.com/watch?v=bXLpNlMSZdM&feature=youtu.be or roll your own solution using another proxy with authentication.
 
-* OpenInfoMan should be run by a user without superuser privileges. It is recommended to create a non-root and non-sudo user.
+* OpenInfoMan should be run by a user without superuser privileges. It is recommended to create a non-root and non-sudo user for running OpenInfoMan. This means that another user with sudo privileges should use used to install prerequisite software and then not used to run OpenInfoMan.
 
 * Ensure that TCP port 8984 is open on security policy/firewall.
 
