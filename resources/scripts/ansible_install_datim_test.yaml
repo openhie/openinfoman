@@ -1,0 +1,48 @@
+---
+- name: Additional Tests for OIM (DATIM and DHIS2)
+  hosts: all
+  remote_user: "{{ user_for_oim }}"
+  tags: test
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo) for testing OIM"
+      private: no
+      
+    - name: "base"
+      prompt: "Please enter the protocol, (sub)domains, and port or enter for the default"
+      default: "http://localhost:8984"
+      private: no
+
+      
+  tasks:
+  - name: Any website
+    uri:
+      url: "http://www.google.com"
+
+  - name: DHIS - Load Sierra Leone Demo as CSD
+    uri:
+      url: "{{base}}/CSD/initSampleDirectory/directory/sierra_leone_demo_metadata_as_csd/load"
+
+  - name: DHIS - Get Sierra Leone Demo as CSD
+    uri:
+      url: "{{base}}/CSD/initSampleDirectory/directory/sierra_leone_demo_metadata_as_csd/get"
+
+  - name: DHIS - Delete Sierra Leone Demo as CSD
+    uri:
+      url: "{{base}}/CSD/deleteDirectory/sierra_leone_demo_metadata_as_csd"
+
+  - name: DATIM - Load DATIM test mechanism
+    uri:
+      url: "{{base}}/CSD/initSampleDirectory/directory/datim-test-mechanisms/load"
+  
+  - name: DATIM - Get DATIM test mechanism
+    uri:
+      url: "{{base}}/CSD/initSampleDirectory/directory/datim-test-mechanisms/get"
+
+  - name: DATIM - Delete DATIM test mechanism
+    uri:
+      url: "{{base}}/CSD/deleteDirectory/datim-test-mechanisms"
+
+
+      
