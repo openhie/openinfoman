@@ -1,3 +1,13 @@
+openinfoman (1.4.63~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.63
+    -aedbc54 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/aedbc54
+    -3fdec35 Ansible scripts, tests and README mods for CentOS 7 (#34)
+    --https://github.com/openhie/openinfoman/commmit/3fdec35
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Mon, 12 Mar 2018 16:50:56 +0000
+
 openinfoman (1.4.62~xenial) xenial; urgency=medium
 
   * Release Version 1.4.62
