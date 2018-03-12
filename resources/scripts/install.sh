@@ -37,9 +37,9 @@ else
 fi
 
 git clone https://github.com/openhie/openinfoman openinfomangh
-# checkout 1.4.58
+# checkout 1.4.61
 cd $HOME/openinfomangh
-git checkout tags/1.4.58
+git checkout tags/1.4.61
 cd $HOME/openinfoman
 
 mkdir -p $HOME/openinfoman/repo-src
@@ -70,10 +70,12 @@ done
 $BASEX -Vc "RUN $HOME/openinfoman/resources/scripts/init_db.xq"
 
 cd $HOME/openinfoman
-SFS=resources/stored*definitions/*xml
+# SFS=resources/stored*definitions/*xml <-- this is not working correctly
+SFS=("stored_query_definitions/facility_search.xml" "stored_query_definitions/adhoc_search.xml" "stored_query_definitions/service_search.xml" "stored_query_definitions/organization_search.xml" "stored_query_definitions/provider_search.xml" "stored_query_definitions/modtimes.xml" "stored_updating_query_definitions/mark_not_duplicate.xml" "stored_updating_query_definitions/service_create.xml" "stored_updating_query_definitions/mark_duplicate.xml" "stored_updating_query_definitions/simple_merge.xml" "stored_updating_query_definitions/mark_potential_duplicate.xml" "stored_updating_query_definitions/delete_potential_duplicate.xml" "stored_updating_query_definitions/organization_create.xml" "stored_updating_query_definitions/provider_create.xml" "stored_updating_query_definitions/facility_create.xml" "stored_updating_query_definitions/delete_duplicate.xml" "stored_updating_query_definitions/merge_by_identifier.xml" "stored_updating_query_definitions/extract_hierarchy.xml")
+
 for SF in ${SFS[@]}
 do
-  resources/scripts/install_stored_function.php $SF
+  resources/scripts/install_stored_function.php resources/$SF
 done
 
 SVS=$HOME/openinfoman/resources/shared_value_sets/*

@@ -21,14 +21,14 @@ sudo apt-get update
 sudo apt-get install openinfoman
 ```
 
-Note that the Debian packaging creates an `openinfoman` user. 
+Note that the Debian packaging creates an `oim` user. 
 
 Once you have installed the package, you should be able to access OpenInfoMan at:
 > http://localhost:8984/CSD
 
 ## CentOS Manual Installation
 
-Requirements are a Java Runtime Environment (Java 8 for the current [1.4.58] release), PHP, git, wget, and unzip. Note that php-xml is an additional requirement for CentOS.
+Requirements are a Java Runtime Environment (Java 8 for the current [1.4.61] release), PHP, git, wget, and unzip. Note that php-xml is an additional requirement for CentOS.
 
 ```sh
 sudo yum install -y git wget unzip java-1.8.0-openjdk php php-xml
@@ -67,14 +67,12 @@ A series of Ansible playbooks are available in [resources/scripts](https://githu
 Order | File | Privileges Req | Purpose
 --- | --- | --- | ---
 1 | ansible_backup.yaml | non-sudo | Backs up any OpenInfoMan data and logs by default into `~/backup`. This should be amended for S3 buckets or other storage as well. There is an additional backup backup in the install script, but this one is recommended.
-2 | ansible_prep.yaml | sudo | Ensures the required dependencies are installed.
+2 | ansible_prep.yaml | sudo | **CentOS only** Ensures the required dependencies are installed.
 3 | ansible_install.yaml | non-sudo | Installs base OpenInfoMan. No additional libraries are installed. Most use cases require more libraries.
 4 | ansible_install_test.yaml | non-sudo | Tests to ensure that OIM is running and has some functionality. A first-level support method.
 5 | ansible_install_datim.yaml | non-sudo | DATIM additional libraries. If you want to install additional libaries other than just the DATIM ones (which include only DHIS2 and DATIM) then do not use this playbook. Use the install_additional.sh script instead.
 6 | ansible_install_datim_test.yaml | non-sudo | Tests to ensure the DATIM libraries are running correctly. A first level support tool.
 If needed | ansible_restore.yaml | non-sudo | Restores the latest backup from `~/backup/data`.
-
-### Considerations
 
 To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. An `ansible/hosts` file that has an entry for localhost and one server would be:
 
@@ -96,11 +94,12 @@ To run the full set of Ansible playbooks for an initial installation including a
 
 ```sh
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_backup.yaml
-# on centos only
+# prep if for centos only
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_prep.yaml
+# any Unix-like platform
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
-# for datim
+# for datim installations only
 # ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
 # ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
 ```
@@ -125,7 +124,7 @@ bash resources/scripts/install_additional.sh
 
 ## Tests
 
-The generic install without libraries and the libraries installations include simple tests. The tests do not cover the majority of functions, they are rather meant as a simple test for first level functionality in a help desk environment.
+The generic install without libraries and the libraries installations include simple tests as bash scripts. The tests do not cover the majority of functions, they are rather meant as a simple test for first level functionality in a help desk environment.
 
 ```sh
 $ bash resources/scripts/install_test.sh
@@ -238,6 +237,8 @@ See [packaging/docker](https://github.com/openhie/openinfoman/tree/master/packag
 See the wiki https://github.com/openhie/openinfoman/wiki
 
 ## OpenInfoMan in Production
+
+* Note that the Ansile or bash scripts are not designed for process maintenance. Use Monit or another tool to ensure that BaseX is running as expected.
 
 * OpenInfoMan does not include authentication or authorization. It is meant to be run inside a private cloud/cluster and behind a proxy. Follow instructions on this [wiki manual](https://wiki.ihris.org/wiki/OIM_authentication_with_OHIM) to add authentication using OpenHIM, or this youtube video https://www.youtube.com/watch?v=bXLpNlMSZdM&feature=youtu.be or roll your own solution using another proxy with authentication.
 
