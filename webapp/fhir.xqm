@@ -67,7 +67,7 @@ declare function page:get_location ($doc_name,$_id,$page,$_count,$_since)
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/Location/_history/{$id}")
+  %rest:path("/FHIR/{$doc_name}/Location/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -99,9 +99,18 @@ for $content in ($contents/facilityDirectory/facility,$contents/organizationDire
 return
 <_ type="object">
 {
-  <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/_history/" || $content/@entityID)}</fullURL>,
+  <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $content/@entityID)}</fullURL>,
   <resource type="object">
     <resourceType>Location</resourceType>
+    {
+      if($content/record/@created/string() != $content/record/@updated/string())
+      then
+      <request type="object">
+        <method>PUT</method>
+        <url>Location/{$content/@entityID/string()}</url>
+      </request>
+      else()
+    }
     <id>{$content/@entityID/string()}</id>
     {
      if(exists($content/otherID))
@@ -144,7 +153,7 @@ return
       return if(exists($organization/organizationDirectory/organization))
       then
       <partOf type="object">
-        <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/_history/" || $organization/organizationDirectory/organization/@entityID/string())}</reference>
+        <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $organization/organizationDirectory/organization/@entityID/string())}</reference>
         <display>{$organization/organizationDirectory/organization/primaryName/text()}</display>
       </partOf>
       else ()
