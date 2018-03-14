@@ -1,0 +1,24 @@
+---
+- name: Restore from latest file
+  hosts: all
+  remote_user: "{{ user_for_oim }}"
+  tags: restore
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo) restoring OIM"
+      private: no
+
+  tasks:
+    - name: Get files in a folder
+      shell: "ls -A ~/backup/data | tail -n 1"
+      register: latest_file
+
+    - name: Copy latest backup into data folder
+      shell: "mv $HOME/backup/data/{{ latest_file.stdout }} $HOME/openinfoman/data"
+
+    - name: Restore from provider_directory file inside main data folder
+      shell: 'cd $HOME/openinfoman/data && $HOME/openinfoman/bin/basex -c"RESTORE provider_directory"'
+
+    - debug:
+        msg: "Data restored from latest backup"
