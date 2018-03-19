@@ -4,8 +4,9 @@ import module namespace functx = 'http://www.functx.com';
 import module namespace csr_proc = "https://github.com/openhie/openinfoman/csr_proc";
 import module namespace csd_webui =  "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace csd_dm = "https://github.com/openhie/openinfoman/csd_dm";
-declare namespace fhir = "http://hl7.org/fhir";
+import module namespace svs_lsvs = "https://github.com/openhie/openinfoman/svs_lsvs";
 declare namespace csd =  "urn:ihe:iti:csd:2013";
+declare namespace svs = "urn:ihe:iti:svs:2008";
 declare default element  namespace   "urn:ihe:iti:csd:2013";
 
 
@@ -327,12 +328,12 @@ let $practitioner :=
       then
       <request type="object">
         <method>PUT</method>
-        <url>{$doc_name}/Location/{$content/@entityID/string()}</url>
+        <url>{$doc_name}/Practitioner/{$content/@entityID/string()}</url>
       </request>
       else()
     }
     <resource type="object">
-      <resourceType>Location</resourceType>
+      <resourceType>Practitioner</resourceType>
       <id>{$content/@entityID/string()}</id>
       {
         if(exists($content/otherID))
@@ -349,6 +350,14 @@ let $practitioner :=
         </identifier>
         else ()
       }
+      <active>
+        {
+          let $status := lower-case($content/record/@status/string())
+          return if($status = "active") then "true"
+                  else if($status = "inactive" or $status = "in-active") then "false"
+                  else()
+        }
+      </active>
       {
         if(exists($content/demographic/contactPoint/codedType))
         then
@@ -563,7 +572,20 @@ return (
 };
 
 declare
-  %rest:path("/test")
+  %rest:path("/FHIR/{$doc_name}/PractitionerRole/{$id}")
+  %rest:query-param("page", "{$page}")
+  %rest:query-param("_count", "{$_count}")
+  %rest:query-param("_since", "{$_since}")
+  %rest:query-param("organization", "{$organization}")
+  %rest:query-param("location", "{$location}")
+  %rest:GET
+  function page:FHIRPractitionerRoleID($id,$page,$_count,$_since,$doc_name,$organization,$location)
+{
+  page:FHIRPractitionerRole($id,$page,$_count,$_since,$doc_name,$organization,$location)
+};
+
+declare
+  %rest:path("/FHIR/{$doc_name}/PractitionerRole/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -571,7 +593,244 @@ declare
   %rest:query-param("organization", "{$organization}")
   %rest:query-param("location", "{$location}")
   %rest:GET
-  function page:test($_id,$page,$_count,$_since,$organization,$location)
+  function page:FHIRPractitionerRole($_id,$page,$_count,$_since,$doc_name,$organization,$location)
 {
- page:get_provider ("FHIR",$_id,$page,$_count,$_since,$organization,$location)
+let $contents := page:get_provider ($doc_name,$_id,$page,$_count,$_since,$organization,$location)
+let $practitionerRole :=
+<json type='object'>
+<resourceType>Bundle</resourceType>
+<total>{count($contents/providerDirectory/provider)}</total>
+<type>history</type>
+<entry type="array">
+{
+  for $content in $contents/providerDirectory/provider
+  return
+  <_ type="object">
+    <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/PractitionerRole/" || $content/@entityID)}</fullURL>
+    {
+      if($content/record/@created/string() != $content/record/@updated/string())
+      then
+      <request type="object">
+        <method>PUT</method>
+        <url>{$doc_name}/PractitionerRole/{$content/@entityID/string()}</url>
+      </request>
+      else()
+    }
+    <resource type="object">
+      <resourceType>PractitionerRole</resourceType>
+      <id>{$content/@entityID/string()}</id>
+      {
+        if(exists($content/otherID))
+        then
+        <identifier type="array">
+        {
+          for $otherid in $content/otherID
+          return
+          <_ type="object">
+            <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+            <value>{$otherid/text()}</value>
+          </_>
+        }
+        </identifier>
+        else ()
+      }
+      <active>
+        {
+          let $status := lower-case($content/record/@status/string())
+          return if($status = "active") then "true"
+                  else if($status = "inactive" or $status = "in-active") then "false"
+                  else()
+        }
+      </active>
+      <practitioner type="object">
+        <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Practitioner/" || $content/@entityID)}</reference>
+        <display>{$content/demographic/name[1]/commonName[1]/string()}</display>
+      </practitioner>
+      <specialty type="array">
+        {
+        for $specialty at $index in $content/specialty
+        return
+        <_ type="object">
+          <code type="object">
+            <coding type="array">
+            {
+              for $codedType in $specialty/codedType
+              return
+              <_ type="object">
+                {
+                  if($codedType/@codingScheme/string()) then
+                  <system>{$codedType/@codingScheme/string()}</system>
+                  else ()
+                }
+                {
+                  if($codedType/@code/string()) then
+                  <code>{$codedType/@code/string()}</code>
+                  else ()
+                }
+                {
+                  let $svsCode := svs_lsvs:get_single_version_code($codedType/@code/string(),$codedType/@codingScheme/string(),"")
+                  return <display>{$svsCode//svs:Concept/@displayName/string()}</display>
+                }
+              </_>
+            }
+            </coding>
+            {
+              if($specialty/codedType/text()) then
+              <text>{($specialty/codedType/text())[1]}</text>
+              else ()
+            }
+          </code>
+        </_>
+        }
+      </specialty>
+      <location type="array">
+        {
+        for $facility at $index in $content/facilities/facility
+        return
+        <_ type="object">
+          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $facility/@entityID/string())}</reference>
+          {
+            let $search_name := "urn:ihe:iti:csd:2014:stored-function:facility-search"
+            let $careServicesSubRequest :=
+            <csd:careServicesRequest>
+              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+                <csd:requestParams>
+                  <csd:id entityID="{$facility/@entityID/string()}"/>
+                </csd:requestParams>
+              </csd:function>
+            </csd:careServicesRequest>
+            let $doc :=  csd_dm:open_document($doc_name)
+            let $fac := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+            return <display>{$fac//primaryName/text()}</display>
+          }
+        </_>
+        }
+      </location>
+      <availableTime type="array">
+        {
+          for $service in $content/facilities/facility/service
+          return <_ type="object">
+            {
+              for $operatingHours in $service/operatingHours
+              let $CSDdayOfTheWeek := $operatingHours/dayOfTheWeek/text()
+              let $FHIRdayOfTheWeek := page:getDayOfTheWeek($CSDdayOfTheWeek)
+              return (
+                      <daysOfWeek>{$FHIRdayOfTheWeek}</daysOfWeek>,
+                      <availableStartTime>{$operatingHours/beginningHour/text()}</availableStartTime>,
+                      <availableEndTime>{$operatingHours/endingHour/text()}</availableEndTime>
+                      )
+            }
+            </_>
+        }
+        {
+          for $operatingHours in $content/facilities/facility/operatingHours
+          return
+          <_ type="object">
+          {
+            let $CSDdayOfTheWeek := $operatingHours/dayOfTheWeek/text()
+              let $FHIRdayOfTheWeek := page:getDayOfTheWeek($CSDdayOfTheWeek)
+              return (
+                      <daysOfWeek>{$FHIRdayOfTheWeek}</daysOfWeek>,
+                      <availableStartTime>{$operatingHours/beginningHour/text()}</availableStartTime>,
+                      <availableEndTime>{$operatingHours/endingHour/text()}</availableEndTime>
+                      )
+          }
+          </_>
+        }
+      </availableTime>
+      <healthcareService type="array">
+        {
+        for $facility at $index in $content/facilities/facility
+        for $service in $facility/service
+        return
+        <_ type="object">
+          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/healthcareService/" || $service/@entityID/string())}</reference>
+          {
+            let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
+            let $careServicesSubRequest :=
+            <csd:careServicesRequest>
+              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+                <csd:requestParams>
+                  <csd:id entityID="{$service/@entityID/string()}"/>
+                </csd:requestParams>
+              </csd:function>
+            </csd:careServicesRequest>
+            let $doc :=  csd_dm:open_document($doc_name)
+            let $serv := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+            let $codedType := $serv//codedType
+            let $svsCode := svs_lsvs:get_single_version_code($codedType/@code/string(),$codedType/@codingScheme/string(),"")
+            return <display>{$svsCode//svs:Concept/@displayName/string()}</display>
+          }
+        </_>
+        }
+      </healthcareService>
+      {
+        if(exists($content/demographic/contactPoint/codedType))
+        then
+        <telecom type="array">
+          {
+            for $contactPoint in $content/demographic/contactPoint
+            return if (exists($contactPoint/codedType))
+                    then
+                    <_ type="object">
+                      <system>
+                      {
+                        let $code := $contactPoint/codedType/@code/string()
+                        return if($code = "BP") then "phone"
+                               else if ($code = "EMAIL") then "email"
+                               else if ($code = "FAX") then "fax"
+                               else "other"
+                      }
+                      </system>
+                      <value>{$contactPoint/codedType/text()}</value>
+                    </_>
+                   else ()
+          }
+        </telecom>
+        else ()
+      }
+      <meta type="object">
+        <lastUpdated>{$content/record/@updated/string()}</lastUpdated>
+        <tag type="array">
+          <_ type="object">
+            <code>{$content/record/@sourceDirectory/string()}</code>
+            <system>https://github.com/openhie/openinfoman/tags/fhir/sourceDirectory</system>
+          </_>
+        </tag>
+      </meta>
+    </resource>
+  </_>
+}
+</entry>
+</json>
+return (
+          <rest:response>
+            <output:serialization-parameters>
+              <output:media-type value='application/json'/>
+            </output:serialization-parameters>
+          </rest:response>,
+          json:serialize($practitionerRole,map{"format":"direct",'escape': 'no'})
+        )
+};
+
+declare function page:getDayOfTheWeek ($day) {
+  if($day = 1) then "mon"
+                else if ($day = 2) then "tue"
+                else if ($day = 3) then "wed"
+                else if ($day = 4) then "thu"
+                else if ($day = 5) then "fri"
+                else if ($day = 6) then "sat"
+                else if ($day = 7) then "sun"
+                else ()
+};
+
+declare
+  %rest:path("/test")
+  %rest:GET
+  function page:test()
+{
+  let $val := svs_lsvs:get_single_version_code("101-001","1.3.6.1.4.1.21367.200.107","")
+  return 
+  <display>{$val//svs:Concept/@displayName/string()}</display>
+  
 };
