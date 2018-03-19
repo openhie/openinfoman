@@ -123,6 +123,54 @@ declare function page:get_provider ($doc_name,$_id,$page,$_count,$_since,$organi
   </CSD>
 };
 
+declare function page:get_services ($doc_name,$_id,$page,$_count,$_since)
+{
+  let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
+  return
+  <CSD xmlns:csd="urn:ihe:iti:csd:2013">
+    {
+      let $careServicesSubRequest :=  
+      <csd:careServicesRequest>
+        <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL('')}">
+          <csd:requestParams>
+            {
+              let $id := $_id
+              return if (functx:all-whitespace($id)) then () else <csd:id entityID="{$id}"/>
+            }
+
+            {
+              let $t_start := $page
+              return if (functx:is-a-number($t_start))
+                then
+                  let $start := max((xs:int($t_start),1))
+                  let $t_count := $_count
+                  let $count := if(functx:is-a-number($t_count)) then  max((xs:int($t_count),1)) else 50
+                  let $startIndex := ($start - 1)*$count + 1
+                  return <csd:start>{$startIndex}</csd:start>
+                else () 
+            }
+            {
+              let $count := $_count
+              return 
+                  if(functx:is-a-number($count)) 
+                  then  <csd:max>{max((xs:int($count),1))} </csd:max>
+                  else ()
+            }
+            {
+              let $since := $_since
+              return if (functx:all-whitespace($since)) then () else <csd:record updated="{$since}"/> 
+            }
+          </csd:requestParams>
+        </csd:function>
+      </csd:careServicesRequest>
+
+      let $doc :=  csd_dm:open_document($doc_name)
+      let $contents := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+      return $contents/serviceDirectory
+    }
+  </CSD>
+};
+
 declare
   %rest:path("/FHIR/{$doc_name}/Location/{$id}")
   %rest:query-param("page", "{$page}")
@@ -744,7 +792,7 @@ let $practitionerRole :=
         for $service in $facility/service
         return
         <_ type="object">
-          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/healthcareService/" || $service/@entityID/string())}</reference>
+          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/HealthcareService/" || $service/@entityID/string())}</reference>
           {
             let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
             let $careServicesSubRequest :=
@@ -810,6 +858,94 @@ return (
             </output:serialization-parameters>
           </rest:response>,
           json:serialize($practitionerRole,map{"format":"direct",'escape': 'no'})
+        )
+};
+
+declare
+  %rest:path("/FHIR/{$doc_name}/HealthcareService/{$id}")
+  %rest:query-param("page", "{$page}")
+  %rest:query-param("_count", "{$_count}")
+  %rest:query-param("_since", "{$_since}")
+  %rest:GET
+  function page:FHIRHealthcareServiceID($id,$page,$_count,$_since,$doc_name)
+{
+  page:FHIRHealthcareService($id,$page,$_count,$_since,$doc_name)
+};
+
+declare
+  %rest:path("/FHIR/{$doc_name}/HealthcareService/_history")
+  %rest:query-param("_id", "{$_id}")
+  %rest:query-param("page", "{$page}")
+  %rest:query-param("_count", "{$_count}")
+  %rest:query-param("_since", "{$_since}")
+  %rest:GET
+  function page:FHIRHealthcareService($_id,$page,$_count,$_since,$doc_name)
+{
+let $contents := page:get_services ($doc_name,$_id,$page,$_count,$_since)
+let $HealthcareService :=
+<json type='object'>
+  <resourceType>Bundle</resourceType>
+  <total>{count($contents/serviceDirectory/service)}</total>
+  <type>history</type>
+  <entry type="array">
+  {
+    for $content in $contents/serviceDirectory/service
+    return
+    <_ type="object">
+      <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/HealthcareService/" || $content/@entityID)}</fullURL>
+      {
+        if($content/record/@created/string() != $content/record/@updated/string())
+        then
+        <request type="object">
+          <method>PUT</method>
+          <url>{$doc_name}/HealthcareService/{$content/@entityID/string()}</url>
+        </request>
+        else()
+      }
+      <resource type="object">
+        <resourceType>HealthcareService</resourceType>
+        <id>{$content/@entityID/string()}</id>
+        {
+          let $codedType := $content/codedType
+          let $svsCode := svs_lsvs:get_single_version_code($codedType/@code/string(),$codedType/@codingScheme/string(),"")
+          return <name>{$svsCode//svs:Concept/@displayName/string()}</name>
+        }
+        {
+          if(exists($content/otherID))
+          then
+          <identifier type="array">
+          {
+            for $otherid in $content/otherID
+            return
+            <_ type="object">
+              <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+              <value>{$otherid/text()}</value>
+            </_>
+          }
+          </identifier>
+          else ()
+        }
+        <active>
+          {
+            let $status := lower-case($content/record/@status/string())
+            return if($status = "active") then "true"
+                    else if($status = "inactive" or $status = "in-active") then "false"
+                    else()
+          }
+        </active>
+      </resource>
+    </_>
+  }
+  </entry>
+</json>
+
+return (
+          <rest:response>
+            <output:serialization-parameters>
+              <output:media-type value='application/json'/>
+            </output:serialization-parameters>
+          </rest:response>,
+          json:serialize($HealthcareService,map{"format":"direct",'escape': 'no'})
         )
 };
 
