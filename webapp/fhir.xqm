@@ -172,7 +172,7 @@ declare function page:get_services ($doc_name,$_id,$page,$_count,$_since)
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/Location/{$id}")
+  %rest:path("/fhir/{$doc_name}/Location/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -183,7 +183,7 @@ declare
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/Location/_history")
+  %rest:path("/fhir/{$doc_name}/Location/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -203,7 +203,7 @@ let $location :=
 for $content in ($contents/facilityDirectory/facility,$contents/organizationDirectory/organization)
 return
 <_ type="object">
-  <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $content/@entityID)}</fullURL>
+  <fullURL>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $content/@entityID)}</fullURL>
   {
     if($content/record/@created/string() != $content/record/@updated/string())
     then
@@ -224,7 +224,7 @@ return
       for $otherid in $content/otherID
       return
       <_ type="object">
-        <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+        <system>{$otherid/@assigningAuthorityName/string()}</system>
         <value>{$otherid/text()}</value>
       </_>
       }
@@ -257,7 +257,7 @@ return
       return if(exists($organization/organizationDirectory/organization))
       then
       <partOf type="object">
-        <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $organization/organizationDirectory/organization/@entityID/string())}</reference>
+        <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $organization/organizationDirectory/organization/@entityID/string())}</reference>
         <display>{$organization/organizationDirectory/organization/primaryName/text()}</display>
       </partOf>
       else ()
@@ -336,7 +336,7 @@ return (
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/Practitioner/{$id}")
+  %rest:path("/fhir/{$doc_name}/Practitioner/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -349,7 +349,7 @@ declare
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/Practitioner/_history")
+  %rest:path("/fhir/{$doc_name}/Practitioner/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -370,7 +370,7 @@ let $practitioner :=
   for $content in $contents/providerDirectory/provider
   return
   <_ type="object">
-    <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/Practitioner/" || $content/@entityID)}</fullURL>
+    <fullURL>{csd_webui:generateURL("fhir/" || $doc_name || "/Practitioner/" || $content/@entityID)}</fullURL>
     {
       if($content/record/@created/string() != $content/record/@updated/string())
       then
@@ -391,10 +391,14 @@ let $practitioner :=
           for $otherid in $content/otherID
           return
           <_ type="object">
-            <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+            <system>{$otherid/@assigningAuthorityName/string()}</system>
             <value>{$otherid/text()}</value>
           </_>
         }
+          <_ type="object">
+            <system>urn:ihe:iti:csd:2013:entityID</system>
+            <value>{$content/@entityID/string()}</value>
+          </_>
         </identifier>
         else ()
       }
@@ -550,6 +554,7 @@ let $practitioner :=
                     <code>{$language/@code/string()}</code>
                     else ()
                   }
+                    <display>{$language/text()}</display>
                 </_>
               }
             </coding>
@@ -620,7 +625,7 @@ return (
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/PractitionerRole/{$id}")
+  %rest:path("/fhir/{$doc_name}/PractitionerRole/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -633,7 +638,7 @@ declare
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/PractitionerRole/_history")
+  %rest:path("/fhir/{$doc_name}/PractitionerRole/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -654,7 +659,7 @@ let $practitionerRole :=
   for $content in $contents/providerDirectory/provider
   return
   <_ type="object">
-    <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/PractitionerRole/" || $content/@entityID)}</fullURL>
+    <fullURL>{csd_webui:generateURL("fhir/" || $doc_name || "/PractitionerRole/" || $content/@entityID)}</fullURL>
     {
       if($content/record/@created/string() != $content/record/@updated/string())
       then
@@ -675,7 +680,7 @@ let $practitionerRole :=
           for $otherid in $content/otherID
           return
           <_ type="object">
-            <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+            <system>{$otherid/@assigningAuthorityName/string()}</system>
             <value>{$otherid/text()}</value>
           </_>
         }
@@ -691,7 +696,7 @@ let $practitionerRole :=
         }
       </active>
       <practitioner type="object">
-        <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Practitioner/" || $content/@entityID)}</reference>
+        <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Practitioner/" || $content/@entityID)}</reference>
         <display>{$content/demographic/name[1]/commonName[1]/string()}</display>
       </practitioner>
       <specialty type="array">
@@ -736,7 +741,7 @@ let $practitionerRole :=
         for $facility at $index in $content/facilities/facility
         return
         <_ type="object">
-          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/Location/" || $facility/@entityID/string())}</reference>
+          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $facility/@entityID/string())}</reference>
           {
             let $search_name := "urn:ihe:iti:csd:2014:stored-function:facility-search"
             let $careServicesSubRequest :=
@@ -792,7 +797,7 @@ let $practitionerRole :=
         for $service in $facility/service
         return
         <_ type="object">
-          <reference>{csd_webui:generateURL("FHIR/" || $doc_name || "/HealthcareService/" || $service/@entityID/string())}</reference>
+          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/HealthcareService/" || $service/@entityID/string())}</reference>
           {
             let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
             let $careServicesSubRequest :=
@@ -862,7 +867,7 @@ return (
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/HealthcareService/{$id}")
+  %rest:path("/fhir/{$doc_name}/HealthcareService/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -873,7 +878,7 @@ declare
 };
 
 declare
-  %rest:path("/FHIR/{$doc_name}/HealthcareService/_history")
+  %rest:path("/fhir/{$doc_name}/HealthcareService/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -892,7 +897,7 @@ let $HealthcareService :=
     for $content in $contents/serviceDirectory/service
     return
     <_ type="object">
-      <fullURL>{csd_webui:generateURL("FHIR/" || $doc_name || "/HealthcareService/" || $content/@entityID)}</fullURL>
+      <fullURL>{csd_webui:generateURL("fhir/" || $doc_name || "/HealthcareService/" || $content/@entityID)}</fullURL>
       {
         if($content/record/@created/string() != $content/record/@updated/string())
         then
@@ -918,7 +923,7 @@ let $HealthcareService :=
             for $otherid in $content/otherID
             return
             <_ type="object">
-              <system>{$otherid/@assigningAuthorityName/string()}/{$otherid/@code/string()}</system>
+              <system>{$otherid/@assigningAuthorityName/string()}</system>
               <value>{$otherid/text()}</value>
             </_>
           }
