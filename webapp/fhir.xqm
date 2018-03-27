@@ -172,6 +172,34 @@ declare function page:get_services ($doc_name,$_id,$page,$_count,$_since)
 };
 
 declare
+  %rest:path("/fhir")
+  %rest:GET
+  function page:FHIR()
+{
+  let $output := 
+                <json type='object'>
+                  <issue type="array">
+                    <_ type="object">
+                      <code>exception</code>
+                      <details type="object">
+                        <text>Internal server error</text>
+                      </details>
+                      <severity>fatal</severity>
+                    </_>
+                  </issue>
+                  <resourceType>OperationOutcome</resourceType>
+                </json>
+    return (
+              <rest:response>
+                <output:serialization-parameters>
+                  <output:media-type value='application/json'/>
+                </output:serialization-parameters>
+              </rest:response>,
+              json:serialize($output,map{"format":"direct",'escape': 'no'})
+            )
+};
+
+declare
   %rest:path("/fhir/{$doc_name}/Location/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -264,6 +292,30 @@ return
       else ()
     }
     {
+      let $entityType := $content/name()
+      return  <physicalType type="object">
+                <coding type="array">
+                  <_ type="object">
+                    <system>http://hl7.org/fhir/location-physical-type</system>
+                    {
+                      if($entityType = "csd:facility" or $entityType = "facility") then
+                      ( <code>bu</code>,
+                        <display>Building</display>
+                      )
+                      else if($entityType = "csd:organization" or $entityType = "organization") then
+                      (
+                        <code>jdn</code>,
+                        <display>Jurisdiction</display>
+                      )
+                      else 
+                      (
+                      )
+                    }
+                  </_>
+                </coding>
+              </physicalType>
+    }
+    {
     if(exists($content/contactPoint))
     then
     <telecom type="array">
@@ -283,15 +335,6 @@ return
       </position>
       else ()
     }
-    <meta type="object">
-      <lastUpdated>{$content/record/@updated/string()}</lastUpdated>
-      <tag type="array">
-        <_ type="object">
-          <code>{$content/record/@sourceDirectory/string()}</code>
-          <system>https://github.com/openhie/openinfoman/tags/fhir/sourceDirectory</system>
-        </_>
-      </tag>
-    </meta>
     {
       if(exists($content/codedType))
       then
@@ -315,6 +358,15 @@ return
         </type>
       else ()
     }
+    <meta type="object">
+      <lastUpdated>{$content/record/@updated/string()}</lastUpdated>
+      <tag type="array">
+        <_ type="object">
+          <code>{$content/record/@sourceDirectory/string()}</code>
+          <system>https://github.com/openhie/openinfoman/tags/fhir/sourceDirectory</system>
+        </_>
+      </tag>
+    </meta>
     <status>{$content/record/@status/string()}</status>
     <name>{$content/primaryName/text()}</name>
     <mode>instance</mode>
@@ -481,6 +533,14 @@ let $practitioner :=
           for $credential in $content/credential
           return
           <_ type="object">
+            <identifier type="array">
+            {
+              for $number in $credential/number
+              return  <_ type="object">
+                        <value>{$credential/number/text()}</value>
+                      </_>
+            }
+            </identifier>
             <code type="object">
               <coding type="array">
               {
@@ -497,14 +557,10 @@ let $practitioner :=
                     <code>{$codedType/@code/string()}</code>
                     else ()
                   }
+                  <display>{$codedType/text()}</display>
                 </_>
               }
               </coding>
-              {
-                if($credential/codedType/text()) then
-                <text>{($credential/codedType/text())[1]}</text>
-                else ()
-              }
             </code>
             {
               if($credential/issuingAuthority/text()) then
@@ -696,9 +752,52 @@ let $practitionerRole :=
         }
       </active>
       <practitioner type="object">
-        <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Practitioner/" || $content/@entityID)}</reference>
+        <reference>Practitioner/{$content/@entityID/string()}</reference>
         <display>{$content/demographic/name[1]/commonName[1]/string()}</display>
       </practitioner>
+      <organization type="object">
+        <reference>Organization/{$content/organizations/organization[1]/@entityID/string()}</reference>
+        {
+          let $search_name := "urn:ihe:iti:csd:2014:stored-function:organization-search"
+          let $careServicesSubRequest :=
+          <csd:careServicesRequest>
+            <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+              <csd:requestParams>
+                <csd:id entityID="{$content/organizations/organization[1]/@entityID/string()}"/>
+              </csd:requestParams>
+            </csd:function>
+          </csd:careServicesRequest>
+          let $doc :=  csd_dm:open_document($doc_name)
+          let $org := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+          return <display>{$org//primaryName/text()}</display>
+        }
+      </organization>
+      <healthcareService type="array">
+        {
+        for $facility at $index in $content/facilities/facility
+        for $service in $facility/service
+        return
+        <_ type="object">
+          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/HealthcareService/" || $service/@entityID/string())}</reference>
+          {
+            let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
+            let $careServicesSubRequest :=
+            <csd:careServicesRequest>
+              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+                <csd:requestParams>
+                  <csd:id entityID="{$service/@entityID/string()}"/>
+                </csd:requestParams>
+              </csd:function>
+            </csd:careServicesRequest>
+            let $doc :=  csd_dm:open_document($doc_name)
+            let $serv := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+            let $codedType := $serv//codedType
+            let $svsCode := svs_lsvs:get_single_version_code($codedType/@code/string(),$codedType/@codingScheme/string(),"")
+            return <display>{$svsCode//svs:Concept/@displayName/string()}</display>
+          }
+        </_>
+        }
+      </healthcareService>
       <specialty type="array">
         {
         for $specialty at $index in $content/specialty
@@ -791,38 +890,12 @@ let $practitionerRole :=
           </_>
         }
       </availableTime>
-      <healthcareService type="array">
-        {
-        for $facility at $index in $content/facilities/facility
-        for $service in $facility/service
-        return
-        <_ type="object">
-          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/HealthcareService/" || $service/@entityID/string())}</reference>
-          {
-            let $search_name := "urn:ihe:iti:csd:2014:stored-function:service-search"
-            let $careServicesSubRequest :=
-            <csd:careServicesRequest>
-              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
-                <csd:requestParams>
-                  <csd:id entityID="{$service/@entityID/string()}"/>
-                </csd:requestParams>
-              </csd:function>
-            </csd:careServicesRequest>
-            let $doc :=  csd_dm:open_document($doc_name)
-            let $serv := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
-            let $codedType := $serv//codedType
-            let $svsCode := svs_lsvs:get_single_version_code($codedType/@code/string(),$codedType/@codingScheme/string(),"")
-            return <display>{$svsCode//svs:Concept/@displayName/string()}</display>
-          }
-        </_>
-        }
-      </healthcareService>
       {
-        if(exists($content/demographic/contactPoint/codedType))
+        if(exists($content/organizations/organization/contactPoint/codedType))
         then
         <telecom type="array">
           {
-            for $contactPoint in $content/demographic/contactPoint
+            for $contactPoint in $content/organizations/organization/contactPoint
             return if (exists($contactPoint/codedType))
                     then
                     <_ type="object">
