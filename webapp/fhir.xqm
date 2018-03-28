@@ -256,6 +256,10 @@ return
         <value>{$otherid/text()}</value>
       </_>
       }
+      <_ type="object">
+        <system>urn:ihe:iti:csd:2013:entityID</system>
+        <value>{$content/@entityID/string()}</value>
+      </_>
      </identifier>
      else ()
     }
@@ -740,38 +744,61 @@ let $practitionerRole :=
             <value>{$otherid/text()}</value>
           </_>
         }
+        <_ type="object">
+          <system>urn:ihe:iti:csd:2013:entityID</system>
+          <value>{$content/@entityID/string()}</value>
+        </_>
         </identifier>
         else ()
       }
-      <active>
-        {
-          let $status := lower-case($content/record/@status/string())
-          return if($status = "active") then "true"
-                  else if($status = "inactive" or $status = "in-active") then "false"
-                  else()
-        }
-      </active>
       <practitioner type="object">
         <reference>Practitioner/{$content/@entityID/string()}</reference>
         <display>{$content/demographic/name[1]/commonName[1]/string()}</display>
       </practitioner>
-      <organization type="object">
-        <reference>Organization/{$content/organizations/organization[1]/@entityID/string()}</reference>
+      <location type="array">
         {
-          let $search_name := "urn:ihe:iti:csd:2014:stored-function:organization-search"
-          let $careServicesSubRequest :=
-          <csd:careServicesRequest>
-            <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
-              <csd:requestParams>
-                <csd:id entityID="{$content/organizations/organization[1]/@entityID/string()}"/>
-              </csd:requestParams>
-            </csd:function>
-          </csd:careServicesRequest>
-          let $doc :=  csd_dm:open_document($doc_name)
-          let $org := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
-          return <display>{$org//primaryName/text()}</display>
+        for $facility at $index in $content/facilities/facility
+        return
+        <_ type="object">
+          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $facility/@entityID/string())}</reference>
+          {
+            let $search_name := "urn:ihe:iti:csd:2014:stored-function:facility-search"
+            let $careServicesSubRequest :=
+            <csd:careServicesRequest>
+              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+                <csd:requestParams>
+                  <csd:id entityID="{$facility/@entityID/string()}"/>
+                </csd:requestParams>
+              </csd:function>
+            </csd:careServicesRequest>
+            let $doc :=  csd_dm:open_document($doc_name)
+            let $fac := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+            return <display>{$fac//primaryName/text()}</display>
+          }
+        </_>
         }
-      </organization>
+        {
+          for $organization at $index in $content/organizations/organization
+          return
+          <_ type="object">
+          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $organization/@entityID/string())}</reference>
+          {
+            let $search_name := "urn:ihe:iti:csd:2014:stored-function:organization-search"
+            let $careServicesSubRequest :=
+            <csd:careServicesRequest>
+              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
+                <csd:requestParams>
+                  <csd:id entityID="{$organization/@entityID/string()}"/>
+                </csd:requestParams>
+              </csd:function>
+            </csd:careServicesRequest>
+            let $doc :=  csd_dm:open_document($doc_name)
+            let $org := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
+            return <display>{$org//primaryName/text()}</display>
+          }
+          </_>
+        }
+      </location>
       <healthcareService type="array">
         {
         for $facility at $index in $content/facilities/facility
@@ -835,29 +862,6 @@ let $practitionerRole :=
         </_>
         }
       </specialty>
-      <location type="array">
-        {
-        for $facility at $index in $content/facilities/facility
-        return
-        <_ type="object">
-          <reference>{csd_webui:generateURL("fhir/" || $doc_name || "/Location/" || $facility/@entityID/string())}</reference>
-          {
-            let $search_name := "urn:ihe:iti:csd:2014:stored-function:facility-search"
-            let $careServicesSubRequest :=
-            <csd:careServicesRequest>
-              <csd:function urn="{$search_name}" resource="{$doc_name}" base_url="{csd_webui:generateURL()}">
-                <csd:requestParams>
-                  <csd:id entityID="{$facility/@entityID/string()}"/>
-                </csd:requestParams>
-              </csd:function>
-            </csd:careServicesRequest>
-            let $doc :=  csd_dm:open_document($doc_name)
-            let $fac := csr_proc:process_CSR_stored_results( $doc , $careServicesSubRequest)
-            return <display>{$fac//primaryName/text()}</display>
-          }
-        </_>
-        }
-      </location>
       <availableTime type="array">
         {
           for $service in $content/facilities/facility/service
@@ -915,6 +919,14 @@ let $practitionerRole :=
         </telecom>
         else ()
       }
+      <active>
+        {
+          let $status := lower-case($content/record/@status/string())
+          return if($status = "active") then "true"
+                  else if($status = "inactive" or $status = "in-active") then "false"
+                  else()
+        }
+      </active>
       <meta type="object">
         <lastUpdated>{$content/record/@updated/string()}</lastUpdated>
         <tag type="array">
@@ -989,8 +1001,6 @@ let $HealthcareService :=
           return <name>{$svsCode//svs:Concept/@displayName/string()}</name>
         }
         {
-          if(exists($content/otherID))
-          then
           <identifier type="array">
           {
             for $otherid in $content/otherID
@@ -1000,8 +1010,11 @@ let $HealthcareService :=
               <value>{$otherid/text()}</value>
             </_>
           }
+            <_ type="object">
+              <system>urn:ihe:iti:csd:2013:entityID</system>
+              <value>{$content/@entityID/string()}</value>
+            </_>
           </identifier>
-          else ()
         }
         <active>
           {
