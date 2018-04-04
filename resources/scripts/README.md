@@ -18,8 +18,8 @@ ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_insta
 
 > Note: The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document. See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). On CentOS, SSH agent forwarding is off by default. Change this in `/etc/ssh/ssh_config`. Also note the issue with connecting from [Macs](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots)
 
+DATIM
 ```
-# for datim installations only
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
 ```
