@@ -1,3 +1,39 @@
+openinfoman (1.4.65~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.65
+    -e255f1d Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/e255f1d
+    -c7a5663 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/c7a5663
+    -f514e30 Update README.md
+    --https://github.com/openhie/openinfoman/commmit/f514e30
+    -4ac46e1 revise readme in scripts folder
+    --https://github.com/openhie/openinfoman/commmit/4ac46e1
+    -7936c40 revised readme for ansible
+    --https://github.com/openhie/openinfoman/commmit/7936c40
+    -5b39135 minor changes on FHIR
+    --https://github.com/openhie/openinfoman/commmit/5b39135
+    -ef7299c Adding FHIR location physicaltype and some other minor cha
+    --https://github.com/openhie/openinfoman/commmit/ef7299c
+    -29d5c7d Minor changes to FHIR
+    --https://github.com/openhie/openinfoman/commmit/29d5c7d
+    -ab34a50 Adding HealthcareService FHIR Resource
+    --https://github.com/openhie/openinfoman/commmit/ab34a50
+    -87249d4 Adding PractitionerRole FHIR Resource
+    --https://github.com/openhie/openinfoman/commmit/87249d4
+    -d9c2bfd Added Practitioner FHIR resource
+    --https://github.com/openhie/openinfoman/commmit/d9c2bfd
+    -dea6e55 adding a tag to track updated records
+    --https://github.com/openhie/openinfoman/commmit/dea6e55
+    -aed5eaf Removing doc_name from query parameters and make it part o
+    --https://github.com/openhie/openinfoman/commmit/aed5eaf
+    -5804975 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/5804975
+    -a681940 Adding FHIR Location Resource as a service directory
+    --https://github.com/openhie/openinfoman/commmit/a681940
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Thu, 05 Apr 2018 03:22:38 +0000
+
 openinfoman (1.4.64~trusty) trusty; urgency=medium
 
   * Release Version 1.4.64
