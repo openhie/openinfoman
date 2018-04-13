@@ -1,3 +1,11 @@
+openinfoman (1.4.69~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.69
+    -1e8f653 Switching from upstart to systemd for 16.04 and above
+    --https://github.com/openhie/openinfoman/commmit/1e8f653
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Fri, 13 Apr 2018 06:42:26 +0000
+
 openinfoman (1.4.68~xenial) xenial; urgency=medium
 
   * Release Version 1.4.68

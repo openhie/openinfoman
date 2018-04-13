@@ -1,0 +1,12 @@
+[Unit]
+Description = Openinfoman daemon
+After network.target = auditd.service
+
+[Service]
+Type = forking
+ExecStart = /var/lib/openinfoman/bin/openinfoman
+ExecStop = /var/lib/openinfoman/bin/basexhttp stop
+ExecReload = /var/lib/openinfoman/bin/basexhttp restart
+
+[Install]
+WantedBy = multi-user.target
