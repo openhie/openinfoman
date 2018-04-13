@@ -1,3 +1,11 @@
+openinfoman (1.4.71~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.71
+    -5311e45 reloading systemctl daemon
+    --https://github.com/openhie/openinfoman/commmit/5311e45
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Fri, 13 Apr 2018 07:28:13 +0000
+
 openinfoman (1.4.70~xenial) xenial; urgency=medium
 
   * Release Version 1.4.70
