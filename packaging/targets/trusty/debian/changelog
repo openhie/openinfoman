@@ -1,3 +1,11 @@
+openinfoman (1.4.74~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.74
+    -65d6060 Adding authentication with wget
+    --https://github.com/openhie/openinfoman/commmit/65d6060
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Fri, 13 Apr 2018 08:57:54 +0000
+
 openinfoman (1.4.73~trusty) trusty; urgency=medium
 
   * Release Version 1.4.73

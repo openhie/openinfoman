@@ -1,3 +1,11 @@
+openinfoman (1.4.74~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.74
+    -65d6060 Adding authentication with wget
+    --https://github.com/openhie/openinfoman/commmit/65d6060
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Fri, 13 Apr 2018 08:57:54 +0000
+
 openinfoman (1.4.73~xenial) xenial; urgency=medium
 
   * Release Version 1.4.73
