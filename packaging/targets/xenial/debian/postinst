@@ -80,6 +80,7 @@ do
 done
 chown -R $USERNAME:$USERNAME $OI
 
+systemctl daemon-reload
 service openinfoman start || true
 
 #wait until the webservice is up and running, at least 30 seconds
