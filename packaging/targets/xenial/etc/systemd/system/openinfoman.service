@@ -1,8 +1,8 @@
 [Unit]
 Description = Openinfoman daemon
-After network.target = auditd.service
 
 [Service]
+WorkingDirectory = /var/lib/openinfoman/bin
 Type =simple
 ExecStart = /var/lib/openinfoman/bin/openinfoman
 ExecStop = /var/lib/openinfoman/bin/basexhttp stop
