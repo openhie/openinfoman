@@ -1,0 +1,110 @@
+#!/bin/bash
+set -x
+set -e
+
+. /usr/share/debconf/confmodule
+
+WGET=/usr/bin/wget
+OI=/var/lib/openinfoman
+USERNAME=oi
+BASEX=$OI/bin/basex
+
+REPOS=("csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm"  "async_fake.xqm")
+
+SFS=("stored_query_definitions/facility_search.xml" "stored_query_definitions/adhoc_search.xml" "stored_query_definitions/service_search.xml" "stored_query_definitions/organization_search.xml" "stored_query_definitions/provider_search.xml" "stored_query_definitions/modtimes.xml" "stored_updating_query_definitions/mark_not_duplicate.xml" "stored_updating_query_definitions/service_create.xml" "stored_updating_query_definitions/mark_duplicate.xml" "stored_updating_query_definitions/simple_merge.xml" "stored_updating_query_definitions/mark_potential_duplicate.xml" "stored_updating_query_definitions/delete_potential_duplicate.xml" "stored_updating_query_definitions/organization_create.xml" "stored_updating_query_definitions/provider_create.xml" "stored_updating_query_definitions/facility_create.xml" "stored_updating_query_definitions/delete_duplicate.xml" "stored_updating_query_definitions/merge_by_identifier.xml" "stored_updating_query_definitions/extract_hierarchy.xml")
+
+SVSS=("1.3.6.1.4.1.21367.200.101" "1.3.6.1.4.1.21367.200.102" "1.3.6.1.4.1.21367.200.103" "1.3.6.1.4.1.21367.200.104" "1.3.6.1.4.1.21367.200.105" "1.3.6.1.4.1.21367.200.106" "1.3.6.1.4.1.21367.200.108" "1.3.6.1.4.1.21367.200.109" "1.3.6.1.4.1.21367.200.110" "2.25.1098910207106778371035457739371181056504702027035" "2.25.17331675369518445540420660603637128875763657" "2.25.18630021159349753613449707959296853730613166189051" "2.25.259359036081944859901459759453974543442705863430576" "2.25.265608663818616228188834890512310231251363785626032" "2.25.309768652999692686176651983274504471835.999.400" "2.25.309768652999692686176651983274504471835.999.401" "2.25.309768652999692686176651983274504471835.999.402" "2.25.309768652999692686176651983274504471835.999.403" "2.25.309768652999692686176651983274504471835.999.404" "2.25.309768652999692686176651983274504471835.999.405" "2.25.309768652999692686176651983274504471835.999.406" "2.25.9830357893067925519626800209704957770712560" )
+
+db_input high openinfoman/dbname || true
+db_go || true
+db_get openinfoman/dbname || true
+DBNAME="$RET"
+
+set +e
+$BASEX -Vc "list $DBNAME" > /dev/null
+if [ $? -eq 0 ]; then
+    echo "BaseX Database $DBNAME exists\n"
+else
+    echo "BaseX Database $DBNAME does not exist\n"
+    set -e
+    $BASEX -Vc "create database $DBNAME"
+fi
+set -e
+
+
+$BASEX -Vc "SET DEBUG TRUE"
+
+mkdir -p $OI/repo-src
+chown -R $USERNAME:$USERNAME $OI
+chmod +s /usr/bin/oi-log
+
+GENERATED="$OI/repo-src/generated_openinfoman_webconfig.xqm"
+db_input high openinfoman/baseurl || true
+db_go || true
+db_get openinfoman/baseurl || true
+BASEURL="$RET"
+
+db_input high openinfoman/dbname || true
+db_go || true
+db_get openinfoman/dbname || true
+DBNAME="$RET"
+
+
+echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
+declare variable \$csd_webconf:db :=  '$DBNAME';
+declare variable \$csd_webconf:baseurl :=  '$BASEURL';
+declare variable \$csd_webconf:remote_services := ();
+" > $OI/repo-src/generated_openinfoman_webconfig.xqm
+
+
+$BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+$BASEX -Vc "REPO DELETE https://github.com/openhie/openinfoman/csd_webconf"  2> /dev/null || true
+$BASEX -Vc "REPO INSTALL $GENERATED"
+
+
+for REPO in ${REPOS[@]}
+do
+   INST="REPO INSTALL ${OI}/repo-src/${REPO}"
+   $BASEX -Vc "${INST}"
+done
+
+chown -R $USERNAME:$USERNAME $OI
+
+$BASEX -Vc "RUN $OI/resources/scripts/init_db.xq"
+
+for SF in ${SFS[@]}
+do
+  cd $OI
+  $OI/resources/scripts/install_stored_function.php $OI/resources/$SF 
+  if [[ $? != 0 ]]; then exit 1; fi
+done
+chown -R $USERNAME:$USERNAME $OI
+
+systemctl daemon-reload
+service openinfoman start || true
+
+#wait until the webservice is up and running, at least 30 seconds
+set +e
+i=0
+for (( ; i<30; ++i )); do
+   activation=($WGET --user admin --password admin --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
+   if [ -z "$activation" ]; then
+      i=10
+   else
+      sleep 1
+   fi
+done
+set -e
+
+
+
+#double check to see if server isup and running.  if not, fail install
+$WGET --user admin --password admin --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
+
+
+for SVS in ${SVSS[@]}
+do
+    $WGET --user admin --password admin --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
+done
+
+
