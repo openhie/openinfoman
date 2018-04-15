@@ -1,0 +1,20 @@
+Template: openinfoman/memsize
+Type: string
+Default: 1g
+Description: Memory Size
+ The memory size (maximum heap size) to allocate to the BaseX instance running OpenInfoMan.  
+ Valid values are integer values folowed by a M for megabyte or G for gigabyte.
+
+Template: openinfoman/dbname
+Type: string
+Default: provider_directory
+Description: Database Name
+ The name of the datbase to use in BaseX.  Defaults to 'provider_directory'
+
+
+Template: openinfoman/baseurl
+Type: string
+Default: 
+Description: Base URL
+ The URL used to access the OpenInfoMan when operating behind a proxy.  If not set, if
+ will use the HTTP request metadata to determine the hostname.

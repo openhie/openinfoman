@@ -1,0 +1,16 @@
+Source: openinfoman
+Maintainer: Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>
+Section: web
+Priority: optional
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7)
+Homepage: https://github.com/openhie/openinfoman
+
+
+Package: openinfoman
+Architecture: all
+Depends: bash , wget , unzip , php7.2-cli , php7.2-xml
+Pre-Depends: default-jre-headless | openjdk-8-jre-headless | oracle-java8-installer, debconf
+Recommends: 
+Description: OpenInfoMan
+ OpenInfoMan is XQuery and RESTXQ based implementation of the Care Services Directory (CSD) and Sharing Value Sets (SVS) profile from Integrating The Healh Enterprise (IHE).

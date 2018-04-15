@@ -1,3 +1,57 @@
+openinfoman (1.4.79~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.79
+    -78c375b adding php7.2-xml as a dependency
+    --https://github.com/openhie/openinfoman/commmit/78c375b
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sun, 15 Apr 2018 10:15:44 +0000
+
+openinfoman (1.4.78~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.78
+    -88aed68 bionic comes with php7.2-cli
+    --https://github.com/openhie/openinfoman/commmit/88aed68
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sun, 15 Apr 2018 09:45:46 +0000
+
+openinfoman (1.4.77~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.77
+    -580505c Packaging openinfoman for ubuntu j18.04
+    --https://github.com/openhie/openinfoman/commmit/580505c
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sun, 15 Apr 2018 06:22:22 +0000
+
+openinfoman (1.4.76~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.76
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sat, 14 Apr 2018 05:02:09 +0000
+
+openinfoman (1.4.75~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.75
+    -4cfe10f changing working dir in systemd
+    --https://github.com/openhie/openinfoman/commmit/4cfe10f
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sat, 14 Apr 2018 04:58:29 +0000
+
+openinfoman (1.4.75~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.75
+    -4cfe10f changing working dir in systemd
+    --https://github.com/openhie/openinfoman/commmit/4cfe10f
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sat, 14 Apr 2018 04:57:37 +0000
+
+openinfoman (1.4.75~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.75
+    -4cfe10f changing working dir in systemd
+    --https://github.com/openhie/openinfoman/commmit/4cfe10f
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sat, 14 Apr 2018 04:56:17 +0000
+
 openinfoman (1.4.74~xenial) xenial; urgency=medium
 
   * Release Version 1.4.74
