@@ -41,6 +41,11 @@
       name: php-xml
       state: present
 
+  - name: Ensure libxml2
+    yum:
+      name: libxml2
+      state: present
+
   - name: open 8984
     firewalld:
       port: 8984/tcp
