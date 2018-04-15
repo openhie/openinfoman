@@ -6,7 +6,7 @@
 
   vars_prompt:
     - name: "user_for_oim"
-      prompt: "Please enter the username (without sudo) for testing OIM"
+      prompt: "Please enter the username (without sudo)"
       private: no
       
     - name: "base"

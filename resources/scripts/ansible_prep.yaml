@@ -7,7 +7,7 @@
 
   vars_prompt:
     - name: "user_for_oim"
-      prompt: "Please enter the username (with sudo) for preparing for OIM"
+      prompt: "Please enter the username (with sudo)"
       private: no
 
   tasks:

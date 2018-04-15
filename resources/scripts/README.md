@@ -10,19 +10,23 @@ To run the full set of Ansible playbooks for an initial installation including a
 
 ```sh
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_backup.yaml
-# prep if for centos only
+# prep if for centos only -- requires sudo access
 ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_prep.yaml
 # any Unix-like platform
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install.yaml
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
-
-> Note: The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document. See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). On CentOS, SSH agent forwarding is off by default. Change this in `/etc/ssh/ssh_config`. Also note the issue with connecting from [Macs](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots)
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
+
+The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding.
+
+Arranging this is beyond the scope of this document. See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). In short, an entry for the domain and/or IP address must be in `~/.ssh/config`. On CentOS, SSH agent forwarding is off by default (see the output of `grep Agent /etc/ssh/sshd_config`. Change this in `/etc/ssh/ssh_config` and restart the SSH server with `systemctl restart sshd.service`.
+
+Also note the issue with connecting from [Macs](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots) in which the key used may disappear and need to be added again to be visible to the ssh agent.
 
 DATIM
 ```
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
 ```
 
 Ansible playbooks should be used in the following order in the table.

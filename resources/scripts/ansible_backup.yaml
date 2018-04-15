@@ -6,7 +6,7 @@
 
   vars_prompt:
     - name: "user_for_oim"
-      prompt: "Please enter the username (without sudo) for installing and running for OIM"
+      prompt: "Please enter the username (without sudo)"
       private: no
 
   tasks:
@@ -15,8 +15,17 @@
         path: ~/backup
       register: stat_result2
 
-    - name: Create local backups folder to hold backups
-      shell: mkdir -p ~/backup/logs && mkdir -p ~/backup/data
+    - name: Creates logs backups dir
+      file:
+        path: ~/backup/logs
+        state: directory
+        recurse: yes
+
+    - name: Creates data backups dir
+      file:
+        path: ~/backup/data
+        state: directory
+        recurse: yes
       when: stat_result2.stat.exists == False
 
     - debug:
