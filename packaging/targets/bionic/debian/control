@@ -9,7 +9,7 @@ Homepage: https://github.com/openhie/openinfoman
 
 Package: openinfoman
 Architecture: all
-Depends: bash , wget , unzip , php7.0-cli
+Depends: bash , wget , unzip , php7.2-cli
 Pre-Depends: default-jre-headless | openjdk-8-jre-headless | oracle-java8-installer, debconf
 Recommends: 
 Description: OpenInfoMan
