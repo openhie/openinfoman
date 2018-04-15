@@ -1,3 +1,11 @@
+openinfoman (1.4.77~bionic) bionic; urgency=medium
+
+  * Release Version 1.4.77
+    -580505c Packaging openinfoman for ubuntu j18.04
+    --https://github.com/openhie/openinfoman/commmit/580505c
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Sun, 15 Apr 2018 06:21:19 +0000
+
 openinfoman (1.4.76~xenial) xenial; urgency=medium
 
   * Release Version 1.4.76

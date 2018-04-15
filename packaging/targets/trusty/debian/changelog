@@ -1,3 +1,11 @@
+openinfoman (1.4.77~trusty) trusty; urgency=medium
+
+  * Release Version 1.4.77
+    -580505c Packaging openinfoman for ubuntu j18.04
+    --https://github.com/openhie/openinfoman/commmit/580505c
+
+ -- Carl Leitner <litlfred@ibiblio.org>  Sun, 15 Apr 2018 06:22:21 +0000
+
 openinfoman (1.4.76~trusty) trusty; urgency=medium
 
   * Release Version 1.4.76
