@@ -1,3 +1,11 @@
+openinfoman (1.4.82~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.82
+    -9d7a7ed Fixed a bug
+    --https://github.com/openhie/openinfoman/commmit/9d7a7ed
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Wed, 18 Apr 2018 07:20:06 +0000
+
 openinfoman (1.4.81~xenial) xenial; urgency=medium
 
   * Release Version 1.4.81
