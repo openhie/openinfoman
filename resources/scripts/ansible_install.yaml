@@ -1,13 +1,12 @@
 ---
 - name: Install generic OIM
   hosts: all
-  become: true
-  become_user: "{{ user_for_oim }}"
+  remote_user: "{{ user_for_oim }}"
   tags: install
 
   vars_prompt:
     - name: "user_for_oim"
-      prompt: "Please enter the username (without sudo) for installing and running for OIM"
+      prompt: "Please enter the username (without sudo)"
       private: no
 
   tasks:
