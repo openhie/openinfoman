@@ -35,7 +35,7 @@ remove_libs() {
 
 install_basex() {
     mkdir -p $OI
-    $WGET http://files.basex.org/releases/8.5.3/BaseX853.zip -O ${TMP}/BaseX.zip
+    $WGET http://files.basex.org/releases/8.6.7/BaseX867.zip -O ${TMP}/BaseX.zip
     $UNZIP -o -d ${TMP} ${TMP}/BaseX.zip
 
     cp $TMP/basex/BaseX.jar $OI
