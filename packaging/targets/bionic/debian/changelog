@@ -1,3 +1,11 @@
+openinfoman (1.4.83~bionic) bionic; urgency=medium
+
+  * Release Version 1.4.83
+    -78e1998 Switchback to basex 8.5.3 for ubuntu 14.04
+    --https://github.com/openhie/openinfoman/commmit/78e1998
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Wed, 18 Apr 2018 08:01:51 +0000
+
 openinfoman (1.4.82~bionic) bionic; urgency=medium
 
   * Release Version 1.4.82
