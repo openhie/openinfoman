@@ -1,3 +1,11 @@
+openinfoman (1.4.80~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.80
+    -0c131ad using basex8.6.7
+    --https://github.com/openhie/openinfoman/commmit/0c131ad
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Wed, 18 Apr 2018 06:58:38 +0000
+
 openinfoman (1.4.79~xenial) xenial; urgency=medium
 
   * Release Version 1.4.79
