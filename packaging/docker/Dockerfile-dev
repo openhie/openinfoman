@@ -1,0 +1,47 @@
+FROM basex/basexhttp:latest
+
+USER root
+
+RUN apk update && apk add --no-cache php7
+
+USER basex
+
+WORKDIR /srv
+
+RUN git clone https://github.com/openhie/openinfoman
+
+RUN cp /srv/openinfoman/webapp/*xqm /srv/basex/webapp
+
+RUN mkdir -p /srv/basex/webapp/static && cp -R /srv/openinfoman/webapp/static/* /srv/basex/webapp/static
+
+RUN basex -Vc "CREATE DATABASE provider_directory"
+
+RUN echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';\n\
+    declare variable \$csd_webconf:db :=  'provider_directory';\n\
+    declare variable \$csd_webconf:baseurl :=  '';\n\
+    declare variable \$csd_webconf:remote_services := ();\n\
+    " > /srv/openinfoman/repo/generated_openinfoman_webconfig.xqm
+
+RUN basex -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+
+WORKDIR /srv/openinfoman/repo
+
+SHELL ["/bin/bash", "-c"]
+
+RUN declare -a arr=("generated_openinfoman_webconfig.xqm" "csd_webapp_ui.xqm" "csd_base_library.xqm" "csd_base_library_updating.xqm"   "csd_base_stored_queries.xqm"  "csd_document_manager.xqm"  "csd_load_sample_directories.xqm"  "csd_query_updated_services.xqm"  "csd_poll_service_directories.xqm"  "csd_local_services_cache.xqm"  "csd_merge_cached_services.xqm"  "csr_processor.xqm"  "svs_load_shared_value_sets.xqm"  "async_fake.xqm"); \
+    for i in "${arr[@]}"; do basex -Vc "repo install $i"; done
+
+RUN basex -Vc "RUN /srv/openinfoman/resources/scripts/init_db.xq"
+
+WORKDIR /srv/openinfoman
+
+RUN declare -a arr=(resources/stored*definitions/*xml);\
+    for i in "${arr[@]}"; do resources/scripts/install_stored_function.php $i; done
+
+WORKDIR /srv/openinfoman/resources/shared_value_sets
+
+RUN declare -a arr=(*);\
+    for i in "${arr[@]}"; do basex -q"import module namespace svs_lsvs = 'https://github.com/openhie/openinfoman/svs_lsvs';' (svs_lsvs:load($i))'" ; done
+
+
+

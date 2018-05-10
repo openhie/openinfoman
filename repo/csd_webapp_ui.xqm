@@ -9,7 +9,7 @@ module namespace csd_webui = "https://github.com/openhie/openinfoman/csd_webui";
 import module namespace functx = "http://www.functx.com";
 import module namespace csd_webconf =  "https://github.com/openhie/openinfoman/csd_webconf";
 import module namespace request = "http://exquery.org/ns/request";
-
+import module namespace restxq = "http://exquery.org/ns/restxq";
 
 declare function csd_webui:generateURL() {
   csd_webui:generateURL(())
