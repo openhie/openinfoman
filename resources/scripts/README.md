@@ -4,7 +4,18 @@
 
 Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag.
 
-The install playbooks invoke bash installation scripts. These do not remove data and logs, but always ensure to backup. See backup and restore below.
+To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. An `ansible/hosts` file that has an entry for localhost and one server would be:
+
+```sh
+[local]
+localhost ansible_connection=local country_code=UK
+
+[servers]
+172.16.174.137 country_code=US
+```
+The above example includes a working example for localhost configuration and also the creation of the host variable `country_code` which will become accessible in the playbooks using `{{ country_code }}`.
+
+> Note: The install playbooks invoke bash installation scripts. These do not remove data and logs, but always ensure to backup. See backup and restore below.
 
 To run the full set of Ansible playbooks for an initial installation including a backup if OpenInfoMan used to exist:
 
@@ -17,16 +28,24 @@ ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
 
-The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding.
+## DATIM-specific
 
-Arranging this is beyond the scope of this document. See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). In short, an entry for the domain and/or IP address must be in `~/.ssh/config`. On CentOS, SSH agent forwarding is off by default (see the output of `grep Agent /etc/ssh/sshd_config`. Change this in `/etc/ssh/ssh_config` and restart the SSH server with `systemctl restart sshd.service`.
+The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document.
 
-Also note the issue with connecting from [Macs](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots) in which the key used may disappear and need to be added again to be visible to the ssh agent.
+> See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). In short, an entry for the domain and/or IP address must be in `~/.ssh/config`. On CentOS, SSH agent forwarding is off by default (see the output of `grep Agent /etc/ssh/sshd_config`. Change this in `/etc/ssh/ssh_config` and restart the SSH server with `systemctl restart sshd.service`.
 
-DATIM
+> For those on Macs, also note the [issue](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots) with connecting using SSH agent forwarding in which the key used may disappear and need to be added again to be visible to the ssh agent.
+
+
 ```
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_datim.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_datim_test.yaml
+```
+
+To create XXOU-Managed documents for the DATIM use case ensure that there are country_code vars in the hosts inventory, then:
+
+```sh
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_create_datim_doc.yaml
 ```
 
 Ansible playbooks should be used in the following order in the table.
@@ -40,13 +59,4 @@ Order | File | Privileges Req | Purpose
 5 | ansible_install_datim.yaml | non-sudo | DATIM additional libraries. If you want to install additional libaries other than just the DATIM ones (which include only DHIS2 and DATIM) then do not use this playbook. Use the install_additional.sh script instead.
 6 | ansible_install_datim_test.yaml | non-sudo | Tests to ensure the DATIM libraries are running correctly. A first level support tool.
 If needed | ansible_restore.yaml | non-sudo | Restores the latest backup from `~/backup/data`.
-
-To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. An `ansible/hosts` file that has an entry for localhost and one server would be:
-
-```sh
-[local]
-localhost ansible_connection=local
-
-[servers]
-172.16.174.137
-```
+7 | ansible_create_datim_doc.yaml | non-sudo | Add country code prefixed XXOU-Managed documents.

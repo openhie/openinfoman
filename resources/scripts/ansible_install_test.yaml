@@ -28,6 +28,7 @@
     uri:
       url: "{{base}}/CSD/createDirectory"
       method: POST
+      body: "directory=test"
       follow_redirects: all
 
   - name: List Shared Value Sets

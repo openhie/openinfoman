@@ -1,0 +1,32 @@
+---
+- name: Tests for OIM
+  hosts: all
+  remote_user: "{{ user_for_oim }}"
+  tags: test
+
+  vars_prompt:
+    - name: "user_for_oim"
+      prompt: "Please enter the username (without sudo)"
+      private: no
+      
+    - name: "base"
+      prompt: "Please enter the protocol, (sub)domains, and port or enter for the default"
+      default: "http://localhost:8984"
+      private: no
+
+  tasks:
+
+  - debug:
+      msg: "Country code is {{ country_code }}"
+
+  - name: Create document
+    uri:
+      url: "{{base}}/CSD/createDirectory"
+      method: POST
+      body: "directory={{ country_code }}OU-Managed"
+      follow_redirects: all
+
+# this task is not active.
+# - name: Remove Test Document
+#   uri:
+#     url: "{{base}}/CSD/deleteDirectory/{{country_code}}OU-Managed"
