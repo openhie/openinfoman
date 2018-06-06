@@ -14,8 +14,9 @@ rm -rf openinfomangh || true
 
 BASEX=$HOME/openinfoman/bin/basex
 
-wget http://files.basex.org/releases/8.6.7/BaseX867.zip
-unzip BaseX867.zip
+wget http://files.basex.org/releases/8.5.3/BaseX853.zip
+# wget http://files.basex.org/releases/8.6.7/BaseX867.zip
+unzip BaseX853.zip
 mkdir -p $HOME/openinfoman
 cp -R $HOME/basex/* $HOME/openinfoman/
 cp $HOME/basex/.basexhome $HOME/openinfoman/
