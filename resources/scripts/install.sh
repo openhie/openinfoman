@@ -38,9 +38,8 @@ else
 fi
 
 git clone https://github.com/openhie/openinfoman openinfomangh
-# checkout 1.4.61
-cd $HOME/openinfomangh
-git checkout tags/1.4.61
+# cd $HOME/openinfomangh
+# git checkout tags/1.4.61
 cd $HOME/openinfoman
 
 mkdir -p $HOME/openinfoman/repo-src
