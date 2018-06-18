@@ -52,12 +52,12 @@ DBNAME="$RET"
 db_input high openinfoman/user || true
 db_go || true
 db_get openinfoman/user || true
-USERNAME="$RET"
+DBUSERNAME="$RET"
 
 db_input high openinfoman/password || true
 db_go || true
 db_get openinfoman/password || true
-PASSWORD="$RET"
+DBPASSWORD="$RET"
 
 echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman/csd_webconf';
 declare variable \$csd_webconf:db :=  '$DBNAME';
@@ -96,7 +96,7 @@ service openinfoman start || true
 set +e
 i=0
 for (( ; i<30; ++i )); do
-   activation=($WGET --user $USERNAME --password $PASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
+   activation=($WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
    if [ -z "$activation" ]; then
       i=10
    else
@@ -108,12 +108,12 @@ set -e
 
 
 #double check to see if server isup and running.  if not, fail install
-$WGET --user $USERNAME --password $PASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
+$WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
 
 
 for SVS in ${SVSS[@]}
 do
-    $WGET --user $USERNAME --password $PASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
+    $WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
 done
 
 
