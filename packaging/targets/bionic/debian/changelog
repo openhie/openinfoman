@@ -1,3 +1,13 @@
+openinfoman (1.4.86~bionic) bionic; urgency=medium
+
+  * Release Version 1.4.86
+    -917e9b5 Merge branch 'master' of https://github.com/openhie/openin
+    --https://github.com/openhie/openinfoman/commmit/917e9b5
+    -49c715b changing variable name
+    --https://github.com/openhie/openinfoman/commmit/49c715b
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Mon, 18 Jun 2018 07:38:40 +0000
+
 openinfoman (1.4.85~bionic) bionic; urgency=medium
 
   * Release Version 1.4.85
