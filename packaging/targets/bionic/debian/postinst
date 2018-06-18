@@ -113,5 +113,5 @@ $WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-c
 
 for SVS in ${SVSS[@]}
 do
-    $WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
+    $WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null --timeout 15 || true
 done
