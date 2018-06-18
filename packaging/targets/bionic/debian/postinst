@@ -96,7 +96,7 @@ service openinfoman start || true
 set +e
 i=0
 for (( ; i<30; ++i )); do
-   activation=($WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
+   activation=($WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15)
    if [ -z "$activation" ]; then
       i=10
    else
@@ -108,10 +108,10 @@ set -e
 
 
 #double check to see if server isup and running.  if not, fail install
-$WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
+$WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD -O /dev/null  --timeout 15
 
 
 for SVS in ${SVSS[@]}
 do
-    $WGET --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
+    $WGET --auth-no-challenge --user $DBUSERNAME --password $DBPASSWORD --no-check-certificate http://localhost:8984/CSD/SVS/initSharedValueSet/svs/$SVS/load -O /dev/null || true
 done
