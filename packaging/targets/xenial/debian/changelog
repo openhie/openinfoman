@@ -1,3 +1,31 @@
+openinfoman (1.4.84~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.84
+    -f8e7a1c provision of user to specify username/password during inst
+    --https://github.com/openhie/openinfoman/commmit/f8e7a1c
+    -b34c6c6 major: updated to use latest code
+    --https://github.com/openhie/openinfoman/commmit/b34c6c6
+    -4ebd2c5 emergency revert to 8.5.3 in shell/ansible script
+    --https://github.com/openhie/openinfoman/commmit/4ebd2c5
+    -d8ff1b5 added datim script for XXOU-Managed documents
+    --https://github.com/openhie/openinfoman/commmit/d8ff1b5
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Mon, 18 Jun 2018 06:59:01 +0000
+
+openinfoman (1.4.84~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.84
+    -f8e7a1c provision of user to specify username/password during inst
+    --https://github.com/openhie/openinfoman/commmit/f8e7a1c
+    -b34c6c6 major: updated to use latest code
+    --https://github.com/openhie/openinfoman/commmit/b34c6c6
+    -4ebd2c5 emergency revert to 8.5.3 in shell/ansible script
+    --https://github.com/openhie/openinfoman/commmit/4ebd2c5
+    -d8ff1b5 added datim script for XXOU-Managed documents
+    --https://github.com/openhie/openinfoman/commmit/d8ff1b5
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Mon, 18 Jun 2018 06:58:53 +0000
+
 openinfoman (1.4.83~xenial) xenial; urgency=medium
 
   * Release Version 1.4.83
