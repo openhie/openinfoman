@@ -1,0 +1,571 @@
+<html>
+  <head>
+    <link href="http://localhost:8984/static/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://localhost:8984/static/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="http://localhost:8984/static/favicon.ico" />
+    <script src="http://localhost:8984/static/jquery/jquery.js"></script>
+    <title>OpenInfoMan @ localhost</title>
+    <script src="http://localhost:8984/static/bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <img class="pull-left" height="38px" src="http://localhost:8984/static/GeoGebra_icon_geogebra.png" />
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://localhost:8984/CSD">OpenInfoMan - InterLinked Health Services Registry</a>
+        </div>
+        <span class="pull-right">
+          <img src="http://localhost:8984/static/openhie.png" style="height:60px; padding-right:5em; padding-top:1.5em" />
+        </span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <span>
+            <h2>Shared Value Sets</h2>
+            <p>
+      FILES:
+      <DescribedValueSets version="1.1">
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.110" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.110-languageCode.xml" displayName="CSD Language Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.18630021159349753613449707959296853730613166189051" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.18630021159349753613449707959296853730613166189051.xml" displayName="Cadre" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.103" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.103-facilityTypeCode.xml" displayName="CSD Facility Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.402" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.402-AddressComponentCode.xml" displayName="CSD Address Component Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.11111176868615247452370557526986886924" file="/var/lib/openinfoman/resources/shared_value_sets/ihris_manage_demo_cadre.xml" displayName="Cadre" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.9830357893067925519626800209704957770712560" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.9830357893067925519626800209704957770712560.xml" displayName="Classification" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.101" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.101-organizationTypeCode.xml" displayName="CSD Organization Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.105" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.105-providerTypeCode.xml" displayName="CSD Provider Type Codes" version="20131201"></svs:DescribedValueSet>
+                <noID>/var/lib/openinfoman/resources/shared_value_sets/anonymous_user_roles.xml</noID>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.400" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.400-contactPointCode.xml" displayName="CSD Contact TypeCodes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.268234768686152474523705575269868869248.2" file="/var/lib/openinfoman/resources/shared_value_sets/Sierra_Leone_Demo_HWType.xml" displayName="DHIS Sierra Leone Demo Data Health Worker Type" version="2014.8.12"></svs:DescribedValueSet>
+                <noID>/var/lib/openinfoman/resources/shared_value_sets/anonymous_org_type.xml</noID>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.401" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.401-IDTypeCode.xml" displayName="CSD Provider ID Type Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.265608663818616228188834890512310231251363785626032" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.265608663818616228188834890512310231251363785626032.xml" displayName="Council" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.268234768686152474523705575269868869248.1" file="/var/lib/openinfoman/resources/shared_value_sets/Sierra_Leone_Demo_OrgLevel.xml" displayName="DHIS Sierra Leone Demo Data Organization Level" version="2014.8.12"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.109" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.109-specializationCode.xml" displayName="CSD Facility Specialization Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.406" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.406-serviceStatusCode.xml" displayName="CSD Service Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.403" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.403-GenderCodes.xml" displayName="CSD Gender Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.104" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.104-facilityStatusCode.xml" displayName="CSD Facility Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.17331675369518445540420660603637128875763657" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.17331675369518445540420660603637128875763657.xml" displayName="Job" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.405" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.405-organizationStatusCode.xml" displayName="CSD Organization Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.106" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.106-providerStatusCode.xml" displayName="CSD Provider Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.102" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.102-serviceTypeCode.xml" displayName="CSD Service Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.259359036081944859901459759453974543442705863430576" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.259359036081944859901459759453974543442705863430576.xml" displayName="Language" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.108" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.108-credentialTypeCode.xml" displayName="CSD Credential Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.1098910207106778371035457739371181056504702027035" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.1098910207106778371035457739371181056504702027035.xml" displayName="Identification Type" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.404" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.404.xml" displayName="Address Type Codes" version="20140122"></svs:DescribedValueSet>
+              </DescribedValueSets>
+            </p>
+            <p>
+              <DescribedValueSets version="1.1">
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.101" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.101-organizationTypeCode.xml" displayName="CSD Organization Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.102" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.102-serviceTypeCode.xml" displayName="CSD Service Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.103" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.103-facilityTypeCode.xml" displayName="CSD Facility Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.104" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.104-facilityStatusCode.xml" displayName="CSD Facility Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.105" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.105-providerTypeCode.xml" displayName="CSD Provider Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.106" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.106-providerStatusCode.xml" displayName="CSD Provider Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.108" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.108-credentialTypeCode.xml" displayName="CSD Credential Type Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.109" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.109-specializationCode.xml" displayName="CSD Facility Specialization Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="1.3.6.1.4.1.21367.200.110" file="/var/lib/openinfoman/resources/shared_value_sets/1.3.6.1.4.1.21367.200.110-languageCode.xml" displayName="CSD Language Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.1098910207106778371035457739371181056504702027035" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.1098910207106778371035457739371181056504702027035.xml" displayName="Identification Type" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.17331675369518445540420660603637128875763657" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.17331675369518445540420660603637128875763657.xml" displayName="Job" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.18630021159349753613449707959296853730613166189051" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.18630021159349753613449707959296853730613166189051.xml" displayName="Cadre" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.259359036081944859901459759453974543442705863430576" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.259359036081944859901459759453974543442705863430576.xml" displayName="Language" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.265608663818616228188834890512310231251363785626032" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.265608663818616228188834890512310231251363785626032.xml" displayName="Council" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.400" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.400-contactPointCode.xml" displayName="CSD Contact TypeCodes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.401" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.401-IDTypeCode.xml" displayName="CSD Provider ID Type Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.402" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.402-AddressComponentCode.xml" displayName="CSD Address Component Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.403" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.403-GenderCodes.xml" displayName="CSD Gender Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.404" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.404.xml" displayName="Address Type Codes" version="20140122"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.405" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.405-organizationStatusCode.xml" displayName="CSD Organization Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.309768652999692686176651983274504471835.999.406" file="/var/lib/openinfoman/resources/shared_value_sets/2.25.309768652999692686176651983274504471835.999.406-serviceStatusCode.xml" displayName="CSD Service Status Codes" version="20131201"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.9830357893067925519626800209704957770712560" file="/var/lib/openinfoman/resources/shared_value_sets/anonymous_2.25.9830357893067925519626800209704957770712560.xml" displayName="Classification" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.11111176868615247452370557526986886924" file="/var/lib/openinfoman/resources/shared_value_sets/ihris_manage_demo_cadre.xml" displayName="Cadre" version="1"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.268234768686152474523705575269868869248.2" file="/var/lib/openinfoman/resources/shared_value_sets/Sierra_Leone_Demo_HWType.xml" displayName="DHIS Sierra Leone Demo Data Health Worker Type" version="2014.8.12"></svs:DescribedValueSet>
+                <svs:DescribedValueSet xmlns:svs="urn:ihe:iti:svs:2008" ID="2.25.268234768686152474523705575269868869248.1" file="/var/lib/openinfoman/resources/shared_value_sets/Sierra_Leone_Demo_OrgLevel.xml" displayName="DHIS Sierra Leone Demo Data Organization Level" version="2014.8.12"></svs:DescribedValueSet>
+              </DescribedValueSets>
+            </p>
+            <ul>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.101">CSD Organization Type Codes (1.3.6.1.4.1.21367.200.101)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.101">Get 1.3.6.1.4.1.21367.200.101</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.101/reload">Reload 1.3.6.1.4.1.21367.200.101</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.101/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.102">CSD Service Type Codes (1.3.6.1.4.1.21367.200.102)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.102">Get 1.3.6.1.4.1.21367.200.102</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.102/reload">Reload 1.3.6.1.4.1.21367.200.102</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.102/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.103">CSD Facility Type Codes (1.3.6.1.4.1.21367.200.103)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.103">Get 1.3.6.1.4.1.21367.200.103</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.103/reload">Reload 1.3.6.1.4.1.21367.200.103</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.103/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.104">CSD Facility Status Codes (1.3.6.1.4.1.21367.200.104)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.104">Get 1.3.6.1.4.1.21367.200.104</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.104/reload">Reload 1.3.6.1.4.1.21367.200.104</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.104/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.105">CSD Provider Type Codes (1.3.6.1.4.1.21367.200.105)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.105">Get 1.3.6.1.4.1.21367.200.105</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.105/reload">Reload 1.3.6.1.4.1.21367.200.105</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.105/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.106">CSD Provider Status Codes (1.3.6.1.4.1.21367.200.106)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.106">Get 1.3.6.1.4.1.21367.200.106</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.106/reload">Reload 1.3.6.1.4.1.21367.200.106</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.106/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.108">CSD Credential Type Codes (1.3.6.1.4.1.21367.200.108)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.108">Get 1.3.6.1.4.1.21367.200.108</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.108/reload">Reload 1.3.6.1.4.1.21367.200.108</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.108/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.109">CSD Facility Specialization Codes (1.3.6.1.4.1.21367.200.109)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.109">Get 1.3.6.1.4.1.21367.200.109</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.109/reload">Reload 1.3.6.1.4.1.21367.200.109</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.109/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.110">CSD Language Codes (1.3.6.1.4.1.21367.200.110)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=1.3.6.1.4.1.21367.200.110">Get 1.3.6.1.4.1.21367.200.110</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.110/reload">Reload 1.3.6.1.4.1.21367.200.110</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/1.3.6.1.4.1.21367.200.110/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.1098910207106778371035457739371181056504702027035">Identification Type (2.25.1098910207106778371035457739371181056504702027035)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.1098910207106778371035457739371181056504702027035">Get 2.25.1098910207106778371035457739371181056504702027035</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.1098910207106778371035457739371181056504702027035/reload">Reload 2.25.1098910207106778371035457739371181056504702027035</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.1098910207106778371035457739371181056504702027035/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.11111176868615247452370557526986886924">Cadre (2.25.11111176868615247452370557526986886924)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.11111176868615247452370557526986886924/load">Initialize 2.25.11111176868615247452370557526986886924 (Cadre)</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.17331675369518445540420660603637128875763657">Job (2.25.17331675369518445540420660603637128875763657)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.17331675369518445540420660603637128875763657">Get 2.25.17331675369518445540420660603637128875763657</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.17331675369518445540420660603637128875763657/reload">Reload 2.25.17331675369518445540420660603637128875763657</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.17331675369518445540420660603637128875763657/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.18630021159349753613449707959296853730613166189051">Cadre (2.25.18630021159349753613449707959296853730613166189051)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.18630021159349753613449707959296853730613166189051">Get 2.25.18630021159349753613449707959296853730613166189051</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.18630021159349753613449707959296853730613166189051/reload">Reload 2.25.18630021159349753613449707959296853730613166189051</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.18630021159349753613449707959296853730613166189051/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.259359036081944859901459759453974543442705863430576">Language (2.25.259359036081944859901459759453974543442705863430576)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.259359036081944859901459759453974543442705863430576">Get 2.25.259359036081944859901459759453974543442705863430576</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.259359036081944859901459759453974543442705863430576/reload">Reload 2.25.259359036081944859901459759453974543442705863430576</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.259359036081944859901459759453974543442705863430576/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.265608663818616228188834890512310231251363785626032">Council (2.25.265608663818616228188834890512310231251363785626032)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.265608663818616228188834890512310231251363785626032">Get 2.25.265608663818616228188834890512310231251363785626032</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.265608663818616228188834890512310231251363785626032/reload">Reload 2.25.265608663818616228188834890512310231251363785626032</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.265608663818616228188834890512310231251363785626032/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.268234768686152474523705575269868869248.1">DHIS Sierra Leone Demo Data Organization Level (2.25.268234768686152474523705575269868869248.1)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.268234768686152474523705575269868869248.1/load">Initialize 2.25.268234768686152474523705575269868869248.1 (DHIS Sierra Leone Demo Data Organization Level)</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.268234768686152474523705575269868869248.2">DHIS Sierra Leone Demo Data Health Worker Type (2.25.268234768686152474523705575269868869248.2)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.268234768686152474523705575269868869248.2/load">Initialize 2.25.268234768686152474523705575269868869248.2 (DHIS Sierra Leone Demo Data Health Worker Type)</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.400">CSD Contact TypeCodes (2.25.309768652999692686176651983274504471835.999.400)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.400">Get 2.25.309768652999692686176651983274504471835.999.400</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.400/reload">Reload 2.25.309768652999692686176651983274504471835.999.400</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.400/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.401">CSD Provider ID Type Codes (2.25.309768652999692686176651983274504471835.999.401)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.401">Get 2.25.309768652999692686176651983274504471835.999.401</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.401/reload">Reload 2.25.309768652999692686176651983274504471835.999.401</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.401/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.402">CSD Address Component Codes (2.25.309768652999692686176651983274504471835.999.402)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.402">Get 2.25.309768652999692686176651983274504471835.999.402</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.402/reload">Reload 2.25.309768652999692686176651983274504471835.999.402</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.402/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.403">CSD Gender Codes (2.25.309768652999692686176651983274504471835.999.403)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.403">Get 2.25.309768652999692686176651983274504471835.999.403</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.403/reload">Reload 2.25.309768652999692686176651983274504471835.999.403</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.403/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.404">Address Type Codes (2.25.309768652999692686176651983274504471835.999.404)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.404">Get 2.25.309768652999692686176651983274504471835.999.404</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.404/reload">Reload 2.25.309768652999692686176651983274504471835.999.404</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.404/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.405">CSD Organization Status Codes (2.25.309768652999692686176651983274504471835.999.405)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.405">Get 2.25.309768652999692686176651983274504471835.999.405</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.405/reload">Reload 2.25.309768652999692686176651983274504471835.999.405</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.405/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.406">CSD Service Status Codes (2.25.309768652999692686176651983274504471835.999.406)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.309768652999692686176651983274504471835.999.406">Get 2.25.309768652999692686176651983274504471835.999.406</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.406/reload">Reload 2.25.309768652999692686176651983274504471835.999.406</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.309768652999692686176651983274504471835.999.406/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="/CSD/SVS/initSharedValueSet/svs/2.25.9830357893067925519626800209704957770712560">Classification (2.25.9830357893067925519626800209704957770712560)</a>
+                <br />
+                <ul>
+                  <li>
+                    <a href="/CSD/SVS/RetrieveValueSet?ID=2.25.9830357893067925519626800209704957770712560">Get 2.25.9830357893067925519626800209704957770712560</a>
+                  </li>
+                  <li>
+                    <a href="/CSD/SVS/initSharedValueSet/svs/2.25.9830357893067925519626800209704957770712560/reload">Reload 2.25.9830357893067925519626800209704957770712560</a>
+                  </li>
+                  <li>
+                    <form action="/CSD/SVS/initSharedValueSet/svs/2.25.9830357893067925519626800209704957770712560/lookup">
+                      <label for="code">Lookup Code</label>
+                      <input name="code" type="text" />
+                      <input type="submit" />
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span>
+            <h2>Retrieve Multiple</h2>
+            <form action="/CSD/SVS/RetrieveMultipleValueSets">
+              <ul>
+                <li>ID: <input name="ID" />
+                </li>
+              </ul>
+              <input type="submit" value="search" />
+            </form>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <center>
+        <img src="http://localhost:8984/static/USAID_CP_IH_PEPFAR_logos.png" width="30%" />
+      </center>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!--
+	    <a class='pull-right' href="http://www.youtube.com/watch?v=pBjvkHHuPHc"  style='color:rgb(0,0,0);text-decoration:none'>(tra-la-la)</a>
+           -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

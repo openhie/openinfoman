@@ -1,3 +1,11 @@
+openinfoman (1.4.87~xenial) xenial; urgency=medium
+
+  * Release Version 1.4.87
+    -5526858 sending authentication credentials on redirect
+    --https://github.com/openhie/openinfoman/commmit/5526858
+
+ -- Ally Shaban (programmerAtWork) <allyshaban5@gmail.com>  Mon, 18 Jun 2018 12:30:00 +0000
+
 openinfoman (1.4.86~xenial) xenial; urgency=medium
 
   * Release Version 1.4.86
