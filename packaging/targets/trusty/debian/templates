@@ -18,3 +18,17 @@ Default:
 Description: Base URL
  The URL used to access the OpenInfoMan when operating behind a proxy.  If not set, if
  will use the HTTP request metadata to determine the hostname.
+
+
+Template: openinfoman/user
+Type: string
+Default: admin
+Description: Username
+ username to access basex database
+
+
+Template: openinfoman/password
+Type: string
+Default: admin
+Description: Password
+ Password to access basex database
