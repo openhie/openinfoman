@@ -143,7 +143,6 @@ There are additional libraries thatextend the core OpenInfoMan funcitonality:
 
 - https://github.com/openhie/openinfoman-hwr Health Worker Registry 
 - https://github.com/openhie/openinfoman-dhis DHIS2
-- https://github.com/openhie/openinfoman-fhir FHIR 
 - https://github.com/openhie/openinfoman-rapidpro RapidPro
 - https://github.com/openhie/openinfoman-opensearch OpenSearch
 - https://github.com/openhie/openinfoman-hwr-nigeria Nigeria
