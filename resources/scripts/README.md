@@ -28,6 +28,17 @@ ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
 
+## Backups
+
+>For robust a robust backup process, run the ansible_backup playbook which includes creating a cronjob for daily backups including copying over the shell script invoked by cron.
+
+To do an adhoc backup, use the official basex command for backups in order to be robust to jobs in the queue:
+```
+basex -Vc 'create backup provider_directory'
+```
+The bash install script (which the Ansible install playbook also calls) does an immediate backup of logs and data and adds.
+
+
 ## DATIM-specific
 
 The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document.

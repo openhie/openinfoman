@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: vagrant
+  tasks:
+        # upload ssh key                
+        - authorized_key:
+                user: vagrant
+                state: present
+                manage_dir: yes
+                key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

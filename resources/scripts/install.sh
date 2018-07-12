@@ -27,7 +27,8 @@ then
   # backup data and logs for safety
   mkdir -p $HOME/backup/data
   mkdir -p $HOME/backup/logs
-  zip $HOME/openinfoman/data/provider_directory-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/provider_directory
+  # use official basex command for backups in order to be robust to jobs in the queue
+  $BASEX -Vc 'create backup provider_directory'
   mv $HOME/openinfoman/data/provider_directory-* $HOME/backup/data
   # if there's a previous install but was never run there will be 'data' but not logs'
   zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs || true
@@ -87,6 +88,6 @@ done
 # cd $HOME/openinfoman/bin && nohup ./basexhttp > foo.out 2> foo.err < /dev/null &
 cd $HOME/openinfoman/bin && nohup ./basexhttp &
 
-printf "\n\e[32mOpenInfoMan successfully installed and started!\n"
+printf "\n\e[32mOpenInfoMan successfully installed and started!\033[0;37m\n"
 
 exit
