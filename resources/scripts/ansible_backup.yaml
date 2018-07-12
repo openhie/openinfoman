@@ -82,4 +82,19 @@
         msg: "OpenInfoMan folder doesn't have data/logs dir"
       when: stat_result.stat.exists == False
 
-  
+    - copy:
+        src: ./backup_cronjob.sh
+        dest: $HOME
+        owner: "{{ user_for_oim }}"
+        mode: 0755
+        force: yes
+
+    - debug:
+        msg: "Cronjob script moved"
+
+    - name: Crontab entry
+      cron:
+        name: "OIM backup"
+        minute: "0"
+        hour: "22"
+        job: "~/backup_cronjob.sh"
