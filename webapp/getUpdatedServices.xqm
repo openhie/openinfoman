@@ -17,7 +17,7 @@ declare
   %rest:GET
   function page:updated_service_soap($name,$mtime)
 { 
- let $url := csd_webui:generateURL(("CSD/getUpdatedServices/" , $name , "/get"))
+ let $url := concat("CSD/getUpdatedServices/" , $name , "/get")
  return (
  <rest:response>
    <http:response status="200" >
@@ -68,7 +68,7 @@ let $response :=
       {
 	for $name in $page:csd_docs
 	return 	<li>
-	<h3>Service Directory:<a href="{csd_webui:generateURL(('CSD/getUpdatedServices',$name))}">{$name}</a></h3>
+	<h3>Service Directory:<a href="{concat('CSD/getUpdatedServices',$name)}">{$name}</a></h3>
 	  {page:service_menu($name)}
 	</li>
       }
@@ -92,20 +92,20 @@ declare function page:service_menu($name)
     <ul>
     <li>
     Query {$name} for Updated Services by time
-    <form method='get' action="{csd_webui:generateURL(('/CSD/getUpdatedServices',$name,'get'))}">
+    <form method='get' action="{concat('/CSD/getUpdatedServices',$name,'get')}">
       <input  size="35" id="datetimepicker_{$name}"    name='mtime' type="text" value=""/>   
       <input type='submit' />
     </form> 
     </li>
     <li>
     Get {$name}'s SOAP reuest for Query for Updated Services by time
-    <form method='get' action="{csd_webui:generateURL(('/CSD/getUpdatedServices',$name,'soap'))}">
+    <form method='get' action="{concat('/CSD/getUpdatedServices',$name,'soap')}">
       <input  size="35" id="soap_datetimepicker_{$name}"  name='mtime' type="text" value=""/>   
       <input type='submit' />
     </form> 
     </li>
     Submit {$name} SOAP request to:
-    <pre>{csd_webui:generateURL(('CSD/getUpdatedServices/',$name,'/get'))}</pre> 
+    <pre>{concat('CSD/getUpdatedServices/',$name,'/get')}</pre> 
 
     </ul>
   </span>
@@ -113,8 +113,8 @@ declare function page:service_menu($name)
 
 declare function page:wrapper($response) {
  let $headers := (
-    <link rel="stylesheet" type="text/css" media="screen"   href="{csd_webui:generateURL('static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}"/>
-    ,<script src="{csd_webui:generateURL('static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}"/>
+    <link rel="stylesheet" type="text/css" media="screen"   href="static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+    ,<script src="static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"/>
     ,<script type="text/javascript">
     $( document ).ready(function() {{ 
       {
