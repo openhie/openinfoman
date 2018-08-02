@@ -66,8 +66,8 @@ declare
     <div>
       <h2>Create Blank Directory</h2>
       <form method='post' action="CSD/createDirectory/">     
-  <input name='directory' type='text'/>
-  <input type='submit' value='Create'/>
+			  <input name='directory' type='text'/>
+  			<input type='submit' value='Create'/>
       </form>
     </div>
   </span>
@@ -75,9 +75,9 @@ declare
   <span class='svs'>
     In addition, there is some initial support for use of terminologies using the Sharing Value Sets(<a href="ftp://ftp.ihe.net/DocumentPublication/CurrentPublished/ITInfrastructure/IHE_ITI_Suppl_SVS_Rev2.1_TI_2010-08-10.pdf">SVS</a>) profile from IHE:
     <ul>
-      <li><a href="CSD/SVS/initSharedValueSet}">load Shared Value Sets </a></li>
-      <li><a href="CSD/SVS/availSharedValueSet}">available Shared Value Sets </a></li>
-      <li><a href="CSD/SVS/registerRemoteValueSet}">mirror remote Shared Value Set </a></li>
+      <li><a href="CSD/SVS/initSharedValueSet">load Shared Value Sets </a></li>
+      <li><a href="CSD/SVS/availSharedValueSet">available Shared Value Sets </a></li>
+      <li><a href="CSD/SVS/registerRemoteValueSet">mirror remote Shared Value Set </a></li>
     </ul>
   </span>
   let $adapters :=
@@ -104,7 +104,7 @@ declare
   
       </span>
       <span class='adapters'>
-  <p>List of all API  adapters for stored functions: <a href="{CSD/adapter}">CSD Adapters</a>      </p>
+  <p>List of all API  adapters for stored functions: <a href="CSD/adapter">CSD Adapters</a>      </p>
       </span>
 
     </span>
