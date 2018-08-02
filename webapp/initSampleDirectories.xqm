@@ -102,7 +102,7 @@ let $response :=
 	    order by $name
 	    return 
 	    <li>
-	      <a href="{concat('CSD/initSampleDirectory/directory',$name)}">{$name}</a>
+	      <a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name))}">{$name}</a>
 	      <br/>
 	      {page:services_menu($name)}
 	    </li>
@@ -148,20 +148,20 @@ declare function page:get_export_document_details() {
         for $name in csd_dm:registered_documents()
 	return 
 	<map key="{string($name)}">
-	  <string key="careServicesRequest">{concat('CSD/csr/',$name,'/careServicesRequest')}</string>
+	  <string key="careServicesRequest">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest'))}</string>
 	  <map key="careServicesRequests">
 	    {
 	      for $function in (csr_proc:stored_functions(),csr_proc:stored_updating_functions())
 	      let $urn:= string($function/@urn)
-	      return <string key="{$urn}">{concat('CSD/csr/',$name,'/careServicesRequest/',$urn)}</string>
+	      return <string key="{$urn}">{csd_webui:generateURL(('CSD/csr/',$name,'/careServicesRequest/',$urn))}</string>
 	    }
 	  </map>
 	  {
 	    if ($name = $remote_docs) 
 	    then
 	      <map key="cache">
-	        <string key="update">{concat("/CSD/pollService/directory" ,$name , "update_cache")}</string>
-	        <string key="empty">{concat("/CSD/pollService/directory" ,$name , "empty_cache")}</string>
+	        <string key="update">{csd_webui:generateURL(("/CSD/pollService/directory" ,$name , "update_cache"))}</string>
+	        <string key="empty">{csd_webui:generateURL(("/CSD/pollService/directory" ,$name , "empty_cache"))}</string>
 	      </map>
 	    else ()	  
 	  }
@@ -175,11 +175,11 @@ declare function page:get_export_document_details() {
 declare function page:services_menu($name) {
   <ul> 
     {if (not(csd_dm:document_source_exists($name))) then
-    <li><a href="{concat('CSD/initSampleDirectory/directory',$name,'load')}">Initialize </a> {$name} </li>
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'load'))}">Initialize </a> {$name} </li>
   else 
     (
-    <li><a href="{concat('CSD/initSampleDirectory/directory',$name,'get')}">Get </a> {$name}</li>,
-    <li><a href="{concat('CSD/initSampleDirectory/directory',$name,'reload')}">Reload </a>{$name}</li>
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'get'))}">Get </a> {$name}</li>,
+    <li><a href="{csd_webui:generateURL(('CSD/initSampleDirectory/directory',$name,'reload'))}">Reload </a>{$name}</li>
   )
     }
   </ul>
