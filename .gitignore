@@ -21,3 +21,6 @@ secring.gpg
 
 # ansible
 *.retry
+
+# vagrant
+.vagrant
