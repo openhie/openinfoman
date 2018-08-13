@@ -19,3 +19,10 @@
 
   - name: Install generic OIM
     command: bash install.sh
+
+  # The memory setting is in the bash install script, this is not used but is kept if needed later.
+  # - name: Increase memory to 3G (backup)
+  #   lineinfile: 
+  #     path: $HOME/openinfoman/bin/basexhttp
+  #     regexp: '^BASEX_JVM='
+  #     line: 'BASEX_VM="-Xms3g -Xmx3g" $BASEX_JVM"'      

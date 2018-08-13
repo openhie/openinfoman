@@ -21,6 +21,9 @@ mkdir -p $HOME/openinfoman
 cp -R $HOME/basex/* $HOME/openinfoman/
 cp $HOME/basex/.basexhome $HOME/openinfoman/
 
+# increase memory to 3GB:
+sed -i '' 's/-Xmx512m/-Xms3g -Xmx3g/' $HOME/openinfoman/bin/basexhttp
+
 if  [ -d $HOME/openinfoman/data/provider_directory ]
 then
   printf "\n\e[32mBaseX Database provider_directory exists\033[0;37m\n"

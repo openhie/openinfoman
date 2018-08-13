@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get -qq update && apt-get -qqy upgrade && \
+RUN apt-get -qq update && \
     apt-get -y install software-properties-common \
     python-software-properties inotify-tools debconf-utils && \
     apt-get -y install git wget unzip default-jre openjdk-7-jre php5
@@ -14,7 +14,7 @@ RUN cp -R basex/* openinfoman/
 RUN cp basex/.basexhome openinfoman/
 
 RUN mkdir openinfoman/repo-src
-RUN git clone https://github.com/openhie/openinfoman openinfomangh
+RUN git clone --single-branch -b connectathonTZ https://github.com/openhie/openinfoman openinfomangh
 RUN cp openinfomangh/repo/* openinfoman/repo-src/
 RUN cp -R openinfomangh/resources openinfoman/
 RUN cp ~/openinfomangh/webapp/*xqm ~/openinfoman/webapp

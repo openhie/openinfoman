@@ -28,7 +28,7 @@ ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
 
-## Backups
+## Backup and Restores
 
 >For robust a robust backup process, run the ansible_backup playbook which includes creating a cronjob for daily backups including copying over the shell script invoked by cron.
 
@@ -38,6 +38,13 @@ basex -Vc 'create backup provider_directory'
 ```
 The bash install script (which the Ansible install playbook also calls) does an immediate backup of logs and data and adds.
 
+To restore:
+```sh
+# go into the backups data folder
+cd $HOME/backup/data
+# issue the restore command. do not include the .zip extension of the name, e.g:
+$HOME/openinfoman/bin/basex -Vc 'restore provider_directory-2018-07-23-12-09-47'
+```
 
 ## DATIM-specific
 
