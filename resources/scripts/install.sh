@@ -22,7 +22,7 @@ cp -R $HOME/basex/* $HOME/openinfoman/
 cp $HOME/basex/.basexhome $HOME/openinfoman/
 
 # increase memory to 3GB:
-sed -i '' 's/-Xmx512m/-Xms3g -Xmx3g/' $HOME/openinfoman/bin/basexhttp
+sed -i.bak 's|-Xmx512m|-Xms3g -Xmx3g|' $HOME/openinfoman/bin/basexhttp
 
 if  [ -d $HOME/openinfoman/data/provider_directory ]
 then

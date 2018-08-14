@@ -196,6 +196,8 @@ See [packaging/docker](https://github.com/openhie/openinfoman/tree/master/packag
 
 * Ensure that TCP port 8984 is open on security policy/firewall.
 
+> Note that when OpenInfoMan is installed using the Bash script that it increases memory to 3GB. This is meant for production use.
+
 * Increase memory usage by modifying the `bin/basexhttp` shell script and uncomment
 ```sh
 #VM=Xmx512m
