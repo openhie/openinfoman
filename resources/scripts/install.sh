@@ -21,8 +21,8 @@ mkdir -p $HOME/openinfoman
 cp -R $HOME/basex/* $HOME/openinfoman/
 cp $HOME/basex/.basexhome $HOME/openinfoman/
 
-# increase memory to 3GB:
-sed -i.bak 's|-Xmx512m|-Xms3g -Xmx3g|' $HOME/openinfoman/bin/basexhttp
+# increase memory to 3GB and disable user perf data
+sed -i.bak 's|"-Xmx512m $BASEX_JVM"|"-Xms3g -Xmx3g $BASEX_JVM -XX:-UsePerfData"|' $HOME/openinfoman/bin/basexhttp
 
 if  [ -d $HOME/openinfoman/data/provider_directory ]
 then
