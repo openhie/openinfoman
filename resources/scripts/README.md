@@ -38,10 +38,12 @@ basex -Vc 'create backup provider_directory'
 ```
 The bash install script (which the Ansible install playbook also calls) does an immediate backup of logs and data and adds.
 
-To restore:
+To restore the backup must be copied back into the main data folder before it can be restored.
 ```sh
 # go into the backups data folder
 cd $HOME/backup/data
+# copy the backup file you want back into place
+cp provider_directory-2018-09-07-22-00-01.zip ~/openinfoman/data
 # issue the restore command. do not include the .zip extension of the name, e.g:
 $HOME/openinfoman/bin/basex -Vc 'restore provider_directory-2018-07-23-12-09-47'
 ```
