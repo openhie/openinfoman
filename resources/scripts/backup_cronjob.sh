@@ -16,7 +16,7 @@ then
   mv $HOME/openinfoman/data/provider_directory-* $HOME/backup/data
   printf "\n\e[32mCreated backup of data\033[0;37m\n"
   # if there's a previous install but was never run there will be 'data' but not logs'
-  zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs || true
+  zip -j $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs/* || true
   mv $HOME/openinfoman/data/logs-* $HOME/backup/logs || true
   printf "\n\e[32mCreated backup of logs\033[0;37m\n"
 

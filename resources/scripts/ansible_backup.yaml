@@ -55,7 +55,7 @@
       when: stat_result.stat.exists == True
 
     - name: Backup OIM logs dir.
-      shell: zip $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs
+      shell: zip -j $HOME/openinfoman/data/logs-$(date +"%Y-%m-%d-%H-%M").zip $HOME/openinfoman/data/.logs/*
       when: stat_result.stat.exists == True
 
     - debug:
