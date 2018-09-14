@@ -2,7 +2,7 @@
 
 This an in-progress creation of a base box for end-to-end testing of OpenInfoMan using Vagrant and Ansible. It is not complete.
 
-This is copied and modified from the BAO Systems DHIS2-CentOS [Vagrantfile](https://github.com/baosystems/dhis2-centos).
+The CentOS version is copied and modified from the BAO Systems DHIS2-CentOS [Vagrantfile](https://github.com/baosystems/dhis2-centos).
 
 
 ## Troubleshooting
