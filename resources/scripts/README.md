@@ -28,6 +28,13 @@ ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
 
+To install OpenInfoMan as a systemd service:
+
+```
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_service.yaml
+```
+
+
 ## Backup and Restores
 
 >For robust a robust backup process, run the ansible_backup playbook which includes creating a cronjob for daily backups including copying over the shell script invoked by cron.
