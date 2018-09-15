@@ -1,0 +1,15 @@
+[Unit]
+Description=openinfoman
+Documentation=https://example.com
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/home/{{ user }}/openinfoman/bin/basex.pid
+User={{ user }}
+WorkingDirectory=/home/{{ user }}/openinfoman/bin
+ExecStart=/bin/bash basexhttp
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

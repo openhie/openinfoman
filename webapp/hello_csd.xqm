@@ -197,7 +197,7 @@ declare function page:wrapper($csd,$svs,$adapters,$generic_csd) {
       <ul class="nav nav-tabs">
 	<li id='tab_home' class="active"><a  href="#home">Introduction</a></li>
 	<li id='tab_csd'><a  href="#csd">Server Managment</a></li>
-	<li id='tab_svs'><a  href="#svs">Terminolgies</a></li>
+	<li id='tab_svs'><a  href="#svs">Terminologies</a></li>
 	<li id='tab_adapters'><a  href="#adapters">Documents</a></li>
       </ul>
       ,<div class="tab-content panel">

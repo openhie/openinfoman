@@ -1,0 +1,38 @@
+---
+- name: OpenInfoMan service
+  hosts: all
+  remote_user: "{{ user }}"
+  become: true
+  tags: prep
+
+  vars_prompt:
+    - name: "user"
+      prompt: "Please enter the username (with sudo) -- NOT root user or it will fail"
+      private: no
+
+  tasks:
+
+
+  - name: stop running openinfoman
+    shell: /home/{{ user }}/openinfoman/bin/basexhttpstop || true
+    register: hello
+
+
+  - debug: msg="{{ hello.stdout_lines }}"
+
+
+  - name: install systemd template
+    template:
+      src: openinfoman.service.j2
+      dest: /etc/systemd/system/openinfoman.service
+      mode: 644
+      force: yes
+
+
+  - name: run openinfoman
+    service: 
+      name: openinfoman.service
+      state: started
+      enabled: yes
+      daemon_reload: yes
+

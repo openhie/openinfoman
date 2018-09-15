@@ -17,5 +17,5 @@
       mode: 0755
       force: yes
 
-  - name: Install DATIM modules for OIM
+  - name: Run bash script for DATIM modules
     command: bash install_datim.sh
