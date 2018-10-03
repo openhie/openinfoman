@@ -17,6 +17,16 @@ The above example includes a working example for localhost configuration and als
 
 > Note: The install playbooks invoke bash installation scripts. These do not remove data and logs, but always ensure to backup. See backup and restore below.
 
+
+To be accessible, on CentOS you may need to enable and start FirewallD:
+
+```
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
+sudo systemctl status firewalld
+```
+
+
 To run the full set of Ansible playbooks for an initial installation including a backup if OpenInfoMan used to exist:
 
 ```sh
@@ -29,6 +39,9 @@ ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
 ```
 
 To install OpenInfoMan as a systemd service:
+
+> Note: This script is meant to be run by whichever user owns the basex directory and they must have sudo for this script to be successful. If you do not wish to give the openinfoman-owning user sudo, then you can give sudo access, install the service, and then retract it. The root user should not be used and fails with it, and the non-root user running the service must have access to that directory.
+
 
 ```
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_service.yaml
