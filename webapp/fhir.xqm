@@ -200,7 +200,7 @@ declare
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/Location/{$id}")
+  %rest:path("/{$doc_name}/fhir/Location/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -211,7 +211,7 @@ declare
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/Location/_history")
+  %rest:path("/{$doc_name}/fhir/Location/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -392,7 +392,7 @@ return (
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/Practitioner/{$id}")
+  %rest:path("/{$doc_name}/fhir/Practitioner/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -405,7 +405,7 @@ declare
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/Practitioner/_history")
+  %rest:path("/{$doc_name}/fhir/Practitioner/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -685,7 +685,7 @@ return (
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/PractitionerRole/{$id}")
+  %rest:path("/{$doc_name}/fhir/PractitionerRole/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -698,7 +698,7 @@ declare
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/PractitionerRole/_history")
+  %rest:path("/{$doc_name}/fhir/PractitionerRole/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -952,7 +952,7 @@ return (
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/HealthcareService/{$id}")
+  %rest:path("/{$doc_name}/fhir/HealthcareService/{$id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
   %rest:query-param("_since", "{$_since}")
@@ -963,7 +963,7 @@ declare
 };
 
 declare
-  %rest:path("/fhir/{$doc_name}/HealthcareService/_history")
+  %rest:path("/{$doc_name}/fhir/HealthcareService/_history")
   %rest:query-param("_id", "{$_id}")
   %rest:query-param("page", "{$page}")
   %rest:query-param("_count", "{$_count}")
@@ -1049,15 +1049,4 @@ declare function page:getDayOfTheWeek ($day) {
                 else if ($day = 6) then "sat"
                 else if ($day = 7) then "sun"
                 else ()
-};
-
-declare
-  %rest:path("/test")
-  %rest:GET
-  function page:test()
-{
-  let $val := svs_lsvs:get_single_version_code("101-001","1.3.6.1.4.1.21367.200.107","")
-  return 
-  <display>{$val//svs:Concept/@displayName/string()}</display>
-  
 };
