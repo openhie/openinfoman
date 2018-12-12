@@ -27,7 +27,7 @@ declare function csd_webui:generateURL($end) {
     then concat(request:scheme(),"://",request:hostname(),":",request:port())
     else replace($csd_webconf:baseurl, '/+$', '')
       
-  return concat($cbegin,'/',$cend)
+  return concat('/',$cend)
 
 };
 
