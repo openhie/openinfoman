@@ -1,0 +1,32 @@
+---
+- name: Troubleshoot openinfoman installation
+  hosts: all
+  remote_user: "{{ user }}"
+  become: true
+  tags: prep
+
+  vars_prompt:
+    - name: "user"
+      prompt: "Please enter the username (with sudo)"
+      private: no
+
+  tasks:
+
+  # openinfoman is running under systemd
+  - name: openinfoman running
+    service: 
+      name: openinfoman.service
+      state: started
+      enabled: yes
+
+  - debug:
+      msg: "{{ hi.stdout_lines }}"
+
+
+  - name: openinfoman journalctl since last boot
+    command: journalctl -u openinfoman.service -b
+    register: oim
+
+
+  - debug:
+      msg: "{{ oim.stdout_lines }}"
