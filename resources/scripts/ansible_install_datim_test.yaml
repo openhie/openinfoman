@@ -18,7 +18,7 @@
   tasks:
   - name: Any website
     uri:
-      url: "http://www.google.com"
+      url: "https://www.google.com"
 
   - name: DHIS - Load Sierra Leone Demo as CSD
     uri:
