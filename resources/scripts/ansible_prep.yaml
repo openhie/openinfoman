@@ -46,6 +46,11 @@
       name: libxml2
       state: present
 
+  - name: Ensure firewalld
+    yum:
+      name: firewalld
+      state: present
+
   - name: open 8984
     firewalld:
       port: 8984/tcp

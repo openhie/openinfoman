@@ -2,8 +2,6 @@
 
 ## Ansible (CentOS only)
 
-Ansible will require sudo privileges but these should be specified at runtime using the `--ask-become-pass` flag.
-
 To use Ansible, your SSH public key should be in `.ssh/authorized_keys` on the remote host and you must also create an /etc/ansible/hosts or similar with the IP address or hostname of the remote host. An `ansible/hosts` file that has an entry for localhost and one server would be:
 
 ```sh
@@ -17,8 +15,7 @@ The above example includes a working example for localhost configuration and als
 
 > Note: The install playbooks invoke bash installation scripts. These do not remove data and logs, but always ensure to backup. See backup and restore below.
 
-
-To be accessible, on CentOS you may need to enable and start FirewallD:
+To be accessible, on CentOS you may need to enable and start FirewallD. Some images of CentOS do not have firewalld installed, this is included in the ansible_prep script:
 
 ```
 sudo systemctl enable firewalld
@@ -26,12 +23,24 @@ sudo systemctl start firewalld
 sudo systemctl status firewalld
 ```
 
+A example playbook is provided to show how to create an `oim` user with sudo permissions using Ansible to be used with a server. 
+
+Create the `oim` user and gives it sudo access:
+```sh
+ansible-playbook -i /usr/local/etc/ansible/hosts user.yaml
+```
+
+As necessary, add additional ssh keys to the user `oim`:
+```
+ansible-playbook -i /usr/local/etc/ansible/hosts keys.yaml
+
+
 To run the full set of Ansible playbooks for an initial installation including a backup if OpenInfoMan used to exist:
 
 ```sh
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_backup.yaml
 # prep if for centos only -- requires sudo access
-ansible-playbook --ask-become-pass -i /usr/local/etc/ansible/hosts ansible_prep.yaml
+ansible-playbook -i /usr/local/etc/ansible/hosts ansible_prep.yaml
 # any Unix-like platform
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install.yaml
 ansible-playbook -i /usr/local/etc/ansible/hosts ansible_install_test.yaml
@@ -69,7 +78,7 @@ $HOME/openinfoman/bin/basex -Vc 'restore provider_directory-2018-07-23-12-09-47'
 
 The DATIM OpenInfoMan library requires access to a private repository. Cloning the repo is necessary for the DATIM installation so the remote host must be able to access the private repo. The recommended way to do this is to use SSH agent forwarding. Arranging this is beyond the scope of this document.
 
-> See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). In short, an entry for the domain and/or IP address must be in `~/.ssh/config`. On CentOS, SSH agent forwarding is off by default (see the output of `grep Agent /etc/ssh/sshd_config`. Change this in `/etc/ssh/ssh_config` and restart the SSH server with `systemctl restart sshd.service`.
+> See the [GitHub guide to SSH agent forwarding](https://developer.github.com/v3/guides/using-ssh-agent-forwarding). In short, an entry for the domain and/or IP address must be in `~/.ssh/config`. On CentOS, SSH agent forwarding is off by default (see the output of `grep Agent /etc/ssh/sshd_config`. Change this in `/etc/ssh/ssh_config` and restart the SSH server with `systemctl restart sshd.service`. A common problem is that the user should approve adding the remove system to known hosts. To troubleshoot, log into the server and run the install_datim script manually.
 
 > For those on Macs, also note the [issue](https://apple.stackexchange.com/questions/254468/macos-sierra-doesn-t-seem-to-remember-ssh-keys-between-reboots) with connecting using SSH agent forwarding in which the key used may disappear and need to be added again to be visible to the ssh agent.
 
