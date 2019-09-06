@@ -137,23 +137,21 @@ let $contents := page:get_location ($doc_name,$_id,$page,$_count,$_since)
 let $location :=
 <json type='object'>
 <resourceType>Bundle</resourceType>
-<total>{count($contents/facilityDirectory/facility) + count($contents/organizationDirectory/organization)}</total>
 <type>batch</type>
 <meta type="object">
   <lastUpdated>{current-dateTime()}</lastUpdated>
 </meta>
 <timestamp>{current-dateTime()}</timestamp>
-<id>{concat('urn:uuid:', random:uuid())}</id>
+<id>{random:uuid()}</id>
 <entry type="array">
 {
 for $content in ($contents/facilityDirectory/facility,$contents/organizationDirectory/organization)
 let $entityType := $content/name()
-let $orgUUID := concat('urn:uuid:', page:uuid_generate($content/@entityID, $page:namespace_uuid))
+let $orgUUID := page:uuid_generate($content/@entityID, $page:namespace_uuid)
 let $organizationResource :=
   if($entityType = "csd:facility" or $entityType = "facility") then
     (
       <_ type="object">
-      <fullURL>{csd_webui:generateURL($doc_name || "/mcsd/Organization/" || $orgUUID)}</fullURL>
       <request type="object">
         <method>PUT</method>
         <url>Organization/{$orgUUID}</url>
@@ -161,7 +159,10 @@ let $organizationResource :=
       <resource type="object">
         <resourceType>Organization</resourceType>
         <meta type="object">
-          <profile>mCSDFacility</profile>
+          <profile type="array">
+            <_>http://ihe.net/fhir/StructureDefinition/IHE_mCSD_Organization</_>
+            <_>http://ihe.net/fhir/StructureDefinition/IHE_mCSD_FacilityOrganization</_>
+          </profile>
         </meta>
         <name>{$content/primaryName/text()}</name>
         <id>{$orgUUID}</id>
@@ -183,10 +184,10 @@ let $organizationResource :=
   else ()
   let $locationResource :=
 <_ type="object">
-  <fullURL>{csd_webui:generateURL($doc_name || "/mcsd/Location/" || $content/@entityID)}</fullURL>
+  <fullURL>{csd_webui:generateURL($doc_name || "/mcsd/Location/" || replace($content/@entityID/string(), "urn:uuid:", ""))}</fullURL>
   <request type="object">
     <method>PUT</method>
-    <url>Location/{$content/@entityID/string()}</url>
+    <url>Location/{replace($content/@entityID/string(), "urn:uuid:", "")}</url>
   </request>
   <resource type="object">
     <resourceType>Location</resourceType>
@@ -194,9 +195,18 @@ let $organizationResource :=
         <lastUpdated>{$content/record/@updated/string()}</lastUpdated>
         {
           if($entityType = "csd:facility" or $entityType = "facility") then
-          (<profile>mCSDFacility</profile>)
+          (
+            <profile type="array">
+              <_>http://ihe.net/fhir/StructureDefinition/IHE_mCSD_Location</_>
+              <_>http://ihe.net/fhir/StructureDefinition/IHE_mCSD_FacilityLocation</_>
+            </profile>
+          )
           else if($entityType = "csd:organization" or $entityType = "organization") then
-          (<profile>mCSD</profile>)
+          (
+            <profile type="array">
+              <_>http://ihe.net/fhir/StructureDefinition/IHE_mCSD_Location</_>
+            </profile>
+          )
           else()
         }
         <tag type="array">
@@ -206,7 +216,7 @@ let $organizationResource :=
           </_>
         </tag>
       </meta>
-    <id>{$content/@entityID/string()}</id>
+    <id>{replace($content/@entityID/string(), "urn:uuid:", "")}</id>
     {
      if(exists($content/otherID))
      then
@@ -232,7 +242,7 @@ let $organizationResource :=
       }
       <_ type="object">
         <system>urn:ihe:iti:csd:2013:entityID</system>
-        <value>{$content/@entityID/string()}</value>
+        <value>{replace($content/@entityID/string(), "urn:uuid:", "")}</value>
         <type type="object">
           <text>entityID</text>
         </type>
@@ -266,7 +276,7 @@ let $organizationResource :=
       return if(exists($organization/organizationDirectory/organization))
       then
       <partOf type="object">
-        <reference>{csd_webui:generateURL($doc_name || "/mcsd/Location/" || $organization/organizationDirectory/organization/@entityID/string())}</reference>
+        <reference>{"Location/" || replace($organization/organizationDirectory/organization/@entityID/string(), "urn:uuid:", "")}</reference>
         <display>{$organization/organizationDirectory/organization/primaryName/text()}</display>
       </partOf>
       else ()
@@ -420,7 +430,7 @@ let $organizationResource :=
             </_>
       }
     </type>
-    <status>{$content/record/@status/string()}</status>
+    <status>{lower-case($content/record/@status/string())}</status>
     <name>{$content/primaryName/text()}</name>
     {
       if($content/otherName) then
