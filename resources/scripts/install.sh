@@ -60,7 +60,10 @@ declare variable \$csd_webconf:baseurl :=  '';
 declare variable \$csd_webconf:remote_services := ();
 " > $HOME/openinfoman/repo-src/generated_openinfoman_webconfig.xqm
 
-$BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+#$BASEX -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+wget http://files.basex.org/modules/expath/functx-1.0.xar
+unzip functx-1.0.xar
+$BASEX -Vc "REPO INSTALL functx-1.0.xar"
 
 cd $HOME/openinfoman/repo-src
 mv csd_webapp_config.xqm csd_webapp_config.xqm.orig
