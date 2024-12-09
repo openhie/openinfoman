@@ -30,7 +30,7 @@ RUN echo "module namespace csd_webconf = 'https://github.com/openhie/openinfoman
     declare variable \$csd_webconf:remote_services := ();\n\
     " > $HOME/openinfoman/repo-src/generated_openinfoman_webconfig.xqm
 
-RUN basex -Vc "REPO INSTALL http://files.basex.org/modules/expath/functx-1.0.xar"
+RUN basex -Vc "REPO INSTALL https://files.basex.org/modules/expath/functx-1.0.xar"
 
 WORKDIR /root/openinfoman/repo-src
 # Change shell to bash to interpret array syntax
